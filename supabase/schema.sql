@@ -99,8 +99,8 @@ create table if not exists public.reports (
   id uuid primary key default gen_random_uuid(),
   reporter_id uuid not null references auth.users(id) on delete cascade,
   listing_id uuid references public.listings(id) on delete set null,
-  reason text not null,
-  details text,
+  reason text not null check (char_length(reason) between 3 and 120),
+  details text check (details is null or char_length(details) <= 1000),
   status text not null default 'open' check (status in ('open','reviewing','resolved','dismissed')),
   created_at timestamptz not null default now()
 );
@@ -230,3 +230,4 @@ grant select, insert, delete on public.favorites to authenticated;
 grant select, insert, update on public.conversations to authenticated;
 grant select, insert, update on public.messages to authenticated;
 grant select, insert on public.reports to authenticated;
+revoke all on public.reports from anon;
