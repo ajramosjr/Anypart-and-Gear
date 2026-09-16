@@ -6,8 +6,15 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: "Anypart & Gear | Buy and sell what keeps you moving",
-  description: "A marketplace for parts, tools, vehicles, workwear and gear from local people and businesses.",
+  title: "Any Part & Gear | Find the part. Finish the job.",
+  description: "Buy and sell parts for cars, boats, motorcycles, machinery, tools, workwear and more.",
+  icons: {
+    icon: "/icons/apg-192.png",
+    shortcut: "/icons/apg-192.png",
+    apple: "/icons/apg-180.png",
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, title: "Any Part & Gear", statusBarStyle: "default" },
 };
 
 export default function RootLayout({
@@ -17,6 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
+      <head><meta name="theme-color" content="#0b2345" /></head>
       <body>{children}</body>
     </html>
   );
