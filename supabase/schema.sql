@@ -87,7 +87,7 @@ create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
   insert into public.profiles (id, full_name)
-  values (new.id, coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)))
+  values (new.id, coalesce(nullif(trim(new.raw_user_meta_data->>'full_name'), ''), 'Member'))
   on conflict (id) do nothing;
   return new;
 end;
@@ -98,11 +98,22 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created after insert on auth.users for each row execute procedure public.handle_new_user();
 
 create or replace function public.touch_updated_at()
-returns trigger language plpgsql as $$ begin new.updated_at = now(); return new; end; $$;
+returns trigger language plpgsql set search_path = public as $$ begin new.updated_at = now(); return new; end; $$;
 drop trigger if exists listings_touch_updated_at on public.listings;
 create trigger listings_touch_updated_at before update on public.listings for each row execute procedure public.touch_updated_at();
 drop trigger if exists profiles_touch_updated_at on public.profiles;
 create trigger profiles_touch_updated_at before update on public.profiles for each row execute procedure public.touch_updated_at();
+
+create or replace function public.touch_conversation_from_message()
+returns trigger language plpgsql set search_path = public as $$
+begin
+  update public.conversations set updated_at = now() where id = new.conversation_id;
+  return new;
+end;
+$$;
+revoke execute on function public.touch_conversation_from_message() from public, anon, authenticated;
+drop trigger if exists messages_touch_conversation on public.messages;
+create trigger messages_touch_conversation after insert on public.messages for each row execute procedure public.touch_conversation_from_message();
 
 alter table public.profiles enable row level security;
 alter table public.listings enable row level security;

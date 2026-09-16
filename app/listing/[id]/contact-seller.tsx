@@ -17,6 +17,5 @@ export default function ContactSeller({ listingId, sellerId, currentUserId }: { 
     if (messageError) { setError(messageError.message); setSending(false); return; }
     window.location.assign("/messages");
   }
-  return <div className="contact-box">{open ? <><textarea value={body} onChange={(e) => setBody(e.target.value)} maxLength={2000} /><button className="button detail-button" onClick={send} disabled={sending || !body.trim()}>{sending ? "Sending..." : "Send message"}</button>{error && <p className="form-message error">{error}</p>}</> : <button className="button detail-button" onClick={() => setOpen(true)}>Contact seller</button>}</div>;
+  return <div className="contact-box">{open ? <><textarea aria-label="Message to seller" placeholder="Ask about condition, fitment, pickup or delivery..." value={body} onChange={(e) => setBody(e.target.value)} maxLength={2000} /><p className="contact-privacy">Your email address and phone number stay private.</p><button className="button detail-button" onClick={send} disabled={sending || !body.trim()}>{sending ? "Sending..." : "Send private message"}</button>{error && <p className="form-message error">{error}</p>}</> : <button className="button detail-button" onClick={() => setOpen(true)}>Message seller privately</button>}</div>;
 }
-

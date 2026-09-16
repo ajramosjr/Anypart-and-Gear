@@ -209,13 +209,21 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .manage-actions button { border: 1px solid #cbd4d9; border-radius: 6px; background: #fff; padding: 8px 11px; font-size: 12px; font-weight: 750; }
 .manage-actions .danger { color: #ad2929; border-color: #e0b4b4; }
 .conversation { padding: 25px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
-.conversation h2 { margin-top: 0; color: var(--navy); font-size: 18px; }
+.privacy-note { display: flex; align-items: center; gap: 8px; }
+.conversation-heading { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.conversation-avatar { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: var(--navy); color: #fff; }
+.conversation-heading h2 { margin: 1px 0; color: var(--navy); font-size: 18px; }
+.conversation-heading small { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.conversation-heading p { margin: 0; color: var(--muted); font-size: 12px; }
 .message-stack { display: flex; flex-direction: column; gap: 8px; padding: 12px 0; }
 .message { align-self: flex-start; max-width: 78%; margin: 0; padding: 10px 13px; background: #eef1f3; border-radius: 5px 12px 12px 12px; font-size: 13px; line-height: 1.5; }
 .message.mine { align-self: flex-end; color: #fff; background: var(--blue); border-radius: 12px 5px 12px 12px; }
+.message b { display: block; margin-bottom: 3px; font-size: 10px; }
+.message p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .message small { display: block; margin-top: 4px; opacity: .65; font-size: 9px; }
 .reply-box { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
 .reply-box input { min-width: 0; border: 1px solid #ccd5da; border-radius: 8px; padding: 11px 13px; }
+.contact-privacy { margin: 0 0 10px; color: var(--muted); font-size: 11px; }
 .detail-warning { padding: 15px; background: #fff8e4; border: 1px solid #ead28c; border-radius: 8px; color: #675017; font-size: 12px; line-height: 1.55; }
 
 @media (max-width: 980px) {
