@@ -4,7 +4,7 @@ import { hasSupabaseConfig, supabasePublishableKey, supabaseUrl } from "./config
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const publicPrefixes = ["/auth", "/api", "/login", "/listing", "/safety"];
+  const publicPrefixes = ["/auth", "/api", "/login", "/listing", "/safety", "/tech-wire"];
   const isPublicPage = pathname === "/" || publicPrefixes.some((page) => pathname.startsWith(page));
 
   try {
