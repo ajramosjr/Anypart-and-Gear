@@ -4,6 +4,7 @@ import { LockKeyhole, UserRound } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ReplyBox from "./reply-box";
+import BlockUser from "./block-user";
 
 type Message = { id: string; body: string; sender_id: string; created_at: string };
 type Conversation = {
@@ -34,6 +35,8 @@ export default async function MessagesPage() {
     ? await supabase.from("profiles").select("id,full_name").in("id", participantIds)
     : { data: [] };
   const names = new Map((profiles || []).map((profile) => [profile.id, profile.full_name || "Member"]));
+  const { data: blocks } = await supabase.from("blocks").select("blocked_id").eq("blocker_id", user.id);
+  const blockedIds = new Set((blocks || []).map((block) => block.blocked_id));
 
   return (
     <main>
@@ -59,7 +62,7 @@ export default async function MessagesPage() {
                 <section className="conversation" key={conversation.id}>
                   <div className="conversation-heading">
                     <span className="conversation-avatar"><UserRound size={20} /></span>
-                    <div><small>Conversation with</small><h2>{otherName}</h2><p>{conversation.listings?.title || conversation.shops?.name || "Marketplace conversation"}</p></div>
+                    <div><small>Conversation with</small><h2>{otherName}</h2><p>{conversation.listings?.title || conversation.shops?.name || "Marketplace conversation"}</p></div><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/>
                   </div>
                   <div className="message-stack">
                     {messages.map((message) => {
@@ -67,7 +70,7 @@ export default async function MessagesPage() {
                       return <div className={mine ? "message mine" : "message"} key={message.id}><b>{mine ? "You" : otherName}</b><p>{message.body}</p><small>{new Date(message.created_at).toLocaleString()}</small></div>;
                     })}
                   </div>
-                  <ReplyBox conversationId={conversation.id} userId={user.id} />
+                  {blockedIds.has(otherId)?<p className="blocked-note">You blocked this member. Unblock them to send another message.</p>:<ReplyBox conversationId={conversation.id} userId={user.id} />}
                 </section>
               );
             })}

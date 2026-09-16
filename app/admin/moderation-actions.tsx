@@ -1,0 +1,6 @@
+"use client";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+export function ReportAction({ id, status }: { id:string; status:string }) { const [busy,setBusy]=useState(false); async function update(next:string){setBusy(true);const {error}=await createClient().from("reports").update({status:next}).eq("id",id);if(error){alert("Could not update report.");setBusy(false);return;}window.location.reload();} return <select value={status} disabled={busy} onChange={e=>update(e.target.value)} aria-label="Report status"><option value="open">Open</option><option value="reviewing">Reviewing</option><option value="resolved">Resolved</option><option value="dismissed">Dismissed</option></select>; }
+export function VerifyShop({ id, verified }: { id:string; verified:boolean }) { const [busy,setBusy]=useState(false); async function toggle(){setBusy(true);const {error}=await createClient().from("shops").update({is_verified:!verified}).eq("id",id);if(error){alert("Could not update verification.");setBusy(false);return;}window.location.reload();} return <button className="button button-small" disabled={busy} onClick={toggle}>{verified?"Remove verification":"Verify business"}</button>; }

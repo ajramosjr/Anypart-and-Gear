@@ -107,6 +107,14 @@ create table if not exists public.reports (
 create index if not exists reports_reporter_idx on public.reports(reporter_id);
 create index if not exists reports_listing_idx on public.reports(listing_id) where listing_id is not null;
 
+create table if not exists public.blocks (
+  blocker_id uuid not null references auth.users(id) on delete cascade,
+  blocked_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (blocker_id, blocked_id),
+  check (blocker_id <> blocked_id)
+);
+
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
@@ -133,7 +141,7 @@ create trigger shops_touch_updated_at before update on public.shops for each row
 create or replace function public.protect_shop_verification()
 returns trigger language plpgsql set search_path = public as $$
 begin
-  if (select auth.uid()) is not null then
+  if (select auth.uid()) is not null and coalesce((select auth.jwt()->'app_metadata'->>'role'), '') <> 'admin' then
     new.is_verified := case when tg_op = 'UPDATE' then old.is_verified else false end;
   end if;
   return new;
@@ -160,6 +168,7 @@ alter table public.favorites enable row level security;
 alter table public.conversations enable row level security;
 alter table public.messages enable row level security;
 alter table public.reports enable row level security;
+alter table public.blocks enable row level security;
 
 drop policy if exists "Public profiles are viewable" on public.profiles;
 create policy "Public profiles are viewable" on public.profiles for select using (true);
@@ -174,6 +183,8 @@ drop policy if exists "Owners update shops" on public.shops;
 create policy "Owners update shops" on public.shops for update to authenticated using ((select auth.uid()) = owner_id) with check ((select auth.uid()) = owner_id);
 drop policy if exists "Owners delete shops" on public.shops;
 create policy "Owners delete shops" on public.shops for delete to authenticated using ((select auth.uid()) = owner_id);
+drop policy if exists "Admins update shops" on public.shops;
+create policy "Admins update shops" on public.shops for update to authenticated using ((select auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((select auth.jwt()->'app_metadata'->>'role') = 'admin');
 
 drop policy if exists "Active listings are public" on public.listings;
 create policy "Active listings are public" on public.listings for select using (status = 'active' or (select auth.uid()) = user_id);
@@ -194,16 +205,27 @@ create policy "Users remove own favorites" on public.favorites for delete to aut
 drop policy if exists "Participants view conversations" on public.conversations;
 create policy "Participants view conversations" on public.conversations for select to authenticated using ((select auth.uid()) in (buyer_id, seller_id));
 drop policy if exists "Buyers start conversations" on public.conversations;
-create policy "Buyers start conversations" on public.conversations for insert to authenticated with check ((select auth.uid()) = buyer_id);
+create policy "Buyers start conversations" on public.conversations for insert to authenticated with check ((select auth.uid()) = buyer_id and not exists (select 1 from public.blocks b where (b.blocker_id=buyer_id and b.blocked_id=seller_id) or (b.blocker_id=seller_id and b.blocked_id=buyer_id)));
 drop policy if exists "Participants view messages" on public.messages;
 create policy "Participants view messages" on public.messages for select to authenticated using (exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
 drop policy if exists "Participants send messages" on public.messages;
-create policy "Participants send messages" on public.messages for insert to authenticated with check ((select auth.uid()) = sender_id and exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
+create policy "Participants send messages" on public.messages for insert to authenticated with check ((select auth.uid()) = sender_id and exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id) and not exists (select 1 from public.blocks b where (b.blocker_id=c.buyer_id and b.blocked_id=c.seller_id) or (b.blocker_id=c.seller_id and b.blocked_id=c.buyer_id))));
 
 drop policy if exists "Users submit reports" on public.reports;
 create policy "Users submit reports" on public.reports for insert to authenticated with check ((select auth.uid()) = reporter_id);
 drop policy if exists "Users view own reports" on public.reports;
 create policy "Users view own reports" on public.reports for select to authenticated using ((select auth.uid()) = reporter_id);
+drop policy if exists "Admins view reports" on public.reports;
+create policy "Admins view reports" on public.reports for select to authenticated using ((select auth.jwt()->'app_metadata'->>'role') = 'admin');
+drop policy if exists "Admins update reports" on public.reports;
+create policy "Admins update reports" on public.reports for update to authenticated using ((select auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((select auth.jwt()->'app_metadata'->>'role') = 'admin');
+
+drop policy if exists "Users view own blocks" on public.blocks;
+create policy "Users view own blocks" on public.blocks for select to authenticated using ((select auth.uid()) = blocker_id);
+drop policy if exists "Users create own blocks" on public.blocks;
+create policy "Users create own blocks" on public.blocks for insert to authenticated with check ((select auth.uid()) = blocker_id);
+drop policy if exists "Users remove own blocks" on public.blocks;
+create policy "Users remove own blocks" on public.blocks for delete to authenticated using ((select auth.uid()) = blocker_id);
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('part-images', 'part-images', true, 10485760, array['image/jpeg','image/png','image/webp'])
@@ -231,3 +253,5 @@ grant select, insert, update on public.conversations to authenticated;
 grant select, insert, update on public.messages to authenticated;
 grant select, insert on public.reports to authenticated;
 revoke all on public.reports from anon;
+grant select, insert, delete on public.blocks to authenticated;
+revoke all on public.blocks from anon;

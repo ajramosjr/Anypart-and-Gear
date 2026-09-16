@@ -242,6 +242,13 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .report-panel select,.report-panel textarea { width:100%; border:1px solid #cbd5e1; border-radius:.45rem; background:#fff; padding:.7rem; }
 .report-panel textarea { min-height:6rem; resize:vertical; }
 .report-panel .form-message { display:flex; align-items:flex-start; gap:.4rem; margin:0; }
+.block-user { display:inline-flex; align-items:center; gap:.3rem; margin-left:auto; border:1px solid #fecaca; border-radius:.35rem; background:#fff; padding:.4rem .55rem; color:#991b1b; font-size:.7rem; font-weight:800; }
+.blocked-note { margin:.5rem 0 0; border-radius:.4rem; background:#f1f5f9; padding:.75rem; color:#64748b; font-size:.78rem; }
+.admin-list { display:grid; gap:.75rem; }
+.admin-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; border:1px solid #cbd5e1; border-radius:.6rem; background:#fff; padding:1rem; }
+.admin-row p,.admin-row small { display:block; margin:.25rem 0 0; color:#64748b; }
+.admin-row select { border:1px solid #cbd5e1; border-radius:.4rem; background:#fff; padding:.6rem; }
+.admin-section { margin-top:2.5rem; }
 
 @media (max-width: 980px) {
   .nav-links { display: none; position: absolute; top: 78px; left: 0; right: 0; padding: 22px; background: var(--navy); flex-direction: column; align-items: stretch; }
