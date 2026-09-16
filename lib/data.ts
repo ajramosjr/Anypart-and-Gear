@@ -19,6 +19,7 @@ export const categories = [
   { name: "Boat Parts", icon: "⚓", description: "Marine engines, props & accessories" },
   { name: "Motorcycles", icon: "🏍️", description: "Parts, riding gear & complete bikes" },
   { name: "Trucks", icon: "🛻", description: "Pickup, diesel & commercial parts" },
+  { name: "Trailers", icon: "🚛", description: "Utility, boat, cargo & equipment trailers" },
   { name: "Tools", icon: "🧰", description: "Hand, power & diagnostic tools" },
   { name: "Machinery", icon: "🚜", description: "Construction and shop equipment" },
   { name: "Workwear & Apparel", icon: "🥾", description: "Workwear, safety gear & apparel" },
