@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
+import { hasSupabaseConfig, supabasePublishableKey, supabaseUrl } from "./config";
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -8,7 +9,7 @@ export async function updateSession(request: NextRequest) {
 
   try {
     // Check if Supabase credentials are configured
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    if (!hasSupabaseConfig()) {
       console.error("Missing Supabase environment variables");
       const unconfiguredResponse = NextResponse.next({
         request: {
@@ -26,8 +27,8 @@ export async function updateSession(request: NextRequest) {
     });
 
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      supabaseUrl,
+      supabasePublishableKey,
       {
         cookies: {
           getAll() {

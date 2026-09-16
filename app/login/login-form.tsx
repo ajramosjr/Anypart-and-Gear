@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { hasSupabaseConfig } from "@/lib/supabase/config";
 
 export default function LoginForm({ nextPath }: { nextPath: string }) {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -13,7 +14,7 @@ export default function LoginForm({ nextPath }: { nextPath: string }) {
 
   async function submit(event: FormEvent) {
     event.preventDefault(); setLoading(true); setMessage("");
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    if (!hasSupabaseConfig()) {
       setMessage("The marketplace database is still being connected. Please try again shortly."); setLoading(false); return;
     }
     const supabase = createClient();
@@ -39,4 +40,3 @@ export default function LoginForm({ nextPath }: { nextPath: string }) {
     </form>
   );
 }
-
