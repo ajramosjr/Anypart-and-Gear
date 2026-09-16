@@ -1,50 +1,50 @@
-# Any Part & Gear — GitHub + Vercel + Supabase
+# Anypart & Gear
 
-This is the Vercel-ready version of the marketplace. Supabase handles email sign-in, listings, private messages, reports and listing photos.
+**Buy and sell what keeps you moving.**
 
-## 1. Upload to GitHub
+Anypart & Gear is a responsive marketplace for parts, tools, vehicles, machinery, workwear and gear. Buyers contact sellers directly; the platform does not process payments, arrange shipping, guarantee fitment or handle returns.
 
-1. Extract the ZIP.
-2. Open the extracted **any-part-and-gear-vercel** folder.
-3. Upload everything inside it to an empty GitHub repository.
-4. Keep the folders intact. GitHub should show **app**, **components**, **lib**, **public** and **supabase**.
+## Included
 
-The easiest method is GitHub Desktop on a computer: select **File → Add local repository**, choose the extracted folder, then select **Publish repository**.
+- Responsive marketplace homepage with search and category filters
+- Cars, boats, motorcycles, trucks, tools, machinery, apparel and vehicles
+- Supabase email/password authentication and protected seller pages
+- Single-item listings with up to six photos
+- Business CSV upload for up to 500 listings
+- Listing detail pages, trades, saved favorites and safety guidance
+- Private buyer/seller conversations and messages
+- Seller dashboard for active/sold/removed listings
+- PostgreSQL schema, indexes, triggers, Storage bucket and row-level security policies
+- Sample listings when Supabase is not configured
 
-## 2. Set up Supabase
+## Local setup
 
-1. Create a free project at https://supabase.com.
-2. Open **SQL Editor → New query**.
-3. Open `supabase/schema.sql` from this project, copy all of it, paste it into Supabase and select **Run**.
-4. Open **Project Settings → API** and copy the **Project URL** and **anon public key**.
-5. Never use or publish the service-role key.
+1. Copy `.env.example` to `.env.local`.
+2. Add the Supabase project URL and anon key.
+3. Run `npm install` and `npm run dev`.
+4. Open `http://localhost:3000`.
 
-## 3. Deploy through Vercel
+## Supabase setup
 
-1. Go to https://vercel.com/new and select **Import Git Repository**.
-2. Choose this GitHub repository. Vercel will detect Next.js.
-3. Add two Environment Variables:
-   - `NEXT_PUBLIC_SUPABASE_URL` — your Supabase Project URL
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — your Supabase anon public key
-4. Select **Deploy**.
-5. Copy the Vercel address after deployment.
-6. In Supabase, open **Authentication → URL Configuration**.
-7. Set **Site URL** to your Vercel address.
-8. Add `https://YOUR-VERCEL-DOMAIN.vercel.app/auth/callback` under Redirect URLs.
+1. Open the Supabase SQL editor.
+2. Run `supabase/schema.sql`.
+3. In Authentication URL Configuration, set the production Site URL.
+4. Add `https://YOUR-DOMAIN/auth/callback` as an allowed redirect URL.
+5. Keep the service-role key private; the website only needs the anon key.
 
-## Run on a computer
+## Vercel environment variables
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SITE_URL` (the production URL)
+
+The repository uses Next.js App Router and deploys normally through Vercel's GitHub integration.
+
+## Verification
 
 ```bash
-cp .env.example .env.local
-npm install
-npm run dev
+npm run lint
+npm run typecheck
+npm run build
 ```
 
-Open http://localhost:3000.
-
-## Important
-
-- Do not commit `.env.local`.
-- This creates a new Supabase database. Existing data from the original hosted site is not copied automatically.
-- Sample listings remain visible at launch.
-- Sellers cannot verify themselves. Verified Business status is controlled in Supabase.

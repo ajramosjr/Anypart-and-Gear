@@ -40,14 +40,14 @@ export async function updateSession(request: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    const publicPages = ["/", "/auth", "/api"];
-    const isPublicPage = publicPages.some(page =>
-      request.nextUrl.pathname.startsWith(page)
-    );
+    const pathname = request.nextUrl.pathname;
+    const publicPrefixes = ["/auth", "/api", "/login", "/listing", "/safety"];
+    const isPublicPage = pathname === "/" || publicPrefixes.some((page) => pathname.startsWith(page));
 
     if (!user && !isPublicPage) {
       const url = request.nextUrl.clone();
-      url.pathname = "/auth/login";
+      url.pathname = "/login";
+      url.searchParams.set("next", pathname);
       return NextResponse.redirect(url);
     }
 
@@ -56,9 +56,7 @@ export async function updateSession(request: NextRequest) {
     console.error("Middleware error:", error);
     // Return a response instead of crashing
     return NextResponse.next({
-      request: {
-        headers: new Headers({}),
-      },
+      request: { headers: request.headers },
     });
   }
 }
