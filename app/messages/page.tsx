@@ -10,8 +10,10 @@ type Conversation = {
   id: string;
   buyer_id: string;
   seller_id: string;
+  shop_id: string | null;
   updated_at: string;
   listings: { title: string } | null;
+  shops: { name: string } | null;
   messages: Message[];
 };
 
@@ -22,7 +24,7 @@ export default async function MessagesPage() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("conversations")
-    .select("id,buyer_id,seller_id,updated_at,listings(title),messages(id,body,sender_id,created_at)")
+    .select("id,buyer_id,seller_id,shop_id,updated_at,listings(title),shops(name),messages(id,body,sender_id,created_at)")
     .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
     .order("updated_at", { ascending: false });
 
@@ -57,7 +59,7 @@ export default async function MessagesPage() {
                 <section className="conversation" key={conversation.id}>
                   <div className="conversation-heading">
                     <span className="conversation-avatar"><UserRound size={20} /></span>
-                    <div><small>Conversation with</small><h2>{otherName}</h2><p>{conversation.listings?.title || "Listing conversation"}</p></div>
+                    <div><small>Conversation with</small><h2>{otherName}</h2><p>{conversation.listings?.title || conversation.shops?.name || "Marketplace conversation"}</p></div>
                   </div>
                   <div className="message-stack">
                     {messages.map((message) => {
