@@ -244,6 +244,7 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .tech-related-link span { color:#f6b91b; font-size:.65rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
 .tech-related-link strong { font-size:.85rem; line-height:1.35; }
 .tech-related-link:hover strong { color:#f6b91b; }
+.article-share-link { color:#fff !important; }
 .report-box { margin-top:1rem; }
 .report-link { display:inline-flex; align-items:center; gap:.4rem; border:0; background:transparent; color:#64748b; font-size:.78rem; font-weight:750; text-decoration:underline; text-underline-offset:3px; }
 .report-link:hover { color:#991b1b; }

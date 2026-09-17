@@ -16,6 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import { techArticles } from "./articles";
+import ArticleBrowser from "./article-browser";
 
 export const metadata: Metadata = {
   title: "APG Tech Wire | Vehicle news and practical buying guides",
@@ -119,12 +120,7 @@ export default function TechWirePage() {
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
           <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Engines, upgrades, future vehicles &amp; new tools</p>
           <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><h2 className="text-3xl font-black uppercase tracking-tight text-[#071a35] sm:text-4xl">New from the APG garage</h2><p className="max-w-xl text-sm leading-6 text-slate-600">Practical guidance for building smarter, buying better parts and keeping added power reliable.</p></div>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {techArticles.map((article, index) => <Link key={article.slug} href={`/tech-wire/${article.slug}`} className="group flex min-h-72 flex-col overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm hover:-translate-y-1 hover:border-amber-500 hover:shadow-xl">
-              <div className={`h-2 ${index % 2 ? "bg-[#0b2345]" : "bg-amber-400"}`} />
-              <div className="flex flex-1 flex-col p-6"><span className="text-xs font-black uppercase tracking-[.14em] text-amber-700">{article.category}</span><h3 className="mt-3 text-2xl font-black leading-tight text-[#071a35] group-hover:text-amber-700">{article.title}</h3><p className="mt-4 flex-1 text-sm leading-6 text-slate-600">{article.summary}</p><div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4 text-xs font-bold text-slate-500"><span>{article.readTime}</span><span className="inline-flex items-center gap-1 text-blue-900">Read article <ArrowRight className="size-4" /></span></div></div>
-            </Link>)}
-          </div>
+          <ArticleBrowser articles={techArticles} />
         </div>
       </section>
 

@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.any-partandgear.com"),
   title: "Any Part & Gear | Find the part. Finish the job.",
   description: "Buy and sell parts for cars, boats, motorcycles, machinery, tools, workwear and more.",
   icons: {

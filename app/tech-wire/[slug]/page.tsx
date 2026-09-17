@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock, ExternalLink, ShieldCheck, Wrench } from "lucide-react";
 import { getTechArticle, techArticles } from "../articles";
 import { notFound } from "next/navigation";
+import ShareButtons from "./share-buttons";
 
 export function generateStaticParams() {
   return techArticles.map(({ slug }) => ({ slug }));
@@ -12,15 +13,18 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const article = getTechArticle((await params).slug);
   if (!article) return {};
-  return { title: `${article.title} | APG Tech Wire`, description: article.summary };
+  const url = `/tech-wire/${article.slug}`;
+  return { title: `${article.title} | APG Tech Wire`, description: article.summary, alternates: { canonical: url }, openGraph: { type: "article", title: article.title, description: article.summary, url, siteName: "APG Tech Wire", publishedTime: "2026-09-17T00:00:00Z" } };
 }
 
 export default async function TechArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const article = getTechArticle((await params).slug);
   if (!article) notFound();
   const related = techArticles.filter(({ slug }) => slug !== article.slug).slice(0, 3);
+  const articleJsonLd = { "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.summary, datePublished: "2026-09-17", dateModified: "2026-09-17", mainEntityOfPage: `https://www.any-partandgear.com/tech-wire/${article.slug}`, author: { "@type": "Organization", name: "Any Part & Gear" }, publisher: { "@type": "Organization", name: "Any Part & Gear", logo: { "@type": "ImageObject", url: "https://www.any-partandgear.com/apg-logo.webp" } } };
 
   return <main className="min-h-screen bg-[#e9edf1] text-slate-950">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }} />
     <header className="border-b border-slate-300 bg-white shadow-sm">
       <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" aria-label="Any Part and Gear home"><Image src="/apg-logo.webp" alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
@@ -35,6 +39,7 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
           <h1 className="mt-5 max-w-4xl font-[family-name:var(--font-display)] text-4xl font-black uppercase leading-[1.02] sm:text-6xl">{article.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{article.summary}</p>
           <div className="mt-7 flex flex-wrap gap-4 text-sm font-bold text-slate-300"><span>{article.published}</span><span className="inline-flex items-center gap-1.5"><Clock className="size-4" />{article.readTime}</span></div>
+          <ShareButtons title={article.title} slug={article.slug} />
         </div>
       </section>
 
