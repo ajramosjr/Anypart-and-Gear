@@ -1,0 +1,55 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, Clock, ShieldCheck, Wrench } from "lucide-react";
+import { getTechArticle, techArticles } from "../articles";
+import { notFound } from "next/navigation";
+
+export function generateStaticParams() {
+  return techArticles.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const article = getTechArticle((await params).slug);
+  if (!article) return {};
+  return { title: `${article.title} | APG Tech Wire`, description: article.summary };
+}
+
+export default async function TechArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const article = getTechArticle((await params).slug);
+  if (!article) notFound();
+  const related = techArticles.filter(({ slug }) => slug !== article.slug).slice(0, 3);
+
+  return <main className="min-h-screen bg-[#e9edf1] text-slate-950">
+    <header className="border-b border-slate-300 bg-white shadow-sm">
+      <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
+        <Link href="/" aria-label="Any Part and Gear home"><Image src="/apg-logo.webp" alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
+        <Link href="/tech-wire" className="inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] hover:bg-amber-300"><ArrowLeft className="size-4" /> Tech Wire</Link>
+      </div>
+    </header>
+
+    <article>
+      <section className="border-b-4 border-amber-400 bg-[#071a35] text-white">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+          <div className="flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[.16em] text-amber-400"><Wrench className="size-5" /> {article.category}</div>
+          <h1 className="mt-5 max-w-4xl font-[family-name:var(--font-display)] text-4xl font-black uppercase leading-[1.02] sm:text-6xl">{article.title}</h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{article.summary}</p>
+          <div className="mt-7 flex flex-wrap gap-4 text-sm font-bold text-slate-300"><span>{article.published}</span><span className="inline-flex items-center gap-1.5"><Clock className="size-4" />{article.readTime}</span></div>
+        </div>
+      </section>
+
+      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_17rem]">
+        <div className="rounded-xl border border-slate-300 bg-white p-6 shadow-lg sm:p-10">
+          {article.sections.map((section) => <section key={section.heading} className="tech-article-section">
+            <h2>{section.heading}</h2><p>{section.body}</p>
+            {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+          </section>)}
+          <div className="mt-10 rounded-lg border border-amber-300 bg-amber-50 p-5 text-sm leading-6 text-slate-700"><strong className="flex items-center gap-2 text-[#071a35]"><ShieldCheck className="size-5 text-amber-700" /> Work safely</strong><p className="mt-2">Specifications and procedures vary by vehicle. Follow the manufacturer’s service information and use a qualified professional for work beyond your training or equipment.</p></div>
+        </div>
+        <aside><div className="sticky top-5 rounded-xl bg-[#0b2345] p-5 text-white"><p className="text-xs font-black uppercase tracking-wider text-amber-400">Read next</p>{related.map((item) => <Link key={item.slug} href={`/tech-wire/${item.slug}`} className="tech-related-link"><span>{item.category}</span><strong>{item.title}</strong></Link>)}</div></aside>
+      </div>
+    </article>
+
+    <section className="bg-[#071a35] text-white"><div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-10 sm:px-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xs font-black uppercase tracking-wider text-amber-400">Find the parts</p><h2 className="mt-1 text-2xl font-black">Turn the plan into a build.</h2></div><Link href="/#listings" className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-400 px-5 py-3 font-black text-[#071a35] hover:bg-amber-300">Browse marketplace <ArrowRight className="size-4" /></Link></div></section>
+  </main>;
+}

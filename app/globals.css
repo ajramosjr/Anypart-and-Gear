@@ -235,6 +235,15 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .legal-content li+li { margin-top:.45rem; }
 .support-primary { color:#fff !important; }
 .legal-back { color:#fff !important; }
+.tech-article-section + .tech-article-section { margin-top:2.25rem; padding-top:2.25rem; border-top:1px solid #e2e8f0; }
+.tech-article-section h2 { margin:0; color:#071a35; font-size:1.65rem; line-height:1.2; font-weight:900; }
+.tech-article-section p { margin:.85rem 0 0; color:#475569; line-height:1.85; }
+.tech-article-section ul { display:grid; gap:.65rem; margin:1rem 0 0; padding-left:1.25rem; color:#334155; list-style:disc; }
+.tech-article-section li { padding-left:.25rem; line-height:1.65; }
+.tech-related-link { display:grid; gap:.25rem; margin-top:1rem; border-top:1px solid rgba(255,255,255,.18); padding-top:1rem; color:#fff !important; }
+.tech-related-link span { color:#f6b91b; font-size:.65rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+.tech-related-link strong { font-size:.85rem; line-height:1.35; }
+.tech-related-link:hover strong { color:#f6b91b; }
 .report-box { margin-top:1rem; }
 .report-link { display:inline-flex; align-items:center; gap:.4rem; border:0; background:transparent; color:#64748b; font-size:.78rem; font-weight:750; text-decoration:underline; text-underline-offset:3px; }
 .report-link:hover { color:#991b1b; }

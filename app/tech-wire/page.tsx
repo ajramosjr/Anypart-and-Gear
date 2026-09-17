@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { techArticles } from "./articles";
 
 export const metadata: Metadata = {
   title: "APG Tech Wire | Vehicle news and practical buying guides",
@@ -73,7 +74,7 @@ export default function TechWirePage() {
           <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[.2em] text-amber-400"><Newspaper className="size-5" /> APG Tech Wire</div>
           <h1 className="mt-5 max-w-4xl font-[family-name:var(--font-display)] text-5xl font-black uppercase leading-[.95] tracking-tight sm:text-7xl">New machines.<br/><span className="text-amber-400">Straight answers.</span></h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Vehicle news, buying guidance and useful tech for people who drive, tow, repair and build.</p>
-          <p className="mt-7 inline-flex rounded-md border border-white/20 bg-white/10 px-3 py-2 text-xs font-bold text-slate-200">Edition updated September 16, 2026</p>
+          <p className="mt-7 inline-flex rounded-md border border-white/20 bg-white/10 px-3 py-2 text-xs font-bold text-slate-200">Edition updated September 17, 2026</p>
         </div>
       </section>
 
@@ -113,6 +114,19 @@ export default function TechWirePage() {
           </aside>
         </div>
       </article>
+
+      <section className="border-y border-slate-300 bg-[#f5f7fa]">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
+          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Engines, upgrades &amp; builds</p>
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><h2 className="text-3xl font-black uppercase tracking-tight text-[#071a35] sm:text-4xl">New from the APG garage</h2><p className="max-w-xl text-sm leading-6 text-slate-600">Practical guidance for building smarter, buying better parts and keeping added power reliable.</p></div>
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {techArticles.map((article, index) => <Link key={article.slug} href={`/tech-wire/${article.slug}`} className="group flex min-h-72 flex-col overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm hover:-translate-y-1 hover:border-amber-500 hover:shadow-xl">
+              <div className={`h-2 ${index % 2 ? "bg-[#0b2345]" : "bg-amber-400"}`} />
+              <div className="flex flex-1 flex-col p-6"><span className="text-xs font-black uppercase tracking-[.14em] text-amber-700">{article.category}</span><h3 className="mt-3 text-2xl font-black leading-tight text-[#071a35] group-hover:text-amber-700">{article.title}</h3><p className="mt-4 flex-1 text-sm leading-6 text-slate-600">{article.summary}</p><div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4 text-xs font-bold text-slate-500"><span>{article.readTime}</span><span className="inline-flex items-center gap-1 text-blue-900">Read article <ArrowRight className="size-4" /></span></div></div>
+            </Link>)}
+          </div>
+        </div>
+      </section>
 
       <section className="border-y border-slate-300 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
