@@ -117,7 +117,7 @@ export default function TechWirePage() {
 
       <section className="border-y border-slate-300 bg-[#f5f7fa]">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
-          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Engines, upgrades &amp; builds</p>
+          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Engines, upgrades, future vehicles &amp; new tools</p>
           <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><h2 className="text-3xl font-black uppercase tracking-tight text-[#071a35] sm:text-4xl">New from the APG garage</h2><p className="max-w-xl text-sm leading-6 text-slate-600">Practical guidance for building smarter, buying better parts and keeping added power reliable.</p></div>
           <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {techArticles.map((article, index) => <Link key={article.slug} href={`/tech-wire/${article.slug}`} className="group flex min-h-72 flex-col overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm hover:-translate-y-1 hover:border-amber-500 hover:shadow-xl">
