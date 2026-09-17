@@ -62,7 +62,7 @@ export default function TechWirePage() {
           </Link>
           <div className="flex items-center gap-2">
             <Link href="/" className="hidden items-center gap-2 text-sm font-bold text-slate-700 hover:text-slate-950 sm:flex"><ArrowLeft className="size-4" /> Marketplace</Link>
-            <Link href="/shops" className="rounded-md bg-[#0b2345] px-4 py-2.5 text-sm font-extrabold text-white hover:bg-[#123f66]">Local shops</Link>
+            <Link href="/shops" className="rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300">Local shops</Link>
           </div>
         </div>
       </header>
