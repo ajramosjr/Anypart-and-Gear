@@ -170,9 +170,12 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .login-wrap { width: min(480px, calc(100% - 40px)); margin: 70px auto 100px; }
 .login-wrap .brand { color: #fff; margin-bottom: 25px; }
 .login-card { background: #fff; padding: 35px; border-radius: 15px; box-shadow: var(--shadow); }
+.login-brand { display: inline-flex; align-items: center; width: fit-content; margin-bottom: 1.35rem; padding: .4rem .55rem; border-radius: .65rem; background: #fff; }
+.login-brand-logo { display: block; width: 10.75rem; height: 3.15rem; object-fit: contain; }
 .login-page { min-height: 100vh; padding-top: 40px; background: radial-gradient(circle at 20% 15%, #184b72, transparent 32%), var(--navy); }
 .login-card h1 { margin: 0; color: var(--navy); font-family: var(--font-display); font-size: 42px; text-transform: uppercase; }
 .login-card > p { color: var(--muted); line-height: 1.6; }
+@media (max-width: 640px) { .login-brand-logo { width: 9.25rem; height: 2.7rem; } }
 .login-form { display: grid; gap: 17px; margin-top: 25px; }
 .login-form .button { width: 100%; }
 .text-button { border: 0; background: transparent; color: var(--blue); font-weight: 750; }
