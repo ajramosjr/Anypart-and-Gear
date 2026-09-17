@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { TechArticle } from "./articles";
+import { getTechArticleImage } from "./article-store";
 
 const categories = ["All", "New tool watch", "Future vehicles", "Engine upgrades", "Reliability", "Trucks & towing", "Buying guide", "Tool buying guide", "Build planning", "Forced induction"];
 
@@ -31,7 +32,7 @@ export default function ArticleBrowser({ articles }: { articles: TechArticle[] }
       {shown.map((article) => {
         const isNew = articles.indexOf(article) < 5;
         return <Link key={article.slug} href={`/tech-wire/${article.slug}`} className="group flex min-h-72 flex-col overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm hover:-translate-y-1 hover:border-amber-500 hover:shadow-xl">
-          <div className="h-2 bg-amber-400" />
+          <div className="relative aspect-[1200/630] overflow-hidden border-b-4 border-amber-400 bg-[#071a35]"><img src={getTechArticleImage(article)} alt="" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.025]" /></div>
           <div className="flex flex-1 flex-col p-6"><div className="flex items-center justify-between gap-2"><span className="text-xs font-black uppercase tracking-[.14em] text-amber-700">{article.category}</span>{isNew && <span className="rounded-full bg-[#071a35] px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-white">New</span>}</div><h3 className="mt-3 text-2xl font-black leading-tight text-[#071a35] group-hover:text-amber-700">{article.title}</h3><p className="mt-4 flex-1 text-sm leading-6 text-slate-600">{article.summary}</p><div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4 text-xs font-bold text-slate-500"><span>{article.readTime}</span><span className="inline-flex items-center gap-1 text-blue-900">Read article <ArrowRight className="size-4" /></span></div></div>
         </Link>;
       })}

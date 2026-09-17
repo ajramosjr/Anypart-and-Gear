@@ -6,6 +6,7 @@ export type TechArticleSection = {
 
 export type TechArticle = {
   slug: string;
+  imageUrl?: string;
   category: string;
   title: string;
   summary: string;

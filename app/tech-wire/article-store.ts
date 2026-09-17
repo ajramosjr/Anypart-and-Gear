@@ -5,6 +5,7 @@ import { techArticles, type TechArticle, type TechArticleSection } from "./artic
 export type DatabaseTechArticle = {
   id: string;
   slug: string;
+  image_url: string | null;
   category: string;
   title: string;
   summary: string;
@@ -26,17 +27,21 @@ function displayDate(value: string | null) {
 }
 
 function mapArticle(row: DatabaseTechArticle): TechArticle {
-  return { slug: row.slug, category: row.category, title: row.title, summary: row.summary, readTime: row.read_time, published: displayDate(row.published_at), sections: row.sections, sources: row.sources };
+  return { slug: row.slug, imageUrl: row.image_url || undefined, category: row.category, title: row.title, summary: row.summary, readTime: row.read_time, published: displayDate(row.published_at), sections: row.sections, sources: row.sources };
+}
+
+export function getTechArticleImage(article: Pick<TechArticle, "slug" | "imageUrl">) {
+  return article.imageUrl || `/tech-wire/${article.slug}/opengraph-image`;
 }
 
 export async function getPublishedTechArticles(): Promise<TechArticle[]> {
-  const { data, error } = await publicClient().from("tech_articles").select("id,slug,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").eq("status", "published").order("published_at", { ascending: false });
+  const { data, error } = await publicClient().from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").eq("status", "published").order("published_at", { ascending: false });
   if (error) return techArticles;
   return (data as DatabaseTechArticle[]).map(mapArticle);
 }
 
 export async function getPublishedTechArticle(slug: string): Promise<TechArticle | undefined> {
-  const { data, error } = await publicClient().from("tech_articles").select("id,slug,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").eq("slug", slug).eq("status", "published").maybeSingle();
+  const { data, error } = await publicClient().from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").eq("slug", slug).eq("status", "published").maybeSingle();
   if (error) return techArticles.find((article) => article.slug === slug);
   return data ? mapArticle(data as DatabaseTechArticle) : undefined;
 }

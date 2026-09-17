@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock, ExternalLink, ShieldCheck, Wrench } from "lucide-react";
 import { techArticles } from "../articles";
-import { getPublishedTechArticle, getPublishedTechArticles } from "../article-store";
+import { getPublishedTechArticle, getPublishedTechArticles, getTechArticleImage } from "../article-store";
 import { notFound } from "next/navigation";
 import ShareButtons from "./share-buttons";
 export const revalidate = 300;
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getPublishedTechArticle(slug);
   if (!article) return {};
   const url = `/tech-wire/${article.slug}`;
-  return { title: `${article.title} | APG Tech Wire`, description: article.summary, alternates: { canonical: url }, openGraph: { type: "article", title: article.title, description: article.summary, url, siteName: "APG Tech Wire", publishedTime: "2026-09-17T00:00:00Z" } };
+  return { title: `${article.title} | APG Tech Wire`, description: article.summary, alternates: { canonical: url }, openGraph: { type: "article", title: article.title, description: article.summary, url, siteName: "APG Tech Wire", publishedTime: "2026-09-17T00:00:00Z", images: [{ url: getTechArticleImage(article), width: 1200, height: 630, alt: article.title }] } };
 }
 
 export default async function TechArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -25,7 +25,8 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
   const [article, allArticles] = await Promise.all([getPublishedTechArticle(slug), getPublishedTechArticles()]);
   if (!article) notFound();
   const related = allArticles.filter(({ slug }) => slug !== article.slug).slice(0, 3);
-  const articleJsonLd = { "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.summary, datePublished: "2026-09-17", dateModified: "2026-09-17", mainEntityOfPage: `https://www.any-partandgear.com/tech-wire/${article.slug}`, author: { "@type": "Organization", name: "Any Part & Gear" }, publisher: { "@type": "Organization", name: "Any Part & Gear", logo: { "@type": "ImageObject", url: "https://www.any-partandgear.com/apg-logo.webp" } } };
+  const articleImage = getTechArticleImage(article);
+  const articleJsonLd = { "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.summary, image: articleImage.startsWith("http") ? articleImage : `https://www.any-partandgear.com${articleImage}`, datePublished: "2026-09-17", dateModified: "2026-09-17", mainEntityOfPage: `https://www.any-partandgear.com/tech-wire/${article.slug}`, author: { "@type": "Organization", name: "Any Part & Gear" }, publisher: { "@type": "Organization", name: "Any Part & Gear", logo: { "@type": "ImageObject", url: "https://www.any-partandgear.com/apg-logo.webp" } } };
 
   return <main className="min-h-screen bg-[#e9edf1] text-slate-950">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }} />
@@ -39,6 +40,7 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
     <article>
       <section className="border-b-4 border-amber-400 bg-[#071a35] text-white">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+          <img src={articleImage} alt={article.title} className="mb-9 aspect-[1200/630] w-full rounded-xl border border-white/15 object-cover shadow-2xl" />
           <div className="flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[.16em] text-amber-400"><Wrench className="size-5" /> {article.category}</div>
           <h1 className="mt-5 max-w-4xl font-[family-name:var(--font-display)] text-4xl font-black uppercase leading-[1.02] sm:text-6xl">{article.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{article.summary}</p>

@@ -355,6 +355,7 @@ revoke all on public.blocks from anon;
 create table if not exists public.tech_articles (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique check (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$'),
+  image_url text check (image_url is null or char_length(image_url) <= 2048),
   category text not null check (char_length(category) between 2 and 80),
   title text not null check (char_length(title) between 5 and 180),
   summary text not null check (char_length(summary) between 10 and 500),

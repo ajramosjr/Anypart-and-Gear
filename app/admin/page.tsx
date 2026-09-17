@@ -18,7 +18,7 @@ export default async function AdminPage() {
   const [{ data: reports }, { data: shops }, { data: articles }] = await Promise.all([
     supabase.from("reports").select("id,reason,details,status,created_at,listings(title)").order("created_at", { ascending:false }).limit(100),
     supabase.from("shops").select("id,name,specialty,location,is_verified,is_active").order("created_at", { ascending:false }).limit(100),
-    supabase.from("tech_articles").select("id,slug,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").order("updated_at", { ascending:false }),
+    supabase.from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").order("updated_at", { ascending:false }),
   ]);
 
   return <main><header className="simple-header"><div className="shell nav-wrap"><Link href="/" className="brand"><span className="brand-mark">APG</span><span className="brand-copy"><strong>Anypart</strong><small>&amp; Gear</small></span></Link><Link href="/account">My account</Link></div></header><div className="shell page-shell"><div className="page-intro"><span className="kicker">Owner controls</span><h1 className="page-title">Admin dashboard</h1><p>Publish Tech Wire articles, review reports and approve businesses.</p></div>

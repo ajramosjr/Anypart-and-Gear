@@ -309,6 +309,8 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .admin-article-form input,.admin-article-form textarea { width:100%; border:1px solid #cbd5e1; border-radius:.45rem; background:#fff; padding:.75rem; color:#0f172a; font:inherit; font-weight:500; }
 .admin-article-form textarea { resize:vertical; line-height:1.55; }
 .admin-article-form label small { color:#64748b; font-weight:500; }
+.admin-image-preview { overflow:hidden; border:1px solid #cbd5e1; border-radius:.55rem; background:#071a35; }
+.admin-image-preview img { display:block; width:100%; aspect-ratio:1200/630; object-fit:cover; }
 .admin-form-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.65rem; border-top:1px solid #e2e8f0; padding-top:1rem; }
 .button-ghost-dark { border:1px solid #cbd5e1; background:#fff; color:#071a35!important; box-shadow:none; }
 .editor-message { margin:0; border-radius:.4rem; background:#eff6ff; padding:.75rem; color:#1e3a8a; font-size:.8rem; font-weight:750; }
