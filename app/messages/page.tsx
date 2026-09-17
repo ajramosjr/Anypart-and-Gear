@@ -5,6 +5,7 @@ import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ReplyBox from "./reply-box";
 import BlockUser from "./block-user";
+import TransactionReview from "./transaction-review";
 
 type Message = { id: string; body: string; sender_id: string; created_at: string };
 type Conversation = {
@@ -17,6 +18,7 @@ type Conversation = {
   shops: { name: string } | null;
   messages: Message[];
 };
+type Transaction = { id: string; conversation_id: string; buyer_confirmed_at: string | null; seller_confirmed_at: string | null; completed_at: string | null };
 
 export default async function MessagesPage() {
   const user = await getUser();
@@ -37,6 +39,16 @@ export default async function MessagesPage() {
   const names = new Map((profiles || []).map((profile) => [profile.id, profile.full_name || "Member"]));
   const { data: blocks } = await supabase.from("blocks").select("blocked_id").eq("blocker_id", user.id);
   const blockedIds = new Set((blocks || []).map((block) => block.blocked_id));
+  const conversationIds = conversations.map((conversation) => conversation.id);
+  const { data: transactionRows } = conversationIds.length
+    ? await supabase.from("transactions").select("id,conversation_id,buyer_confirmed_at,seller_confirmed_at,completed_at").in("conversation_id", conversationIds)
+    : { data: [] };
+  const transactions = new Map(((transactionRows || []) as Transaction[]).map((transaction) => [transaction.conversation_id, transaction]));
+  const transactionIds = [...transactions.values()].map((transaction) => transaction.id);
+  const { data: reviews } = transactionIds.length
+    ? await supabase.from("reviews").select("transaction_id").eq("reviewer_id", user.id).in("transaction_id", transactionIds)
+    : { data: [] };
+  const reviewedTransactions = new Set((reviews || []).map((review) => review.transaction_id));
 
   return (
     <main>
@@ -70,6 +82,7 @@ export default async function MessagesPage() {
                       return <div className={mine ? "message mine" : "message"} key={message.id}><b>{mine ? "You" : otherName}</b><p>{message.body}</p><small>{new Date(message.created_at).toLocaleString()}</small></div>;
                     })}
                   </div>
+                  <TransactionReview conversationId={conversation.id} userId={user.id} otherId={otherId} otherName={otherName} role={conversation.buyer_id === user.id ? "buyer" : "seller"} transaction={transactions.get(conversation.id)} reviewed={Boolean(transactions.get(conversation.id) && reviewedTransactions.has(transactions.get(conversation.id)!.id))}/>
                   {blockedIds.has(otherId)?<p className="blocked-note">You blocked this member. Unblock them to send another message.</p>:<ReplyBox conversationId={conversation.id} userId={user.id} />}
                 </section>
               );

@@ -114,6 +114,32 @@ create table if not exists public.blocks (
   primary key (blocker_id, blocked_id),
   check (blocker_id <> blocked_id)
 );
+create index if not exists blocks_blocked_idx on public.blocks(blocked_id);
+
+create table if not exists public.transactions (
+  id uuid primary key default gen_random_uuid(),
+  conversation_id uuid not null unique references public.conversations(id) on delete cascade,
+  buyer_confirmed_at timestamptz,
+  seller_confirmed_at timestamptz,
+  completed_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists transactions_completed_idx on public.transactions(completed_at) where completed_at is not null;
+
+create table if not exists public.reviews (
+  id uuid primary key default gen_random_uuid(),
+  transaction_id uuid not null references public.transactions(id) on delete cascade,
+  reviewer_id uuid not null references auth.users(id) on delete cascade,
+  reviewee_id uuid not null references auth.users(id) on delete cascade,
+  rating integer not null check (rating between 1 and 5),
+  comment text check (comment is null or char_length(comment) <= 800),
+  created_at timestamptz not null default now(),
+  unique (transaction_id, reviewer_id),
+  check (reviewer_id <> reviewee_id)
+);
+create index if not exists reviews_reviewee_idx on public.reviews(reviewee_id, created_at desc);
+create index if not exists reviews_reviewer_idx on public.reviews(reviewer_id, created_at desc);
 
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
@@ -150,6 +176,32 @@ $$;
 drop trigger if exists shops_protect_verification on public.shops;
 create trigger shops_protect_verification before insert or update on public.shops for each row execute procedure public.protect_shop_verification();
 
+create or replace function public.protect_transaction_confirmation()
+returns trigger language plpgsql set search_path = public as $$
+declare
+  participant record;
+  current_user_id uuid := (select auth.uid());
+begin
+  if tg_op = 'UPDATE' then new.conversation_id := old.conversation_id; end if;
+  select buyer_id, seller_id into participant from public.conversations where id = new.conversation_id;
+  if not found or current_user_id is null or current_user_id not in (participant.buyer_id, participant.seller_id) then
+    raise exception 'Only conversation participants can confirm an exchange';
+  end if;
+  if tg_op = 'UPDATE' then
+    if current_user_id = participant.buyer_id then new.seller_confirmed_at := old.seller_confirmed_at;
+    else new.buyer_confirmed_at := old.buyer_confirmed_at; end if;
+  end if;
+  if current_user_id = participant.buyer_id and new.buyer_confirmed_at is not null then new.buyer_confirmed_at := now(); end if;
+  if current_user_id = participant.seller_id and new.seller_confirmed_at is not null then new.seller_confirmed_at := now(); end if;
+  new.completed_at := case when new.buyer_confirmed_at is not null and new.seller_confirmed_at is not null then case when tg_op = 'UPDATE' then coalesce(old.completed_at, now()) else now() end else null end;
+  new.updated_at := now();
+  return new;
+end;
+$$;
+revoke execute on function public.protect_transaction_confirmation() from public, anon, authenticated;
+drop trigger if exists transactions_protect_confirmation on public.transactions;
+create trigger transactions_protect_confirmation before insert or update on public.transactions for each row execute procedure public.protect_transaction_confirmation();
+
 create or replace function public.touch_conversation_from_message()
 returns trigger language plpgsql set search_path = public as $$
 begin
@@ -169,6 +221,8 @@ alter table public.conversations enable row level security;
 alter table public.messages enable row level security;
 alter table public.reports enable row level security;
 alter table public.blocks enable row level security;
+alter table public.transactions enable row level security;
+alter table public.reviews enable row level security;
 
 drop policy if exists "Public profiles are viewable" on public.profiles;
 create policy "Public profiles are viewable" on public.profiles for select using (true);
@@ -184,7 +238,7 @@ create policy "Owners update shops" on public.shops for update to authenticated 
 drop policy if exists "Owners delete shops" on public.shops;
 create policy "Owners delete shops" on public.shops for delete to authenticated using ((select auth.uid()) = owner_id);
 drop policy if exists "Admins update shops" on public.shops;
-create policy "Admins update shops" on public.shops for update to authenticated using ((select auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((select auth.jwt()->'app_metadata'->>'role') = 'admin');
+create policy "Admins update shops" on public.shops for update to authenticated using (((select auth.jwt())->'app_metadata'->>'role') = 'admin') with check (((select auth.jwt())->'app_metadata'->>'role') = 'admin');
 
 drop policy if exists "Active listings are public" on public.listings;
 create policy "Active listings are public" on public.listings for select using (status = 'active' or (select auth.uid()) = user_id);
@@ -216,9 +270,9 @@ create policy "Users submit reports" on public.reports for insert to authenticat
 drop policy if exists "Users view own reports" on public.reports;
 create policy "Users view own reports" on public.reports for select to authenticated using ((select auth.uid()) = reporter_id);
 drop policy if exists "Admins view reports" on public.reports;
-create policy "Admins view reports" on public.reports for select to authenticated using ((select auth.jwt()->'app_metadata'->>'role') = 'admin');
+create policy "Admins view reports" on public.reports for select to authenticated using (((select auth.jwt())->'app_metadata'->>'role') = 'admin');
 drop policy if exists "Admins update reports" on public.reports;
-create policy "Admins update reports" on public.reports for update to authenticated using ((select auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((select auth.jwt()->'app_metadata'->>'role') = 'admin');
+create policy "Admins update reports" on public.reports for update to authenticated using (((select auth.jwt())->'app_metadata'->>'role') = 'admin') with check (((select auth.jwt())->'app_metadata'->>'role') = 'admin');
 
 drop policy if exists "Users view own blocks" on public.blocks;
 create policy "Users view own blocks" on public.blocks for select to authenticated using ((select auth.uid()) = blocker_id);
@@ -226,6 +280,28 @@ drop policy if exists "Users create own blocks" on public.blocks;
 create policy "Users create own blocks" on public.blocks for insert to authenticated with check ((select auth.uid()) = blocker_id);
 drop policy if exists "Users remove own blocks" on public.blocks;
 create policy "Users remove own blocks" on public.blocks for delete to authenticated using ((select auth.uid()) = blocker_id);
+
+drop policy if exists "Participants view transactions" on public.transactions;
+create policy "Participants view transactions" on public.transactions for select to authenticated using (exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
+drop policy if exists "Participants create transactions" on public.transactions;
+create policy "Participants create transactions" on public.transactions for insert to authenticated with check (exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
+drop policy if exists "Participants update transactions" on public.transactions;
+create policy "Participants update transactions" on public.transactions for update to authenticated using (exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id))) with check (exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
+
+drop policy if exists "Reviews are public" on public.reviews;
+create policy "Reviews are public" on public.reviews for select to anon, authenticated using (true);
+drop policy if exists "Participants create verified reviews" on public.reviews;
+create policy "Participants create verified reviews" on public.reviews for insert to authenticated with check (
+  reviewer_id = (select auth.uid()) and exists (
+    select 1 from public.transactions t join public.conversations c on c.id = t.conversation_id
+    where t.id = transaction_id and t.completed_at is not null and
+    ((reviewer_id = c.buyer_id and reviewee_id = c.seller_id) or (reviewer_id = c.seller_id and reviewee_id = c.buyer_id))
+  )
+);
+
+grant select, insert, update on public.transactions to authenticated;
+grant select on public.reviews to anon, authenticated;
+grant insert on public.reviews to authenticated;
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('part-images', 'part-images', true, 10485760, array['image/jpeg','image/png','image/webp'])

@@ -244,6 +244,21 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .report-panel .form-message { display:flex; align-items:flex-start; gap:.4rem; margin:0; }
 .block-user { display:inline-flex; align-items:center; gap:.3rem; margin-left:auto; border:1px solid #fecaca; border-radius:.35rem; background:#fff; padding:.4rem .55rem; color:#991b1b; font-size:.7rem; font-weight:800; }
 .blocked-note { margin:.5rem 0 0; border-radius:.4rem; background:#f1f5f9; padding:.75rem; color:#64748b; font-size:.78rem; }
+.transaction-card { display:grid; gap:.7rem; margin:.25rem 0 1rem; border:1px solid #d7b253; border-radius:.65rem; background:#fffaf0; padding:1rem; }
+.transaction-title { display:flex; align-items:center; gap:.55rem; color:#71520a; }
+.transaction-title div { display:grid; gap:.1rem; }
+.transaction-title small { color:#7c6a3d; font-size:.7rem; }
+.transaction-button { width:max-content; padding:.65rem .9rem; font-size:.75rem; }
+.transaction-waiting,.transaction-complete { display:flex; align-items:center; gap:.35rem; margin:0; color:#526170; font-size:.78rem; }
+.review-form { display:grid; gap:.65rem; border-top:1px solid #ead9aa; padding-top:.8rem; }
+.review-form label { color:#071a35; font-size:.78rem; font-weight:850; }
+.review-form textarea { min-height:5rem; resize:vertical; border:1px solid #cbd5e1; border-radius:.45rem; padding:.7rem; }
+.star-picker { display:flex; gap:.2rem; }
+.star-picker button { border:0; background:transparent; padding:.15rem; color:#bac3cc; }
+.star-picker button.active { color:#e1a300; }
+.star-picker button.active svg { fill:currentColor; }
+.seller-rating { color:#8a6200; font-weight:800; }
+.seller-rating svg { fill:#f6b91b; color:#c78d00; }
 .admin-list { display:grid; gap:.75rem; }
 .admin-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; border:1px solid #cbd5e1; border-radius:.6rem; background:#fff; padding:1rem; }
 .admin-row p,.admin-row small { display:block; margin:.25rem 0 0; color:#64748b; }
