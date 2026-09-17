@@ -2,25 +2,29 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock, ExternalLink, ShieldCheck, Wrench } from "lucide-react";
-import { getTechArticle, techArticles } from "../articles";
+import { techArticles } from "../articles";
+import { getPublishedTechArticle, getPublishedTechArticles } from "../article-store";
 import { notFound } from "next/navigation";
 import ShareButtons from "./share-buttons";
+export const revalidate = 300;
 
 export function generateStaticParams() {
   return techArticles.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const article = getTechArticle((await params).slug);
+  const slug = (await params).slug;
+  const article = await getPublishedTechArticle(slug);
   if (!article) return {};
   const url = `/tech-wire/${article.slug}`;
   return { title: `${article.title} | APG Tech Wire`, description: article.summary, alternates: { canonical: url }, openGraph: { type: "article", title: article.title, description: article.summary, url, siteName: "APG Tech Wire", publishedTime: "2026-09-17T00:00:00Z" } };
 }
 
 export default async function TechArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const article = getTechArticle((await params).slug);
+  const slug = (await params).slug;
+  const [article, allArticles] = await Promise.all([getPublishedTechArticle(slug), getPublishedTechArticles()]);
   if (!article) notFound();
-  const related = techArticles.filter(({ slug }) => slug !== article.slug).slice(0, 3);
+  const related = allArticles.filter(({ slug }) => slug !== article.slug).slice(0, 3);
   const articleJsonLd = { "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.summary, datePublished: "2026-09-17", dateModified: "2026-09-17", mainEntityOfPage: `https://www.any-partandgear.com/tech-wire/${article.slug}`, author: { "@type": "Organization", name: "Any Part & Gear" }, publisher: { "@type": "Organization", name: "Any Part & Gear", logo: { "@type": "ImageObject", url: "https://www.any-partandgear.com/apg-logo.webp" } } };
 
   return <main className="min-h-screen bg-[#e9edf1] text-slate-950">

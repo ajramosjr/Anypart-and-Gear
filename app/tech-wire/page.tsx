@@ -15,13 +15,14 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { techArticles } from "./articles";
 import ArticleBrowser from "./article-browser";
+import { getPublishedTechArticles } from "./article-store";
 
 export const metadata: Metadata = {
   title: "APG Tech Wire | Vehicle news and practical buying guides",
   description: "Straightforward vehicle news, practical comparisons, and ideas for drivers, families, shops, and builders.",
 };
+export const revalidate = 300;
 
 const choices = [
   {
@@ -54,7 +55,8 @@ const wishList = [
   { icon: ShieldCheck, title: "Factory-engineered safety", copy: "Any extra seating should be designed, tested and certified by the manufacturer—not improvised in the cargo area." },
 ];
 
-export default function TechWirePage() {
+export default async function TechWirePage() {
+  const techArticles = await getPublishedTechArticles();
   return (
     <main className="min-h-screen bg-[#e9edf1] text-slate-950">
       <header className="border-b border-slate-300 bg-white shadow-sm">

@@ -351,3 +351,35 @@ grant select, insert on public.reports to authenticated;
 revoke all on public.reports from anon;
 grant select, insert, delete on public.blocks to authenticated;
 revoke all on public.blocks from anon;
+
+create table if not exists public.tech_articles (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique check (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$'),
+  category text not null check (char_length(category) between 2 and 80),
+  title text not null check (char_length(title) between 5 and 180),
+  summary text not null check (char_length(summary) between 10 and 500),
+  read_time text not null default '5 min read' check (char_length(read_time) between 3 and 30),
+  sections jsonb not null default '[]'::jsonb check (jsonb_typeof(sections) = 'array'),
+  sources jsonb not null default '[]'::jsonb check (jsonb_typeof(sources) = 'array'),
+  status text not null default 'draft' check (status in ('draft','published')),
+  published_at timestamptz,
+  created_by uuid not null default auth.uid() references auth.users(id) on delete restrict,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+alter table public.tech_articles enable row level security;
+grant select on public.tech_articles to anon;
+grant select, insert, update, delete on public.tech_articles to authenticated;
+revoke all on public.tech_articles from public;
+
+drop policy if exists "Published tech articles are public" on public.tech_articles;
+create policy "Published tech articles are public" on public.tech_articles for select to anon, authenticated using (status = 'published');
+drop policy if exists "Admins can read all tech articles" on public.tech_articles;
+create policy "Admins can read all tech articles" on public.tech_articles for select to authenticated using ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+drop policy if exists "Admins can create tech articles" on public.tech_articles;
+create policy "Admins can create tech articles" on public.tech_articles for insert to authenticated with check ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin' and created_by = (select auth.uid()));
+drop policy if exists "Admins can update tech articles" on public.tech_articles;
+create policy "Admins can update tech articles" on public.tech_articles for update to authenticated using ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin') with check ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+drop policy if exists "Admins can delete tech articles" on public.tech_articles;
+create policy "Admins can delete tech articles" on public.tech_articles for delete to authenticated using ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+create index if not exists tech_articles_published_idx on public.tech_articles (published_at desc) where status = 'published';
