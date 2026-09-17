@@ -1,12 +1,12 @@
 import Marketplace from "./marketplace";
 import { getUser } from "@/lib/auth";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
-import { Listing, sampleListings } from "@/lib/data";
+import { Listing } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
 async function getListings(): Promise<Listing[]> {
-  if (!hasSupabaseConfig()) return sampleListings;
+  if (!hasSupabaseConfig()) return [];
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("listings")
@@ -14,7 +14,7 @@ async function getListings(): Promise<Listing[]> {
     .eq("status", "active")
     .order("created_at", { ascending: false })
     .limit(24);
-  if (error || !data?.length) return sampleListings;
+  if (error || !data?.length) return [];
   return data as Listing[];
 }
 
