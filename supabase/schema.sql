@@ -141,6 +141,14 @@ create table if not exists public.reviews (
 create index if not exists reviews_reviewee_idx on public.reviews(reviewee_id, created_at desc);
 create index if not exists reviews_reviewer_idx on public.reviews(reviewer_id, created_at desc);
 
+create table if not exists public.notification_preferences (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  email_messages boolean not null default true,
+  email_transactions boolean not null default true,
+  email_reviews boolean not null default true,
+  updated_at timestamptz not null default now()
+);
+
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
@@ -163,6 +171,8 @@ drop trigger if exists profiles_touch_updated_at on public.profiles;
 create trigger profiles_touch_updated_at before update on public.profiles for each row execute procedure public.touch_updated_at();
 drop trigger if exists shops_touch_updated_at on public.shops;
 create trigger shops_touch_updated_at before update on public.shops for each row execute procedure public.touch_updated_at();
+drop trigger if exists notification_preferences_touch_updated_at on public.notification_preferences;
+create trigger notification_preferences_touch_updated_at before update on public.notification_preferences for each row execute procedure public.touch_updated_at();
 
 create or replace function public.protect_shop_verification()
 returns trigger language plpgsql set search_path = public as $$
@@ -223,6 +233,7 @@ alter table public.reports enable row level security;
 alter table public.blocks enable row level security;
 alter table public.transactions enable row level security;
 alter table public.reviews enable row level security;
+alter table public.notification_preferences enable row level security;
 
 drop policy if exists "Public profiles are viewable" on public.profiles;
 create policy "Public profiles are viewable" on public.profiles for select using (true);
@@ -302,6 +313,15 @@ create policy "Participants create verified reviews" on public.reviews for inser
 grant select, insert, update on public.transactions to authenticated;
 grant select on public.reviews to anon, authenticated;
 grant insert on public.reviews to authenticated;
+
+drop policy if exists "Users view own notification preferences" on public.notification_preferences;
+create policy "Users view own notification preferences" on public.notification_preferences for select to authenticated using ((select auth.uid()) = user_id);
+drop policy if exists "Users create own notification preferences" on public.notification_preferences;
+create policy "Users create own notification preferences" on public.notification_preferences for insert to authenticated with check ((select auth.uid()) = user_id);
+drop policy if exists "Users update own notification preferences" on public.notification_preferences;
+create policy "Users update own notification preferences" on public.notification_preferences for update to authenticated using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+grant select, insert, update on public.notification_preferences to authenticated;
+revoke all on public.notification_preferences from anon;
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('part-images', 'part-images', true, 10485760, array['image/jpeg','image/png','image/webp'])

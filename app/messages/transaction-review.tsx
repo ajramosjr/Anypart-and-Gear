@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle2, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { requestEmailNotification } from "@/lib/notify";
 
 type Transaction = { id: string; buyer_confirmed_at: string | null; seller_confirmed_at: string | null; completed_at: string | null };
 
@@ -31,15 +32,16 @@ export default function TransactionReview({ conversationId, userId, otherId, oth
       const { error } = await supabase.from("transactions").update(confirmation).eq("id", id);
       if (error) { setMessage(error.message); setBusy(false); return; }
     }
+    await requestEmailNotification("transaction", id!);
     setMessage("Your confirmation is saved."); setBusy(false); router.refresh();
   }
 
   async function submitReview() {
     if (!transaction?.id) return;
     setBusy(true); setMessage("");
-    const { error } = await createClient().from("reviews").insert({ transaction_id: transaction.id, reviewer_id: userId, reviewee_id: otherId, rating, comment: comment.trim() || null });
+    const { data: review, error } = await createClient().from("reviews").insert({ transaction_id: transaction.id, reviewer_id: userId, reviewee_id: otherId, rating, comment: comment.trim() || null }).select("id").single();
     if (error) setMessage(error.message);
-    else { setMessage("Verified review posted. Thank you!"); setComment(""); router.refresh(); }
+    else { await requestEmailNotification("review", review.id); setMessage("Verified review posted. Thank you!"); setComment(""); router.refresh(); }
     setBusy(false);
   }
 

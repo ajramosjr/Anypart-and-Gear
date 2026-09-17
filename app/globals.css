@@ -259,6 +259,13 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .star-picker button.active svg { fill:currentColor; }
 .seller-rating { color:#8a6200; font-weight:800; }
 .seller-rating svg { fill:#f6b91b; color:#c78d00; }
+.notification-settings { display:grid; gap:.8rem; margin-top:2rem; border:1px solid var(--line); border-radius:.75rem; background:#fff; padding:1.25rem; }
+.notification-heading { display:flex; align-items:flex-start; gap:.65rem; color:var(--navy); }
+.notification-heading h2 { margin:0; font-size:1.1rem; }
+.notification-heading p { margin:.25rem 0 0; color:var(--muted); font-size:.78rem; }
+.notification-option { display:flex; align-items:center; justify-content:space-between; gap:1rem; border-top:1px solid var(--line); padding-top:.75rem; color:var(--navy); font-size:.85rem; font-weight:750; }
+.notification-option input { width:1.1rem; height:1.1rem; accent-color:#d99c00; }
+.settings-saved { margin-left:.5rem; color:#16784a; font-size:.78rem; font-weight:800; }
 .admin-list { display:grid; gap:.75rem; }
 .admin-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; border:1px solid #cbd5e1; border-radius:.6rem; background:#fff; padding:1rem; }
 .admin-row p,.admin-row small { display:block; margin:.25rem 0 0; color:#64748b; }
