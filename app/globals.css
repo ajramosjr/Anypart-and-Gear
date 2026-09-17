@@ -234,6 +234,7 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .legal-content ul { margin-top:.75rem; padding-left:1.25rem; list-style:disc; }
 .legal-content li+li { margin-top:.45rem; }
 .support-primary { color:#fff !important; }
+.legal-back { color:#fff !important; }
 .report-box { margin-top:1rem; }
 .report-link { display:inline-flex; align-items:center; gap:.4rem; border:0; background:transparent; color:#64748b; font-size:.78rem; font-weight:750; text-decoration:underline; text-underline-offset:3px; }
 .report-link:hover { color:#991b1b; }
