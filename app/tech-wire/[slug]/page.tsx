@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Clock, ShieldCheck, Wrench } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, ExternalLink, ShieldCheck, Wrench } from "lucide-react";
 import { getTechArticle, techArticles } from "../articles";
 import { notFound } from "next/navigation";
 
@@ -44,6 +44,7 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
             <h2>{section.heading}</h2><p>{section.body}</p>
             {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
           </section>)}
+          {article.sources && <section className="mt-10 border-t border-slate-200 pt-7"><h2 className="text-lg font-black text-[#071a35]">Official resources</h2><div className="mt-3 grid gap-2">{article.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-blue-900 hover:text-amber-700">{source.label}<ExternalLink className="size-4" /></a>)}</div></section>}
           <div className="mt-10 rounded-lg border border-amber-300 bg-amber-50 p-5 text-sm leading-6 text-slate-700"><strong className="flex items-center gap-2 text-[#071a35]"><ShieldCheck className="size-5 text-amber-700" /> Work safely</strong><p className="mt-2">Specifications and procedures vary by vehicle. Follow the manufacturer’s service information and use a qualified professional for work beyond your training or equipment.</p></div>
         </div>
         <aside><div className="sticky top-5 rounded-xl bg-[#0b2345] p-5 text-white"><p className="text-xs font-black uppercase tracking-wider text-amber-400">Read next</p>{related.map((item) => <Link key={item.slug} href={`/tech-wire/${item.slug}`} className="tech-related-link"><span>{item.category}</span><strong>{item.title}</strong></Link>)}</div></aside>

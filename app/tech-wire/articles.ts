@@ -12,9 +12,94 @@ export type TechArticle = {
   readTime: string;
   published: string;
   sections: TechArticleSection[];
+  sources?: { label: string; url: string }[];
 };
 
 export const techArticles: TechArticle[] = [
+  {
+    slug: "electric-vehicle-pros-and-cons",
+    category: "Future vehicles",
+    title: "Electric vehicles: the real-world pros and cons",
+    summary: "Quiet power and home charging are compelling, but range, charging access, repair planning and towing needs still matter.",
+    readTime: "6 min read",
+    published: "September 17, 2026",
+    sections: [
+      { heading: "The advantages", body: "Battery-electric vehicles deliver immediate torque, quiet operation and no tailpipe emissions. Fewer routine engine-service items can simplify maintenance, and home charging can make daily driving convenient for owners with reliable parking and electrical access.", bullets: ["Strong low-speed response and smooth acceleration", "No oil changes or conventional exhaust system", "Regenerative braking can reduce friction-brake use", "Home charging can replace many fuel-station visits"] },
+      { heading: "The tradeoffs", body: "Charging time, public-station reliability and cold-weather range should be part of the buying decision. Heavy towing and sustained high-speed travel can also reduce range significantly.", bullets: ["Apartment and street parking may complicate charging", "Collision and battery repairs may require specialized facilities", "Trip planning matters more where fast chargers are limited", "Battery condition is important when shopping used"] },
+      { heading: "Who benefits most", body: "An EV can be an excellent fit for predictable daily mileage, overnight charging and a household that understands its longer-trip needs. Buyers who tow long distances or cannot charge reliably should compare alternatives carefully." },
+    ],
+    sources: [{ label: "U.S. Department of Energy: All-electric vehicle basics", url: "https://afdc.energy.gov/vehicles/electric-basics-ev" }],
+  },
+  {
+    slug: "plug-in-hybrid-pros-and-cons",
+    category: "Future vehicles",
+    title: "Plug-in hybrids: useful bridge or too much complexity?",
+    summary: "A PHEV can handle short trips on electricity and long trips on fuel, but it carries two power systems and only works best when charged regularly.",
+    readTime: "5 min read",
+    published: "September 17, 2026",
+    sections: [
+      { heading: "Why the idea works", body: "A plug-in hybrid can cover many local trips on stored electricity while keeping an engine for longer travel. For drivers with home charging and occasional road trips, that flexibility can reduce fuel use without making public charging essential." },
+      { heading: "Where buyers get disappointed", body: "The electric range is smaller than a full EV, and the vehicle still needs engine maintenance. Owners who rarely plug in may carry extra battery weight without receiving the main benefit.", bullets: ["Compare electric range with your actual daily commute", "Check cargo or passenger space affected by battery packaging", "Review both engine and high-voltage warranty coverage", "Do not assume every PHEV can fast-charge"] },
+      { heading: "APG take", body: "A PHEV is strongest when the owner charges most nights and uses the engine as backup—not when it is treated like a conventional hybrid that never gets plugged in." },
+    ],
+    sources: [{ label: "U.S. Department of Energy: Plug-in hybrid basics", url: "https://afdc.energy.gov/vehicles/electric-basics-phev" }],
+  },
+  {
+    slug: "driver-assistance-pros-and-cons",
+    category: "Future vehicles",
+    title: "Advanced driver assistance: helpful safety net, not a chauffeur",
+    summary: "Automatic braking and lane support can help, but names and capabilities vary—and the human driver remains responsible.",
+    readTime: "5 min read",
+    published: "September 17, 2026",
+    sections: [
+      { heading: "What can help", body: "Features such as forward-collision warning, automatic emergency braking, blind-spot warning and lane-departure warning can add useful information or intervention when conditions are within the system’s design." },
+      { heading: "What can go wrong", body: "Cameras and radar can be affected by weather, dirt, road markings, glare or damage. Feature names may sound more capable than the system actually is.", bullets: ["Read the owner’s manual instead of relying on the marketing name", "Keep sensors and cameras clean", "Confirm calibration after windshield, alignment or collision work", "Stay ready to steer and brake at all times"] },
+      { heading: "Buying used", body: "Verify that warning lights are off, all sensors are present and previous collision repairs included required calibration. A system that appears to operate may still be misaligned." },
+    ],
+    sources: [{ label: "NHTSA: Driver assistance technologies", url: "https://www.nhtsa.gov/vehicle-safety/driver-assistance-technologies" }],
+  },
+  {
+    slug: "software-defined-vehicle-pros-and-cons",
+    category: "Future vehicles",
+    title: "Software-defined vehicles: better updates, bigger questions",
+    summary: "Over-the-air improvements can fix and add features, but long-term support, privacy and subscription costs deserve attention.",
+    readTime: "6 min read",
+    published: "September 17, 2026",
+    sections: [
+      { heading: "The promise", body: "Vehicles with updateable control systems may receive bug fixes, interface improvements and feature changes without a dealership visit. Better diagnostics can also help manufacturers identify problems across a fleet." },
+      { heading: "The concerns", body: "A vehicle that depends heavily on software also depends on secure updates, manufacturer support and access to repair information.", bullets: ["Ask which features require a paid subscription", "Review privacy and connected-services settings", "Check how long maps, apps and security updates are supported", "Understand what happens when cellular service ends"] },
+      { heading: "Repairability matters", body: "Owners should consider whether independent shops can access service procedures, scan data and replacement-component programming. Convenient technology should not turn a simple repair into an unnecessary replacement of an entire module." },
+    ],
+    sources: [{ label: "NHTSA: Vehicle cybersecurity", url: "https://www.nhtsa.gov/vehicle-safety/cybersecurity" }],
+  },
+  {
+    slug: "next-generation-batteries-pros-and-cons",
+    category: "Future vehicles",
+    title: "Next-generation batteries: exciting, but wait for the specifications",
+    summary: "Solid-state and other advanced batteries may improve range, charging or safety, but laboratory promise is not the same as mass-production proof.",
+    readTime: "5 min read",
+    published: "September 17, 2026",
+    sections: [
+      { heading: "What could improve", body: "Advanced battery designs aim to store more energy, charge faster, use different materials or manage heat more effectively. Successful designs could reduce vehicle weight or improve usable range." },
+      { heading: "What headlines leave out", body: "Cycle life, cold-weather operation, fast-charging durability, manufacturing yield and cost all matter. A prototype cell is not a production battery pack.", bullets: ["Look for pack-level specifications, not only cell claims", "Compare warranty terms and usable capacity", "Separate announced targets from vehicles customers can buy", "Consider repair and recycling plans"] },
+      { heading: "APG take", body: "Do not delay a needed vehicle purchase solely for a battery breakthrough without a confirmed model, price and delivery date. Buy for today’s use and treat future claims as unproven until production data arrives." },
+    ],
+    sources: [{ label: "U.S. Department of Energy: Battery research", url: "https://www.energy.gov/eere/vehicles/batteries" }],
+  },
+  {
+    slug: "hydrogen-vehicle-pros-and-cons",
+    category: "Future vehicles",
+    title: "Hydrogen vehicles: quick refueling, difficult infrastructure",
+    summary: "Fuel-cell vehicles can offer fast refueling and electric drive, but station access and fuel availability determine whether ownership is practical.",
+    readTime: "5 min read",
+    published: "September 17, 2026",
+    sections: [
+      { heading: "Why hydrogen is interesting", body: "A fuel-cell vehicle generates electricity onboard and drives with an electric motor. Refueling can be faster than charging a large battery, and the vehicle produces water at the tailpipe." },
+      { heading: "The major obstacle", body: "A vehicle is only useful when fuel is available where the owner lives and travels. Station coverage, fuel price and supply interruptions can outweigh the technical advantages.", bullets: ["Map working stations before considering a purchase", "Check whether the vehicle can travel outside its home region", "Understand fuel-card promotions and their expiration", "Compare service locations and resale demand"] },
+      { heading: "Where it may fit", body: "Hydrogen may be more compelling in controlled fleets or routes with dedicated fueling. For private buyers, local infrastructure—not advertised range—should lead the decision." },
+    ],
+    sources: [{ label: "U.S. Department of Energy: Fuel-cell vehicle basics", url: "https://afdc.energy.gov/vehicles/fuel-cell" }],
+  },
   {
     slug: "best-engine-upgrades-before-more-power",
     category: "Engine upgrades",
