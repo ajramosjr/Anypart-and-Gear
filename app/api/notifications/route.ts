@@ -2,7 +2,6 @@ import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { getUser } from "@/lib/auth";
 import { supabaseUrl } from "@/lib/supabase/config";
-import { sendPushNotifications } from "@/lib/push";
 
 type Kind = "message" | "transaction" | "review";
 type EmailDetails = { recipientId: string; actorName: string; subject: string; heading: string; body: string; preference: "email_messages" | "email_transactions" | "email_reviews" };
@@ -46,24 +45,17 @@ export async function POST(request: Request) {
     details = { recipientId: review.reviewee_id, actorName, preference: "email_reviews", subject: `You received a verified ${review.rating}-star review`, heading: "You received a verified review", body: `${actorName} left you a verified ${review.rating}-star review on Any Part & Gear.` };
   }
 
-  const pushed = await sendPushNotifications(admin, details.recipientId, {
-    title: payload.kind === "message" ? "APG Message" : "Any Part & Gear",
-    body: details.body,
-    url: "/messages",
-    tag: `apg-${payload.kind}-${payload.entityId}`,
-  });
-
   const { data: preference } = await admin.from("notification_preferences").select(details.preference).eq("user_id", details.recipientId).maybeSingle();
   const preferenceValues = preference as Record<string, boolean> | null;
-  if (!resendKey || (preferenceValues && preferenceValues[details.preference] === false)) return NextResponse.json({ pushed, email: false });
+  if (!resendKey || (preferenceValues && preferenceValues[details.preference] === false)) return NextResponse.json({ email: false });
   const { data: recipient } = await admin.auth.admin.getUserById(details.recipientId);
-  if (!recipient.user?.email) return NextResponse.json({ pushed, email: false });
+  if (!recipient.user?.email) return NextResponse.json({ email: false });
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json", "Idempotency-Key": `apg-${payload.kind}-${payload.entityId}` },
     body: JSON.stringify({ from: process.env.RESEND_FROM_EMAIL || "Any Part & Gear <notifications@any-partandgear.com>", to: [recipient.user.email], subject: details.subject, html: emailHtml(details) }),
   });
-  if (!response.ok) { console.error("Resend notification failed", response.status, await response.text()); return NextResponse.json({ pushed, email: false }, { status: 202 }); }
-  return NextResponse.json({ pushed, email: true });
+  if (!response.ok) { console.error("Resend notification failed", response.status, await response.text()); return NextResponse.json({ email: false }, { status: 202 }); }
+  return NextResponse.json({ email: true });
 }
