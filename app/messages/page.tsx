@@ -83,7 +83,7 @@ export default async function MessagesPage() {
                     })}
                   </div>
                   <TransactionReview conversationId={conversation.id} userId={user.id} otherId={otherId} otherName={otherName} role={conversation.buyer_id === user.id ? "buyer" : "seller"} transaction={transactions.get(conversation.id)} reviewed={Boolean(transactions.get(conversation.id) && reviewedTransactions.has(transactions.get(conversation.id)!.id))}/>
-                  {blockedIds.has(otherId)?<p className="blocked-note">You blocked this member. Unblock them to send another message.</p>:<ReplyBox conversationId={conversation.id} userId={user.id} />}
+                  {blockedIds.has(otherId)?<p className="blocked-note">You blocked this member. Unblock them to send another message.</p>:<ReplyBox conversationId={conversation.id} />}
                 </section>
               );
             })}

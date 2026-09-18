@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
+import { requestEmailNotification } from "@/lib/notify";
 
 export default function ContactShop({ shopId, ownerId, currentUserId }: { shopId: string; ownerId: string; currentUserId?: string }) {
   const [open, setOpen] = useState(false);
@@ -17,30 +17,14 @@ export default function ContactShop({ shopId, ownerId, currentUserId }: { shopId
     if (!body.trim()) return;
     setSending(true);
     setError("");
-    const supabase = createClient();
-    const { data: conversation, error: conversationError } = await supabase
-      .from("conversations")
-      .upsert(
-        { shop_id: shopId, listing_id: null, buyer_id: currentUserId, seller_id: ownerId },
-        { onConflict: "shop_id,buyer_id,seller_id" }
-      )
-      .select("id")
-      .single();
-    if (conversationError) {
-      setError(conversationError.message);
+    const response = await fetch("/api/messages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ shopId, body }) });
+    const result = await response.json();
+    if (!response.ok) {
+      setError(result.error || "Your message could not be sent.");
       setSending(false);
       return;
     }
-    const { error: messageError } = await supabase.from("messages").insert({
-      conversation_id: conversation.id,
-      sender_id: currentUserId,
-      body: body.trim(),
-    });
-    if (messageError) {
-      setError(messageError.message);
-      setSending(false);
-      return;
-    }
+    await requestEmailNotification("message", result.messageId);
     window.location.assign("/messages");
   }
 
