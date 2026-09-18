@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, ShieldCheck, Star } from "lucide-react";
-import { Listing, sampleListings } from "@/lib/data";
+import { Listing } from "@/lib/data";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
 import ContactSeller from "./contact-seller";
@@ -9,7 +9,6 @@ import ReportListing from "./report-listing";
 import ListingGallery from "./listing-gallery";
 
 async function findListing(id: string): Promise<Listing | null> {
-  const sample = sampleListings.find((item) => item.id === id); if (sample) return sample;
   if (!hasSupabaseConfig()) return null;
   const supabase = await createClient(); const { data } = await supabase.from("listings").select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,trade,created_at").eq("id", id).eq("status", "active").single();
   return data as Listing | null;

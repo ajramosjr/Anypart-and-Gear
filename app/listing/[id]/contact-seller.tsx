@@ -9,7 +9,7 @@ export default function ContactSeller({ listingId, sellerId, currentUserId }: { 
   const [open, setOpen] = useState(false); const [body, setBody] = useState("Hi, is this item still available?"); const [error, setError] = useState(""); const [sending, setSending] = useState(false);
   if (!sellerId) return <Link className="button detail-button" href="/login">Sign in to contact seller</Link>;
   if (!currentUserId) return <Link className="button detail-button" href={`/login?next=/listing/${listingId}`}>Sign in to contact seller</Link>;
-  if (currentUserId === sellerId) return <Link className="button detail-button" href="/account">Manage this listing</Link>;
+  if (currentUserId === sellerId) return <Link className="button detail-button" href={`/listing/${listingId}/edit`}>Edit this listing</Link>;
   async function send() {
     setSending(true); setError(""); const supabase = createClient();
     const { data: conversation, error: conversationError } = await supabase.from("conversations").upsert({ listing_id: listingId, buyer_id: currentUserId, seller_id: sellerId }, { onConflict: "listing_id,buyer_id,seller_id" }).select("id").single();
