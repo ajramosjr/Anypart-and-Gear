@@ -17,13 +17,14 @@ export type Listing = {
 export const categories = [
   { name: "Car Parts", icon: "🚗", description: "Engines, body, electrical & more" },
   { name: "Boat Parts", icon: "⚓", description: "Marine engines, props & accessories" },
+  { name: "Boats for Sale", icon: "🛥️", description: "Complete boats, watercraft & projects" },
   { name: "Motorcycles", icon: "🏍️", description: "Parts, riding gear & complete bikes" },
   { name: "Trucks", icon: "🛻", description: "Pickup, diesel & commercial parts" },
   { name: "Trailers", icon: "🚛", description: "Utility, boat, cargo & equipment trailers" },
   { name: "Tools", icon: "🧰", description: "Hand, power & diagnostic tools" },
   { name: "Machinery", icon: "🚜", description: "Construction and shop equipment" },
   { name: "Workwear & Apparel", icon: "🥾", description: "Workwear, safety gear & apparel" },
-  { name: "Vehicles for Sale", icon: "🔑", description: "Cars, boats, bikes & projects" },
+  { name: "Vehicles for Sale", icon: "🔑", description: "Cars, trucks, bikes & projects" },
 ];
 
 export const sampleListings: Listing[] = [

@@ -25,7 +25,7 @@ create table if not exists public.listings (
   description text not null check (char_length(description) between 10 and 2500),
   price numeric(12,2) not null default 0 check (price >= 0),
   condition text not null check (condition in ('New','Like new','Good','Fair')),
-  category text not null check (category in ('Car Parts','Boat Parts','Motorcycles','Trucks','Trailers','Tools','Machinery','Workwear & Apparel','Vehicles for Sale','Other')),
+  category text not null check (category in ('Car Parts','Boat Parts','Boats for Sale','Motorcycles','Trucks','Trailers','Tools','Machinery','Workwear & Apparel','Vehicles for Sale','Other')),
   location text not null,
   image_url text not null,
   image_urls text[] not null default '{}',

@@ -14,15 +14,16 @@ import SellerBadges from "@/components/seller-badges";
 type Listing = { id: number | string; title: string; description: string; price: number; category: string; condition: string; location: string; seller: string; contactEmail?: string; contactPhone?: string; status?: string; imageUrl?: string | null; imageUrls?: string[]; year?: string; make?: string; model?: string; engine?: string; mileageHours?: string; transmission?: string; partNumber?: string; brand?: string; size?: string; color?: string; quantity?: string; emailVerified?: boolean; trustedSeller?: boolean; verifiedBusiness?: boolean; badge?: string; tone?: string };
 
 const categories = [
-  { name: "Cars", icon: Car, detail: "Engines, body & more" }, { name: "Boats", icon: Anchor, detail: "Marine parts & gear" },
+  { name: "Car Parts", icon: Car, detail: "Engines, body & more" }, { name: "Boat Parts", icon: Anchor, detail: "Marine parts & gear" },
+  { name: "Boats for Sale", icon: Anchor, detail: "Complete boats & watercraft" },
   { name: "Motorcycles", icon: Bike, detail: "Street, dirt & touring" }, { name: "Machinery", icon: Factory, detail: "Heavy equipment parts" },
   { name: "Trailers", icon: Truck, detail: "Utility, boat & cargo" },
   { name: "Tools", icon: Drill, detail: "Shop & jobsite tools" }, { name: "Other", icon: PackageOpen, detail: "Everything in between" },
   { name: "Workwear & Apparel", icon: Shirt, detail: "Work clothes & safety gear" },
-  { name: "Vehicles for Sale", icon: Truck, detail: "Cars, boats & equipment" },
+  { name: "Vehicles for Sale", icon: Truck, detail: "Cars, trucks & equipment" },
 ];
 
-const categoryIcons: Record<string, typeof Car> = { Cars: Car, Boats: Anchor, Motorcycles: Bike, Machinery: Factory, Trailers: Truck, Tools: Drill, "Workwear & Apparel": Shirt, Other: PackageOpen, "Vehicles for Sale": Truck };
+const categoryIcons: Record<string, typeof Car> = { "Car Parts": Car, "Boat Parts": Anchor, "Boats for Sale": Anchor, Motorcycles: Bike, Trucks: Truck, Machinery: Factory, Trailers: Truck, Tools: Drill, "Workwear & Apparel": Shirt, Other: PackageOpen, "Vehicles for Sale": Truck };
 
 function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; toggle: () => void }) {
   const Icon=categoryIcons[item.category]||PackageOpen;
