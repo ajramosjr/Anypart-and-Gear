@@ -7,8 +7,11 @@ export async function GET(request: Request) {
   const next = url.searchParams.get("next")?.startsWith("/") ? url.searchParams.get("next")! : "/";
   if (code && hasSupabaseConfig()) {
     const supabase = await createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error) return NextResponse.redirect(new URL(next, url.origin));
   }
-  return NextResponse.redirect(new URL(next, url.origin));
+  const loginUrl = new URL("/login", url.origin);
+  loginUrl.searchParams.set("verified", "1");
+  loginUrl.searchParams.set("next", next);
+  return NextResponse.redirect(loginUrl);
 }
-
