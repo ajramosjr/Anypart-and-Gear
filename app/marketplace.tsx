@@ -9,8 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import InstallApp from "./install-app";
+import SellerBadges from "@/components/seller-badges";
 
-type Listing = { id: number | string; title: string; description: string; price: number; category: string; condition: string; location: string; seller: string; contactEmail?: string; contactPhone?: string; status?: string; imageUrl?: string | null; imageUrls?: string[]; year?: string; make?: string; model?: string; engine?: string; mileageHours?: string; transmission?: string; partNumber?: string; brand?: string; size?: string; color?: string; quantity?: string; verifiedBusiness?: boolean; badge?: string; tone?: string };
+type Listing = { id: number | string; title: string; description: string; price: number; category: string; condition: string; location: string; seller: string; contactEmail?: string; contactPhone?: string; status?: string; imageUrl?: string | null; imageUrls?: string[]; year?: string; make?: string; model?: string; engine?: string; mileageHours?: string; transmission?: string; partNumber?: string; brand?: string; size?: string; color?: string; quantity?: string; emailVerified?: boolean; trustedSeller?: boolean; verifiedBusiness?: boolean; badge?: string; tone?: string };
 
 const categories = [
   { name: "Cars", icon: Car, detail: "Engines, body & more" }, { name: "Boats", icon: Anchor, detail: "Marine parts & gear" },
@@ -36,7 +37,7 @@ function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; t
     </div>
     <div className="p-5"><div className="flex items-start justify-between gap-3"><h3 className="text-lg font-extrabold leading-6"><a href={`/listing/${item.id}`} className="hover:text-amber-700">{item.title}</a></h3><strong className="text-xl text-blue-950">${item.price.toLocaleString()}</strong></div>
       <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">{item.description}</p>
-      <div className="mt-5 border-t border-slate-100 pt-4"><p className="flex items-center gap-2 text-sm font-bold">{item.seller}{item.verifiedBusiness&&<span className="verified-badge"><ShieldCheck className="size-3"/> Verified</span>}</p><p className="mt-1 flex items-center gap-1 text-xs text-slate-500"><MapPin className="size-3"/>{item.location}</p>
+      <div className="mt-5 border-t border-slate-100 pt-4"><p className="text-sm font-bold">{item.seller}</p><SellerBadges emailVerified={item.emailVerified} trustedSeller={item.trustedSeller} verifiedBusiness={item.verifiedBusiness}/><p className="mt-1 flex items-center gap-1 text-xs text-slate-500"><MapPin className="size-3"/>{item.location}</p>
         <div className="mt-4 flex flex-wrap gap-2">{item.contactPhone&&<Button asChild size="sm" variant="outline"><a href={`tel:${item.contactPhone}`}><Phone className="size-4"/> Call</a></Button>}{item.contactEmail&&<Button asChild size="sm" variant="outline"><a href={`mailto:${item.contactEmail}?subject=${encodeURIComponent(item.title)}`}><Mail className="size-4"/> Email</a></Button>}{!item.contactEmail&&!item.contactPhone&&<Button size="sm" variant="outline" onClick={()=>toast.info(`Contact ${item.seller} about this listing.`)}>Contact seller</Button>}</div>
         <div className="mt-3 grid grid-cols-2 gap-2"><Button asChild size="sm" variant="secondary"><a href={`https://www.youtube.com/results?search_query=${helpQuery}`} target="_blank" rel="noopener noreferrer"><CirclePlay className="size-4"/> Repair help</a></Button><Button asChild size="sm" variant="secondary"><a href={`https://www.amazon.com/s?k=${manualQuery}`} target="_blank" rel="noopener noreferrer nofollow"><BookOpen className="size-4"/> Find manuals</a></Button></div>
       </div>

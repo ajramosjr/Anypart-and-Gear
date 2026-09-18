@@ -198,7 +198,10 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 .detail-facts i { display: flex; align-items: center; gap: 4px; font-style: normal; }
 .detail-button { width: 100%; margin-bottom: 15px; }
 .thumbnail-row { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; }
-.thumbnail { position: relative; flex: 0 0 95px; height: 75px; border-radius: 8px; overflow: hidden; background: #dce1e3; }
+.thumbnail { position: relative; flex: 0 0 95px; height: 75px; padding: 0; border: 3px solid transparent; border-radius: 10px; overflow: hidden; background: #dce1e3; cursor: pointer; opacity: .82; transition: border-color .18s ease, opacity .18s ease, transform .18s ease; }
+.thumbnail:hover { opacity: 1; transform: translateY(-1px); }
+.thumbnail:focus-visible { outline: 3px solid #0d3158; outline-offset: 2px; }
+.thumbnail-selected { border-color: var(--gold); opacity: 1; }
 .thumbnail img { object-fit: cover; }
 .contact-box textarea { width: 100%; min-height: 100px; margin: 8px 0 10px; padding: 12px; border: 1px solid #ccd5da; border-radius: 8px; resize: vertical; }
 .account-nav { display: flex; gap: 22px; font-size: 14px; font-weight: 700; }
@@ -408,6 +411,10 @@ a { text-decoration:none; }
 .listing-badge { position:absolute; top:.8rem; left:.8rem; border-radius:.35rem; background:#f6b91b; padding:.4rem .65rem; color:#08111f; font-size:.7rem; font-weight:900; letter-spacing:.06em; text-transform:uppercase; box-shadow:0 4px 12px rgba(0,0,0,.2); }
 .listing-detail-badge { display:inline-flex; border-radius:.35rem; background:#f6b91b; padding:.45rem .7rem; color:#08111f; font-size:.72rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
 .verified-badge { display:inline-flex; align-items:center; gap:.2rem; border-radius:999px; background:#dbeafe; padding:.2rem .45rem; color:#1e3a8a; font-size:.65rem; font-weight:900; text-transform:uppercase; letter-spacing:.04em; }
+.seller-badges { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.45rem; }
+.email-badge { background:#e0f2fe; color:#075985; }
+.trusted-badge { background:#dcfce7; color:#166534; }
+.business-badge { background:#fef3c7; color:#92400e; }
 .detail-gallery { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; overflow:hidden; }
 .detail-gallery img { width:100%; object-fit:cover; border:1px solid #b7c0cb; border-radius:.55rem; background:#111827; }
 .detail-main-image { grid-column:1/-1; height:min(58vw,34rem); }
