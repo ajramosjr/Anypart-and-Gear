@@ -1,0 +1,40 @@
+.thumbnailRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  overflow-x: auto;
+  padding: 3px 3px 6px;
+}
+
+.thumbnail {
+  position: relative;
+  flex: 0 0 95px;
+  height: 75px;
+  padding: 0;
+  overflow: hidden;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background: #dce1e3;
+  cursor: pointer;
+  opacity: .82;
+  transition: border-color .18s ease, opacity .18s ease, transform .18s ease;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.thumbnail:focus-visible {
+  outline: 3px solid #0d3158;
+  outline-offset: 2px;
+}
+
+.selected {
+  border-color: #e6b84a;
+  opacity: 1;
+}
+
+.thumbnail img {
+  object-fit: cover;
+}
