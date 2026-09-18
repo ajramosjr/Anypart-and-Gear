@@ -38,3 +38,44 @@
 .thumbnail img {
   object-fit: cover;
 }
+
+.videoFrame {
+  display: grid;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #06182d;
+  place-items: center;
+}
+
+.videoFrame video {
+  width: 100%;
+  max-height: 70vh;
+  background: #06182d;
+}
+
+.videoThumbnail {
+  display: grid;
+  color: white;
+  background: #0d3158;
+  place-items: center;
+}
+
+.videoThumbnail svg {
+  width: 26px;
+  height: 26px;
+  fill: #e6b84a;
+  color: #e6b84a;
+}
+
+.videoThumbnail span {
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .videoFrame {
+    min-height: 240px;
+  }
+}

@@ -12,7 +12,7 @@ import ListingGallery from "./listing-gallery";
 async function findListing(id: string): Promise<Listing | null> {
   if (!hasSupabaseConfig()) return null;
   const supabase = await createClient();
-  const { data } = await supabase.from("listings").select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,trade,created_at").eq("id", id).eq("status", "active").single();
+  const { data } = await supabase.from("listings").select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,video_url,trade,created_at").eq("id", id).eq("status", "active").single();
   return data as Listing | null;
 }
 
@@ -39,7 +39,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
     <main>
       <header className="simple-header"><div className="shell nav-wrap"><Link href="/" className="brand"><span className="brand-mark">APG</span><span className="brand-copy"><strong>Anypart</strong><small>&amp; Gear</small></span></Link><Link href="/#listings">Back to listings</Link></div></header>
       <div className="shell page-shell"><div className="detail-grid">
-        <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} />
+        <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />
         <div className="detail-info">
           <span className="kicker">{listing.category}</span><h1>{listing.title}</h1><strong className="detail-price">${listing.price.toLocaleString()}</strong>
           <div className="detail-facts">

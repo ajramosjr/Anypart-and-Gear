@@ -17,8 +17,19 @@ export default function SellForm({ userId, sellerName }: { userId: string; selle
       if (upload.error) { setMessage(upload.error.message); setLoading(false); return; }
       imageUrls.push(supabase.storage.from("part-images").getPublicUrl(path).data.publicUrl);
     }
+    const video = form.get("video") as File | null;
+    let videoUrl: string | null = null;
+    if (video?.size) {
+      if (video.size > 50 * 1024 * 1024) { setMessage("Video must be 50 MB or smaller."); setLoading(false); return; }
+      if (!["video/mp4", "video/webm", "video/quicktime"].includes(video.type)) { setMessage("Choose an MP4, WebM or MOV video."); setLoading(false); return; }
+      const extension = video.name.split(".").pop()?.toLowerCase() || "mp4";
+      const path = `${userId}/${crypto.randomUUID()}.${extension}`;
+      const upload = await supabase.storage.from("listing-videos").upload(path, video, { upsert: false, contentType: video.type });
+      if (upload.error) { setMessage(upload.error.message); setLoading(false); return; }
+      videoUrl = supabase.storage.from("listing-videos").getPublicUrl(path).data.publicUrl;
+    }
     const { data, error } = await supabase.from("listings").insert({
-      user_id: userId, seller_name: sellerName, title: form.get("title"), description: form.get("description"), price: Number(form.get("price")), condition: form.get("condition"), category: form.get("category"), location: form.get("location"), image_url: imageUrls[0], image_urls: imageUrls, trade: form.get("trade") === "on", status: "active"
+      user_id: userId, seller_name: sellerName, title: form.get("title"), description: form.get("description"), price: Number(form.get("price")), condition: form.get("condition"), category: form.get("category"), location: form.get("location"), image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl, trade: form.get("trade") === "on", status: "active"
     }).select("id").single();
     if (error) setMessage(error.message); else window.location.assign(`/listing/${data.id}`);
     setLoading(false);
@@ -31,6 +42,7 @@ export default function SellForm({ userId, sellerName }: { userId: string; selle
     <div className="field"><label htmlFor="location">Location</label><input id="location" name="location" required placeholder="City, State" /></div>
     <div className="field full"><label htmlFor="description">Description</label><textarea id="description" name="description" required maxLength={2500} placeholder="Include measurements, fitment details, known issues and pickup information." /></div>
     <div className="field full"><label htmlFor="images">Photos (up to 6)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple required /></div>
+    <div className="field full"><label htmlFor="video">Video (optional)</label><input id="video" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" /><small>One MP4, WebM or MOV video, up to 50 MB.</small></div>
     <div className="field full checkbox-field"><label><input type="checkbox" name="trade" /> I will consider a trade</label></div>
   </div><div className="form-actions"><button className="button" disabled={loading}>{loading ? "Publishing..." : "Publish listing"}</button>{message && <span className="form-message error">{message}</span>}</div></form>;
 }

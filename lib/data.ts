@@ -10,6 +10,7 @@ export type Listing = {
   seller_name: string;
   image_url: string;
   image_urls?: string[];
+  video_url?: string | null;
   trade: boolean;
   created_at: string;
 };

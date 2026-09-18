@@ -29,6 +29,7 @@ create table if not exists public.listings (
   location text not null,
   image_url text not null,
   image_urls text[] not null default '{}',
+  video_url text check (video_url is null or char_length(video_url) <= 2048),
   trade boolean not null default false,
   trade_type text,
   status text not null default 'active' check (status in ('draft','active','sold','removed')),
@@ -337,6 +338,18 @@ drop policy if exists "Users update own listing images" on storage.objects;
 create policy "Users update own listing images" on storage.objects for update to authenticated using (bucket_id = 'part-images' and owner_id = auth.uid()::text);
 drop policy if exists "Users delete own listing images" on storage.objects;
 create policy "Users delete own listing images" on storage.objects for delete to authenticated using (bucket_id = 'part-images' and owner_id = auth.uid()::text);
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('listing-videos', 'listing-videos', true, 52428800, array['video/mp4','video/webm','video/quicktime'])
+on conflict (id) do update set public = excluded.public, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+drop policy if exists "Public listing videos" on storage.objects;
+create policy "Public listing videos" on storage.objects for select using (bucket_id = 'listing-videos');
+drop policy if exists "Users upload listing videos" on storage.objects;
+create policy "Users upload listing videos" on storage.objects for insert to authenticated with check (bucket_id = 'listing-videos' and (storage.foldername(name))[1] = (select auth.uid())::text);
+drop policy if exists "Users update own listing videos" on storage.objects;
+create policy "Users update own listing videos" on storage.objects for update to authenticated using (bucket_id = 'listing-videos' and owner_id = (select auth.uid())::text) with check (bucket_id = 'listing-videos' and owner_id = (select auth.uid())::text);
+drop policy if exists "Users delete own listing videos" on storage.objects;
+create policy "Users delete own listing videos" on storage.objects for delete to authenticated using (bucket_id = 'listing-videos' and owner_id = (select auth.uid())::text);
 
 -- Explicit Data API grants support projects configured to keep new tables private by default.
 grant usage on schema public to anon, authenticated;

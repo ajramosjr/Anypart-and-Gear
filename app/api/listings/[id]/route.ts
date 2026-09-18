@@ -13,13 +13,15 @@ function listingValues(body: Record<string, unknown>) {
   const location = typeof body.location === "string" ? body.location.trim() : "";
   const price = Number(body.price);
   const trade = body.trade === true;
+  const videoUrl = body.videoUrl === null || typeof body.videoUrl === "string" ? body.videoUrl : null;
   if (title.length < 3 || title.length > 100) return { error: "Title must be between 3 and 100 characters." };
   if (description.length < 10 || description.length > 2500) return { error: "Description must be between 10 and 2,500 characters." };
   if (!categories.some((item) => item.name === category)) return { error: "Choose a valid category." };
   if (!conditions.includes(condition as (typeof conditions)[number])) return { error: "Choose a valid condition." };
   if (location.length < 2 || location.length > 120) return { error: "Enter a valid location." };
   if (!Number.isFinite(price) || price < 0 || price > 100000000) return { error: "Enter a valid price." };
-  return { values: { title, description, category, condition, location, price, trade } };
+  if (videoUrl && (!videoUrl.startsWith("https://") || videoUrl.length > 2048 || !videoUrl.includes("/storage/v1/object/public/listing-videos/"))) return { error: "Choose a valid listing video." };
+  return { values: { title, description, category, condition, location, price, trade, video_url: videoUrl } };
 }
 
 async function updateStatus(id: string, status: "active" | "sold" | "removed") {
