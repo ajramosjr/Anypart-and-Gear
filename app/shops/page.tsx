@@ -3,6 +3,7 @@ import { BadgeCheck, Clock3, MapPin, Search, Store, Wrench } from "lucide-react"
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ContactShop from "./contact-shop";
+import ApgLogo from "@/components/apg-logo";
 
 type Shop = {
   id: string; owner_id: string; name: string; specialty: string; description: string;
@@ -28,7 +29,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const shops = ((data || []) as Shop[]).filter((shop) => !needle || [shop.name, shop.specialty, shop.description, shop.location, shop.postal_code, ...shop.services].join(" ").toLowerCase().includes(needle));
 
   return <main className="min-h-screen bg-[#eef1f4]">
-    <header className="simple-header"><div className="shell nav-wrap"><Link href="/" className="brand"><span className="brand-mark">APG</span><span className="brand-copy"><strong>Anypart</strong><small>&amp; Gear</small></span></Link><div className="account-nav"><Link href="/messages">Messages</Link><Link href="/">Marketplace</Link></div></div></header>
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><div className="account-nav"><Link href="/messages">Messages</Link><Link href="/">Marketplace</Link></div></div></header>
     <section className="bg-[#071a35] text-white"><div className="shell py-14"><span className="kicker text-amber-400">Local parts network</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Shops near you</h1><p className="mt-3 max-w-2xl text-slate-300">Find parts stores, repair shops, salvage yards and specialists. Ask about a part without sharing your private contact information.</p>
       <form className="mt-7 flex max-w-2xl gap-2" action="/shops"><div className="flex flex-1 items-center gap-2 rounded-lg bg-white px-3"><Search className="size-5 text-slate-400"/><input className="h-12 w-full text-slate-950 outline-none" name="q" defaultValue={q} placeholder="Search specialty, city or ZIP code" /></div><button className="button">Search</button></form>
     </div></section>

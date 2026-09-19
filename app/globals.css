@@ -147,6 +147,8 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 
 .simple-header { background: var(--navy); color: #fff; }
 .simple-header .nav-wrap { min-height: 76px; }
+.apg-header-logo { display: inline-flex; flex: 0 0 auto; align-items: center; border-radius: 8px; background: #fff; padding: 4px 7px; }
+.apg-header-logo-image { display: block; width: 172px; height: 50px; object-fit: contain; }
 .page-shell { min-height: 70vh; padding: 60px 0 90px; }
 .page-intro { max-width: 720px; margin-bottom: 35px; }
 .page-intro p { color: var(--muted); line-height: 1.7; }
@@ -453,7 +455,7 @@ a { text-decoration:none; }
 .parts-orbit { position:relative; width:28rem; height:28rem; margin:auto; border:1px dashed rgba(255,255,255,.2); border-radius:999px; }.parts-orbit:after { content:""; position:absolute; inset:4.2rem; border:1px dashed rgba(246,185,27,.35); border-radius:999px; }
 .orbit-core,.orbit-item { position:absolute; z-index:1; display:flex; align-items:center; justify-content:center; flex-direction:column; border-radius:999px; box-shadow:0 18px 50px rgba(0,0,0,.35); }.orbit-core { inset:8rem; gap:.5rem; color:#071a35; background:#f6b91b; font-size:.7rem; font-weight:900; letter-spacing:.15em; }
 .orbit-item { width:6.5rem; height:6.5rem; gap:.45rem; color:#f6b91b; background:#102d56; border:1px solid rgba(246,185,27,.3); }.orbit-item svg { width:2rem; height:2rem; }.orbit-item span{font-size:.7rem;font-weight:800;color:white}.orbit-1{top:-1rem;left:10.75rem}.orbit-2{top:6rem;right:-1rem}.orbit-3{bottom:2rem;right:2rem}.orbit-4{bottom:2rem;left:2rem}.orbit-5{top:6rem;left:-1rem}
-@media(max-width:640px){.listing-visual{height:12rem}.category-card{min-height:9.25rem}.logo-mark{width:2.35rem;height:2.35rem}.apg-brand{padding:.1rem}.apg-brand-logo{width:7.75rem;height:2.45rem}}
+@media(max-width:640px){.listing-visual{height:12rem}.category-card{min-height:9.25rem}.logo-mark{width:2.35rem;height:2.35rem}.apg-brand{padding:.1rem}.apg-brand-logo{width:7.75rem;height:2.45rem}.apg-header-logo-image{width:8.25rem;height:2.625rem}}
 
 /* Modern workshop finish */
 .mechanical-shell { background-color:#e9edf1; background-image:linear-gradient(90deg,rgba(15,23,42,.025) 1px,transparent 1px); background-size:48px 100%; }

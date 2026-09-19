@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { ArrowLeft, LockKeyhole, MessageCircle, UserRound } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
+import ApgLogo from "@/components/apg-logo";
 import ReplyBox from "./reply-box";
 import BlockUser from "./block-user";
 import TransactionReview from "./transaction-review";
@@ -67,7 +68,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
     <main className="messages-page">
       <header className="simple-header messages-header">
         <div className="shell nav-wrap">
-          <Link href="/" className="brand"><span className="brand-mark">APG</span><span className="brand-copy"><strong>Anypart</strong><small>&amp; Gear</small></span></Link>
+          <ApgLogo priority />
           <Link href="/account" className="messages-account-link">My account</Link>
         </div>
       </header>

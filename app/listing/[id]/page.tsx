@@ -8,6 +8,7 @@ import SellerBadges from "@/components/seller-badges";
 import ContactSeller from "./contact-seller";
 import ReportListing from "./report-listing";
 import ListingGallery from "./listing-gallery";
+import ApgLogo from "@/components/apg-logo";
 
 async function findListing(id: string): Promise<Listing | null> {
   if (!hasSupabaseConfig()) return null;
@@ -37,7 +38,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 
   return (
     <main>
-      <header className="simple-header"><div className="shell nav-wrap"><Link href="/" className="brand"><span className="brand-mark">APG</span><span className="brand-copy"><strong>Anypart</strong><small>&amp; Gear</small></span></Link><Link href="/#listings">Back to listings</Link></div></header>
+      <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/#listings">Back to listings</Link></div></header>
       <div className="shell page-shell"><div className="detail-grid">
         <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />
         <div className="detail-info">
