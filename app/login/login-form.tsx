@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 
 export default function LoginForm({ nextPath, emailVerified = false }: { nextPath: string; emailVerified?: boolean }) {
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "recover">("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +20,17 @@ export default function LoginForm({ nextPath, emailVerified = false }: { nextPat
       setMessage("The marketplace database is still being connected. Please try again shortly."); setLoading(false); return;
     }
     const supabase = createClient();
-    if (mode === "signup") {
+    if (mode === "recover") {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+      });
+      if (error) {
+        setMessage("The reset email could not be sent. Please wait a moment and try again.");
+      } else {
+        setMessageType("success");
+        setMessage("If an APG account uses that email, a secure password-reset link is on its way.");
+      }
+    } else if (mode === "signup") {
       const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name }, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}` } });
       if (error) {
         setMessage(error.message);
@@ -43,15 +53,16 @@ export default function LoginForm({ nextPath, emailVerified = false }: { nextPat
     <form className="login-form" onSubmit={submit}>
       {mode === "signup" && <div className="field"><label htmlFor="name">Full name</label><input id="name" required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" /></div>}
       <div className="field"><label htmlFor="email">Email address</label><input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></div>
-      <div className="field"><label htmlFor="password">Password</label><input id="password" type="password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} /></div>
+      {mode !== "recover" && <div className="field"><label htmlFor="password">Password</label><input id="password" type="password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} /></div>}
       {emailVerified && mode === "signin" && !message && <p className="form-message success">Your email is confirmed. Sign in below to continue.</p>}
       {message && <p className={`form-message ${messageType}`}>{message}</p>}
       {waitingForVerification ? (
         <button className="button" type="button" onClick={() => { setMode("signin"); setWaitingForVerification(false); setMessage(""); }}>I verified my email — Sign in</button>
       ) : (
-        <button className="button" disabled={loading}>{loading ? "Please wait..." : mode === "signin" ? "Sign in" : "Create account"}</button>
+        <button className="button" disabled={loading}>{loading ? "Please wait..." : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>
       )}
-      <button className="text-button" type="button" onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setMessage(""); }}>{mode === "signin" ? "New here? Create a free account" : "Already have an account? Sign in"}</button>
+      {mode === "signin" && <button className="text-button" type="button" onClick={() => { setMode("recover"); setMessage(""); }}>Forgot your password?</button>}
+      <button className="text-button" type="button" onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setMessage(""); }}>{mode === "signin" ? "New here? Create a free account" : "Back to sign in"}</button>
       <p className="legal-note">By continuing, you agree to use Anypart &amp; Gear safely and honestly. Sellers control payment, pickup and delivery.</p>
     </form>
   );
