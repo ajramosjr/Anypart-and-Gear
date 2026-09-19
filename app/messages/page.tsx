@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowLeft, LockKeyhole, UserRound } from "lucide-react";
+import { ArrowLeft, LockKeyhole, MessageCircle, UserRound } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ReplyBox from "./reply-box";
 import BlockUser from "./block-user";
 import TransactionReview from "./transaction-review";
+import MessageLive from "./message-live";
 
-type Message = { id: string; body: string; sender_id: string; created_at: string };
+type Message = { id: string; body: string; sender_id: string; created_at: string; read_at: string | null };
 type Conversation = {
   id: string;
+  listing_id: string | null;
   buyer_id: string;
   seller_id: string;
   shop_id: string | null;
@@ -20,18 +22,25 @@ type Conversation = {
 };
 type Transaction = { id: string; conversation_id: string; buyer_confirmed_at: string | null; seller_confirmed_at: string | null; completed_at: string | null };
 
-export default async function MessagesPage() {
+function conversationSubject(conversation: Conversation) {
+  return conversation.listings?.title || conversation.shops?.name || "APG conversation";
+}
+
+export default async function MessagesPage({ searchParams }: { searchParams: Promise<{ chat?: string }> }) {
   const user = await getUser();
   if (!user) redirect("/login?next=/messages");
 
   const supabase = await createClient();
   const { data } = await supabase
     .from("conversations")
-    .select("id,buyer_id,seller_id,shop_id,updated_at,listings(title),shops(name),messages(id,body,sender_id,created_at)")
+    .select("id,listing_id,buyer_id,seller_id,shop_id,updated_at,listings(title),shops(name),messages(id,body,sender_id,created_at,read_at)")
     .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
     .order("updated_at", { ascending: false });
 
-  const conversations = (data || []) as unknown as Conversation[];
+  const conversations = ((data || []) as unknown as Conversation[]).map((conversation) => ({
+    ...conversation,
+    messages: [...conversation.messages].sort((a, b) => a.created_at.localeCompare(b.created_at)),
+  }));
   const participantIds = [...new Set(conversations.flatMap((item) => [item.buyer_id, item.seller_id]))];
   const { data: profiles } = participantIds.length
     ? await supabase.from("profiles").select("id,full_name").in("id", participantIds)
@@ -49,6 +58,10 @@ export default async function MessagesPage() {
     ? await supabase.from("reviews").select("transaction_id").eq("reviewer_id", user.id).in("transaction_id", transactionIds)
     : { data: [] };
   const reviewedTransactions = new Set((reviews || []).map((review) => review.transaction_id));
+  const requestedChat = (await searchParams).chat;
+  const requestedConversation = conversations.find((conversation) => conversation.id === requestedChat);
+  const selected = requestedConversation || conversations[0];
+  const mobileChatOpen = Boolean(requestedConversation);
 
   return (
     <main className="messages-page">
@@ -61,42 +74,56 @@ export default async function MessagesPage() {
       <div className="shell page-shell messages-shell">
         <div className="messages-intro">
           <Link href="/#listings" className="messages-back"><ArrowLeft size={16} /> Marketplace</Link>
-          <div>
-            <span className="kicker">Private conversations</span>
-            <h1 className="page-title">Messages</h1>
-          </div>
-          <p className="privacy-note"><LockKeyhole size={17} /><span>Your contact details stay private. Other members only see your display name.</span></p>
+          <div><span className="kicker">APG Messages</span><h1 className="page-title">Inbox</h1></div>
+          <p className="privacy-note"><LockKeyhole size={17} /><span>Chat using display names. Your phone number and email stay private.</span></p>
         </div>
-        {conversations.length ? (
-          <div className="conversation-list">
-            {conversations.map((conversation) => {
-              const otherId = conversation.buyer_id === user.id ? conversation.seller_id : conversation.buyer_id;
+        {conversations.length && selected ? (
+          <div className={`inbox-layout${mobileChatOpen ? " has-chat" : ""}`}>
+            <aside className="inbox-sidebar" aria-label="Conversations">
+              <div className="inbox-sidebar-title"><strong>Conversations</strong><span>{conversations.length}</span></div>
+              <div className="inbox-threads">
+                {conversations.map((conversation) => {
+                  const otherId = conversation.buyer_id === user.id ? conversation.seller_id : conversation.buyer_id;
+                  const otherName = names.get(otherId) || "Member";
+                  const last = conversation.messages.at(-1);
+                  const unread = conversation.messages.filter((message) => message.sender_id !== user.id && !message.read_at).length;
+                  return <Link href={`/messages?chat=${conversation.id}`} className={`inbox-thread${selected.id === conversation.id ? " active" : ""}`} key={conversation.id}>
+                    <span className="thread-avatar"><UserRound size={19}/></span>
+                    <span className="thread-copy"><span><strong>{otherName}</strong><time>{last ? new Date(last.created_at).toLocaleDateString([], { month: "short", day: "numeric" }) : ""}</time></span><small>{conversationSubject(conversation)}</small><p>{last?.body || "Start the conversation"}</p></span>
+                    {unread > 0 && <b className="unread-badge" aria-label={`${unread} unread messages`}>{unread}</b>}
+                  </Link>;
+                })}
+              </div>
+            </aside>
+            {(() => {
+              const otherId = selected.buyer_id === user.id ? selected.seller_id : selected.buyer_id;
               const otherName = names.get(otherId) || "Member";
-              const messages = [...conversation.messages].sort((a, b) => a.created_at.localeCompare(b.created_at));
-              return (
-                <section className="conversation" key={conversation.id}>
-                  <div className="conversation-heading">
-                    <div className="conversation-person">
-                      <span className="conversation-avatar"><UserRound size={21} /></span>
-                      <div><small>Conversation with</small><h2>{otherName}</h2></div>
-                    </div>
-                    <BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/>
-                  </div>
-                  <div className="conversation-subject"><small>About this listing</small><strong>{conversation.listings?.title || conversation.shops?.name || "Marketplace conversation"}</strong></div>
-                  <div className="message-stack">
-                    {messages.map((message) => {
-                      const mine = message.sender_id === user.id;
-                      return <div className={mine ? "message mine" : "message"} key={message.id}><b>{mine ? "You" : otherName}</b><p>{message.body}</p><small>{new Date(message.created_at).toLocaleString()}</small></div>;
-                    })}
-                  </div>
-                  <TransactionReview conversationId={conversation.id} userId={user.id} otherId={otherId} otherName={otherName} role={conversation.buyer_id === user.id ? "buyer" : "seller"} transaction={transactions.get(conversation.id)} reviewed={Boolean(transactions.get(conversation.id) && reviewedTransactions.has(transactions.get(conversation.id)!.id))}/>
-                  {blockedIds.has(otherId)?<p className="blocked-note">You blocked this member. Unblock them to send another message.</p>:<ReplyBox conversationId={conversation.id} />}
-                </section>
-              );
-            })}
+              return <section className="conversation inbox-chat">
+                <MessageLive conversationId={selected.id}/>
+                <div className="conversation-heading">
+                  <Link href="/messages" className="chat-back" aria-label="Back to conversations"><ArrowLeft size={20}/></Link>
+                  <div className="conversation-person"><span className="conversation-avatar"><UserRound size={21}/></span><div><small>APG conversation</small><h2>{otherName}</h2></div></div>
+                  <BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/>
+                </div>
+                <div className="conversation-subject"><MessageCircle size={14}/><small>Connected through</small><strong>{conversationSubject(selected)}</strong></div>
+                <div className="message-stack">
+                  {selected.messages.map((message) => {
+                    const mine = message.sender_id === user.id;
+                    return <div className={mine ? "message mine" : "message"} key={message.id}><b>{mine ? "You" : otherName}</b><p>{message.body}</p><small>{new Date(message.created_at).toLocaleString()}</small></div>;
+                  })}
+                </div>
+                {selected.listing_id && (
+                  <TransactionReview conversationId={selected.id} userId={user.id} otherId={otherId} otherName={otherName} role={selected.buyer_id === user.id ? "buyer" : "seller"} transaction={transactions.get(selected.id)} reviewed={Boolean(transactions.get(selected.id) && reviewedTransactions.has(transactions.get(selected.id)!.id))}/>
+                )}
+                {blockedIds.has(otherId)
+                  ? <p className="blocked-note">You blocked this member. Unblock them to send another message.</p>
+                  : <ReplyBox conversationId={selected.id}/>
+                }
+              </section>;
+            })()}
           </div>
         ) : (
-          <div className="empty-state"><h3>No messages yet</h3><p>Open a listing and tap Contact seller to start a private conversation.</p><Link className="button" href="/#listings">Browse listings</Link></div>
+          <div className="empty-state inbox-empty"><MessageCircle size={44}/><h3>Your APG inbox is ready</h3><p>Use Contact seller on a listing to safely begin a conversation. After that, keep chatting here—even if the listing is sold.</p><Link className="button" href="/#listings">Browse listings</Link></div>
         )}
       </div>
     </main>

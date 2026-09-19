@@ -291,6 +291,10 @@ drop policy if exists "Participants view messages" on public.messages;
 create policy "Participants view messages" on public.messages for select to authenticated using (exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
 drop policy if exists "Participants send messages" on public.messages;
 create policy "Participants send messages" on public.messages for insert to authenticated with check ((select auth.uid()) = sender_id and exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id) and not exists (select 1 from public.blocks b where (b.blocker_id=c.buyer_id and b.blocked_id=c.seller_id) or (b.blocker_id=c.seller_id and b.blocked_id=c.buyer_id))));
+revoke update on table public.messages from authenticated;
+grant update (read_at) on table public.messages to authenticated;
+drop policy if exists "Recipients mark messages read" on public.messages;
+create policy "Recipients mark messages read" on public.messages for update to authenticated using (sender_id <> (select auth.uid()) and exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id))) with check (sender_id <> (select auth.uid()) and exists (select 1 from public.conversations c where c.id = conversation_id and (select auth.uid()) in (c.buyer_id, c.seller_id)));
 
 drop policy if exists "Users submit reports" on public.reports;
 create policy "Users submit reports" on public.reports for insert to authenticated with check ((select auth.uid()) = reporter_id);
@@ -422,3 +426,13 @@ create policy "Admins can update tech articles" on public.tech_articles for upda
 drop policy if exists "Admins can delete tech articles" on public.tech_articles;
 create policy "Admins can delete tech articles" on public.tech_articles for delete to authenticated using ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 create index if not exists tech_articles_published_idx on public.tech_articles (published_at desc) where status = 'published';
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'messages'
+  ) then
+    alter publication supabase_realtime add table public.messages;
+  end if;
+end $$;
