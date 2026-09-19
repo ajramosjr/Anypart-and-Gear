@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, ShieldCheck, Star } from "lucide-react";
@@ -15,6 +16,28 @@ async function findListing(id: string): Promise<Listing | null> {
   const supabase = await createClient();
   const { data } = await supabase.from("listings").select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,video_url,trade,created_at").eq("id", id).eq("status", "active").single();
   return data as Listing | null;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const listing = await findListing(id);
+  if (!listing) return { title: "Listing unavailable", robots: { index: false, follow: false } };
+  const url = `/listing/${listing.id}`;
+  const description = listing.description.length > 155 ? `${listing.description.slice(0, 152).trim()}...` : listing.description;
+  return {
+    title: `${listing.title} | Any Part & Gear`,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      url,
+      title: listing.title,
+      description,
+      siteName: "Any Part & Gear",
+      images: [{ url: listing.image_url, alt: listing.title }],
+    },
+    twitter: { card: "summary_large_image", title: listing.title, description, images: [listing.image_url] },
+  };
 }
 
 export default async function ListingPage({ params }: { params: Promise<{ id: string }> }) {

@@ -37,8 +37,9 @@ Anypart & Gear is a responsive marketplace for parts, tools, vehicles, machinery
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `NEXT_PUBLIC_SITE_URL` (the production URL)
+- `GOOGLE_SITE_VERIFICATION` (the HTML-tag token from Google Search Console)
 
-The repository uses Next.js App Router and deploys normally through Vercel's GitHub integration.
+The repository uses Next.js App Router and deploys normally through Vercel's GitHub integration. Vercel Web Analytics and Speed Insights are included in the root layout.
 
 ## Verification
 
@@ -47,4 +48,3 @@ npm run lint
 npm run typecheck
 npm run build
 ```
-
