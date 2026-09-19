@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { LockKeyhole, UserRound } from "lucide-react";
+import { ArrowLeft, LockKeyhole, UserRound } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ReplyBox from "./reply-box";
@@ -51,18 +51,21 @@ export default async function MessagesPage() {
   const reviewedTransactions = new Set((reviews || []).map((review) => review.transaction_id));
 
   return (
-    <main>
-      <header className="simple-header">
+    <main className="messages-page">
+      <header className="simple-header messages-header">
         <div className="shell nav-wrap">
           <Link href="/" className="brand"><span className="brand-mark">APG</span><span className="brand-copy"><strong>Anypart</strong><small>&amp; Gear</small></span></Link>
-          <Link href="/account">My account</Link>
+          <Link href="/account" className="messages-account-link">My account</Link>
         </div>
       </header>
-      <div className="shell page-shell">
-        <div className="page-intro">
-          <span className="kicker">Private conversations</span>
-          <h1 className="page-title">Messages</h1>
-          <p className="privacy-note"><LockKeyhole size={16} /> Other members see your display name only—never your email address or phone number.</p>
+      <div className="shell page-shell messages-shell">
+        <div className="messages-intro">
+          <Link href="/#listings" className="messages-back"><ArrowLeft size={16} /> Marketplace</Link>
+          <div>
+            <span className="kicker">Private conversations</span>
+            <h1 className="page-title">Messages</h1>
+          </div>
+          <p className="privacy-note"><LockKeyhole size={17} /><span>Your contact details stay private. Other members only see your display name.</span></p>
         </div>
         {conversations.length ? (
           <div className="conversation-list">
@@ -73,9 +76,13 @@ export default async function MessagesPage() {
               return (
                 <section className="conversation" key={conversation.id}>
                   <div className="conversation-heading">
-                    <span className="conversation-avatar"><UserRound size={20} /></span>
-                    <div><small>Conversation with</small><h2>{otherName}</h2><p>{conversation.listings?.title || conversation.shops?.name || "Marketplace conversation"}</p></div><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/>
+                    <div className="conversation-person">
+                      <span className="conversation-avatar"><UserRound size={21} /></span>
+                      <div><small>Conversation with</small><h2>{otherName}</h2></div>
+                    </div>
+                    <BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/>
                   </div>
+                  <div className="conversation-subject"><small>About this listing</small><strong>{conversation.listings?.title || conversation.shops?.name || "Marketplace conversation"}</strong></div>
                   <div className="message-stack">
                     {messages.map((message) => {
                       const mine = message.sender_id === user.id;
