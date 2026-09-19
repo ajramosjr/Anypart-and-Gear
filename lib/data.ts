@@ -23,6 +23,7 @@ export const categories = [
   { name: "Trucks", icon: "🛻", description: "Pickup, diesel & commercial parts" },
   { name: "Trailers", icon: "🚛", description: "Utility, boat, cargo & equipment trailers" },
   { name: "Tools", icon: "🧰", description: "Hand, power & diagnostic tools" },
+  { name: "RC & Hobby", icon: "🎮", description: "RC vehicles, drones, parts & upgrades" },
   { name: "Machinery", icon: "🚜", description: "Construction and shop equipment" },
   { name: "Workwear & Apparel", icon: "🥾", description: "Workwear, safety gear & apparel" },
   { name: "Vehicles for Sale", icon: "🔑", description: "Cars, trucks, bikes & projects" },

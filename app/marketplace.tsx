@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, Bike, BookOpen, Car, ChevronRight, CirclePlay, Drill, Factory, FileSpreadsheet, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
+import { Anchor, Bike, BookOpen, Car, ChevronRight, CirclePlay, Drill, Factory, FileSpreadsheet, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
@@ -19,11 +19,12 @@ const categories = [
   { name: "Motorcycles", icon: Bike, detail: "Street, dirt & touring" }, { name: "Machinery", icon: Factory, detail: "Heavy equipment parts" },
   { name: "Trailers", icon: Truck, detail: "Utility, boat & cargo" },
   { name: "Tools", icon: Drill, detail: "Shop & jobsite tools" }, { name: "Other", icon: PackageOpen, detail: "Everything in between" },
+  { name: "RC & Hobby", icon: Gamepad2, detail: "RC vehicles, drones & upgrades" },
   { name: "Workwear & Apparel", icon: Shirt, detail: "Work clothes & safety gear" },
   { name: "Vehicles for Sale", icon: Truck, detail: "Cars, trucks & equipment" },
 ];
 
-const categoryIcons: Record<string, typeof Car> = { "Car Parts": Car, "Boat Parts": Anchor, "Boats for Sale": Anchor, Motorcycles: Bike, Trucks: Truck, Machinery: Factory, Trailers: Truck, Tools: Drill, "Workwear & Apparel": Shirt, Other: PackageOpen, "Vehicles for Sale": Truck };
+const categoryIcons: Record<string, typeof Car> = { "Car Parts": Car, "Boat Parts": Anchor, "Boats for Sale": Anchor, Motorcycles: Bike, Trucks: Truck, Machinery: Factory, Trailers: Truck, Tools: Drill, "RC & Hobby": Gamepad2, "Workwear & Apparel": Shirt, Other: PackageOpen, "Vehicles for Sale": Truck };
 
 function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; toggle: () => void }) {
   const Icon=categoryIcons[item.category]||PackageOpen;
