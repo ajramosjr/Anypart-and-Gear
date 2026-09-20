@@ -12,7 +12,7 @@ function listingValues(body: Record<string, unknown>) {
   const condition = typeof body.condition === "string" ? body.condition : "";
   const location = typeof body.location === "string" ? body.location.trim() : "";
   const price = Number(body.price);
-  const trade = body.trade === true;
+  const trade = body.trade === true;\n  const allowOffers = body.allowOffers === true;
   const imageUrls = Array.isArray(body.imageUrls) ? body.imageUrls.filter((url): url is string => typeof url === "string") : [];
   const videoUrl = body.videoUrl === null || typeof body.videoUrl === "string" ? body.videoUrl : null;
   if (title.length < 3 || title.length > 100) return { error: "Title must be between 3 and 100 characters." };
@@ -24,7 +24,7 @@ function listingValues(body: Record<string, unknown>) {
   if (imageUrls.length < 1 || imageUrls.length > 6) return { error: "Keep or add between 1 and 6 photos." };
   if (imageUrls.some((url) => !url.startsWith("https://") || url.length > 2048 || !url.includes("/storage/v1/object/public/part-images/"))) return { error: "Choose valid listing photos." };
   if (videoUrl && (!videoUrl.startsWith("https://") || videoUrl.length > 2048 || !videoUrl.includes("/storage/v1/object/public/listing-videos/"))) return { error: "Choose a valid listing video." };
-  return { values: { title, description, category, condition, location, price, trade, image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl } };
+  return { values: { title, description, category, condition, location, price, trade, allow_offers: allowOffers, image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl } };
 }
 
 async function updateStatus(id: string, status: "active" | "sold" | "removed") {
