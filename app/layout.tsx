@@ -46,7 +46,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
-      <head><meta name="theme-color" content="#0b2345" /></head>
+      <head>
+        <meta name="theme-color" content="#0b2345" />
+        <meta name="impact-site-verification" {...{ value: "bcd74494-e5d4-4dce-996c-b986ed203c39" }} />
+      </head>
       <body>
         {children}
         <Analytics />
