@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: ["/", "/listing/", "/shops", "/tech-wire/", "/safety", "/support"],
       disallow: ["/account", "/admin", "/api/", "/login", "/messages", "/reset-password", "/sell"],
     },
-    sitemap: "https://www.any-partandgear.com/sitemap.xml",
-    host: "https://www.any-partandgear.com",
+    sitemap: "https://www.anypartandgear.com/sitemap.xml",
+    host: "https://www.anypartandgear.com",
   };
 }

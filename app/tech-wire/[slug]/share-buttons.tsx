@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function ShareButtons({ title, slug }: { title: string; slug: string }) {
   const [copied, setCopied] = useState(false);
-  const url = `https://www.any-partandgear.com/tech-wire/${slug}`;
+  const url = `https://www.anypartandgear.com/tech-wire/${slug}`;
   const share = async () => {
     if (navigator.share) { await navigator.share({ title, url }); return; }
     await navigator.clipboard.writeText(url); setCopied(true); window.setTimeout(() => setCopied(false), 1800);

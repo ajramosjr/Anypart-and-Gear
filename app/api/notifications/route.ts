@@ -12,7 +12,7 @@ function escapeHtml(value: string) {
 }
 
 function emailHtml(details: EmailDetails) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.any-partandgear.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.anypartandgear.com";
   return `<!doctype html><html><body style="margin:0;background:#f1f4f7;font-family:Arial,sans-serif;color:#071a35"><div style="max-width:560px;margin:0 auto;padding:32px 18px"><div style="background:#071a35;color:#f6b91b;padding:18px 22px;font-size:20px;font-weight:800">ANY PART &amp; GEAR</div><div style="background:#fff;padding:28px 22px;border:1px solid #dce2ea"><h1 style="font-size:24px;margin:0 0 14px">${escapeHtml(details.heading)}</h1><p style="line-height:1.65;color:#475569">${escapeHtml(details.body)}</p><a href="${siteUrl}/messages" style="display:inline-block;margin-top:10px;background:#f6b91b;color:#071a35;padding:12px 18px;border-radius:6px;text-decoration:none;font-weight:800">Open private messages</a><p style="margin-top:24px;font-size:12px;color:#7b8794">For your safety, Any Part &amp; Gear never includes private phone numbers or email addresses in marketplace messages. Manage email alerts in your account.</p></div></div></body></html>`;
 }
 

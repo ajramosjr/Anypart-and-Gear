@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.any-partandgear.com"),
+  metadataBase: new URL("https://www.anypartandgear.com"),
   title: "Any Part & Gear | Parts, Gear and Vehicles",
   description: "Buy and sell parts for cars, boats, motorcycles, machinery, tools, workwear and more.",
   openGraph: {
