@@ -11,11 +11,11 @@ import ReportListing from "./report-listing";
 import ListingGallery from "./listing-gallery";
 import ApgLogo from "@/components/apg-logo";
 
-async function findListing(id: string): Promise<Listing | null> {
+async function findListing(id: string): Promise<(Listing & { allow_offers: boolean }) | null> {
   if (!hasSupabaseConfig()) return null;
   const supabase = await createClient();
-  const { data } = await supabase.from("listings").select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,video_url,trade,created_at").eq("id", id).eq("status", "active").single();
-  return data as Listing | null;
+  const { data } = await supabase.from("listings").select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,video_url,trade,allow_offers,created_at").eq("id", id).eq("status", "active").single();
+  return data as (Listing & { allow_offers: boolean }) | null;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -73,7 +73,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
             <span><b>Trade</b>{listing.trade ? "Considered" : "Not listed"}</span>
           </div>
           <h3>About this item</h3><p className="detail-description">{listing.description}</p>
-          <ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} />
+          <ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={listing.allow_offers} listingPrice={listing.price} />
           <p className="detail-warning"><ShieldCheck size={16} /> Anypart &amp; Gear does not process payments or guarantee fitment. Inspect the item, verify the seller and use a safe meeting place before paying.</p>
           <ReportListing listingId={String(listing.id)} currentUserId={user?.id} isOwner={Boolean(user?.id && listing.user_id === user.id)} reportable={reportable}/>
         </div>
