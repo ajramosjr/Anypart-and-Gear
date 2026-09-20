@@ -32,6 +32,7 @@ create table if not exists public.listings (
   video_url text check (video_url is null or char_length(video_url) <= 2048),
   trade boolean not null default false,
   trade_type text,
+  allow_offers boolean not null default true,
   status text not null default 'active' check (status in ('draft','active','sold','removed')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -91,11 +92,15 @@ create table if not exists public.messages (
   conversation_id uuid not null references public.conversations(id) on delete cascade,
   sender_id uuid not null references auth.users(id) on delete cascade,
   body text not null check (char_length(body) between 1 and 2000),
+  message_type text not null default 'text' check (message_type in ('text','offer','offer_counter','offer_accept','offer_decline')),
+  offer_amount numeric(12,2),
+  related_message_id uuid references public.messages(id) on delete set null,
   read_at timestamptz,
   created_at timestamptz not null default now()
 );
 
 create index if not exists messages_conversation_idx on public.messages(conversation_id, created_at);
+create index if not exists messages_related_offer_idx on public.messages(related_message_id) where related_message_id is not null;
 create index if not exists messages_sender_idx on public.messages(sender_id);
 
 create table if not exists public.reports (
