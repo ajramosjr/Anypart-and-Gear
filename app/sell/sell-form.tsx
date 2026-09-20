@@ -43,6 +43,7 @@ export default function SellForm({ userId, sellerName }: { userId: string; selle
     <div className="field full"><label htmlFor="description">Description</label><textarea id="description" name="description" required maxLength={2500} placeholder="Include measurements, fitment details, known issues and pickup information." /></div>
     <div className="field full"><label htmlFor="images">Photos (up to 6)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple required /></div>
     <div className="field full"><label htmlFor="video">Video (optional)</label><input id="video" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" /><small>One MP4, WebM or MOV video, up to 50 MB.</small></div>
-    <div className="field full checkbox-field"><label><input type="checkbox" name="trade" /> I will consider a trade</label></div>\n    <div className="field full checkbox-field"><label><input type="checkbox" name="allowOffers" defaultChecked /> Buyers can make offers on this listing</label></div>
+    <div className="field full checkbox-field"><label><input type="checkbox" name="trade" /> I will consider a trade</label></div>
+    <div className="field full checkbox-field"><label><input type="checkbox" name="allowOffers" defaultChecked /> Buyers can make offers on this listing</label></div>
   </div><div className="form-actions"><button className="button" disabled={loading}>{loading ? "Publishing..." : "Publish listing"}</button>{message && <span className="form-message error">{message}</span>}</div></form>;
 }
