@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { suggestListingCategory } from "@/lib/category-check";
 
 const MAX_ACTIVE_LISTINGS = 100;
 
@@ -88,6 +89,19 @@ export default function BulkUpload({
         status: "active",
       };
     });
+
+    const mismatches = rows.map((row, index) => ({
+      row: index + 2,
+      selected: row.category,
+      suggested: suggestListingCategory(row.title, row.description, row.category),
+    })).filter((item) => item.suggested);
+
+    if (mismatches.length) {
+      const examples = mismatches.slice(0, 5).map((item) => `Row ${item.row}: ${item.selected} → ${item.suggested}`).join("; ");
+      setMessage(`APG found ${mismatches.length} possible category ${mismatches.length === 1 ? "mistake" : "mistakes"}. Please review the CSV before uploading. ${examples}${mismatches.length > 5 ? "; and more" : ""}.`);
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { error } = await supabase.from("listings").insert(rows);
