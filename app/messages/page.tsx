@@ -8,8 +8,9 @@ import ReplyBox from "./reply-box";
 import BlockUser from "./block-user";
 import TransactionReview from "./transaction-review";
 import MessageLive from "./message-live";
+import OfferActions from "./offer-actions";
 
-type Message = { id: string; body: string; sender_id: string; created_at: string; read_at: string | null };
+type Message = { id: string; body: string; sender_id: string; created_at: string; read_at: string | null; message_type: "text" | "offer" | "offer_counter" | "offer_accept" | "offer_decline"; offer_amount: number | null; related_message_id: string | null };
 type Conversation = {
   id: string;
   listing_id: string | null;
@@ -34,7 +35,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
   const supabase = await createClient();
   const { data } = await supabase
     .from("conversations")
-    .select("id,listing_id,buyer_id,seller_id,shop_id,updated_at,listings(title),shops(name),messages(id,body,sender_id,created_at,read_at)")
+    .select("id,listing_id,buyer_id,seller_id,shop_id,updated_at,listings(title),shops(name),messages(id,body,sender_id,created_at,read_at,message_type,offer_amount,related_message_id)")
     .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
     .order("updated_at", { ascending: false });
 
@@ -99,6 +100,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
             {(() => {
               const otherId = selected.buyer_id === user.id ? selected.seller_id : selected.buyer_id;
               const otherName = names.get(otherId) || "Member";
+              const respondedOfferIds = new Set(selected.messages.filter((message) => ["offer_accept", "offer_decline", "offer_counter"].includes(message.message_type) && message.related_message_id).map((message) => message.related_message_id as string));
               return <section className="conversation inbox-chat">
                 <MessageLive conversationId={selected.id}/>
                 <div className="conversation-heading">
@@ -110,7 +112,9 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                 <div className="message-stack">
                   {selected.messages.map((message) => {
                     const mine = message.sender_id === user.id;
-                    return <div className={mine ? "message mine" : "message"} key={message.id}><b>{mine ? "You" : otherName}</b><p>{message.body}</p><small>{new Date(message.created_at).toLocaleString()}</small></div>;
+                    const isOffer = message.message_type === "offer" || message.message_type === "offer_counter";
+                    const canAct = isOffer && !mine && !respondedOfferIds.has(message.id);
+                    return <div className={`${mine ? "message mine" : "message"}${isOffer ? " offer-message" : ""}`} key={message.id}><b>{mine ? "You" : otherName}{isOffer ? message.message_type === "offer_counter" ? " · Counteroffer" : " · Offer" : ""}</b>{isOffer && message.offer_amount ? <strong className="offer-amount">${Number(message.offer_amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong> : <p>{message.body}</p>}<small>{new Date(message.created_at).toLocaleString()}</small>{canAct && message.offer_amount && <OfferActions conversationId={selected.id} messageId={message.id} amount={Number(message.offer_amount)} canCounter={user.id === selected.seller_id && message.message_type === "offer"} />}</div>;
                   })}
                 </div>
                 {selected.listing_id && (
