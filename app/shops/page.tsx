@@ -41,7 +41,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
         <p className="mt-3 text-sm leading-6 text-slate-600">{shop.description}</p>
         <div className="mt-4 grid gap-2 border-t border-slate-100 pt-4 text-sm text-slate-600"><span className="flex items-center gap-2"><MapPin className="size-4"/>{shop.location} · {shop.postal_code}</span><span className="flex items-center gap-2"><Clock3 className="size-4"/>{shop.hours}</span></div>
         {shop.services.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{shop.services.map((service) => <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700" key={service}>{service}</span>)}</div>}
-        <div className="mt-5 flex flex-wrap gap-2">{safeWebsite(shop.website) && <a className="button button-small button-secondary" href={safeWebsite(shop.website)!} target="_blank" rel="noopener noreferrer">Website</a>}<ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id}/></div>
+        <div className="mt-5 flex flex-wrap gap-2"><Link className="button button-small" href={`/shops/${shop.id}`}>View business profile</Link>{safeWebsite(shop.website) && <a className="button button-small button-secondary" href={safeWebsite(shop.website)!} target="_blank" rel="noopener noreferrer nofollow">Visit Business Website</a>}<ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id}/></div>
       </article>)}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h3>No shops found yet</h3><p>Try another city or ZIP code, or add the first local business.</p></div>}
     </div>
   </main>;
