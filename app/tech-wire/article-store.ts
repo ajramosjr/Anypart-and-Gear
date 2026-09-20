@@ -30,8 +30,12 @@ function mapArticle(row: DatabaseTechArticle): TechArticle {
   return { slug: row.slug, imageUrl: row.image_url || undefined, category: row.category, title: row.title, summary: row.summary, readTime: row.read_time, published: displayDate(row.published_at), sections: row.sections, sources: row.sources };
 }
 
+const builtInArticleCovers: Record<string, string> = {
+  "best-engine-upgrades-that-add-power-without-ruining-reliability": "/tech-wire/engine-upgrades-reliability-cover.webp",
+};
+
 export function getTechArticleImage(article: Pick<TechArticle, "slug" | "imageUrl">) {
-  return article.imageUrl || `/tech-wire/${article.slug}/opengraph-image`;
+  return article.imageUrl || builtInArticleCovers[article.slug] || `/tech-wire/${article.slug}/opengraph-image`;
 }
 
 export async function getPublishedTechArticles(): Promise<TechArticle[]> {
