@@ -1,7 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-import { ExternalLink, FilePenLine, Newspaper, Plus, Save, Trash2, X } from "lucide-react";
+import { ExternalLink, FilePenLine, ImageUp, Newspaper, Plus, Save, Trash2, X } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { DatabaseTechArticle } from "@/app/tech-wire/article-store";
@@ -25,6 +25,37 @@ export default function TechWireEditor({ initialArticles, userId }: { initialArt
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const setField = (field: keyof FormState, value: string) => setForm((current) => current ? { ...current, [field]: value } : current);
+
+  async function uploadCover(file: File) {
+    if (!form) return;
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setMessage("Choose a JPG, PNG or WebP image.");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setMessage("The cover image must be 10 MB or smaller.");
+      return;
+    }
+    setBusy(true);
+    setMessage("Uploading cover photo…");
+    const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const safeName = slugify(form.slug || form.title) || "article";
+    const objectPath = `${userId}/tech-wire/${safeName}-${Date.now()}.${extension}`;
+    const { error } = await supabase.storage.from("part-images").upload(objectPath, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type,
+    });
+    if (error) {
+      setMessage("The cover photo could not be uploaded. Please try again.");
+      setBusy(false);
+      return;
+    }
+    const { data } = supabase.storage.from("part-images").getPublicUrl(objectPath);
+    setField("imageUrl", data.publicUrl);
+    setMessage("Cover photo uploaded. Publish or save the article to keep it.");
+    setBusy(false);
+  }
 
   async function save(status: "draft" | "published") {
     if (!form) return;
@@ -62,7 +93,11 @@ export default function TechWireEditor({ initialArticles, userId }: { initialArt
         <label>Title<input value={form.title} onChange={(event) => { const title = event.target.value; setForm((current) => current ? { ...current, title, slug: current.id ? current.slug : slugify(title) } : current); }} placeholder="Example: New cordless tools worth watching" /></label>
         <div className="form-grid"><label>Category<input value={form.category} onChange={(event) => setField("category", event.target.value)} placeholder="New tool watch" /></label><label>Reading time<input value={form.readTime} onChange={(event) => setField("readTime", event.target.value)} /></label></div>
         <label>Web address<input value={form.slug} onChange={(event) => setField("slug", slugify(event.target.value))} placeholder="new-cordless-tools" /><small>Created automatically from the title.</small></label>
-        <label>Article image link — optional<input type="url" value={form.imageUrl} onChange={(event) => setField("imageUrl", event.target.value)} placeholder="https://…" /><small>Leave blank to use the automatic APG-branded cover.</small></label>
+        <label>Article cover link — optional<input type="url" value={form.imageUrl} onChange={(event) => setField("imageUrl", event.target.value)} placeholder="https://…" /><small>Paste an image link or upload a cover from your phone. Leave blank to use the automatic APG cover.</small></label>
+        <div className="flex flex-wrap gap-2">
+          <label className="button button-small cursor-pointer"><ImageUp size={16} /> {busy ? "Uploading…" : "Upload cover photo"}<input type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" disabled={busy} onChange={(event) => { const file = event.target.files?.[0]; if (file) void uploadCover(file); event.currentTarget.value = ""; }} /></label>
+          {form.imageUrl && <button type="button" className="button button-small button-ghost-dark" disabled={busy} onClick={() => { setField("imageUrl", ""); setMessage("Custom cover removed. The automatic APG cover will be used."); }}><Trash2 size={16} /> Remove cover</button>}
+        </div>
         <div className="admin-image-preview"><img src={form.imageUrl || `/tech-wire/${slugify(form.slug || form.title) || "preview"}/opengraph-image`} alt="Article cover preview" /></div>
         <label>Short summary<textarea value={form.summary} onChange={(event) => setField("summary", event.target.value)} rows={3} placeholder="A short introduction shown on the Tech Wire page." /></label>
         <label>Article content<textarea value={form.content} onChange={(event) => setField("content", event.target.value)} rows={12} placeholder={"Main heading\nWrite the article here.\n\nSecond heading\nContinue the article here."} /><small>Start each section with its heading. Leave a blank line before the next section.</small></label>
