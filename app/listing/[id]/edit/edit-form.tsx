@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { categories } from "@/lib/data";
+import { categoryGuidance, suggestListingCategory } from "@/lib/category-check";
 import { createClient } from "@/lib/supabase/client";
 
 type EditableListing = {
@@ -26,12 +27,26 @@ const allowedImageTypes = ["image/jpeg", "image/png", "image/webp"];
 export default function EditForm({ listing, userId }: { listing: EditableListing; userId: string }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [confirmedMismatch, setConfirmedMismatch] = useState("");
   const [keptImages, setKeptImages] = useState(() =>
     Array.from(new Set([listing.image_url, ...(listing.image_urls || [])].filter(Boolean))),
   );
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setLoading(true); setMessage("");
+    event.preventDefault(); setMessage("");
     const form = new FormData(event.currentTarget);
+    const title = String(form.get("title") || "");
+    const description = String(form.get("description") || "");
+    const selectedCategory = String(form.get("category") || "");
+    const suggestedCategory = suggestListingCategory(title, description, selectedCategory);
+    const mismatchKey = `${title}|${description}|${selectedCategory}|${suggestedCategory || ""}`;
+    if (suggestedCategory && confirmedMismatch !== mismatchKey) {
+      setConfirmedMismatch(mismatchKey);
+      setMessage(`APG category check: this looks like ${suggestedCategory}, but ${selectedCategory} was selected. Change the category, or press Save changes again to confirm ${selectedCategory}.`);
+      setLoading(false);
+      return;
+    }
+    setConfirmedMismatch("");
+    setLoading(true);
     const newImages = (form.getAll("images") as File[]).filter((file) => file.size > 0);
     if (keptImages.length + newImages.length === 0) { setMessage("Keep or add at least one photo."); setLoading(false); return; }
     if (keptImages.length + newImages.length > 6) { setMessage("A listing can have up to 6 photos."); setLoading(false); return; }
@@ -67,7 +82,7 @@ export default function EditForm({ listing, userId }: { listing: EditableListing
   }
   return <form onSubmit={submit}><div className="form-grid">
     <div className="field full"><label htmlFor="title">Listing title</label><input id="title" name="title" defaultValue={listing.title} maxLength={100} required /></div>
-    <div className="field"><label htmlFor="category">Category</label><select id="category" name="category" defaultValue={listing.category} required>{categories.map((item) => <option key={item.name}>{item.name}</option>)}</select></div>
+    <div className="field"><label htmlFor="category">Category</label><select id="category" name="category" defaultValue={listing.category} required>{categories.map((item) => <option key={item.name} value={item.name}>{item.name} — {categoryGuidance[item.name] || item.description}</option>)}</select></div>
     <div className="field"><label htmlFor="condition">Condition</label><select id="condition" name="condition" defaultValue={listing.condition} required><option>New</option><option>Like new</option><option>Good</option><option>Fair</option></select></div>
     <div className="field"><label htmlFor="price">Price</label><input id="price" name="price" type="number" min="0" max="100000000" step="0.01" defaultValue={listing.price} required /></div>
     <div className="field"><label htmlFor="location">Location</label><input id="location" name="location" defaultValue={listing.location} maxLength={120} required /></div>
