@@ -2,13 +2,29 @@
 
 import { FormEvent, useState } from "react";
 import { categories } from "@/lib/data";
+import { categoryGuidance, suggestListingCategory } from "@/lib/category-check";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SellForm({ userId, sellerName }: { userId: string; sellerName: string }) {
   const [message, setMessage] = useState(""); const [loading, setLoading] = useState(false);
+  const [confirmedMismatch, setConfirmedMismatch] = useState("");
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setLoading(true); setMessage("");
-    const form = new FormData(event.currentTarget); const images = form.getAll("images") as File[];
+    event.preventDefault(); setMessage("");
+    const form = new FormData(event.currentTarget);
+    const title = String(form.get("title") || "");
+    const description = String(form.get("description") || "");
+    const selectedCategory = String(form.get("category") || "");
+    const suggestedCategory = suggestListingCategory(title, description, selectedCategory);
+    const mismatchKey = `${title}|${description}|${selectedCategory}|${suggestedCategory || ""}`;
+    if (suggestedCategory && confirmedMismatch !== mismatchKey) {
+      setConfirmedMismatch(mismatchKey);
+      setMessage(`APG category check: this looks like ${suggestedCategory}, but ${selectedCategory} was selected. Change the category, or press Publish listing again to confirm ${selectedCategory}.`);
+      setLoading(false);
+      return;
+    }
+    setConfirmedMismatch("");
+    setLoading(true);
+    const images = form.getAll("images") as File[];
     const supabase = createClient(); const imageUrls: string[] = [];
     for (const image of images.filter((file) => file.size).slice(0, 6)) {
       const extension = image.name.split(".").pop()?.toLowerCase() || "jpg";
@@ -36,7 +52,7 @@ export default function SellForm({ userId, sellerName }: { userId: string; selle
   }
   return <form onSubmit={submit}><div className="form-grid">
     <div className="field full"><label htmlFor="title">Listing title</label><input id="title" name="title" maxLength={100} required placeholder="What are you selling?" /></div>
-    <div className="field"><label htmlFor="category">Category</label><select id="category" name="category" required defaultValue=""><option value="" disabled>Choose a category</option>{categories.map((c) => <option key={c.name}>{c.name}</option>)}</select></div>
+    <div className="field"><label htmlFor="category">Category</label><select id="category" name="category" required defaultValue=""><option value="" disabled>Choose a category</option>{categories.map((c) => <option key={c.name} value={c.name}>{c.name} — {categoryGuidance[c.name] || c.description}</option>)}</select></div>
     <div className="field"><label htmlFor="condition">Condition</label><select id="condition" name="condition" required><option>New</option><option>Like new</option><option>Good</option><option>Fair</option></select></div>
     <div className="field"><label htmlFor="price">Price</label><input id="price" name="price" type="number" min="0" step="0.01" required placeholder="0.00" /></div>
     <div className="field"><label htmlFor="location">Location</label><input id="location" name="location" required placeholder="City, State" /></div>
