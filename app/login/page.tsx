@@ -8,10 +8,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <main className="login-page">
       <div className="login-wrap">
-        <Link href="/" className="login-brand" aria-label="Any-Part and Gear home">
-          <Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="login-brand-logo" priority />
-        </Link>
         <div className="login-card">
+          <Link href="/" className="login-brand login-card-brand" aria-label="Any-Part and Gear home">
+            <Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="login-brand-logo" priority />
+          </Link>
           <h1>{verified === "1" ? "Email verified!" : "Welcome back"}</h1>
           <p>{verified === "1" ? "Your email is confirmed. Sign in once to continue where you left off." : "Sign in securely to post listings, manage your account and contact sellers."}</p>
           <LoginForm nextPath={safeNext} emailVerified={verified === "1"} />
