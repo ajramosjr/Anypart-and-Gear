@@ -15,6 +15,7 @@ type EditableListing = {
   category: string;
   location: string;
   trade: boolean;
+  allow_offers: boolean;
   image_url: string;
   image_urls: string[] | null;
   video_url: string | null;
@@ -83,6 +84,7 @@ export default function EditForm({ listing, userId }: { listing: EditableListing
       <small>{keptImages.length} current photo{keptImages.length === 1 ? "" : "s"}; up to 6 total, 10 MB each.</small>
     </div>
     <div className="field full"><label htmlFor="video">{listing.video_url ? "Replace listing video" : "Add listing video"}</label><input id="video" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" /><small>Optional; one MP4, WebM or MOV video up to 50 MB.</small></div>
-    <div className="field full checkbox-field"><label><input type="checkbox" name="trade" defaultChecked={listing.trade} /> I will consider a trade</label></div>\n    <div className="field full checkbox-field"><label><input type="checkbox" name="allowOffers" defaultChecked={listing.allow_offers} /> Buyers can make offers on this listing</label></div>
+    <div className="field full checkbox-field"><label><input type="checkbox" name="trade" defaultChecked={listing.trade} /> I will consider a trade</label></div>
+    <div className="field full checkbox-field"><label><input type="checkbox" name="allowOffers" defaultChecked={listing.allow_offers} /> Buyers can make offers on this listing</label></div>
   </div><div className="form-actions"><button className="button" disabled={loading}>{loading ? "Saving..." : "Save changes"}</button><Link className="button button-ghost-dark" href={`/listing/${listing.id}`}>Cancel</Link>{message && <span className="form-message error">{message}</span>}</div></form>;
 }
