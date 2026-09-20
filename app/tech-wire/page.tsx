@@ -82,6 +82,21 @@ export default async function TechWirePage() {
       </section>
 
       <article className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <figure className="mb-8 overflow-hidden rounded-xl border border-slate-300 bg-white shadow-xl shadow-slate-900/5">
+          <div className="relative aspect-[3/2] w-full">
+            <Image
+              src="/tech-wire/three-row-wrangler-concept.png"
+              alt="Concept illustration of a white extended three-row Jeep Wrangler with black wheels"
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-cover"
+              priority
+            />
+          </div>
+          <figcaption className="border-t-4 border-amber-400 px-4 py-3 text-xs font-semibold leading-5 text-slate-600 sm:px-6">
+            APG concept illustration of a possible three-row Wrangler—not an announced Jeep production model.
+          </figcaption>
+        </figure>
         <div className="grid gap-8 lg:grid-cols-[1.35fr_.65fr]">
           <div className="rounded-xl border border-slate-300 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-10">
             <div className="flex flex-wrap items-center gap-3"><span className="rounded bg-amber-400 px-3 py-1 text-xs font-black uppercase tracking-wider text-[#071a35]">Featured idea</span><span className="text-xs font-bold uppercase tracking-wider text-slate-500">Vehicle watch</span></div>
