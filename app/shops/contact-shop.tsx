@@ -4,13 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { requestEmailNotification } from "@/lib/notify";
 
-export default function ContactShop({ shopId, ownerId, currentUserId }: { shopId: string; ownerId: string; currentUserId?: string }) {
+export default function ContactShop({ shopId, ownerId, currentUserId, nextPath = "/shops" }: { shopId: string; ownerId: string; currentUserId?: string; nextPath?: string }) {
   const [open, setOpen] = useState(false);
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
-  if (!currentUserId) return <Link className="button button-small" href="/login?next=/shops">Sign in to message</Link>;
+  if (!currentUserId) return <Link className="button button-small" href={`/login?next=${encodeURIComponent(nextPath)}`}>Sign in to message</Link>;
   if (currentUserId === ownerId) return <Link className="button button-small" href="/shops/register">Manage shop</Link>;
 
   async function send() {
