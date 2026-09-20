@@ -12,7 +12,8 @@ function listingValues(body: Record<string, unknown>) {
   const condition = typeof body.condition === "string" ? body.condition : "";
   const location = typeof body.location === "string" ? body.location.trim() : "";
   const price = Number(body.price);
-  const trade = body.trade === true;\n  const allowOffers = body.allowOffers === true;
+  const trade = body.trade === true;
+  const allowOffers = body.allowOffers === true;
   const imageUrls = Array.isArray(body.imageUrls) ? body.imageUrls.filter((url): url is string => typeof url === "string") : [];
   const videoUrl = body.videoUrl === null || typeof body.videoUrl === "string" ? body.videoUrl : null;
   if (title.length < 3 || title.length > 100) return { error: "Title must be between 3 and 100 characters." };
