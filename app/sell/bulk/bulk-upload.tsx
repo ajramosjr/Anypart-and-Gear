@@ -28,10 +28,12 @@ function parseLine(line: string) {
 export default function BulkUpload({
   userId,
   sellerName,
+  shopId,
   initialActiveCount,
 }: {
   userId: string;
   sellerName: string;
+  shopId: string | null;
   initialActiveCount: number;
 }) {
   const [message, setMessage] = useState("");
@@ -76,6 +78,7 @@ export default function BulkUpload({
       const row = Object.fromEntries(headers.map((header, index) => [header, values[index] || ""]));
       return {
         user_id: userId,
+        shop_id: shopId,
         seller_name: sellerName,
         title: row.title,
         description: row.description,

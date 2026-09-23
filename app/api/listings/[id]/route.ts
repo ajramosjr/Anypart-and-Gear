@@ -14,6 +14,7 @@ function listingValues(body: Record<string, unknown>) {
   const price = Number(body.price);
   const trade = body.trade === true;
   const allowOffers = body.allowOffers === true;
+  const shopId = body.shopId === null || body.shopId === "" ? null : typeof body.shopId === "string" ? body.shopId : null;
   const imageUrls = Array.isArray(body.imageUrls) ? body.imageUrls.filter((url): url is string => typeof url === "string") : [];
   const videoUrl = body.videoUrl === null || typeof body.videoUrl === "string" ? body.videoUrl : null;
   if (title.length < 3 || title.length > 100) return { error: "Title must be between 3 and 100 characters." };
@@ -25,7 +26,8 @@ function listingValues(body: Record<string, unknown>) {
   if (imageUrls.length < 1 || imageUrls.length > 6) return { error: "Keep or add between 1 and 6 photos." };
   if (imageUrls.some((url) => !url.startsWith("https://") || url.length > 2048 || !url.includes("/storage/v1/object/public/part-images/"))) return { error: "Choose valid listing photos." };
   if (videoUrl && (!videoUrl.startsWith("https://") || videoUrl.length > 2048 || !videoUrl.includes("/storage/v1/object/public/listing-videos/"))) return { error: "Choose a valid listing video." };
-  return { values: { title, description, category, condition, location, price, trade, allow_offers: allowOffers, image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl } };
+  if (shopId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(shopId)) return { error: "Choose a valid business profile." };
+  return { values: { title, description, category, condition, location, price, trade, allow_offers: allowOffers, shop_id: shopId, image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl } };
 }
 
 async function updateStatus(id: string, status: "active" | "sold" | "removed") {

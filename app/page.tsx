@@ -33,7 +33,7 @@ export default async function Home() {
     shops?.forEach((shop) => verifiedBusinesses.add(shop.owner_id));
   }
   const name = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Seller";
-  const signedIn = user?.email ? { name, email: user.email } : null;
+  const signedIn = user?.email ? { id: user.id, name, email: user.email } : null;
   const listings = sourceListings.map((item) => ({
     id: item.id,
     title: item.title,

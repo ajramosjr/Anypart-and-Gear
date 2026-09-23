@@ -20,11 +20,12 @@ type EditableListing = {
   image_url: string;
   image_urls: string[] | null;
   video_url: string | null;
+  shop_id: string | null;
 };
 
 const allowedImageTypes = ["image/jpeg", "image/png", "image/webp"];
 
-export default function EditForm({ listing, userId }: { listing: EditableListing; userId: string }) {
+export default function EditForm({ listing, userId, shop }: { listing: EditableListing; userId: string; shop: { id: string; name: string } | null }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [confirmedMismatch, setConfirmedMismatch] = useState("");
@@ -75,7 +76,7 @@ export default function EditForm({ listing, userId }: { listing: EditableListing
       if (upload.error) { setMessage(upload.error.message); setLoading(false); return; }
       videoUrl = supabase.storage.from("listing-videos").getPublicUrl(path).data.publicUrl;
     }
-    const response = await fetch(`/api/listings/${listing.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: form.get("title"), description: form.get("description"), price: Number(form.get("price")), condition: form.get("condition"), category: form.get("category"), location: form.get("location"), trade: form.get("trade") === "on", allowOffers: form.get("allowOffers") === "on", imageUrls, videoUrl }) });
+    const response = await fetch(`/api/listings/${listing.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: form.get("title"), description: form.get("description"), price: Number(form.get("price")), condition: form.get("condition"), category: form.get("category"), location: form.get("location"), trade: form.get("trade") === "on", allowOffers: form.get("allowOffers") === "on", shopId: shop && form.get("shopListing") === "on" ? shop.id : null, imageUrls, videoUrl }) });
     const result = await response.json();
     if (!response.ok) { setMessage(result.error || "The listing could not be updated."); setLoading(false); return; }
     window.location.assign(`/listing/${listing.id}`);
@@ -101,5 +102,6 @@ export default function EditForm({ listing, userId }: { listing: EditableListing
     <div className="field full"><label htmlFor="video">{listing.video_url ? "Replace listing video" : "Add listing video"}</label><input id="video" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" /><small>Optional; one MP4, WebM or MOV video up to 50 MB.</small></div>
     <div className="field full checkbox-field"><label><input type="checkbox" name="trade" defaultChecked={listing.trade} /> I will consider a trade</label></div>
     <div className="field full checkbox-field"><label><input type="checkbox" name="allowOffers" defaultChecked={listing.allow_offers} /> Buyers can make offers on this listing</label></div>
+    {shop && <div className="field full checkbox-field"><label><input type="checkbox" name="shopListing" defaultChecked={listing.shop_id === shop.id} /> Show this listing as inventory from {shop.name}</label></div>}
   </div><div className="form-actions"><button className="button" disabled={loading}>{loading ? "Saving..." : "Save changes"}</button><Link className="button button-ghost-dark" href={`/listing/${listing.id}`}>Cancel</Link>{message && <span className="form-message error">{message}</span>}</div></form>;
 }

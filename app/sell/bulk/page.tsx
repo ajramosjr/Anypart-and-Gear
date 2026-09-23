@@ -14,7 +14,7 @@ export default async function BulkSellPage() {
   const supabase = await createClient();
   const [{ count }, { data: shop }] = await Promise.all([
     supabase.from("listings").select("id", { count: "exact", head: true }).eq("user_id", user.id).eq("status", "active"),
-    supabase.from("shops").select("name").eq("owner_id", user.id).eq("is_active", true).maybeSingle(),
+    supabase.from("shops").select("id,name").eq("owner_id", user.id).eq("is_active", true).maybeSingle(),
   ]);
   const sellerName = shop?.name || user.user_metadata?.full_name || user.email?.split("@")[0] || "Seller";
 
@@ -27,7 +27,7 @@ export default async function BulkSellPage() {
         <p>Upload up to 100 items per CSV. Each business account may have up to 100 active listings total. Sold and removed listings do not count.</p>
         <p>Required columns: title, description, price, condition, category, location and image_url. Optional column: trade.</p>
       </div>
-      <div className="card-panel"><BulkUpload userId={user.id} sellerName={sellerName} initialActiveCount={count || 0} /></div>
+      <div className="card-panel"><BulkUpload userId={user.id} sellerName={sellerName} shopId={shop?.id || null} initialActiveCount={count || 0} /></div>
     </div>
   </main>;
 }

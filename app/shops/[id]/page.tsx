@@ -61,7 +61,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
   const { data: listingData } = await supabase
     .from("listings")
     .select("id,title,description,price,condition,category,location,image_url,created_at")
-    .eq("user_id", shop.owner_id)
+    .eq("shop_id", shop.id)
     .eq("status", "active")
     .order("created_at", { ascending: false });
 

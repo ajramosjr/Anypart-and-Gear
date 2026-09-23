@@ -9,6 +9,7 @@ import BlockUser from "./block-user";
 import TransactionReview from "./transaction-review";
 import MessageLive from "./message-live";
 import OfferActions from "./offer-actions";
+import NotificationBell from "@/components/notification-bell";
 
 type Message = { id: string; body: string; sender_id: string; created_at: string; read_at: string | null; message_type: "text" | "offer" | "offer_counter" | "offer_accept" | "offer_decline"; offer_amount: number | null; related_message_id: string | null };
 type Conversation = {
@@ -70,7 +71,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
       <header className="simple-header messages-header">
         <div className="shell nav-wrap">
           <ApgLogo priority />
-          <Link href="/account" className="messages-account-link">My account</Link>
+          <div className="account-nav"><Link href="/account" className="messages-account-link">My account</Link><NotificationBell userId={user.id}/></div>
         </div>
       </header>
       <div className="shell page-shell messages-shell">

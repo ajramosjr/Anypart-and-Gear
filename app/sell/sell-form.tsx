@@ -5,7 +5,7 @@ import { categories } from "@/lib/data";
 import { categoryGuidance, suggestListingCategory } from "@/lib/category-check";
 import { createClient } from "@/lib/supabase/client";
 
-export default function SellForm({ userId, sellerName }: { userId: string; sellerName: string }) {
+export default function SellForm({ userId, sellerName, shop }: { userId: string; sellerName: string; shop: { id: string; name: string } | null }) {
   const [message, setMessage] = useState(""); const [loading, setLoading] = useState(false);
   const [confirmedMismatch, setConfirmedMismatch] = useState("");
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -45,7 +45,7 @@ export default function SellForm({ userId, sellerName }: { userId: string; selle
       videoUrl = supabase.storage.from("listing-videos").getPublicUrl(path).data.publicUrl;
     }
     const { data, error } = await supabase.from("listings").insert({
-      user_id: userId, seller_name: sellerName, title: form.get("title"), description: form.get("description"), price: Number(form.get("price")), condition: form.get("condition"), category: form.get("category"), location: form.get("location"), image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl, trade: form.get("trade") === "on", allow_offers: form.get("allowOffers") === "on", status: "active"
+      user_id: userId, shop_id: shop && form.get("shopListing") === "on" ? shop.id : null, seller_name: sellerName, title: form.get("title"), description: form.get("description"), price: Number(form.get("price")), condition: form.get("condition"), category: form.get("category"), location: form.get("location"), image_url: imageUrls[0], image_urls: imageUrls, video_url: videoUrl, trade: form.get("trade") === "on", allow_offers: form.get("allowOffers") === "on", status: "active"
     }).select("id").single();
     if (error) setMessage(error.message); else window.location.assign(`/listing/${data.id}`);
     setLoading(false);
@@ -61,5 +61,6 @@ export default function SellForm({ userId, sellerName }: { userId: string; selle
     <div className="field full"><label htmlFor="video">Video (optional)</label><input id="video" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" /><small>One MP4, WebM or MOV video, up to 50 MB.</small></div>
     <div className="field full checkbox-field"><label><input type="checkbox" name="trade" /> I will consider a trade</label></div>
     <div className="field full checkbox-field"><label><input type="checkbox" name="allowOffers" defaultChecked /> Buyers can make offers on this listing</label></div>
+    {shop && <div className="field full checkbox-field"><label><input type="checkbox" name="shopListing" defaultChecked /> Show this listing as inventory from {shop.name}</label></div>}
   </div><div className="form-actions"><button className="button" disabled={loading}>{loading ? "Publishing..." : "Publish listing"}</button>{message && <span className="form-message error">{message}</span>}</div></form>;
 }

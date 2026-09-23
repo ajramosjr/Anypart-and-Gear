@@ -8,6 +8,6 @@ export async function requestEmailNotification(kind: NotificationKind, entityId:
       body: JSON.stringify({ kind, entityId }),
     });
   } catch {
-    // The marketplace action has already succeeded. Email is best-effort.
+    // The marketplace action already succeeded. In-app, push and email delivery are best-effort.
   }
 }
