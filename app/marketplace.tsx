@@ -27,6 +27,14 @@ const categories = [
 
 const categoryIcons: Record<string, typeof Car> = { "Car Parts": Car, "Boat Parts": Anchor, "Boats for Sale": Anchor, Motorcycles: Bike, Trucks: Truck, Machinery: Factory, Trailers: Truck, Tools: Drill, "RC & Hobby": Gamepad2, "Workwear & Apparel": Shirt, Other: PackageOpen, "Vehicles for Sale": Truck };
 
+
+const recommendedGear = [
+  { title: "OBD-II scanners", detail: "Read check-engine codes and begin diagnosing warning lights.", query: "automotive OBD2 scanner", icon: Search },
+  { title: "Mechanic's tool sets", detail: "Sockets, ratchets and hand tools for common repair work.", query: "mechanics tool set automotive", icon: Wrench },
+  { title: "Portable jump starters", detail: "Compact emergency power for cars, trucks and recreational vehicles.", query: "portable car battery jump starter", icon: ShieldCheck },
+  { title: "Torque wrenches", detail: "Tighten wheels and components to the correct specification.", query: "automotive torque wrench", icon: Drill },
+];
+
 function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; toggle: () => void }) {
   const Icon=categoryIcons[item.category]||PackageOpen;
   const helpQuery=encodeURIComponent(`how to install repair ${item.title}`);
@@ -84,6 +92,25 @@ export default function Marketplace({ user, signInPath, signOutPath, listings }:
     </section>
 
     <section id="categories" className="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div className="mb-6 flex items-end justify-between"><div><p className="eyebrow">Shop by category</p><h2 className="section-title">What are you looking for?</h2></div><button onClick={()=>setCategory("All")} className="hidden items-center gap-1 text-sm font-bold text-blue-900 sm:flex">View all <ChevronRight className="size-4"/></button></div><div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">{categories.map(c=><button key={c.name} onClick={()=>{setCategory(c.name);document.getElementById("listings")?.scrollIntoView({behavior:"smooth"})}} className="category-card text-left"><span className="category-icon"><c.icon/></span><strong>{c.name}</strong><small>{c.detail}</small></button>)}</div></section>
+
+
+    <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6" aria-labelledby="recommended-gear-title">
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div><p className="eyebrow">New tools and gear</p><h2 id="recommended-gear-title" className="section-title">Recommended for the garage</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Useful starting points from Amazon, kept separate from used marketplace listings.</p></div>
+          <Link href="/affiliate-disclosure" className="text-sm font-bold text-blue-900 underline decoration-amber-400 underline-offset-4">How affiliate links work</Link>
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {recommendedGear.map(({ title, detail, query: gearQuery, icon: Icon }) => <article key={title} className="flex flex-col rounded-xl border border-slate-200 bg-slate-50 p-5">
+            <span className="mb-4 grid size-11 place-items-center rounded-lg bg-[#071a35] text-amber-400"><Icon className="size-5"/></span>
+            <h3 className="font-extrabold text-slate-950">{title}</h3>
+            <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">{detail}</p>
+            <Button asChild className="gold-button mt-5 w-full font-black"><a href={amazonSearchUrl(gearQuery)} target="_blank" rel="noopener noreferrer sponsored nofollow">Shop on Amazon</a></Button>
+          </article>)}
+        </div>
+        <p className="mt-5 text-xs leading-5 text-slate-500"><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. Amazon controls pricing, availability, shipping and returns.</p>
+      </div>
+    </section>
 
     <section id="listings" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6"><div className="mb-6 flex flex-col gap-4 border-t border-slate-200 pt-10 sm:flex-row sm:items-end sm:justify-between"><div><p className="eyebrow">Fresh inventory</p><h2 className="section-title">Parts worth grabbing</h2><p className="mt-2 text-slate-500">{shown.length} listings found</p></div><div className="flex gap-2"><Select value={category} onValueChange={setCategory}><SelectTrigger className="h-11 w-40 bg-white"><SlidersHorizontal className="size-4"/><SelectValue/></SelectTrigger><SelectContent><SelectItem value="All">All categories</SelectItem>{categories.map(c=><SelectItem value={c.name} key={c.name}>{c.name}</SelectItem>)}</SelectContent></Select><Select value={sort} onValueChange={setSort}><SelectTrigger className="h-11 w-36 bg-white"><SelectValue/></SelectTrigger><SelectContent>{["Newest","Price low","Price high"].map(s=><SelectItem value={s} key={s}>{s}</SelectItem>)}</SelectContent></Select></div></div>
       {shown.length ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{shown.map(item=><ListingCard key={item.id} item={item} liked={favorites.has(item.id)} toggle={()=>setFavorites(prev=>{const next=new Set(prev);if(next.has(item.id)){next.delete(item.id);}else{next.add(item.id);}return next})}/>)}</div>:<div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center"><PackageOpen className="mx-auto size-10 text-slate-400"/><h3 className="mt-4 text-xl font-bold">{all.length ? "No parts found" : "No listings yet"}</h3><p className="mt-2 text-slate-500">{all.length ? "Try a different search or category." : "Be the first to post an item on Any Part & Gear."}</p>{!all.length&&<Button asChild className="gold-button mt-6 h-11 px-6 font-black"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> Post the first item</a></Button>}</div>}
