@@ -16,6 +16,7 @@ export async function updateSession(request: NextRequest) {
     "/privacy",
     "/affiliate-disclosure",
     "/community-guidelines",
+    "/trust",
     "/support",
     "/robots.txt",
     "/sitemap.xml",
