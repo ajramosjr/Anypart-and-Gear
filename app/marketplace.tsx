@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, Bike, BookOpen, Car, ChevronRight, CircleHelp, CirclePlay, Drill, Factory, FileSpreadsheet, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
+import { Anchor, BadgeCheck, Bike, BookOpen, Car, ChevronRight, CircleHelp, CirclePlay, Drill, Factory, FileSpreadsheet, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
@@ -14,6 +14,8 @@ import { amazonSearchUrl } from "@/lib/affiliate";
 import NotificationBell from "@/components/notification-bell";
 
 type Listing = { id: number | string; title: string; description: string; price: number; category: string; condition: string; location: string; seller: string; contactEmail?: string; contactPhone?: string; status?: string; imageUrl?: string | null; imageUrls?: string[]; year?: string; make?: string; model?: string; engine?: string; mileageHours?: string; transmission?: string; partNumber?: string; brand?: string; size?: string; color?: string; quantity?: string; emailVerified?: boolean; trustedSeller?: boolean; verifiedBusiness?: boolean; badge?: string; tone?: string };
+
+type BusinessMarketplace = { id: string; name: string; specialty: string; location: string; isVerified: boolean; itemCount: number };
 
 const categories = [
   { name: "Car Parts", icon: Car, detail: "Engines, body & more" }, { name: "Boat Parts", icon: Anchor, detail: "Marine parts & gear" },
@@ -59,7 +61,7 @@ function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; t
   </article>;
 }
 
-export default function Marketplace({ user, signInPath, signOutPath, listings }: { user: { id: string; name: string; email: string } | null; signInPath: string; signOutPath: string; listings: Listing[] }) {
+export default function Marketplace({ user, signInPath, signOutPath, listings, businesses = [] }: { user: { id: string; name: string; email: string } | null; signInPath: string; signOutPath: string; listings: Listing[]; businesses?: BusinessMarketplace[] }) {
   const [query, setQuery] = useState(""); const [category, setCategory] = useState("All"); const [sort, setSort] = useState("Newest");
   const [mobileNav, setMobileNav] = useState(false); const [favorites, setFavorites] = useState<Set<string | number>>(new Set());
   const all = listings;
@@ -93,6 +95,27 @@ export default function Marketplace({ user, signInPath, signOutPath, listings }:
     </section>
 
     <section id="categories" className="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div className="mb-6 flex items-end justify-between"><div><p className="eyebrow">Shop by category</p><h2 className="section-title">What are you looking for?</h2></div><button onClick={()=>setCategory("All")} className="hidden items-center gap-1 text-sm font-bold text-blue-900 sm:flex">View all <ChevronRight className="size-4"/></button></div><div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">{categories.map(c=><button key={c.name} onClick={()=>{setCategory(c.name);document.getElementById("listings")?.scrollIntoView({behavior:"smooth"})}} className="category-card text-left"><span className="category-icon"><c.icon/></span><strong>{c.name}</strong><small>{c.detail}</small></button>)}</div></section>
+
+
+    {businesses.length > 0 && <section id="business-marketplaces" className="mx-auto max-w-7xl px-4 pb-14 sm:px-6" aria-labelledby="business-marketplaces-title">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div><p className="eyebrow">Shop by business</p><h2 id="business-marketplaces-title" className="section-title">Business marketplaces</h2><p className="mt-2 max-w-2xl text-slate-600">Open a business marketplace to browse all of that seller’s APG inventory in one place.</p></div>
+        <Link href="/shops" className="inline-flex items-center gap-1 text-sm font-black text-blue-900">View all businesses <ChevronRight className="size-4"/></Link>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {businesses.map((business) => <article key={business.id} className="flex flex-col rounded-2xl border border-slate-300 bg-white p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-[#071a35] text-amber-400"><Store className="size-6"/></span>
+            {business.isVerified && <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-black text-blue-900"><BadgeCheck className="size-3.5"/> APG verified</span>}
+          </div>
+          <h3 className="mt-5 text-xl font-black text-[#071a35]">{business.name}</h3>
+          <p className="mt-1 text-sm font-bold text-amber-700">{business.specialty}</p>
+          <p className="mt-4 flex items-center gap-2 text-sm text-slate-600"><MapPin className="size-4"/>{business.location}</p>
+          <p className="mt-2 text-sm text-slate-600">{business.itemCount} active {business.itemCount === 1 ? "item" : "items"}</p>
+          <Button asChild className="gold-button mt-5 w-full font-black"><Link href={`/shops/${business.id}`}>View business marketplace</Link></Button>
+        </article>)}
+      </div>
+    </section>}
 
     <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6" aria-labelledby="parts-wanted-home-title"><div className="grid overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-sm lg:grid-cols-[1.1fr_.9fr]"><div className="p-7 sm:p-9"><p className="eyebrow">Can’t find it?</p><h2 id="parts-wanted-home-title" className="section-title">Tell local businesses what you need.</h2><p className="mt-4 max-w-xl text-base leading-7 text-slate-600">Post a Parts Wanted request—even if you don’t know the part’s name. Add your year, make, model, description and photos so verified businesses can help.</p><div className="mt-6 flex flex-col gap-3 sm:flex-row"><Button asChild className="gold-button h-11 px-6 font-black"><Link href={user?"/parts-wanted/new":"/login?next=/parts-wanted/new"}><Search className="size-4"/> Request a part</Link></Button><Button asChild variant="outline" className="h-11 px-6 font-bold"><Link href="/parts-wanted"><CircleHelp className="size-4"/> How it works</Link></Button></div></div><div className="flex flex-col justify-center bg-[#0b2345] p-7 text-white sm:p-9"><p className="text-sm font-black uppercase tracking-[.14em] text-amber-400">For verified businesses</p><h3 className="mt-3 text-2xl font-black">Real requests from local buyers.</h3><p className="mt-3 leading-7 text-slate-300">Respond when you have the part or can help identify it—without uploading your entire inventory.</p><Link href="/shops/register" className="mt-5 inline-flex items-center gap-2 font-bold text-amber-300">Create a free business profile <ChevronRight className="size-4"/></Link></div></div></section>
 
