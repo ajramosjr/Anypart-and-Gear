@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getPublishedTechArticle } from "../article-store";
 
-export const alt = "APG Tech Wire article cover";
+export const alt = "APG Parts & Industry News article cover";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,7 +16,7 @@ function accent(category: string) {
 export default async function ArticleImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = await getPublishedTechArticle(slug);
-  const category = article?.category || "APG Tech Wire";
+  const category = article?.category || "APG Parts & Industry News";
   const title = article?.title || "Parts. Gear. Straight answers.";
 
   return new ImageResponse(
@@ -28,7 +28,7 @@ export default async function ArticleImage({ params }: { params: Promise<{ slug:
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
             <div style={{ width: "78px", height: "78px", display: "flex", alignItems: "center", justifyContent: "center", border: "3px solid #f5b81f", borderRadius: "50%", color: "#f5b81f", fontSize: "27px", fontWeight: 900 }}>APG</div>
-            <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: "30px", fontWeight: 900, letterSpacing: "2px" }}>ANY PART &amp; GEAR</span><span style={{ color: "#f5b81f", fontSize: "20px", fontWeight: 800, letterSpacing: "6px" }}>TECH WIRE</span></div>
+            <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: "30px", fontWeight: 900, letterSpacing: "2px" }}>ANY PART &amp; GEAR</span><span style={{ color: "#f5b81f", fontSize: "17px", fontWeight: 800, letterSpacing: "3px" }}>PARTS &amp; INDUSTRY NEWS</span></div>
           </div>
           <div style={{ display: "flex", border: "1px solid rgba(255,255,255,.35)", borderRadius: "999px", padding: "12px 22px", color: "#f5b81f", fontSize: "18px", fontWeight: 900, textTransform: "uppercase", letterSpacing: "2px" }}>{category}</div>
         </div>

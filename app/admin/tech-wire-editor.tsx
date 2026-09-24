@@ -74,7 +74,7 @@ export default function TechWireEditor({ initialArticles, userId }: { initialArt
     const saved = result.data as DatabaseTechArticle;
     await fetch("/api/admin/revalidate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug, previousSlug }) }).catch(() => undefined);
     setArticles((current) => [saved, ...current.filter((article) => article.id !== saved.id)]);
-    setForm(toForm(saved)); setMessage(status === "published" ? "Published. It is now live on APG Tech Wire." : "Draft saved."); setBusy(false);
+    setForm(toForm(saved)); setMessage(status === "published" ? "Published. It is now live on APG Parts & Industry News." : "Draft saved."); setBusy(false);
   }
 
   async function remove(article: DatabaseTechArticle) {
@@ -86,7 +86,7 @@ export default function TechWireEditor({ initialArticles, userId }: { initialArt
   }
 
   return <section className="admin-editor-section">
-    <div className="admin-editor-heading"><div><span className="kicker">No-code publishing</span><h2><Newspaper /> APG Tech Wire Editor</h2><p>Create, edit and publish articles without GitHub or Vercel.</p></div><button className="button button-small" onClick={() => { setForm({ ...emptyForm }); setMessage(""); }}><Plus size={16} /> New article</button></div>
+    <div className="admin-editor-heading"><div><span className="kicker">No-code publishing</span><h2><Newspaper /> APG Parts &amp; Industry News Editor</h2><p>Create, edit and publish articles without GitHub or Vercel.</p></div><button className="button button-small" onClick={() => { setForm({ ...emptyForm }); setMessage(""); }}><Plus size={16} /> New article</button></div>
     <div className="admin-editor-grid">
       <div className="admin-article-list">{articles.map((article) => <article key={article.id} className="admin-article-row"><div><span className={`article-status ${article.status}`}>{article.status}</span><strong>{article.title}</strong><small>{article.category} · {article.read_time}</small></div><div className="admin-article-actions">{article.status === "published" && <Link href={`/tech-wire/${article.slug}`} target="_blank" aria-label="View article"><ExternalLink size={17} /></Link>}<button onClick={() => { setForm(toForm(article)); setMessage(""); }} aria-label="Edit article"><FilePenLine size={17} /></button><button onClick={() => void remove(article)} disabled={busy} aria-label="Delete article"><Trash2 size={17} /></button></div></article>)}{!articles.length && <div className="empty-state"><p>No articles yet.</p></div>}</div>
       {form ? <div className="admin-article-form"><div className="admin-form-title"><strong>{form.id ? "Edit article" : "New article"}</strong><button onClick={() => setForm(null)} aria-label="Close editor"><X size={19} /></button></div>
@@ -99,7 +99,7 @@ export default function TechWireEditor({ initialArticles, userId }: { initialArt
           {form.imageUrl && <button type="button" className="button button-small button-ghost-dark" disabled={busy} onClick={() => { setField("imageUrl", ""); setMessage("Custom cover removed. The automatic APG cover will be used."); }}><Trash2 size={16} /> Remove cover</button>}
         </div>
         <div className="admin-image-preview"><img src={form.imageUrl || `/tech-wire/${slugify(form.slug || form.title) || "preview"}/opengraph-image`} alt="Article cover preview" /></div>
-        <label>Short summary<textarea value={form.summary} onChange={(event) => setField("summary", event.target.value)} rows={3} placeholder="A short introduction shown on the Tech Wire page." /></label>
+        <label>Short summary<textarea value={form.summary} onChange={(event) => setField("summary", event.target.value)} rows={3} placeholder="A short introduction shown on the Parts & Industry News page." /></label>
         <label>Article content<textarea value={form.content} onChange={(event) => setField("content", event.target.value)} rows={12} placeholder={"Main heading\nWrite the article here.\n\nSecond heading\nContinue the article here."} /><small>Start each section with its heading. Leave a blank line before the next section.</small></label>
         <div className="form-grid"><label>Advantages — one per line<textarea value={form.pros} onChange={(event) => setField("pros", event.target.value)} rows={5} /></label><label>Tradeoffs — one per line<textarea value={form.cons} onChange={(event) => setField("cons", event.target.value)} rows={5} /></label></div>
         <div className="form-grid"><label>Official source name<input value={form.sourceLabel} onChange={(event) => setField("sourceLabel", event.target.value)} placeholder="Manufacturer product page" /></label><label>Official source link<input type="url" value={form.sourceUrl} onChange={(event) => setField("sourceUrl", event.target.value)} placeholder="https://…" /></label></div>

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getPublishedTechArticle(slug);
   if (!article) return {};
   const url = `/tech-wire/${article.slug}`;
-  return { title: `${article.title} | APG Tech Wire`, description: article.summary, alternates: { canonical: url }, openGraph: { type: "article", title: article.title, description: article.summary, url, siteName: "APG Tech Wire", publishedTime: "2026-09-17T00:00:00Z", images: [{ url: getTechArticleImage(article), width: 1200, height: 630, alt: article.title }] } };
+  return { title: `${article.title} | APG Parts & Industry News`, description: article.summary, alternates: { canonical: url }, openGraph: { type: "article", title: article.title, description: article.summary, url, siteName: "APG Parts & Industry News", publishedTime: "2026-09-17T00:00:00Z", images: [{ url: getTechArticleImage(article), width: 1200, height: 630, alt: article.title }] } };
 }
 
 export default async function TechArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -37,7 +37,7 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
     <header className="border-b border-slate-300 bg-white shadow-sm">
       <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" aria-label="Any Part and Gear home"><Image src="/apg-logo.webp" alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
-        <Link href="/tech-wire" className="inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] hover:bg-amber-300"><ArrowLeft className="size-4" /> Tech Wire</Link>
+        <Link href="/tech-wire" className="inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] hover:bg-amber-300"><ArrowLeft className="size-4" /> Parts &amp; Industry News</Link>
       </div>
     </header>
 

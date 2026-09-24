@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import type { TechArticle } from "./articles";
 import { getTechArticleImage } from "./article-store";
 
-const categories = ["All", "New tool watch", "Future vehicles", "Engine upgrades", "Reliability", "Trucks & towing", "Buying guide", "Tool buying guide", "Build planning", "Forced induction"];
+const categories = ["All", "Industry news", "Supply chain", "Parts availability", "Recalls & safety", "New tool watch", "Future vehicles", "Engine upgrades", "Reliability", "Trucks & towing", "Buying guide", "Tool buying guide", "Build planning", "Forced induction"];
 
 export default function ArticleBrowser({ articles }: { articles: TechArticle[] }) {
   const [category, setCategory] = useState("All");
@@ -19,8 +19,8 @@ export default function ArticleBrowser({ articles }: { articles: TechArticle[] }
   return <>
     <div className="mt-8 rounded-xl border border-slate-300 bg-white p-4 shadow-sm">
       <label className="flex h-12 items-center gap-3 rounded-lg border border-slate-300 bg-slate-50 px-4 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-200">
-        <Search className="size-5 text-slate-500" /><span className="sr-only">Search Tech Wire articles</span>
-        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search engines, tools, upgrades and future vehicles…" className="min-w-0 flex-1 bg-transparent text-base outline-none" />
+        <Search className="size-5 text-slate-500" /><span className="sr-only">Search Parts and Industry News articles</span>
+        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search parts, recalls, supply chain, tools and vehicles…" className="min-w-0 flex-1 bg-transparent text-base outline-none" />
         {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search"><X className="size-5 text-slate-500" /></button>}
       </label>
       <div className="mt-4 flex gap-2 overflow-x-auto pb-1" aria-label="Article categories">
