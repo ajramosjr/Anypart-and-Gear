@@ -119,6 +119,36 @@ export default function Marketplace({ user, signInPath, signOutPath, listings }:
 
     <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6"><div className="flex gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-950"><ShieldCheck className="mt-1 size-5 shrink-0"/><p><strong>Transactions happen directly between buyer and seller.</strong> Any Part and Gear only provides classified listings. We do not process payments, arrange shipping, guarantee fitment, or handle returns. Verify the item and seller before paying.</p></div></section>
 
+    <section id="founder" className="bg-white" aria-labelledby="founder-title">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[minmax(0,.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-16">
+        <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-slate-300 bg-[#071a35] shadow-2xl shadow-slate-900/15 lg:max-w-none">
+          <div className="absolute inset-x-0 top-0 z-10 h-1.5 bg-amber-400" />
+          <Image
+            src="/angelo-ramos-founder.webp"
+            alt="Angelo Ramos, founder of Any-Part and Gear"
+            width={1088}
+            height={1453}
+            sizes="(max-width: 1024px) 448px, 42vw"
+            className="aspect-[4/5] w-full object-cover object-top"
+          />
+        </div>
+        <div>
+          <p className="eyebrow">Meet the founder</p>
+          <h2 id="founder-title" className="section-title mt-2">Built by someone who understands the search.</h2>
+          <h3 className="mt-6 text-xl font-black text-[#0b2345]">Angelo Ramos</h3>
+          <p className="mt-1 text-sm font-bold uppercase tracking-[.12em] text-amber-700">Founder, Any-Part and Gear</p>
+          <div className="mt-6 max-w-2xl space-y-4 text-base leading-7 text-slate-600">
+            <p>After years of working around vehicles, tools, equipment, and hard-to-find parts, I created APG to bring individuals and local businesses together in one convenient marketplace.</p>
+            <p>APG gives people a place to buy, sell, and trade parts and gear while helping local businesses showcase what they offer and connect with more potential customers.</p>
+          </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild className="gold-button h-11 px-6 font-black"><a href="#listings">Explore the marketplace</a></Button>
+            <Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><Link href="/shops">Discover local shops</Link></Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="business" className="bg-[#0b2345] text-white"><div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center"><div><p className="eyebrow text-amber-400">Simple for parts businesses</p><h2 className="mt-2 max-w-3xl text-3xl font-black sm:text-4xl">Post one item or upload your whole inventory.</h2><div className="mt-6 flex flex-wrap gap-5 text-sm text-slate-300"><span className="flex items-center gap-2"><Store className="size-4 text-amber-400"/> Buyers contact you directly</span><span className="flex items-center gap-2"><Upload className="size-4 text-amber-400"/> Up to 100 active listings per business account</span><span className="flex items-center gap-2"><ShieldCheck className="size-4 text-amber-400"/> You control payment and delivery</span></div></div><div className="flex flex-col gap-3 sm:flex-row"><Button asChild variant="outline" className="h-11 border-amber-400 bg-transparent text-amber-300 hover:bg-white/10 hover:text-white"><a href={user?"/sell/bulk":"/login?next=/sell/bulk"}><FileSpreadsheet className="size-4"/> Bulk upload</a></Button><Button asChild className="gold-button h-11 px-5 font-bold"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> Post an item</a></Button></div></div></section>
     <footer className="bg-[#06162d] text-slate-400"><div className="mx-auto grid max-w-7xl gap-5 px-4 py-8 text-sm sm:px-6 lg:grid-cols-[auto_1fr_auto] lg:items-center"><span className="font-bold text-white">ANY PART <b className="text-amber-400">& GEAR</b></span><div className="flex flex-wrap gap-x-5 gap-y-2 lg:justify-center"><a href="/terms" className="hover:text-white">Terms</a><a href="/privacy" className="hover:text-white">Privacy</a><a href="/affiliate-disclosure" className="hover:text-white">Affiliate Disclosure</a><a href="/community-guidelines" className="hover:text-white">Community Guidelines</a><a href="/support" className="hover:text-white">Support</a><a href="/safety" className="hover:text-white">Safety</a></div><div className="flex gap-4"><p>© 2026 Any Part and Gear</p>{user&&<a href={signOutPath} target="_top" className="hover:text-white">Sign out</a>}</div></div></footer>
   </main>;
