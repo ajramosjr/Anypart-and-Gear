@@ -13,8 +13,10 @@ export function BusinessResponseForm({ requestId, shopId, userId }: { requestId:
     setSaving(true);
     setMessage("");
     const form = new FormData(event.currentTarget);
+    const responseId = crypto.randomUUID();
     const priceValue = String(form.get("price") || "").trim();
     const { error } = await createClient().from("part_request_responses").insert({
+      id: responseId,
       request_id: requestId,
       shop_id: shopId,
       responder_id: userId,
@@ -27,6 +29,11 @@ export function BusinessResponseForm({ requestId, shopId, userId }: { requestId:
       setSaving(false);
       return;
     }
+    await fetch("/api/notifications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind: "part_request_response", entityId: responseId }),
+    }).catch(() => null);
     window.location.reload();
   }
 

@@ -52,7 +52,7 @@ export default function PushNotificationSettings() {
       const response = await fetch("/api/push/subscriptions", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(subscription.toJSON()) });
       const result = await response.json();
       if (!response.ok) { await subscription.unsubscribe(); throw new Error(result.error || "Phone alerts could not be enabled."); }
-      setState("enabled"); setMessage("APG message alerts are enabled on this phone.");
+      setState("enabled"); setMessage("APG alerts are enabled on this phone.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Phone alerts could not be enabled.");
     } finally {
@@ -76,7 +76,7 @@ export default function PushNotificationSettings() {
   }
 
   return <section className="notification-settings">
-    <div className="notification-heading"><Smartphone size={20}/><div><h2>APG phone alerts</h2><p>Show an APG notification when a private message arrives.</p></div></div>
+    <div className="notification-heading"><Smartphone size={20}/><div><h2>APG phone alerts</h2><p>Get alerts for private messages and Parts Wanted activity—even when APG is closed.</p></div></div>
     {state === "unsupported" && <p className="form-message">Install APG and open it from your Home Screen to enable notifications. iPhone requires iOS 16.4 or newer.</p>}
     {state === "denied" && <p className="form-message error">Notifications are blocked. Allow them in your phone’s site or app settings, then return here.</p>}
     {(state === "enabled" || state === "disabled") && <button className="button button-small" type="button" disabled={busy} onClick={state === "enabled" ? disable : enable}><BellRing size={16}/> {busy ? "Updating…" : state === "enabled" ? "Turn off phone alerts" : "Enable APG phone alerts"}</button>}

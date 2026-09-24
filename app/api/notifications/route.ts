@@ -4,7 +4,7 @@ import { getUser } from "@/lib/auth";
 import { sendPushNotifications } from "@/lib/push";
 import { supabaseUrl } from "@/lib/supabase/config";
 
-type Kind = "message" | "transaction" | "review" | "part_request";
+type Kind = "message" | "transaction" | "review" | "part_request" | "part_request_response";
 type NotificationDetails = {
   recipientId: string;
   actorName: string;
@@ -17,7 +17,7 @@ type NotificationDetails = {
   listingId?: string | null;
   transactionId?: string | null;
 };
-const kinds = new Set<Kind>(["message", "transaction", "review", "part_request"]);
+const kinds = new Set<Kind>(["message", "transaction", "review", "part_request", "part_request_response"]);
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]!);
@@ -104,6 +104,32 @@ export async function POST(request: Request) {
       tag: `apg-part-request-${partRequest.id}`,
     })));
     return NextResponse.json({ inApp: newRecipients.length, push: pushResults.reduce((total, count) => total + count, 0) });
+  }
+
+  if (payload.kind === "part_request_response") {
+    const { data: partResponse } = await admin
+      .from("part_request_responses")
+      .select("id,request_id,shop_id,responder_id")
+      .eq("id", payload.entityId)
+      .single();
+    if (!partResponse || partResponse.responder_id !== user.id) return NextResponse.json({ error: "Not allowed" }, { status: 403 });
+
+    const [{ data: partRequest }, { data: shop }] = await Promise.all([
+      admin.from("part_requests").select("requester_id,part_name,item_type").eq("id", partResponse.request_id).single(),
+      admin.from("shops").select("name,owner_id,is_verified,is_active").eq("id", partResponse.shop_id).single(),
+    ]);
+    if (!partRequest || !shop || shop.owner_id !== user.id || !shop.is_verified || !shop.is_active) {
+      return NextResponse.json({ error: "Not allowed" }, { status: 403 });
+    }
+
+    const requestLabel = partRequest.part_name?.trim() || partRequest.item_type;
+    const push = await sendPushNotifications(admin, partRequest.requester_id, {
+      title: "A business responded to your request",
+      body: `${shop.name} responded about ${requestLabel}. Open APG to view their response.`,
+      url: `/parts-wanted/${partResponse.request_id}`,
+      tag: `apg-part-response-${partResponse.id}`,
+    });
+    return NextResponse.json({ inApp: true, push });
   }
 
   if (payload.kind === "message") {
