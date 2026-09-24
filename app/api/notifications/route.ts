@@ -4,7 +4,7 @@ import { getUser } from "@/lib/auth";
 import { sendPushNotifications } from "@/lib/push";
 import { supabaseUrl } from "@/lib/supabase/config";
 
-type Kind = "message" | "transaction" | "review";
+type Kind = "message" | "transaction" | "review" | "part_request";
 type NotificationDetails = {
   recipientId: string;
   actorName: string;
@@ -17,7 +17,7 @@ type NotificationDetails = {
   listingId?: string | null;
   transactionId?: string | null;
 };
-const kinds = new Set<Kind>(["message", "transaction", "review"]);
+const kinds = new Set<Kind>(["message", "transaction", "review", "part_request"]);
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]!);
@@ -40,6 +40,71 @@ export async function POST(request: Request) {
   const admin = createAdminClient(supabaseUrl, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } });
   const actorName = user.user_metadata?.full_name || user.email?.split("@")[0] || "A member";
   let details: NotificationDetails | null = null;
+
+  if (payload.kind === "part_request") {
+    const { data: partRequest } = await admin
+      .from("part_requests")
+      .select("id,requester_id,item_type,part_name,location,status,expires_at")
+      .eq("id", payload.entityId)
+      .single();
+    if (!partRequest || partRequest.requester_id !== user.id || partRequest.status !== "active" || new Date(partRequest.expires_at) <= new Date()) {
+      return NextResponse.json({ error: "Not allowed" }, { status: 403 });
+    }
+
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { count: recentRequestCount } = await admin
+      .from("part_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("requester_id", user.id)
+      .gte("created_at", oneDayAgo);
+    if ((recentRequestCount || 0) > 5) {
+      return NextResponse.json({ error: "Daily business alert limit reached", inApp: 0, push: 0 }, { status: 429 });
+    }
+
+    const { data: shops } = await admin
+      .from("shops")
+      .select("owner_id")
+      .eq("is_verified", true)
+      .eq("is_active", true)
+      .neq("owner_id", user.id);
+    const recipientIds = [...new Set((shops || []).map((shop) => shop.owner_id).filter(Boolean))] as string[];
+    if (!recipientIds.length) return NextResponse.json({ inApp: 0, push: 0 });
+
+    const link = `/parts-wanted/${partRequest.id}`;
+    const { data: existing } = await admin
+      .from("notifications")
+      .select("user_id")
+      .eq("notification_type", "part_request")
+      .eq("link", link)
+      .in("user_id", recipientIds);
+    const alreadyNotified = new Set((existing || []).map((item) => item.user_id));
+    const newRecipients = recipientIds.filter((id) => !alreadyNotified.has(id));
+    if (!newRecipients.length) return NextResponse.json({ inApp: 0, push: 0, duplicate: true });
+
+    const requestLabel = partRequest.part_name?.trim() || partRequest.item_type;
+    const heading = "New local Parts Wanted request";
+    const body = `${requestLabel} requested in ${partRequest.location}. Respond through APG if your business can help.`;
+    const { error: notificationError } = await admin.from("notifications").insert(newRecipients.map((recipientId) => ({
+      user_id: recipientId,
+      actor_id: user.id,
+      notification_type: "part_request",
+      title: heading,
+      body,
+      link,
+    })));
+    if (notificationError) {
+      console.error("[notifications] Parts Wanted insert failed", { code: notificationError.code });
+      return NextResponse.json({ inApp: 0, push: 0 }, { status: 202 });
+    }
+
+    const pushResults = await Promise.all(newRecipients.map((recipientId) => sendPushNotifications(admin, recipientId, {
+      title: heading,
+      body,
+      url: link,
+      tag: `apg-part-request-${partRequest.id}`,
+    })));
+    return NextResponse.json({ inApp: newRecipients.length, push: pushResults.reduce((total, count) => total + count, 0) });
+  }
 
   if (payload.kind === "message") {
     const { data: message } = await admin.from("messages").select("id,sender_id,conversation_id,conversations(buyer_id,seller_id,listing_id)").eq("id", payload.entityId).single();

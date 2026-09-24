@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, CheckCheck, MessageCircle, Star, Trash2 } from "lucide-react";
+import { Bell, CheckCheck, MessageCircle, Search, Star, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -17,6 +17,7 @@ export type NotificationItem = {
 
 function Icon({ type }: { type: string }) {
   if (type === "message" || type === "offer") return <MessageCircle />;
+  if (type === "part_request") return <Search />;
   if (type === "review") return <Star />;
   return <Bell />;
 }

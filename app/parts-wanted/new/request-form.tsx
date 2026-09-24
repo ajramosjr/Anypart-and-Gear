@@ -65,6 +65,11 @@ export default function RequestForm({ userId }: { userId: string }) {
       setSaving(false);
       return;
     }
+    await fetch("/api/notifications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind: "part_request", entityId: requestId }),
+    }).catch(() => null);
     router.push(`/parts-wanted/${requestId}`);
     router.refresh();
   }
@@ -97,7 +102,7 @@ export default function RequestForm({ userId }: { userId: string }) {
         <div className="field"><label htmlFor="postal_code">ZIP code</label><input id="postal_code" name="postal_code" minLength={3} maxLength={12} inputMode="numeric" required placeholder="11783" /></div>
       </div>
 
-      <div className="request-privacy-note"><ShieldCheck size={20} /><p><strong>Your contact information stays private.</strong> Only verified APG businesses can view the request. They respond through APG, and you decide whether to continue the conversation.</p></div>
+      <div className="request-privacy-note"><ShieldCheck size={20} /><p><strong>Your contact information stays private.</strong> Verified APG businesses are alerted when your request is posted. They respond through APG, and you decide whether to continue the conversation.</p></div>
       <div className="form-actions"><button className="button" disabled={saving}>{saving ? "Posting request..." : "Post Parts Wanted request"}</button>{message && <span className="form-message error">{message}</span>}</div>
     </form>
   );
