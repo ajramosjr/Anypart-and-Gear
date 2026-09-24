@@ -9,7 +9,7 @@ type SearchListing = { id: string; created_at: string };
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = "https://www.anypartandgear.com";
   const updated = new Date("2026-09-17T00:00:00Z");
-  const staticRoutes = ["", "/tech-wire", "/shops", "/safety", "/support", "/terms", "/privacy", "/affiliate-disclosure", "/community-guidelines"];
+  const staticRoutes = ["", "/tech-wire", "/shops", "/safety", "/support", "/terms", "/privacy", "/affiliate-disclosure", "/community-guidelines", "/trust"];
   const publicClient = createClient(supabaseUrl, supabasePublishableKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
