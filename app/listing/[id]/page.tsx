@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, ShieldCheck, Star } from "lucide-react";
+import { CalendarDays, MapPin, PackageCheck, ShieldCheck, Star } from "lucide-react";
 import { Listing } from "@/lib/data";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
@@ -49,17 +49,20 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
   let reputation: { average: number; count: number } | null = null;
   let badges = { emailVerified: false, trustedSeller: false, verifiedBusiness: false };
   let shop: { id: string; name: string } | null = null;
+  let sellerStats: { memberSince: string | null; activeListings: number } = { memberSince: null, activeListings: 0 };
 
   if (listing.user_id && hasSupabaseConfig()) {
     const supabase = await createClient();
-    const [{ data: ratings }, { data: profile }, { data: shopData }] = await Promise.all([
+    const [{ data: ratings }, { data: profile }, { data: shopData }, { count: activeListingCount }] = await Promise.all([
       supabase.from("reviews").select("rating").eq("reviewee_id", listing.user_id),
-      supabase.from("profiles").select("email_verified,trusted_seller").eq("id", listing.user_id).maybeSingle(),
+      supabase.from("profiles").select("email_verified,trusted_seller,created_at").eq("id", listing.user_id).maybeSingle(),
       listing.shop_id ? supabase.from("shops").select("id,name,is_verified").eq("id", listing.shop_id).eq("owner_id", listing.user_id).eq("is_active", true).maybeSingle() : Promise.resolve({ data: null }),
+      supabase.from("listings").select("id", { count: "exact", head: true }).eq("user_id", listing.user_id).eq("status", "active"),
     ]);
     if (ratings?.length) reputation = { count: ratings.length, average: ratings.reduce((sum, item) => sum + item.rating, 0) / ratings.length };
     shop = shopData ? { id: shopData.id, name: shopData.name } : null;
     badges = { emailVerified: Boolean(profile?.email_verified), trustedSeller: Boolean(profile?.trusted_seller), verifiedBusiness: Boolean(shopData?.is_verified) };
+    sellerStats = { memberSince: profile?.created_at || null, activeListings: activeListingCount || 0 };
   }
 
   return (
@@ -74,6 +77,8 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
             <span><b>Seller</b><i>{listing.seller_name}<SellerBadges {...badges} /></i></span>
             {shop && <span><b>Business</b><Link className="inline-link" href={`/shops/${shop.id}`}>{shop.name}</Link></span>}
             <span><b>Seller rating</b>{reputation ? <i className="seller-rating"><Star size={14}/> {reputation.average.toFixed(1)} ({reputation.count} verified)</i> : <i>New seller</i>}</span>
+            {sellerStats.memberSince && <span><b>Member since</b><i><CalendarDays size={14}/> {new Date(sellerStats.memberSince).toLocaleDateString("en-US", { month: "long", year: "numeric" })}</i></span>}
+            <span><b>Active listings</b><i><PackageCheck size={14}/> {sellerStats.activeListings}</i></span>
             <span><b>Trade</b>{listing.trade ? "Considered" : "Not listed"}</span>
           </div>
           <h3>About this item</h3><p className="detail-description">{listing.description}</p>
