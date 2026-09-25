@@ -2,9 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "./login-form";
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; verified?: string }> }) {
-  const { next = "/", verified } = await searchParams;
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; verified?: string; authError?: string }> }) {
+  const { next = "/", verified, authError } = await searchParams;
   const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/";
+  const confirmationError = authError === "expired"
+    ? "That verification link has expired or was already used. Enter your email below and request a new confirmation email."
+    : authError === "invalid"
+      ? "We could not verify that email link. Enter your email below and request a new confirmation email."
+      : undefined;
   return (
     <main className="login-page">
       <div className="login-wrap">
@@ -14,7 +19,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           </Link>
           <h1>{verified === "1" ? "Email verified!" : "Welcome back"}</h1>
           <p>{verified === "1" ? "Your email is confirmed. Sign in once to continue where you left off." : "Sign in securely to post listings, manage your account and contact sellers."}</p>
-          <LoginForm nextPath={safeNext} emailVerified={verified === "1"} />
+          <LoginForm nextPath={safeNext} emailVerified={verified === "1"} confirmationError={confirmationError} />
         </div>
       </div>
     </main>

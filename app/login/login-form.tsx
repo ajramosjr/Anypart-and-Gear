@@ -29,12 +29,20 @@ declare global {
   }
 }
 
-export default function LoginForm({ nextPath, emailVerified = false }: { nextPath: string; emailVerified?: boolean }) {
+export default function LoginForm({
+  nextPath,
+  emailVerified = false,
+  confirmationError,
+}: {
+  nextPath: string;
+  emailVerified?: boolean;
+  confirmationError?: string;
+}) {
   const [mode, setMode] = useState<"signin" | "signup" | "recover">("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(confirmationError || "");
   const [messageType, setMessageType] = useState<"success" | "error">(emailVerified ? "success" : "error");
   const [waitingForVerification, setWaitingForVerification] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -79,6 +87,40 @@ export default function LoginForm({ nextPath, emailVerified = false }: { nextPat
     setMessage("");
     setWaitingForVerification(false);
     resetCaptcha();
+  }
+
+  async function resendConfirmation() {
+    setLoading(true);
+    setMessage("");
+    setMessageType("error");
+    if (!email) {
+      setMessage("Enter the email address you used to create your APG account.");
+      setLoading(false);
+      return;
+    }
+    if (!captchaToken) {
+      setMessage("Please complete the security check before requesting another email.");
+      setLoading(false);
+      return;
+    }
+    const supabase = createClient();
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email,
+      options: {
+        captchaToken,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+      },
+    });
+    if (error) {
+      setMessage(error.message);
+    } else {
+      setMessageType("success");
+      setWaitingForVerification(true);
+      setMessage("A new APG verification email is on its way. Use the newest link in your inbox.");
+    }
+    resetCaptcha();
+    setLoading(false);
   }
 
   async function submit(event: FormEvent) {
@@ -147,11 +189,15 @@ export default function LoginForm({ nextPath, emailVerified = false }: { nextPat
         {emailVerified && mode === "signin" && !message && <p className="form-message success">Your email is confirmed. Sign in below to continue.</p>}
         {message && <p className={`form-message ${messageType}`}>{message}</p>}
         {waitingForVerification ? (
-          <button className="button" type="button" onClick={() => changeMode("signin")}>I verified my email — Sign in</button>
+          <>
+            <button className="button" type="button" onClick={() => changeMode("signin")}>I verified my email — Sign in</button>
+            <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>
+          </>
         ) : (
           <button className="button" disabled={loading || !captchaToken}>{loading ? "Please wait..." : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>
         )}
         {mode === "signin" && <button className="text-button" type="button" onClick={() => changeMode("recover")}>Forgot your password?</button>}
+        {mode === "signin" && confirmationError && !waitingForVerification && <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>}
         <button className="text-button" type="button" onClick={() => changeMode(mode === "signin" ? "signup" : "signin")}>{mode === "signin" ? "New here? Create a free account" : "Back to sign in"}</button>
         <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use Anypart &amp; Gear safely and honestly. Sellers control payment, pickup and delivery.</p>
       </form>
