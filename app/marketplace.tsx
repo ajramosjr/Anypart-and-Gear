@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, BadgeCheck, Bike, BookOpen, Car, ChevronRight, CircleHelp, CirclePlay, Drill, Factory, Facebook, FileSpreadsheet, Gamepad2, Heart, Instagram, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
+import { Anchor, BadgeCheck, Bike, BookOpen, Car, ChevronRight, CircleHelp, CirclePlay, Drill, Factory, FileSpreadsheet, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
@@ -172,8 +172,8 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, b
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <span className="text-sm font-black uppercase tracking-[.12em] text-slate-500">Follow APG</span>
-            <a href="https://www.facebook.com/share/1GRGa1eFPK/" target="_blank" rel="noopener noreferrer" aria-label="Follow Any-Part and Gear on Facebook" className="inline-flex size-11 items-center justify-center rounded-full bg-[#0b2345] text-white transition hover:bg-blue-800"><Facebook className="size-5"/></a>
-            <a href="https://www.instagram.com/apgmarketplace/" target="_blank" rel="noopener noreferrer" aria-label="Follow APG Marketplace on Instagram" className="inline-flex size-11 items-center justify-center rounded-full bg-[#0b2345] text-white transition hover:bg-fuchsia-700"><Instagram className="size-5"/></a>
+            <a href="https://www.facebook.com/share/1GRGa1eFPK/" target="_blank" rel="noopener noreferrer" aria-label="Follow Any-Part and Gear on Facebook" className="inline-flex size-11 items-center justify-center rounded-full bg-[#0b2345] text-white transition hover:bg-blue-800"><span aria-hidden="true" className="text-xl font-black leading-none">f</span></a>
+            <a href="https://www.instagram.com/apgmarketplace/" target="_blank" rel="noopener noreferrer" aria-label="Follow APG Marketplace on Instagram" className="inline-flex size-11 items-center justify-center rounded-full bg-[#0b2345] text-white transition hover:bg-fuchsia-700"><span aria-hidden="true" className="text-base font-black leading-none">@</span></a>
           </div>
         </div>
       </div>
