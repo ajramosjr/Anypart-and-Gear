@@ -104,7 +104,7 @@ const tireDiameterInches = (tire: { width: number; ratio: number; rim: number })
   tire.rim + (2 * tire.width * (tire.ratio / 100)) / 25.4;
 
 function Printable({ id, children, className = "" }: { id: string; children: React.ReactNode; className?: string }) {
-  return <section id={id} className={`tool-section ${className}`} data-tool-section>{children}</section>;
+  return <section id={id} className={`tool-section ${className}`} data-tool-section><div className="print-brand" aria-hidden="true"><ApgLogo/><span>APG Toolbox</span><small>anypartandgear.com</small></div>{children}</section>;
 }
 
 function printSection(id?: string) {
