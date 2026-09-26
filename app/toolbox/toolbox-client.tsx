@@ -6,19 +6,88 @@ import ApgLogo from "@/components/apg-logo";
 import {
   AlertTriangle, ArrowLeftRight, BatteryCharging, Bolt, BookOpen,
   Car, CheckSquare, CircleGauge, Droplets, FileDown, Gauge, Printer,
-  Search, ShipWheel, Sparkles, Truck, Wrench, Zap,
+  Ruler, Search, ShipWheel, Sparkles, Truck, Wrench, Zap,
 } from "lucide-react";
 
-const tapRows = [
-  ["#6-32 UNC", "#36", "0.1065 in"], ["#8-32 UNC", "#29", "0.1360 in"],
-  ["#10-24 UNC", "#25", "0.1495 in"], ["1/4-20 UNC", "#7", "0.2010 in"],
-  ["5/16-18 UNC", "F", "0.2570 in"], ["3/8-16 UNC", "5/16", "0.3125 in"],
-  ["1/2-13 UNC", "27/64", "0.4219 in"], ["M5 × 0.8", "4.2 mm", "0.1654 in"],
-  ["M6 × 1.0", "5.0 mm", "0.1969 in"], ["M8 × 1.25", "6.8 mm", "0.2677 in"],
-  ["M10 × 1.5", "8.5 mm", "0.3346 in"], ["M12 × 1.75", "10.2 mm", "0.4016 in"],
-];
+const tapeMeasureRows = [
+  ["1/16", "0.0625"], ["1/8", "0.1250"], ["3/16", "0.1875"], ["1/4", "0.2500"],
+  ["5/16", "0.3125"], ["3/8", "0.3750"], ["7/16", "0.4375"], ["1/2", "0.5000"],
+  ["9/16", "0.5625"], ["5/8", "0.6250"], ["11/16", "0.6875"], ["3/4", "0.7500"],
+  ["13/16", "0.8125"], ["7/8", "0.8750"], ["15/16", "0.9375"], ["1", "1.0000"],
+] as const;
+
+const drillTapCharts = {
+  unc: {
+    label: "SAE Coarse (UNC)", columns: ["Thread", "Tap drill", "Decimal"], rows: [
+      ["#4-40 UNC", "#43", "0.0890 in"], ["#6-32 UNC", "#36", "0.1065 in"],
+      ["#8-32 UNC", "#29", "0.1360 in"], ["#10-24 UNC", "#25", "0.1495 in"],
+      ["1/4-20 UNC", "#7", "0.2010 in"], ["5/16-18 UNC", "F", "0.2570 in"],
+      ["3/8-16 UNC", "5/16", "0.3125 in"], ["7/16-14 UNC", "U", "0.3680 in"],
+      ["1/2-13 UNC", "27/64", "0.4219 in"], ["9/16-12 UNC", "31/64", "0.4844 in"],
+      ["5/8-11 UNC", "17/32", "0.5313 in"], ["3/4-10 UNC", "21/32", "0.6563 in"],
+    ],
+  },
+  unf: {
+    label: "SAE Fine (UNF)", columns: ["Thread", "Tap drill", "Decimal"], rows: [
+      ["#4-48 UNF", "#42", "0.0935 in"], ["#6-40 UNF", "#33", "0.1130 in"],
+      ["#8-36 UNF", "#29", "0.1360 in"], ["#10-32 UNF", "#21", "0.1590 in"],
+      ["1/4-28 UNF", "#3", "0.2130 in"], ["5/16-24 UNF", "I", "0.2720 in"],
+      ["3/8-24 UNF", "Q", "0.3320 in"], ["7/16-20 UNF", "25/64", "0.3906 in"],
+      ["1/2-20 UNF", "29/64", "0.4531 in"], ["9/16-18 UNF", "33/64", "0.5156 in"],
+      ["5/8-18 UNF", "37/64", "0.5781 in"], ["3/4-16 UNF", "11/16", "0.6875 in"],
+    ],
+  },
+  metricCoarse: {
+    label: "Metric Coarse", columns: ["Thread", "Tap drill", "Inches"], rows: [
+      ["M3 × 0.5", "2.5 mm", "0.0984 in"], ["M4 × 0.7", "3.3 mm", "0.1299 in"],
+      ["M5 × 0.8", "4.2 mm", "0.1654 in"], ["M6 × 1.0", "5.0 mm", "0.1969 in"],
+      ["M8 × 1.25", "6.8 mm", "0.2677 in"], ["M10 × 1.5", "8.5 mm", "0.3346 in"],
+      ["M12 × 1.75", "10.2 mm", "0.4016 in"], ["M14 × 2.0", "12.0 mm", "0.4724 in"],
+      ["M16 × 2.0", "14.0 mm", "0.5512 in"], ["M20 × 2.5", "17.5 mm", "0.6890 in"],
+    ],
+  },
+  metricFine: {
+    label: "Metric Fine", columns: ["Thread", "Tap drill", "Inches"], rows: [
+      ["M6 × 0.75", "5.2 mm", "0.2047 in"], ["M8 × 1.0", "7.0 mm", "0.2756 in"],
+      ["M10 × 1.25", "8.8 mm", "0.3465 in"], ["M12 × 1.25", "10.8 mm", "0.4252 in"],
+      ["M12 × 1.5", "10.5 mm", "0.4134 in"], ["M14 × 1.5", "12.5 mm", "0.4921 in"],
+      ["M16 × 1.5", "14.5 mm", "0.5709 in"], ["M18 × 1.5", "16.5 mm", "0.6496 in"],
+      ["M20 × 1.5", "18.5 mm", "0.7283 in"], ["M20 × 2.0", "18.0 mm", "0.7087 in"],
+    ],
+  },
+  npt: {
+    label: "Pipe Thread (NPT)", columns: ["Thread", "Tap drill", "Decimal"], rows: [
+      ["1/16-27 NPT", "C", "0.2420 in"], ["1/8-27 NPT", "R", "0.3390 in"],
+      ["1/4-18 NPT", "7/16", "0.4375 in"], ["3/8-18 NPT", "37/64", "0.5781 in"],
+      ["1/2-14 NPT", "23/32", "0.7188 in"], ["3/4-14 NPT", "59/64", "0.9219 in"],
+      ["1-11.5 NPT", "1-5/32", "1.1563 in"],
+    ],
+  },
+  conversion: {
+    label: "Drill Conversion", columns: ["Drill size", "Decimal", "Millimeters"], rows: [
+      ["1/16", "0.0625 in", "1.588 mm"], ["#50", "0.0700 in", "1.778 mm"],
+      ["#43", "0.0890 in", "2.261 mm"], ["3/32", "0.0938 in", "2.381 mm"],
+      ["#36", "0.1065 in", "2.705 mm"], ["7/64", "0.1094 in", "2.778 mm"],
+      ["1/8", "0.1250 in", "3.175 mm"], ["#29", "0.1360 in", "3.454 mm"],
+      ["5/32", "0.1563 in", "3.969 mm"], ["#21", "0.1590 in", "4.039 mm"],
+      ["3/16", "0.1875 in", "4.763 mm"], ["#7", "0.2010 in", "5.105 mm"],
+      ["13/64", "0.2031 in", "5.159 mm"], ["7/32", "0.2188 in", "5.556 mm"],
+      ["1/4", "0.2500 in", "6.350 mm"], ["F", "0.2570 in", "6.528 mm"],
+      ["17/64", "0.2656 in", "6.747 mm"], ["I", "0.2720 in", "6.909 mm"],
+      ["9/32", "0.2813 in", "7.144 mm"], ["5/16", "0.3125 in", "7.938 mm"],
+      ["Q", "0.3320 in", "8.433 mm"], ["R", "0.3390 in", "8.611 mm"],
+      ["3/8", "0.3750 in", "9.525 mm"], ["25/64", "0.3906 in", "9.922 mm"],
+      ["27/64", "0.4219 in", "10.716 mm"], ["7/16", "0.4375 in", "11.113 mm"],
+      ["29/64", "0.4531 in", "11.509 mm"], ["31/64", "0.4844 in", "12.303 mm"],
+      ["1/2", "0.5000 in", "12.700 mm"], ["17/32", "0.5313 in", "13.494 mm"],
+    ],
+  },
+} as const;
+
+type DrillTapChartKey = keyof typeof drillTapCharts;
 
 const tools = [
+  ["tape-measure", "Tape Measure Reading Chart", "Identify common fractional marks and decimal equivalents.", Ruler],
   ["tire", "Tire Size Calculator", "Compare diameter, speedometer reading and ground clearance.", CircleGauge],
   ["gears", "Gear Ratio & RPM", "Estimate engine RPM using speed, tire diameter and gearing.", Gauge],
   ["bolts", "SAE & Metric Bolt Guide", "Common markings, grades and strength classes.", Bolt],
@@ -62,6 +131,8 @@ function SectionHeading({ icon: Icon, title, target }: { icon: typeof Wrench; ti
 
 export default function ToolboxClient() {
   const [query, setQuery] = useState("");
+  const [drillTapTab, setDrillTapTab] = useState<DrillTapChartKey>("unc");
+  const [drillTapSearch, setDrillTapSearch] = useState("");
   const [convertValue, setConvertValue] = useState("0.5");
   const [convertDirection, setConvertDirection] = useState<"in-mm" | "mm-in">("in-mm");
   const [oldTire, setOldTire] = useState({ width: 225, ratio: 60, rim: 17 });
@@ -90,6 +161,11 @@ export default function ToolboxClient() {
   const propSlip = propTheoretical ? ((propTheoretical - propSpeed) / propTheoretical) * 100 : 0;
 
   const filteredTools = tools.filter(([title, , description]) => `${title} ${description}`.toLowerCase().includes(query.toLowerCase()));
+  const selectedDrillTapChart = drillTapCharts[drillTapTab];
+  const drillTapMatches = drillTapSearch.trim()
+    ? (Object.entries(drillTapCharts) as [DrillTapChartKey, (typeof drillTapCharts)[DrillTapChartKey]][]).flatMap(([key, chart]) =>
+        chart.rows.filter((row) => row.join(" ").toLowerCase().includes(drillTapSearch.trim().toLowerCase())).map((row) => ({ key, label: chart.label, row })))
+    : [];
   const dtcText = (() => {
     const code = dtc.trim().toUpperCase();
     if (!/^[PBCU][0-3][0-9A-F]{3}$/.test(code)) return "Enter a five-character code such as P0300.";
@@ -115,7 +191,9 @@ export default function ToolboxClient() {
       {query && <section className="tool-results no-print"><h2>Matching tools</h2><div className="mini-tool-grid">{filteredTools.map(([id,title,description,Icon])=><a href={`#${id}`} key={id}><Icon/><span><strong>{title}</strong><small>{description}</small></span></a>)}</div>{!filteredTools.length&&<p>No matching tool yet. Try “tire,” “wire,” “trailer” or “bolt.”</p>}</section>}
 
       <div className="primary-tools">
-        <Printable id="drill-tap"><SectionHeading icon={Wrench} title="Drill & Tap Chart" target="drill-tap"/><p className="tool-note">Common 75% thread drill sizes. Confirm the tap type and material before drilling.</p><div className="table-wrap"><table><thead><tr><th>Thread</th><th>Tap drill</th><th>Decimal</th></tr></thead><tbody>{tapRows.map(row=><tr key={row[0]}>{row.map(cell=><td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div></Printable>
+        <Printable id="drill-tap" className="drill-tap-tool"><SectionHeading icon={Wrench} title="Drill & Tap Charts" target="drill-tap"/><p className="tool-note">Common approximately 75% thread drill sizes. Select a chart or search all charts.</p><label className="drill-tap-search no-print"><Search size={17}/><input value={drillTapSearch} onChange={(e)=>setDrillTapSearch(e.target.value)} placeholder="Search 1/4-28, M8, #7…" aria-label="Search drill and tap charts"/></label>{drillTapSearch.trim() ? <div className="table-wrap"><table><thead><tr><th>Chart</th><th>Thread / drill</th><th>Tap drill / decimal</th><th>Decimal / metric</th></tr></thead><tbody>{drillTapMatches.map(({label,row},index)=><tr key={`${label}-${row[0]}-${index}`}><td>{label}</td>{row.map(cell=><td key={cell}>{cell}</td>)}</tr>)}</tbody></table>{!drillTapMatches.length&&<p className="chart-empty">No match found. Try the thread diameter, pitch or drill size.</p>}</div> : <><div className="chart-tabs no-print" role="tablist" aria-label="Drill and tap chart types">{(Object.entries(drillTapCharts) as [DrillTapChartKey, (typeof drillTapCharts)[DrillTapChartKey]][]).map(([key,chart])=><button type="button" role="tab" aria-selected={drillTapTab===key} className={drillTapTab===key?"active":""} onClick={()=>setDrillTapTab(key)} key={key}>{chart.label}</button>)}</div><h3 className="print-chart-title">{selectedDrillTapChart.label}</h3><div className="table-wrap"><table><thead><tr>{selectedDrillTapChart.columns.map(column=><th key={column}>{column}</th>)}</tr></thead><tbody>{selectedDrillTapChart.rows.map(row=><tr key={row[0]}>{row.map(cell=><td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div></>}<p className="tool-note">Cutting-tap recommendations vary with material and desired thread engagement. Forming taps and tapered pipe threads may require different preparation—verify the tap manufacturer’s recommendation.</p></Printable>
+
+        <Printable id="tape-measure" className="tape-measure-tool"><SectionHeading icon={Ruler} title="Tape Measure Reading Chart" target="tape-measure"/><p className="tool-note">One inch divided into sixteenths. Longer marks represent larger fractions.</p><div className="tape-ruler" aria-label="One-inch ruler divided into sixteenths">{Array.from({length:17},(_,index)=><span key={index} className={`tick tick-${index}`}><i/><b>{index===0?"0":index===16?"1 in":index%4===0?`${index/4}/4`:index%2===0?`${index/2}/8`:`${index}/16`}</b></span>)}</div><div className="tape-chart-grid">{tapeMeasureRows.map(([fraction,decimal])=><div key={fraction}><strong>{fraction} in</strong><span>{decimal} decimal</span></div>)}</div><p className="tool-note">Tip: count the smallest marks between whole-inch numbers. Most standard tapes use 1/16-inch divisions; some precision tapes also show 1/32-inch marks.</p></Printable>
 
         <Printable id="converter"><SectionHeading icon={ArrowLeftRight} title="SAE–Metric Converter" target="converter"/><div className="converter-panel"><label>Value<input inputMode="decimal" value={convertValue} onChange={(e)=>setConvertValue(e.target.value)}/></label><button type="button" onClick={()=>setConvertDirection(convertDirection === "in-mm" ? "mm-in" : "in-mm")} aria-label="Swap conversion direction"><ArrowLeftRight/> Swap</button><div className="conversion-result"><small>{convertDirection === "in-mm" ? "Millimeters" : "Inches"}</small><strong>{Number.isFinite(converted) ? converted.toFixed(convertDirection === "in-mm" ? 2 : 4) : "0"} {convertDirection === "in-mm" ? "mm" : "in"}</strong></div></div><p className="formula">{convertDirection === "in-mm" ? "inches × 25.4 = millimeters" : "millimeters ÷ 25.4 = inches"}</p></Printable>
 
