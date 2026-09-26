@@ -26,7 +26,6 @@ export async function updateSession(request: NextRequest) {
     "/shops",
     "/safety",
     "/tech-wire",
-    "/toolbox",
     "/terms",
     "/privacy",
     "/affiliate-disclosure",
