@@ -3,6 +3,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { hasSupabaseConfig, supabasePublishableKey, supabaseUrl } from "./config";
 
 export async function updateSession(request: NextRequest) {
+  const hostname = request.nextUrl.hostname.toLowerCase();
+  const legacyHosts = new Set([
+    "any-partandgear.com",
+    "www.any-partandgear.com",
+    "anypartandgear.com",
+  ]);
+
+  if (legacyHosts.has(hostname)) {
+    const canonicalUrl = request.nextUrl.clone();
+    canonicalUrl.hostname = "www.anypartandgear.com";
+    canonicalUrl.protocol = "https:";
+    return NextResponse.redirect(canonicalUrl, 308);
+  }
+
   const pathname = request.nextUrl.pathname;
   const publicPrefixes = [
     "/auth",
