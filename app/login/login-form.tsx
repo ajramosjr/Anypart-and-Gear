@@ -161,7 +161,7 @@ export default function LoginForm({
       } else {
         setMessageType("success");
         setWaitingForVerification(true);
-        setMessage("Account created! Check your email and tap the verification link. We will bring you back to sign in and continue.");
+        setMessage("Check your inbox for the next step. New to APG? Use the verification link we sent. Already have an account? Reset your password below instead of creating another account.");
       }
     } else {
       const { error } = await supabase.auth.signInWithPassword({
@@ -191,6 +191,7 @@ export default function LoginForm({
         {waitingForVerification ? (
           <>
             <button className="button" type="button" onClick={() => changeMode("signin")}>I verified my email — Sign in</button>
+            {mode === "signup" && <button className="text-button" type="button" onClick={() => changeMode("recover")}>Already have an account? Reset password</button>}
             <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>
           </>
         ) : (
