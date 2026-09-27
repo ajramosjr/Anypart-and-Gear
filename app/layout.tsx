@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GearsAssistant } from "@/components/gears-assistant";
 import "./globals.css";
 import "./listing-overrides.css";
 
@@ -52,6 +53,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <GearsAssistant />
         <Analytics />
         <SpeedInsights />
       </body>
