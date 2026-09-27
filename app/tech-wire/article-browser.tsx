@@ -30,8 +30,8 @@ function SourceLine({ article }: { article: TechArticle }) {
 function ArticleActions({ article }: { article: TechArticle }) {
   const source = article.sources?.[0];
   return <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4">
-    <Link href={`/tech-wire/${article.slug}`} className="inline-flex items-center gap-1.5 rounded-md bg-[#071a35] px-4 py-2.5 text-sm font-black !text-white hover:bg-[#12345f] hover:!text-white">Read APG article <ArrowRight className="size-4" /></Link>
-    {source && <a href={source.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-black text-[#071a35] hover:border-amber-500">Original source <ExternalLink className="size-4" /></a>}
+    <Link href={`/tech-wire/${article.slug}`} className="inline-flex items-center gap-1.5 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-black !text-[#071a35] shadow-sm hover:bg-amber-300 hover:!text-[#071a35]">Read APG article <ArrowRight className="size-4" /></Link>
+    {source && <a href={source.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-black text-[#071a35] shadow-sm hover:bg-amber-300">Original source <ExternalLink className="size-4" /></a>}
   </div>;
 }
 
@@ -66,15 +66,15 @@ export default function ArticleBrowser({ articles }: { articles: TechArticle[] }
       <label className="flex h-12 items-center gap-3 rounded-lg border border-slate-300 bg-slate-50 px-4 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-200">
         <Search className="size-5 text-slate-500" /><span className="sr-only">Search APG Tech Wire</span>
         <input value={query} onChange={(event) => { setQuery(event.target.value); setActiveIndex(0); }} placeholder="Search a headline, topic or source…" className="min-w-0 flex-1 bg-transparent text-base outline-none" />
-        {query && <button type="button" onClick={() => { setQuery(""); setActiveIndex(0); }} aria-label="Clear search"><X className="size-5 text-slate-500" /></button>}
+        {query && <button type="button" onClick={() => { setQuery(""); setActiveIndex(0); }} aria-label="Clear search" className="rounded-full bg-amber-400 p-1 text-[#071a35] hover:bg-amber-300"><X className="size-4" /></button>}
       </label>
       <div className="mt-4 flex gap-2 overflow-x-auto pb-1" aria-label="News categories">
-        {categories.map((item) => <button type="button" key={item} onClick={() => selectCategory(item)} aria-pressed={category === item} className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-black ${category === item ? "border-[#071a35] bg-[#071a35] text-white" : "border-slate-300 bg-white text-slate-700 hover:border-amber-500"}`}>{item}</button>)}
+        {categories.map((item) => <button type="button" key={item} onClick={() => selectCategory(item)} aria-pressed={category === item} className={`whitespace-nowrap rounded-full bg-amber-400 px-4 py-2 text-xs font-black text-[#071a35] shadow-sm hover:bg-amber-300 ${category === item ? "border-2 border-[#071a35]" : "border border-amber-500"}`}>{item}</button>)}
       </div>
     </div>
     <div className="mt-5 flex items-center justify-between gap-4">
       <p className="text-sm font-bold text-slate-600">{shown.length} {shown.length === 1 ? "story" : "stories"} in {category}</p>
-      {category !== "All" && <button type="button" onClick={() => selectCategory("All")} className="text-sm font-black text-blue-900 underline">View all news</button>}
+      {category !== "All" && <button type="button" onClick={() => selectCategory("All")} className="rounded-md border border-amber-500 bg-amber-400 px-3 py-2 text-sm font-black text-[#071a35] shadow-sm hover:bg-amber-300">View all news</button>}
     </div>
     {activeArticle ? <>
       <article className="mt-4 grid overflow-hidden rounded-xl border border-slate-300 bg-white shadow-lg lg:grid-cols-[1.1fr_.9fr]">
@@ -87,13 +87,13 @@ export default function ArticleBrowser({ articles }: { articles: TechArticle[] }
         </div>
       </article>
       <div className="mt-5 flex items-center justify-between gap-3" aria-label="Article navigation">
-        <button type="button" onClick={previousArticle} className="inline-flex items-center gap-2 rounded-md border-2 border-[#071a35] bg-white px-4 py-3 text-sm font-black text-[#071a35] hover:bg-[#071a35] hover:text-white" aria-label="Previous article"><ChevronLeft className="size-5" /> Previous</button>
+        <button type="button" onClick={previousArticle} className="inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-3 text-sm font-black text-[#071a35] shadow-sm hover:bg-amber-300" aria-label="Previous article"><ChevronLeft className="size-5" /> Previous</button>
         <span className="min-w-16 text-center text-sm font-black text-slate-600 sm:hidden" aria-label={`Article ${safeIndex + 1} of ${shown.length}`}>{safeIndex + 1} / {shown.length}</span>
         <div className="hidden max-w-xl flex-wrap justify-center gap-2 sm:flex" aria-label={`Article ${safeIndex + 1} of ${shown.length}`}>
-          {shown.map((article, index) => <button type="button" key={article.slug} onClick={() => setActiveIndex(index)} aria-label={`Show article ${index + 1}: ${article.title}`} aria-current={index === safeIndex ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${index === safeIndex ? "w-8 bg-amber-500" : "w-2.5 bg-slate-300 hover:bg-slate-500"}`} />)}
+          {shown.map((article, index) => <button type="button" key={article.slug} onClick={() => setActiveIndex(index)} aria-label={`Show article ${index + 1}: ${article.title}`} aria-current={index === safeIndex ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${index === safeIndex ? "w-8 bg-amber-500" : "w-2.5 bg-amber-200 hover:bg-amber-400"}`} />)}
         </div>
-        <button type="button" onClick={nextArticle} className="inline-flex items-center gap-2 rounded-md border-2 border-[#071a35] bg-white px-4 py-3 text-sm font-black text-[#071a35] hover:bg-[#071a35] hover:text-white" aria-label="Next article">Next <ChevronRight className="size-5" /></button>
+        <button type="button" onClick={nextArticle} className="inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-3 text-sm font-black text-[#071a35] shadow-sm hover:bg-amber-300" aria-label="Next article">Next <ChevronRight className="size-5" /></button>
       </div>
-    </> : <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-white py-14 text-center"><Search className="mx-auto size-8 text-slate-400" /><h3 className="mt-3 font-black text-[#071a35]">No matching stories yet</h3><p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600">APG will add coverage here as reliable stories and sources become available.</p><button type="button" onClick={() => { setCategory("All"); setQuery(""); setActiveIndex(0); }} className="mt-4 text-sm font-bold text-blue-900 underline">Show all news</button></div>}
+    </> : <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-white py-14 text-center"><Search className="mx-auto size-8 text-slate-400" /><h3 className="mt-3 font-black text-[#071a35]">No matching stories yet</h3><p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600">APG will add coverage here as reliable stories and sources become available.</p><button type="button" onClick={() => { setCategory("All"); setQuery(""); setActiveIndex(0); }} className="mt-4 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-black text-[#071a35] shadow-sm hover:bg-amber-300">Show all news</button></div>}
   </>;
 }
