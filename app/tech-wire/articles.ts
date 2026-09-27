@@ -18,6 +18,63 @@ export type TechArticle = {
 
 export const techArticles: TechArticle[] = [
   {
+    slug: "changing-fuels-hybrids-auto-marine-work",
+    category: "Fuel prices & powertrains",
+    title: "Fuel is changing every field. Are hybrids the practical middle ground?",
+    summary: "Cars, boats, trucks and work equipment are moving toward a mix of electricity, renewable fuels and more efficient engines. For many owners, a hybrid may offer the most usable bridge between them.",
+    readTime: "7 min read",
+    published: "September 27, 2026",
+    sections: [
+      {
+        heading: "Transportation is not changing all at once",
+        body: "The fuel transition will look different in every field. Passenger vehicles can often use home charging, while boats, long-haul trucks and remote equipment may need greater range, fast refueling and dependable energy far from a charger. Gasoline and diesel will remain part of the mix as electricity, renewable diesel, hydrogen, methanol and other alternatives develop. The right answer depends on the route, load and available infrastructure—not one headline technology.",
+      },
+      {
+        heading: "Automotive: hybrids solve an immediate problem",
+        body: "A conventional hybrid combines an engine with an electric motor and battery, then recovers energy through regenerative braking. It does not need to be plugged in. A plug-in hybrid adds a larger battery for shorter electric trips while retaining an engine for longer travel. That flexibility can make either type practical for drivers who want to reduce fuel use but cannot depend entirely on public charging.",
+        bullets: [
+          "Conventional hybrids work without home charging",
+          "Regenerative braking is especially useful in stop-and-go driving",
+          "Plug-in hybrids can cover many local trips on electricity when charged regularly",
+          "An engine preserves familiar range and fast refueling for longer trips",
+        ],
+      },
+      {
+        heading: "Marine: the mission matters more than the trend",
+        body: "Short-route ferries, harbor craft and smaller recreational boats may be good candidates for electric or hybrid operation because they return to known docks. Larger vessels and boats used far from shore still need energy density, range and reliable refueling. Hybrid systems can reduce engine idling and let an electric motor handle some low-speed operation, but weight, saltwater durability, charging access and purchase cost must be evaluated for the specific vessel.",
+      },
+      {
+        heading: "Trucks, buses and work equipment need several answers",
+        body: "Urban delivery trucks and buses benefit from regenerative braking and predictable routes. Long-haul trucks, farm machines, construction equipment and remote fleets face harder questions about payload, downtime and power availability. Those fields are likely to use a mix of efficient diesel engines, renewable diesel where approved, battery-electric systems, hybrids and possibly hydrogen rather than switching to one fuel at the same time.",
+      },
+      {
+        heading: "Why hybrids may remain the better choice for many owners",
+        body: "Hybrids can lower fuel consumption without requiring every trip to fit a charging network. They also preserve quick refueling and long operating range. That makes them a strong middle choice for mixed driving, towing, rural travel and fleets that cannot tolerate long charging stops. A plug-in hybrid is most effective when it is charged regularly; if it is rarely plugged in, much of its advantage disappears.",
+        bullets: [
+          "Compare real-world fuel economy under the load you actually carry",
+          "Check towing, payload and electric-range limits before buying",
+          "Price both engine maintenance and long-term battery coverage",
+          "Confirm that local technicians can service the complete powertrain",
+        ],
+      },
+      {
+        heading: "The tradeoff: two systems instead of one",
+        body: "A hybrid still has an engine, fuel system and exhaust equipment while adding a battery, motor and power electronics. That complexity is not automatically a deal-breaker, but buyers should consider warranty terms, repair access, battery condition on a used model and the cost difference from a conventional vehicle. A hybrid is not a zero-emission vehicle, and it is not the best answer when a full EV already covers the job easily.",
+      },
+      {
+        heading: "APG take: match the powertrain to the work",
+        body: "For many buyers, hybrids offer the most realistic balance available now: lower fuel use, familiar range and less dependence on new infrastructure. But there is no universal winner. Start with the daily route, worst-case load, towing needs, storage location, available charging or fueling and local service support. The best powertrain is the one that completes the real job reliably—not the one with the newest label.",
+      },
+    ],
+    sources: [
+      { label: "U.S. Department of Energy: Hybrid electric vehicle basics", url: "https://afdc.energy.gov/vehicles/electric-basics-hev" },
+      { label: "U.S. Department of Energy: Plug-in hybrid basics", url: "https://afdc.energy.gov/vehicles/electric-basics-phev" },
+      { label: "U.S. Department of Energy: Maritime innovation", url: "https://www.energy.gov/cmei/fuels/maritime-innovation" },
+      { label: "U.S. Department of Energy: Road, rail, marine and aviation", url: "https://www.energy.gov/cmei/vehicles/road-rail-marine-and-aviation" },
+      { label: "Alternative Fuels Data Center: Renewable diesel", url: "https://afdc.energy.gov/fuels/renewable-diesel" },
+    ],
+  },
+  {
     slug: "used-boat-recall-and-hin-checklist",
     category: "Boat safety",
     title: "Buying a used boat? Check recalls and verify the HIN first",

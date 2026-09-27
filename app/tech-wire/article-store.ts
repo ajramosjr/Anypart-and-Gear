@@ -31,6 +31,7 @@ function mapArticle(row: DatabaseTechArticle): TechArticle {
 }
 
 const builtInArticleCovers: Record<string, string> = {
+  "changing-fuels-hybrids-auto-marine-work": "/tech-wire/changing-fuels-hybrids-auto-marine-work.webp",
   "used-boat-recall-and-hin-checklist": "/tech-wire/used-boat-recall-and-hin-checklist.webp",
   "e15-fuel-warning-for-boats": "/tech-wire/e15-fuel-warning-for-boats.webp",
   "outboard-maintenance-parts-checklist": "/tech-wire/outboard-maintenance-parts-checklist.webp",
