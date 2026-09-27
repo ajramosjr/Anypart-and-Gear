@@ -86,6 +86,17 @@ const drillTapCharts = {
 
 type DrillTapChartKey = keyof typeof drillTapCharts;
 
+type DtcGuide = { meaning:string; symptoms:string[]; causes:string[]; checks:string[]; repairs:string[] };
+const dtcGuides: Record<string,DtcGuide> = {
+  P0128: { meaning:"Coolant temperature below the thermostat regulating temperature.", symptoms:["Slow engine warm-up","Weak cabin heat","Reduced fuel economy"], causes:["Thermostat stuck open","Low coolant level or leak","Coolant-temperature sensor or wiring fault","Cooling fan running when it should not"], checks:["Check coolant only when the engine is cold","Inspect for leaks","Compare coolant and ambient temperature before startup","Verify thermostat and fan operation with service information"], repairs:["Repair leaks and restore the correct coolant mixture","Replace a confirmed faulty thermostat or sensor","Repair fan-control or wiring faults"] },
+  P0171: { meaning:"Fuel system too lean, Bank 1.", symptoms:["Rough idle","Hesitation","Possible misfire or lack of power"], causes:["Vacuum or unmetered-air leak","Dirty or faulty MAF sensor","Low fuel pressure or restricted injector","Exhaust leak near the upstream oxygen sensor"], checks:["Review fuel trims and related codes","Inspect intake hoses and vacuum lines","Test fuel pressure to specification","Check for exhaust leaks and sensor wiring"], repairs:["Repair confirmed air or exhaust leaks","Correct fuel-pressure or injector problems","Service or replace a sensor only when testing supports it"] },
+  P0300: { meaning:"Random or multiple-cylinder misfire detected.", symptoms:["Rough running or shaking","Loss of power","Flashing or steady check-engine light"], causes:["Worn spark plugs or ignition fault","Vacuum leak","Fuel-delivery problem","Low compression","Incorrect valve or ignition timing"], checks:["Do not continue driving with a flashing check-engine light","Read related cylinder-specific and fuel-trim codes","Inspect plugs, coils and ignition components","Check for vacuum leaks and verify fuel pressure","Perform compression testing when needed"], repairs:["Replace only confirmed faulty ignition parts","Repair vacuum or fuel-delivery faults","Correct mechanical compression or timing problems"] },
+  P0420: { meaning:"Catalyst system efficiency below threshold, Bank 1.", symptoms:["Check-engine light","Possible reduced performance","Often no noticeable symptom"], causes:["Aged or damaged catalytic converter","Engine misfire or rich/lean operation","Exhaust leak","Oxygen-sensor or wiring fault","Oil or coolant contamination"], checks:["Repair misfire and fuel-control codes first","Inspect for exhaust leaks","Compare upstream and downstream oxygen-sensor activity","Check for oil or coolant consumption"], repairs:["Repair the underlying engine or exhaust fault","Repair confirmed sensor or wiring problems","Replace the catalytic converter only after diagnosis confirms it"] },
+  P0442: { meaning:"Small evaporative-emissions system leak detected.", symptoms:["Check-engine light","Occasional fuel odor","Usually no drivability symptom"], causes:["Loose, damaged or incorrect fuel cap","Cracked EVAP hose","Leaking purge or vent valve","Leak at the canister or filler neck"], checks:["Inspect and correctly tighten the fuel cap","Inspect accessible hoses and connectors","Test purge and vent valves","Use a low-pressure smoke test following service procedures"], repairs:["Replace a failed cap with the correct type","Repair cracked hoses or connections","Replace a confirmed leaking valve or canister"] },
+  P0455: { meaning:"Large evaporative-emissions system leak detected.", symptoms:["Check-engine light","Possible fuel odor","Usually no drivability symptom"], causes:["Missing or loose fuel cap","Disconnected or split EVAP hose","Stuck-open vent or purge valve","Damaged canister or filler neck"], checks:["Confirm the cap is present, correct and sealed","Inspect EVAP hoses for disconnection or damage","Test purge and vent valves","Smoke-test with approved equipment"], repairs:["Correct the cap or hose problem","Repair damaged plumbing","Replace only a confirmed faulty valve or canister"] },
+  P0562: { meaning:"System voltage low.", symptoms:["Slow cranking","Multiple warning lights","Electrical accessories may act abnormally"], causes:["Discharged or failing battery","Charging-system fault","Loose or corroded connections","Excessive voltage drop","Parasitic draw"], checks:["Inspect battery terminals and grounds","Test battery state of charge and condition","Measure charging voltage and loaded voltage drop","Check key-off draw if the battery repeatedly discharges"], repairs:["Clean and secure connections","Replace a confirmed failed battery","Repair charging-system, cable or parasitic-draw faults"] },
+};
+
 const tools = [
   ["tape-measure", "Tape Measure Reading Chart", "Identify common fractional marks and decimal equivalents.", Ruler],
   ["tire", "Tire Size Calculator", "Compare diameter, speedometer reading and ground clearance.", CircleGauge],
@@ -166,14 +177,10 @@ export default function ToolboxClient() {
     ? (Object.entries(drillTapCharts) as [DrillTapChartKey, (typeof drillTapCharts)[DrillTapChartKey]][]).flatMap(([key, chart]) =>
         chart.rows.filter((row) => row.join(" ").toLowerCase().includes(drillTapSearch.trim().toLowerCase())).map((row) => ({ key, label: chart.label, row })))
     : [];
-  const dtcText = (() => {
-    const code = dtc.trim().toUpperCase();
-    if (!/^[PBCU][0-3][0-9A-F]{3}$/.test(code)) return "Enter a five-character code such as P0300.";
-    const systems: Record<string, string> = { P: "Powertrain", B: "Body", C: "Chassis", U: "Network communication" };
-    const origin = code[1] === "0" ? "generic SAE code" : "manufacturer-specific or enhanced code";
-    const examples: Record<string, string> = { P0300: "Random or multiple-cylinder misfire detected.", P0420: "Catalyst system efficiency below threshold, Bank 1.", P0171: "Fuel system too lean, Bank 1.", P0442: "Small evaporative-emissions leak detected.", P0128: "Coolant temperature below thermostat regulating temperature." };
-    return examples[code] || `${systems[code[0]]} system · ${origin}. Use vehicle-specific service information for the exact definition and diagnostic procedure.`;
-  })();
+  const normalizedDtc = dtc.trim().toUpperCase();
+  const validDtc = /^[PBCU][0-3][0-9A-F]{3}$/.test(normalizedDtc);
+  const dtcGuide = validDtc ? dtcGuides[normalizedDtc] : undefined;
+  const dtcFallback = validDtc ? `Detailed guidance is not available for this ${normalizedDtc[1] === "0" ? "generic" : "manufacturer-specific or enhanced"} code yet. Verify its definition and diagnostic procedure with vehicle-specific service information.` : "Enter a five-character code such as P0300.";
 
   return <>
     <section className="toolbox-hero no-print">
@@ -186,7 +193,7 @@ export default function ToolboxClient() {
     </section>
 
     <div className="shell toolbox-content">
-      <div className="toolbox-actions no-print"><p><strong>All tools are free.</strong> No account is required.</p><PrintButton label="Print complete toolbox" /></div>
+      <div className="toolbox-actions no-print"><p><strong>All tools are free.</strong> You’re signed in with access to every Toolbox feature.</p><PrintButton label="Print complete toolbox" /></div>
 
       {query && <section className="tool-results no-print"><h2>Matching tools</h2><div className="mini-tool-grid">{filteredTools.map(([id,title,description,Icon])=><a href={`#${id}`} key={id}><Icon/><span><strong>{title}</strong><small>{description}</small></span></a>)}</div>{!filteredTools.length&&<p>No matching tool yet. Try “tire,” “wire,” “trailer” or “bolt.”</p>}</section>}
 
@@ -211,7 +218,7 @@ export default function ToolboxClient() {
 
         <Printable id="wire"><SectionHeading icon={Zap} title="12-Volt Wire Gauge Chart" target="wire"/><div className="table-wrap"><table><thead><tr><th>Current</th><th>Short run*</th><th>Longer run*</th></tr></thead><tbody><tr><td>5 A</td><td>18 AWG</td><td>16 AWG</td></tr><tr><td>10 A</td><td>16 AWG</td><td>14 AWG</td></tr><tr><td>20 A</td><td>12 AWG</td><td>10 AWG</td></tr><tr><td>30 A</td><td>10 AWG</td><td>8 AWG</td></tr><tr><td>40 A</td><td>8 AWG</td><td>6 AWG</td></tr></tbody></table></div><p className="tool-note">*General copper-wire starting point. Length, bundling, temperature and allowable voltage drop matter. Fuse the circuit for the wire and device.</p></Printable>
 
-        <Printable id="dtc"><SectionHeading icon={Car} title="DTC Code Lookup" target="dtc"/><label className="single-input">OBD-II code<input value={dtc} maxLength={5} onChange={e=>setDtc(e.target.value.toUpperCase())}/></label><div className="lookup-result"><strong>{dtc || "Code"}</strong><p>{dtcText}</p></div><p className="tool-note">A code identifies a monitored fault—not automatically the failed part. Diagnose before replacing components.</p></Printable>
+        <Printable id="dtc" className="dtc-tool"><SectionHeading icon={Car} title="OBD-II Code Diagnostic Guide" target="dtc"/><label className="single-input">OBD-II code<input value={dtc} maxLength={5} onChange={e=>setDtc(e.target.value.toUpperCase().replace(/[^A-F0-9PBCU]/g,""))} placeholder="P0300"/></label><div className="lookup-result"><strong>{normalizedDtc || "Code"}</strong><p>{dtcGuide?.meaning || dtcFallback}</p></div>{dtcGuide&&<div className="dtc-guide"><DtcList title="Common symptoms" items={dtcGuide.symptoms}/><DtcList title="Possible causes" items={dtcGuide.causes}/><DtcList title="Check first" items={dtcGuide.checks}/><DtcList title="Possible repairs" items={dtcGuide.repairs}/></div>}<div className="verify-callout"><AlertTriangle/>A trouble code identifies a monitored fault, not automatically a failed part. Diagnose and verify vehicle-specific procedures before replacing components.</div><p className="tool-note">Manufacturer-specific and enhanced codes can differ by year, make, model and engine. APG does not require or collect a VIN.</p></Printable>
 
         <Printable id="towing"><SectionHeading icon={Truck} title="Trailer & Towing Calculator" target="towing"/><div className="field-stack"><NumberField label="Trailer dry weight (lb)" value={trailerDry} setValue={setTrailerDry}/><NumberField label="Cargo, fluids & options (lb)" value={cargo} setValue={setCargo}/><NumberField label="Vehicle tow rating (lb)" value={towRating} setValue={setTowRating}/></div><div className={`result-strip ${loadedTrailer > towRating ? "danger" : ""}`}><span>Estimated loaded trailer</span><strong>{loadedTrailer.toLocaleString()} lb</strong><small>{towRating-loadedTrailer >= 0 ? `${(towRating-loadedTrailer).toLocaleString()} lb below entered rating` : `${Math.abs(towRating-loadedTrailer).toLocaleString()} lb over entered rating`}</small></div><p className="tool-note">Also verify payload, tongue weight, hitch, axle, tire and combined-weight ratings.</p></Printable>
 
@@ -241,4 +248,8 @@ function NumberField({ label, value, setValue, step = "1" }: { label:string; val
 
 function CheckList({ items, interactive=false }: { items:string[]; interactive?:boolean }) {
   return <ul className="print-checklist">{items.map(item=><li key={item}>{interactive ? <input type="checkbox" aria-label={item}/> : <span className="empty-check"/>}<span>{item}</span></li>)}</ul>;
+}
+
+function DtcList({ title, items }: { title:string; items:string[] }) {
+  return <section><h4>{title}</h4><ul>{items.map(item=><li key={item}>{item}</li>)}</ul></section>;
 }
