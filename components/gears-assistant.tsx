@@ -350,6 +350,7 @@ export function GearsAssistant() {
                 sizes="64px"
                 alt=""
               />
+              <span className={styles.blink}><span /><span /></span>
             </div>
             <div className={styles.heading}>
               <strong id="gears-title">Gear</strong>
@@ -443,6 +444,7 @@ export function GearsAssistant() {
           aria-hidden="true"
           priority
         />
+        <span className={styles.blink} aria-hidden="true"><span /><span /></span>
         <span className={styles.statusDot} aria-hidden="true" />
       </button>
     </aside>
