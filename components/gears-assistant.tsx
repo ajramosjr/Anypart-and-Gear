@@ -47,6 +47,37 @@ const listingSteps: Exclude<ListingStep, null>[] = [
   "description",
 ];
 
+function normalizeCategory(answer: string) {
+  const value = answer.toLowerCase();
+  if (value.includes("boat") && /sale|complete|watercraft/.test(value)) return "Boats for Sale";
+  if (value.includes("boat") || value.includes("marine")) return "Boat Parts";
+  if (value.includes("motorcycle") || value.includes("bike")) return "Motorcycles";
+  if (value.includes("trailer")) return "Trailers";
+  if (value.includes("tool")) return "Tools";
+  if (value.includes("machin") || value.includes("equipment")) return "Machinery";
+  if (value.includes("rc") || value.includes("hobby") || value.includes("drone")) return "RC & Hobby";
+  if (value.includes("workwear") || value.includes("apparel") || value.includes("clothing")) return "Workwear & Apparel";
+  if (value.includes("vehicle") || value.includes("car for sale") || value.includes("truck for sale")) return "Vehicles for Sale";
+  if (value.includes("truck") || value.includes("diesel")) return "Trucks";
+  return "Car Parts";
+}
+
+function normalizeCondition(answer: string) {
+  const value = answer.toLowerCase();
+  if (value.includes("like new")) return "Like new";
+  if (value.includes("new")) return "New";
+  if (value.includes("fair") || value.includes("parts") || value.includes("repair")) return "Fair";
+  return "Good";
+}
+
+function listingQuality(draft: Record<string, string>) {
+  const suggestions: string[] = [];
+  if ((draft.item || "").length < 12) suggestions.push("add a brand, model, or part number to the title");
+  if ((draft.description || "").length < 40) suggestions.push("add more fitment details, measurements, known issues, or pickup information");
+  if (!/\d/.test(draft.item || "") && !/\d/.test(draft.description || "")) suggestions.push("include a year, size, model, or part number when available");
+  return suggestions;
+}
+
 export function GearsAssistant() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -140,9 +171,30 @@ export function GearsAssistant() {
     }
 
     setListingStep(null);
+    const qualitySuggestions = listingQuality(updatedDraft);
+    const category = normalizeCategory(updatedDraft.category);
+    const condition = normalizeCondition(updatedDraft.condition);
+    const numericPrice = updatedDraft.price.match(/\d+(?:\.\d{1,2})?/)?.[0] || "0";
+
+    if (pathname === "/sell") {
+      window.dispatchEvent(new CustomEvent("apg:fill-listing", {
+        detail: {
+          title: updatedDraft.item,
+          category,
+          condition,
+          price: numericPrice,
+          location: updatedDraft.location,
+          description: updatedDraft.description,
+        },
+      }));
+    }
+
+    const qualityText = qualitySuggestions.length
+      ? `Quality check: ${qualitySuggestions.join("; ")}.`
+      : "Quality check: your written details are strong. Add clear photos before publishing.";
     addMessage(
       "gears",
-      `Your listing plan is ready:\n\nTitle: ${updatedDraft.item}\nCategory: ${updatedDraft.category}\nCondition: ${updatedDraft.condition}\nPrice: ${updatedDraft.price}\nLocation: ${updatedDraft.location}\nDescription: ${updatedDraft.description}\n\nAdd clear photos of the full item, model or part number, connectors, mounting points, and any wear. ${pathname === "/sell" ? "You can enter these details in the form behind me." : "Open Post an item below when you’re ready."}`,
+      `Your listing plan is ready:\n\nTitle: ${updatedDraft.item}\nCategory: ${category}\nCondition: ${condition}\nPrice: ${updatedDraft.price}\nLocation: ${updatedDraft.location}\nDescription: ${updatedDraft.description}\n\n${qualityText}\n\nAdd photos of the full item, model or part number, connectors, mounting points, and any wear. ${pathname === "/sell" ? "I filled the Sell form for you. Close me to review it, add photos, and publish when ready." : "Open Post an item below when you’re ready."}`,
     );
   }
 
