@@ -18,6 +18,62 @@ export type TechArticle = {
 
 export const techArticles: TechArticle[] = [
   {
+    slug: "used-boat-recall-and-hin-checklist",
+    category: "Boat safety",
+    title: "Buying a used boat? Check recalls and verify the HIN first",
+    summary: "A clean-looking hull can still have an unresolved safety defect. Here is how to check the Coast Guard recall database and confirm the boat’s identity before buying.",
+    readTime: "5 min read",
+    published: "September 27, 2026",
+    sections: [
+      { heading: "Start with the hull identification number", body: "The hull identification number, or HIN, identifies the boat much like a VIN identifies a vehicle. Compare the HIN on the hull with the title or registration and look carefully for missing, altered or mismatched characters before money changes hands." },
+      { heading: "Search for safety defects", body: "The U.S. Coast Guard maintains a searchable database of documented and alleged safety defects affecting recreational boats and associated equipment. Search by manufacturer, model and model year when possible, then ask the seller for documentation showing that any applicable recall work was completed.", bullets: ["Photograph the HIN and manufacturer plate", "Match the model and year to the paperwork", "Search the Coast Guard recall database", "Have unresolved defects inspected by a qualified marine technician"] },
+      { heading: "A recall search is only one step", body: "A database check does not replace a sea trial or professional inspection. Transom damage, water intrusion, wiring problems, fuel leaks and neglected propulsion systems may not appear in a recall search." },
+    ],
+    sources: [{ label: "U.S. Coast Guard: Recalls and safety defects", url: "https://uscgboating.org/content/recalls_and_safety_defects.php" }, { label: "U.S. Coast Guard: Hull identification guidance", url: "https://uscgboating.org/regulations/State-Guidance/HIN/" }],
+  },
+  {
+    slug: "e15-fuel-warning-for-boats",
+    category: "Marine fuel",
+    title: "E15 fuel warning: do not put 15% ethanol gasoline in a boat",
+    summary: "The EPA permits E15 for certain highway vehicles, but not boats. Check the pump label carefully before filling portable tanks or a trailerable boat.",
+    readTime: "4 min read",
+    published: "September 27, 2026",
+    sections: [
+      { heading: "E15 is not approved for boats", body: "E15 contains 15% ethanol. The U.S. Environmental Protection Agency says it cannot be used in nonroad vehicles such as boats. A newer tow vehicle may accept E15 while the boat behind it does not, which makes pump selection especially important." },
+      { heading: "Read the label before fueling", body: "Do not choose fuel by octane alone. Confirm the ethanol blend shown on the dispenser and follow the fuel specification in the engine owner’s manual.", bullets: ["Keep boat and tow-vehicle fuel requirements separate", "Check portable cans before filling", "Do not assume premium grade means ethanol-free", "If the wrong fuel was added, stop and contact a qualified marine service provider"] },
+      { heading: "Storage still matters", body: "Fuel age, water contamination and the condition of hoses, filters and tanks can also cause running problems. Use the manufacturer’s storage procedure and inspect the entire fuel system rather than treating every symptom as an ethanol problem." },
+    ],
+    sources: [{ label: "U.S. EPA: E15 fuel registration and permitted uses", url: "https://www.epa.gov/fuels-registration-reporting-and-compliance-help/e15-fuel-registration" }],
+  },
+  {
+    slug: "outboard-maintenance-parts-checklist",
+    category: "Boat maintenance",
+    title: "Outboard maintenance: order parts by the exact engine, not horsepower alone",
+    summary: "Oil filters, gear lube, fuel filters, impellers and service intervals can vary within the same horsepower range. Build the maintenance list from the engine identification and manual.",
+    readTime: "6 min read",
+    published: "September 27, 2026",
+    sections: [
+      { heading: "Identify the engine first", body: "Before ordering a maintenance kit, record the manufacturer, model, serial number and year information from the engine. Two outboards with the same advertised horsepower can use different filters, seals, fluids or service parts." },
+      { heading: "Use the manufacturer schedule", body: "Mercury advises owners to follow the inspection and maintenance schedule in the applicable operation and maintenance manual. Hour-based service and seasonal storage can overlap, so check both instead of relying on a generic yearly checklist.", bullets: ["Engine oil and filter where applicable", "Gearcase lubricant and drain-plug seals", "Fuel filters and water-separating filters", "Cooling-system inspection and water-pump service", "Propeller removal and inspection for fishing line or seal damage"] },
+      { heading: "Confirm before opening packages", body: "Compare every part number and fluid specification with the manual or an authorized parts catalog. Keep receipts and packaging until the engine has been serviced and checked for leaks." },
+    ],
+    sources: [{ label: "Mercury Marine: Maintenance Made Easy", url: "https://www.mercurymarine.com/us/en/service-and-support/owners-resources/maintenance-made-easy" }, { label: "Mercury Marine: Outboard care resources", url: "https://www.mercurymarine.com/us/en/service-and-support/owners-resources/how-to/outboard-care" }],
+  },
+  {
+    slug: "boat-engine-cutoff-switch-safety-check",
+    category: "Boat safety",
+    title: "The engine cut-off switch only helps when the operator uses it",
+    summary: "A working lanyard or wireless engine cut-off device can stop propulsion if the operator is thrown away from the controls. Test it and connect it before getting underway.",
+    readTime: "4 min read",
+    published: "September 27, 2026",
+    sections: [
+      { heading: "Why the device matters", body: "The U.S. Coast Guard explains that an engine cut-off switch can shut down the engine when the operator is separated from the operating area. Stopping propulsion may reduce the risk from an uncontrolled boat and spinning propeller." },
+      { heading: "Make it part of departure", body: "A lanyard left wrapped around the control does not protect the operator. Attach it as directed, or confirm that the approved wireless device is paired and active before leaving idle speed.", bullets: ["Inspect the clip, cord and switch for damage", "Test operation according to the manufacturer instructions", "Keep an appropriate replacement aboard", "Explain restart procedures to another capable passenger"] },
+      { heading: "Check the rules for the boat", body: "Equipment and use requirements can depend on the vessel and how it is operated. Review current Coast Guard guidance and applicable state rules rather than relying on what a previous owner did." },
+    ],
+    sources: [{ label: "U.S. Coast Guard: Engine cut-off switches", url: "https://uscgboating.org/recreational-boaters/engine-cut-off-devices.php" }],
+  },
+  {
     slug: "milwaukee-m18-high-output-xc5-tool-watch",
     category: "New tool watch",
     title: "Milwaukee’s M18 High Output XC5 battery: more power without the XC6 size",
