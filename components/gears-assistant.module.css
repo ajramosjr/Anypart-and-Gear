@@ -71,7 +71,25 @@
   transform: translateX(-50%);
   object-fit: contain;
   filter: drop-shadow(0 10px 12px rgb(11 35 69 / 30%));
+}
+
+.gearFace,
+.avatarFace {
+  clip-path: circle(36% at 50% 50%);
+}
+
+.launcherRing,
+.avatarRing {
+  -webkit-mask-image: radial-gradient(circle at center, transparent 0 48%, #000 51%);
+  mask-image: radial-gradient(circle at center, transparent 0 48%, #000 51%);
+}
+
+.gearFace {
   animation: gear-head-idle 4s ease-in-out infinite;
+}
+
+.launcherRing {
+  animation: gear-ring-turn 14s ease-in-out infinite;
 }
 
 .statusDot {
@@ -134,10 +152,17 @@
 }
 
 .avatarImage {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 50px;
   height: 50px;
   margin: 0;
   object-fit: contain;
+}
+
+.avatarRing {
+  animation: avatar-ring-turn 14s ease-in-out infinite;
 }
 
 .heading {
@@ -391,6 +416,16 @@
   50% { transform: translate(-50%, calc(-50% - 5px)) rotate(2deg); }
 }
 
+@keyframes gear-ring-turn {
+  0%, 74% { transform: translate(-50%, -50%) rotate(0deg); }
+  92%, 100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes avatar-ring-turn {
+  0%, 74% { transform: rotate(0deg); }
+  92%, 100% { transform: rotate(360deg); }
+}
+
 @keyframes gear-blink {
   0%, 89%, 93%, 100% { opacity: 0; transform: scaleY(.05) rotate(9deg); }
   90.5%, 91.5% { opacity: 1; transform: scaleY(1) rotate(9deg); }
@@ -439,6 +474,8 @@
 @media (prefers-reduced-motion: reduce) {
   .launcher,
   .gearHead,
+  .launcherRing,
+  .avatarRing,
   .blink span,
   .intro,
   .panel {
