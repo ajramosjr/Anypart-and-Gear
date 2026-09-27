@@ -27,13 +27,11 @@ const actions = [
 export function GearsAssistant() {
   const [open, setOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
-  const [hasWalkedIn, setHasWalkedIn] = useState(false);
 
   useEffect(() => {
-    const walkTimer = window.setTimeout(() => setHasWalkedIn(true), 2400);
     const alreadyIntroduced = window.sessionStorage.getItem("apg-gears-introduced");
     if (alreadyIntroduced) {
-      return () => window.clearTimeout(walkTimer);
+      return;
     }
 
     const showTimer = window.setTimeout(() => setShowIntro(true), 900);
@@ -41,7 +39,6 @@ export function GearsAssistant() {
     window.sessionStorage.setItem("apg-gears-introduced", "true");
 
     return () => {
-      window.clearTimeout(walkTimer);
       window.clearTimeout(showTimer);
       window.clearTimeout(hideTimer);
     };
@@ -60,9 +57,9 @@ export function GearsAssistant() {
             <div className={styles.avatar} aria-hidden="true">
               <Image
                 className={styles.avatarImage}
-                src="/gears-assistant.png"
-                width={1024}
-                height={1536}
+                src="/gears-head.png"
+                width={1240}
+                height={1240}
                 sizes="64px"
                 alt=""
               />
@@ -114,9 +111,15 @@ export function GearsAssistant() {
         aria-label={open ? "Close Gears assistant" : "Open Gears assistant"}
         aria-expanded={open}
       >
-        <span
-          className={`${styles.mascotSprite} ${hasWalkedIn ? styles.waving : styles.walking}`}
+        <Image
+          className={styles.gearHead}
+          src="/gears-head.png"
+          width={1240}
+          height={1240}
+          sizes="(max-width: 560px) 78px, 88px"
+          alt=""
           aria-hidden="true"
+          priority
         />
         <span className={styles.statusDot} aria-hidden="true" />
       </button>
