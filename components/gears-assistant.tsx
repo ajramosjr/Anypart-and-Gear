@@ -129,6 +129,8 @@ export function GearsAssistant() {
   const conversationEnd = useRef<HTMLDivElement>(null);
   const csvInput = useRef<HTMLInputElement>(null);
 
+  const hiddenOnNews = pathname.startsWith("/tech-wire");
+
   useEffect(() => {
     const alreadyIntroduced = window.sessionStorage.getItem("apg-gears-introduced");
     if (alreadyIntroduced) {
@@ -331,6 +333,8 @@ export function GearsAssistant() {
       `Your listing plan is ready:\n\nTitle: ${updatedDraft.item}\nCategory: ${category}\nCondition: ${condition}\nPrice: ${updatedDraft.price}\nLocation: ${updatedDraft.location}\nDescription: ${updatedDraft.description}\n\n${qualityText}\n\nAdd photos of the full item, model or part number, connectors, mounting points, and any wear. ${pathname === "/sell" ? "I filled the Sell form for you. Close me to review it, add photos, and publish when ready." : "Open Post an item below when you’re ready."}`,
     );
   }
+
+  if (hiddenOnNews) return null;
 
   return (
     <aside className={styles.root} aria-label="Gears website assistant">
