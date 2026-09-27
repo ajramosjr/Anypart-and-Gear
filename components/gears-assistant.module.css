@@ -23,6 +23,34 @@
   animation: gear-head-enter 650ms cubic-bezier(.2,.75,.2,1) both;
 }
 
+.blink {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blink span {
+  position: absolute;
+  top: 52%;
+  width: 15%;
+  height: 7.5%;
+  border-radius: 70% 70% 55% 55%;
+  background: linear-gradient(180deg, #12325b, #071323 75%);
+  opacity: 0;
+  transform: scaleY(.05) rotate(9deg);
+  transform-origin: 50% 0;
+  animation: gear-blink 5.4s ease-in-out infinite;
+}
+
+.blink span:first-child {
+  left: 28%;
+}
+
+.blink span:last-child {
+  right: 27%;
+  transform: scaleY(.05) rotate(-9deg);
+}
+
 .launcher:hover {
   transform: translateY(-2px);
 }
@@ -363,6 +391,20 @@
   50% { transform: translate(-50%, calc(-50% - 5px)) rotate(2deg); }
 }
 
+@keyframes gear-blink {
+  0%, 89%, 93%, 100% { opacity: 0; transform: scaleY(.05) rotate(9deg); }
+  90.5%, 91.5% { opacity: 1; transform: scaleY(1) rotate(9deg); }
+}
+
+.blink span:last-child {
+  animation-name: gear-blink-right;
+}
+
+@keyframes gear-blink-right {
+  0%, 89%, 93%, 100% { opacity: 0; transform: scaleY(.05) rotate(-9deg); }
+  90.5%, 91.5% { opacity: 1; transform: scaleY(1) rotate(-9deg); }
+}
+
 @keyframes intro-in {
   from { opacity: 0; transform: translateY(6px) scale(.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -397,6 +439,7 @@
 @media (prefers-reduced-motion: reduce) {
   .launcher,
   .gearHead,
+  .blink span,
   .intro,
   .panel {
     animation: none;
