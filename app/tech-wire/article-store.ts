@@ -31,6 +31,10 @@ function mapArticle(row: DatabaseTechArticle): TechArticle {
 }
 
 const builtInArticleCovers: Record<string, string> = {
+  "used-boat-recall-and-hin-checklist": "/tech-wire/used-boat-recall-and-hin-checklist.webp",
+  "e15-fuel-warning-for-boats": "/tech-wire/e15-fuel-warning-for-boats.webp",
+  "outboard-maintenance-parts-checklist": "/tech-wire/outboard-maintenance-parts-checklist.webp",
+  "boat-engine-cutoff-switch-safety-check": "/tech-wire/boat-engine-cutoff-switch-safety-check.webp",
   "best-engine-upgrades-that-add-power-without-ruining-reliability": "/tech-wire/engine-upgrades-reliability-cover.webp",
   "milwaukee-m18-high-output-xc5-tool-watch": "/tech-wire/milwaukee-m18-high-output-xc5-tool-watch.webp",
   "milwaukee-packout-vaclink-vacuum-tool-watch": "/tech-wire/milwaukee-packout-vaclink-vacuum-tool-watch.webp",
