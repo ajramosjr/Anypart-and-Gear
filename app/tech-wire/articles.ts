@@ -18,6 +18,63 @@ export type TechArticle = {
 
 export const techArticles: TechArticle[] = [
   {
+    slug: "fuel-guide-gasoline-ethanol-diesel-marine-equipment",
+    category: "Fuel guide",
+    title: "Fuel choices are changing: what drivers, boaters and equipment owners should know",
+    summary: "Regular, premium, ethanol blends, diesel, biodiesel and renewable diesel are not interchangeable. The safest choice begins with the engine manufacturer’s approved fuel specification.",
+    readTime: "7 min read",
+    published: "September 27, 2026",
+    sections: [
+      {
+        heading: "The pump offers more choices—but the engine sets the rules",
+        body: "Fuel is becoming more varied across cars, boats, trucks and work equipment. That creates opportunities for lower cost, domestic production and renewable content, but it also makes the label on the pump more important. Octane rating, ethanol percentage, cetane quality, biodiesel content and seasonal formulation affect different engines in different ways. Before choosing a fuel, check the owner’s manual, fuel-door label or manufacturer service information.",
+      },
+      {
+        heading: "Regular versus premium gasoline",
+        body: "A higher octane number describes resistance to engine knock; it does not automatically mean the fuel contains more energy or will clean every engine better. If premium is required, use it. If premium is only recommended, the vehicle may adjust to regular with some reduction in performance or efficiency. When the manual specifies regular, routinely paying for premium usually provides little benefit.",
+        bullets: [
+          "Required means the engine was designed to depend on that octane level",
+          "Recommended means the engine may run on a lower grade with tradeoffs",
+          "Do not choose fuel by price or nozzle color alone",
+          "Persistent knocking or poor running needs diagnosis—not a random additive",
+        ],
+      },
+      {
+        heading: "E10, E15 and E85 are different fuels",
+        body: "E10 contains up to 10% ethanol and is the most common gasoline blend in the United States. E15 contains 10.5% to 15% ethanol and is approved for many model-year 2001 and newer light-duty gasoline vehicles, but it is not approved for every engine or machine. E85 contains far more ethanol and belongs only in a flex-fuel vehicle. Ethanol has a higher octane rating than gasoline but less energy per gallon, so higher blends can change fuel economy.",
+      },
+      {
+        heading: "Boats and small engines need extra attention",
+        body: "A fuel accepted by the tow vehicle may be wrong for the boat, generator, mower or other nonroad equipment. E15 should not be used in boats. Marine fuel systems also face moisture, storage and corrosion concerns, so owners should follow the engine maker’s ethanol limit and storage procedure. Never assume that premium gasoline is ethanol-free; the pump label must say what blend is being sold.",
+        bullets: [
+          "Keep the boat’s fuel requirement separate from the tow vehicle’s",
+          "Label portable cans for the exact machine they serve",
+          "Buy a manageable amount before long storage periods",
+          "Inspect hoses, filters, vents and tanks when fuel problems appear",
+        ],
+      },
+      {
+        heading: "Diesel, biodiesel and renewable diesel are not the same",
+        body: "Biodiesel is commonly identified by blend levels such as B5 or B20 and has different chemical properties from petroleum diesel. Renewable diesel is produced from fats and oils but is processed differently and is chemically similar to petroleum diesel. Compatibility, cold-weather performance, warranty limits and required maintenance can depend on the blend, engine and emissions system. Diesel owners should confirm the approved specification instead of treating every green-labeled diesel product as interchangeable.",
+      },
+      {
+        heading: "Fuel quality matters as much as fuel type",
+        body: "Water, dirt, age and the wrong additive can create symptoms that resemble a mechanical failure. Buy from a busy, reputable station, keep caps and vents in good condition, and avoid storing fuel longer than the manufacturer recommends. If a machine runs poorly immediately after refueling, save the receipt and a fuel sample if it can be collected safely by a qualified technician.",
+      },
+      {
+        heading: "APG take: read the label before grabbing the nozzle",
+        body: "The future will include more fuel blends, renewable products and electrified powertrains. Owners do not need to memorize every chemistry lesson, but they do need to match the pump label to the equipment. The right fuel is the approved fuel that delivers the required performance, range and reliability for the job—not simply the highest octane or newest blend available.",
+      },
+    ],
+    sources: [
+      { label: "U.S. Department of Energy: Ethanol blends", url: "https://afdc.energy.gov/fuels/ethanol-blends" },
+      { label: "U.S. Department of Energy: Fuel blends", url: "https://afdc.energy.gov/fuels/blends" },
+      { label: "U.S. Department of Energy: Biodiesel basics", url: "https://afdc.energy.gov/fuels/biodiesel-basics" },
+      { label: "U.S. Department of Energy: Renewable diesel", url: "https://afdc.energy.gov/fuels/renewable-diesel" },
+      { label: "U.S. EPA: E15 fuel registration", url: "https://www.epa.gov/fuels-registration-reporting-and-compliance-help/e15-fuel-registration" },
+    ],
+  },
+  {
     slug: "boaterhome-rv-boat-should-come-back",
     category: "Boat concept",
     title: "The Boaterhome should come back—and modern technology could make it better",

@@ -6,14 +6,16 @@ import { useMemo, useState } from "react";
 import type { TechArticle } from "./articles";
 import { getTechArticleImage } from "./article-store";
 
-const categories = ["All", "Cars", "Boats", "Trucking & Buses", "Fuel Prices", "Parts", "Tools"] as const;
+const categories = ["All", "Cars", "Boats", "Trucking & Buses", "Fuel", "Parts", "Tools"] as const;
 type Category = (typeof categories)[number];
 
 function articleGroup(article: TechArticle): Exclude<Category, "All"> {
+  const categoryText = article.category.toLowerCase();
   const text = `${article.category} ${article.title} ${article.summary}`.toLowerCase();
+  if (/fuel|gasoline|ethanol|biodiesel/.test(categoryText)) return "Fuel";
   if (/boat|marine|outboard|inboard|watercraft/.test(text)) return "Boats";
   if (/truck|towing|trailer|bus|fleet|diesel/.test(text)) return "Trucking & Buses";
-  if (/fuel price|gas price|diesel price|gasoline price/.test(text)) return "Fuel Prices";
+  if (/fuel|gas price|diesel price|gasoline price|ethanol|octane|biodiesel|renewable diesel/.test(text)) return "Fuel";
   if (/tool|battery platform|drill|impact|sander|nailer|vacuum/.test(text)) return "Tools";
   if (/part|engine|reliability|supply chain|forced induction|turbo|supercharger|cooling|swap|build planning/.test(text)) return "Parts";
   return "Cars";
