@@ -30,7 +30,7 @@ function SourceLine({ article }: { article: TechArticle }) {
 function ArticleActions({ article }: { article: TechArticle }) {
   const source = article.sources?.[0];
   return <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4">
-    <Link href={`/tech-wire/${article.slug}`} className="inline-flex items-center gap-1.5 rounded-md bg-[#071a35] px-4 py-2.5 text-sm font-black text-white hover:bg-[#12345f]">Read APG article <ArrowRight className="size-4" /></Link>
+    <Link href={`/tech-wire/${article.slug}`} className="inline-flex items-center gap-1.5 rounded-md bg-[#071a35] px-4 py-2.5 text-sm font-black !text-white hover:bg-[#12345f] hover:!text-white">Read APG article <ArrowRight className="size-4" /></Link>
     {source && <a href={source.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-black text-[#071a35] hover:border-amber-500">Original source <ExternalLink className="size-4" /></a>}
   </div>;
 }
@@ -88,7 +88,8 @@ export default function ArticleBrowser({ articles }: { articles: TechArticle[] }
       </article>
       <div className="mt-5 flex items-center justify-between gap-3" aria-label="Article navigation">
         <button type="button" onClick={previousArticle} className="inline-flex items-center gap-2 rounded-md border-2 border-[#071a35] bg-white px-4 py-3 text-sm font-black text-[#071a35] hover:bg-[#071a35] hover:text-white" aria-label="Previous article"><ChevronLeft className="size-5" /> Previous</button>
-        <div className="flex flex-wrap justify-center gap-2" aria-label={`Article ${safeIndex + 1} of ${shown.length}`}>
+        <span className="min-w-16 text-center text-sm font-black text-slate-600 sm:hidden" aria-label={`Article ${safeIndex + 1} of ${shown.length}`}>{safeIndex + 1} / {shown.length}</span>
+        <div className="hidden max-w-xl flex-wrap justify-center gap-2 sm:flex" aria-label={`Article ${safeIndex + 1} of ${shown.length}`}>
           {shown.map((article, index) => <button type="button" key={article.slug} onClick={() => setActiveIndex(index)} aria-label={`Show article ${index + 1}: ${article.title}`} aria-current={index === safeIndex ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${index === safeIndex ? "w-8 bg-amber-500" : "w-2.5 bg-slate-300 hover:bg-slate-500"}`} />)}
         </div>
         <button type="button" onClick={nextArticle} className="inline-flex items-center gap-2 rounded-md border-2 border-[#071a35] bg-white px-4 py-3 text-sm font-black text-[#071a35] hover:bg-[#071a35] hover:text-white" aria-label="Next article">Next <ChevronRight className="size-5" /></button>
