@@ -123,7 +123,7 @@ export function GearsAssistant() {
   const [language, setLanguage] = useState<Language>("en");
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, role: "gears", text: "Hi, I’m Gears. Ask me how to use APG, find something, or create a strong listing." },
+    { id: 1, role: "gears", text: "Hi, I’m Gear. Ask me how to use APG, find something, or create a strong listing." },
   ]);
   const nextMessageId = useRef(2);
   const conversationEnd = useRef<HTMLDivElement>(null);
@@ -337,7 +337,7 @@ export function GearsAssistant() {
   if (hiddenOnNews) return null;
 
   return (
-    <aside className={styles.root} aria-label="Gears website assistant">
+    <aside className={styles.root} aria-label="Gear website assistant">
       {open ? (
         <section className={styles.panel} aria-labelledby="gears-title">
           <div className={styles.header}>
@@ -352,7 +352,7 @@ export function GearsAssistant() {
               />
             </div>
             <div className={styles.heading}>
-              <strong id="gears-title">Gears</strong>
+              <strong id="gears-title">Gear</strong>
               <span>{language === "es" ? "Asistente del sitio APG" : "APG website assistant"}</span>
             </div>
             <button className={styles.language} type="button" onClick={() => setLanguage((current) => current === "en" ? "es" : "en")} aria-label="Switch English and Spanish">
@@ -362,7 +362,7 @@ export function GearsAssistant() {
               className={styles.close}
               type="button"
               onClick={toggleAssistant}
-              aria-label="Close Gears assistant"
+              aria-label="Close Gear assistant"
             >
               <X size={19} aria-hidden="true" />
             </button>
@@ -378,15 +378,15 @@ export function GearsAssistant() {
               <div ref={conversationEnd} />
             </div>
             <form className={styles.chatForm} onSubmit={handleSubmit}>
-              <label className={styles.srOnly} htmlFor="gears-message">Ask Gears a question</label>
+              <label className={styles.srOnly} htmlFor="gears-message">Ask Gear a question</label>
               <input
                 id="gears-message"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder={language === "es" ? "Pregúntale a Gears sobre APG…" : listingStep ? "Type your answer…" : "Ask Gears anything about APG…"}
+                placeholder={language === "es" ? "Pregúntale a Gear sobre APG…" : listingStep ? "Type your answer…" : "Ask Gear anything about APG…"}
                 autoComplete="off"
               />
-              <button className={styles.micButton} type="button" onClick={startVoice} aria-label="Speak to Gears">
+              <button className={styles.micButton} type="button" onClick={startVoice} aria-label="Speak to Gear">
                 <Mic size={18} aria-hidden="true" />
               </button>
               <button type="submit" aria-label="Send message" disabled={!input.trim()}>
@@ -404,7 +404,7 @@ export function GearsAssistant() {
               </div>
             ) : null}
             <p className={styles.quickLabel}>Quick links</p>
-            <nav className={styles.actions} aria-label="Gears quick help">
+            <nav className={styles.actions} aria-label="Gear quick help">
               {actions.map(({ href, label, icon: Icon }) => (
                 <Link className={styles.action} href={href} key={href} onClick={() => setOpen(false)}>
                   <Icon size={21} strokeWidth={2.2} aria-hidden="true" />
@@ -413,7 +413,7 @@ export function GearsAssistant() {
               ))}
             </nav>
             <p className={styles.note}>
-              Gears provides website guidance only. Buyers and sellers remain responsible for listings,
+              Gear provides website guidance only. Buyers and sellers remain responsible for listings,
               payments, fitment, repairs, and safe transactions.
             </p>
           </div>
@@ -422,7 +422,7 @@ export function GearsAssistant() {
 
       {!open && showIntro ? (
         <div className={styles.intro} role="status">
-          Hi! I&apos;m Gears. Need help finding your way around APG?
+          Hi! I&apos;m Gear. Need help finding your way around APG?
         </div>
       ) : null}
 
@@ -430,7 +430,7 @@ export function GearsAssistant() {
         className={styles.launcher}
         type="button"
         onClick={toggleAssistant}
-        aria-label={open ? "Close Gears assistant" : "Open Gears assistant"}
+        aria-label={open ? "Close Gear assistant" : "Open Gear assistant"}
         aria-expanded={open}
       >
         <Image
