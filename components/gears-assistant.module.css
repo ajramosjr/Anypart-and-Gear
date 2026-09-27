@@ -11,20 +11,19 @@
 
 .launcher {
   position: relative;
-  width: 86px;
-  height: 86px;
-  border: 2px solid #d9ac36;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #ffffff 0%, #eef3fa 100%);
-  box-shadow: 0 12px 30px rgb(11 35 69 / 28%);
+  width: 108px;
+  height: 162px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
-  overflow: hidden;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  overflow: visible;
+  transition: transform 160ms ease;
 }
 
 .launcher:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 34px rgb(11 35 69 / 34%);
 }
 
 .launcher:focus-visible,
@@ -36,21 +35,22 @@
 
 .mascot {
   position: absolute;
-  width: 104px;
+  width: 108px;
   height: auto;
   left: 50%;
-  top: 3px;
+  bottom: 0;
   transform: translateX(-50%);
   transform-origin: 45% 70%;
   object-fit: contain;
+  filter: drop-shadow(0 10px 12px rgb(11 35 69 / 30%));
   animation: gears-arrive 900ms cubic-bezier(.2,.8,.2,1) both,
-    gears-wave 1.4s ease-in-out 900ms 2;
+    gears-wave 6s ease-in-out 1s infinite;
 }
 
 .statusDot {
   position: absolute;
   right: 5px;
-  bottom: 7px;
+  bottom: 2px;
   width: 14px;
   height: 14px;
   border: 2px solid #fff;
@@ -205,9 +205,12 @@
 }
 
 @keyframes gears-wave {
-  0%, 100% { transform: translateX(-50%) rotate(0deg); }
-  35% { transform: translateX(-50%) rotate(-4deg); }
-  70% { transform: translateX(-50%) rotate(3deg); }
+  0%, 68%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+  72% { transform: translateX(-50%) translateY(-4px) rotate(-7deg); }
+  76% { transform: translateX(-50%) translateY(-2px) rotate(6deg); }
+  80% { transform: translateX(-50%) translateY(-4px) rotate(-7deg); }
+  84% { transform: translateX(-50%) translateY(-2px) rotate(6deg); }
+  89% { transform: translateX(-50%) translateY(0) rotate(0deg); }
 }
 
 @keyframes intro-in {
@@ -227,12 +230,12 @@
   }
 
   .launcher {
-    width: 76px;
-    height: 76px;
+    width: 94px;
+    height: 141px;
   }
 
   .mascot {
-    width: 92px;
+    width: 94px;
   }
 
   .panel {
