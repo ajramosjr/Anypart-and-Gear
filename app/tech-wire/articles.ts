@@ -18,6 +18,66 @@ export type TechArticle = {
 
 export const techArticles: TechArticle[] = [
   {
+    slug: "boaterhome-rv-boat-should-come-back",
+    category: "Boat concept",
+    title: "The Boaterhome should come back—and modern technology could make it better",
+    summary: "The rare 1980s Boaterhome combined an RV-like road vehicle with a detachable cabin cruiser. A modern revival could turn one machine into the ultimate road-and-water escape.",
+    readTime: "7 min read",
+    published: "September 27, 2026",
+    sections: [
+      {
+        heading: "An RV that left part of itself at the boat ramp",
+        body: "The original Boaterhome joined the cab and forward chassis of a Ford Econoline to a specially shaped cabin-cruiser boat. On the road, the two sections met closely enough to resemble one long motorhome. At the launch ramp, the boat separated and floated away while the cab and supporting chassis remained on land. Reports say only about 21 examples were built, which helps explain why the strange but brilliant idea still attracts attention decades later.",
+      },
+      {
+        heading: "Why the idea was awesome",
+        body: "A normal boating vacation can require a tow vehicle, a trailer, a boat and separate lodging. The Boaterhome attempted to combine most of that equipment into one continuous living space. Travelers could drive, eat and sleep in an RV-like cabin, then launch the rear section and continue the trip on the water.",
+        bullets: [
+          "One adventure vehicle for highways, campgrounds, marinas and lakes",
+          "A cabin cruiser that also served as the rear living space on land",
+          "No separate conventional boat trailer behind a full-size motorhome",
+          "A dramatic launch that would still stop traffic at any modern ramp",
+        ],
+      },
+      {
+        heading: "How a modern version could improve it",
+        body: "Today’s technology could address several weaknesses of the old design without losing its personality. A heavy-duty hybrid chassis could provide strong low-speed torque and regenerative braking while preserving long-distance range. Cameras and proximity sensors could give the driver a clear view of the boat, ramp and dock. Electric bow thrusters could simplify close-quarters maneuvering after launch, while solar panels and a house battery could run lights, refrigeration and climate systems without idling the main engine.",
+        bullets: [
+          "Hybrid assistance for launch-ramp control and highway efficiency",
+          "Four-wheel steering or a steerable rear axle for tighter maneuvering",
+          "A 360-degree camera view with dedicated ramp and hitch guidance",
+          "Solar house power with separate propulsion and living-system batteries",
+          "Corrosion-resistant connections that automatically seal when the boat separates",
+        ],
+      },
+      {
+        heading: "The hardest problem would still be weight",
+        body: "Water, fuel, batteries, appliances, passengers and boating equipment add weight quickly. A revival would need published ratings for every road configuration and careful control of axle, tire and combined weight limits. The boat would also need to meet applicable capacity, flotation, electrical and fuel-system requirements. Clever packaging cannot replace separate engineering for a safe road vehicle and a safe vessel.",
+      },
+      {
+        heading: "Ownership would require two kinds of planning",
+        body: "A modern Boaterhome could face different registration, insurance and licensing rules as a motor vehicle and a boat. Owners would need service support for the chassis, propulsion system, hull and separation hardware. Not every launch ramp or campsite would accommodate its length, and saltwater use would demand a serious rinsing and corrosion-control routine.",
+        bullets: [
+          "Confirm road dimensions, weight ratings and license requirements",
+          "Confirm vessel registration and local operator requirements",
+          "Choose ramps with enough length, depth and turning room",
+          "Build a service network that understands both halves of the machine",
+        ],
+      },
+      {
+        heading: "APG take: bring it back as a limited-production flagship",
+        body: "The Boaterhome would never replace an ordinary pickup and trailer, and it would not be cheap. That is not the point. A modern manufacturer could bring it back as a low-volume halo vehicle for families, marinas, rental fleets and adventure travelers who want the journey itself to be memorable. Keep the detachable boat, add modern safety and hybrid systems, and give buyers one spectacular machine that can turn a road trip into a boating trip at the bottom of a ramp.",
+      },
+    ],
+    sources: [
+      { label: "Practical Motorhome: A look at the Boaterhome", url: "https://www.practicalmotorhome.com/news/boaterhome-half-van-half-boat" },
+      { label: "Motor1: Boaterhome half-van, half-boat history", url: "https://www.motor1.com/news/364548/boaterhome-half-van-half-boat/" },
+      { label: "U.S. patent: Recreational boat/camper vehicle", url: "https://patents.google.com/patent/WO1991019624A1/en" },
+      { label: "U.S. Coast Guard: Recreational boat regulations", url: "https://uscgboating.org/regulations/" },
+      { label: "NHTSA: Trailer importation and certification FAQs", url: "https://www.nhtsa.gov/importing-vehicle/importation-and-certification-faqs-1" },
+    ],
+  },
+  {
     slug: "changing-fuels-hybrids-auto-marine-work",
     category: "Fuel prices & powertrains",
     title: "Fuel is changing every field. Are hybrids the practical middle ground?",
