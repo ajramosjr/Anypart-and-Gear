@@ -69,7 +69,7 @@ export default function ArticleBrowser({ articles }: { articles: TechArticle[] }
         {query && <button type="button" onClick={() => { setQuery(""); setActiveIndex(0); }} aria-label="Clear search" className="rounded-full bg-amber-400 p-1 text-[#071a35] hover:bg-amber-300"><X className="size-4" /></button>}
       </label>
       <div className="mt-4 flex gap-2 overflow-x-auto pb-1" aria-label="News categories">
-        {categories.map((item) => <button type="button" key={item} onClick={() => selectCategory(item)} aria-pressed={category === item} className={`whitespace-nowrap rounded-full bg-amber-400 px-4 py-2 text-xs font-black text-[#071a35] shadow-sm hover:bg-amber-300 ${category === item ? "border-2 border-[#071a35]" : "border border-amber-500"}`}>{item}</button>)}
+        {categories.map((item) => <button type="button" key={item} onClick={() => selectCategory(item)} aria-pressed={category === item} className={`whitespace-nowrap rounded-full px-4 py-2 text-xs font-black text-[#071a35] ${category === item ? "border-2 border-[#071a35] bg-amber-400 shadow-sm" : "border border-slate-300 bg-white hover:border-amber-500 hover:bg-amber-50"}`}>{item}</button>)}
       </div>
     </div>
     <div className="mt-5 flex items-center justify-between gap-4">
