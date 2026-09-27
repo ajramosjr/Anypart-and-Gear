@@ -52,7 +52,7 @@
 }
 
 .waving {
-  animation: gears-wave-frames 2.4s steps(1, end) infinite;
+  animation: gears-wave-frames 2s steps(1, end) infinite;
 }
 
 .statusDot {
@@ -229,11 +229,9 @@
 
 @keyframes gears-wave-frames {
   0% { background-position: 0 100%; }
-  16.667% { background-position: 33.333% 100%; }
-  33.333% { background-position: 66.667% 100%; }
-  50% { background-position: 100% 100%; }
-  66.667% { background-position: 66.667% 100%; }
-  83.333% { background-position: 33.333% 100%; }
+  25% { background-position: 33.333% 100%; }
+  50% { background-position: 66.667% 100%; }
+  75% { background-position: 33.333% 100%; }
   100% { background-position: 0 100%; }
 }
 
