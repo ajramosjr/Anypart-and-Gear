@@ -27,16 +27,21 @@ const actions = [
 export function GearsAssistant() {
   const [open, setOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
+  const [hasWalkedIn, setHasWalkedIn] = useState(false);
 
   useEffect(() => {
+    const walkTimer = window.setTimeout(() => setHasWalkedIn(true), 2400);
     const alreadyIntroduced = window.sessionStorage.getItem("apg-gears-introduced");
-    if (alreadyIntroduced) return;
+    if (alreadyIntroduced) {
+      return () => window.clearTimeout(walkTimer);
+    }
 
     const showTimer = window.setTimeout(() => setShowIntro(true), 900);
     const hideTimer = window.setTimeout(() => setShowIntro(false), 6500);
     window.sessionStorage.setItem("apg-gears-introduced", "true");
 
     return () => {
+      window.clearTimeout(walkTimer);
       window.clearTimeout(showTimer);
       window.clearTimeout(hideTimer);
     };
@@ -109,13 +114,9 @@ export function GearsAssistant() {
         aria-label={open ? "Close Gears assistant" : "Open Gears assistant"}
         aria-expanded={open}
       >
-        <Image
-          className={styles.mascot}
-          src="/gears-assistant.png"
-          width={1024}
-          height={1536}
-          sizes="104px"
-          alt=""
+        <span
+          className={`${styles.mascotSprite} ${hasWalkedIn ? styles.waving : styles.walking}`}
+          aria-hidden="true"
         />
         <span className={styles.statusDot} aria-hidden="true" />
       </button>

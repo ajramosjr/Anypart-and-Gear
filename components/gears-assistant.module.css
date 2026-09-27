@@ -34,17 +34,25 @@
   outline-offset: 3px;
 }
 
-.mascot {
+.mascotSprite {
   position: absolute;
   width: 108px;
-  height: auto;
+  height: 144px;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  transform-origin: 45% 70%;
-  object-fit: contain;
+  background-image: url("/gears-sprite.png");
+  background-repeat: no-repeat;
+  background-size: 400% 200%;
   filter: drop-shadow(0 10px 12px rgb(11 35 69 / 30%));
-  animation: gears-wave 6s ease-in-out 2.5s infinite;
+}
+
+.walking {
+  animation: gears-walk-frames 560ms steps(1, end) infinite;
+}
+
+.waving {
+  animation: gears-wave-frames 1.2s steps(1, end) infinite;
 }
 
 .statusDot {
@@ -212,13 +220,18 @@
   100% { opacity: 1; transform: translateX(0) translateY(0) rotate(0deg); }
 }
 
-@keyframes gears-wave {
-  0%, 68%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-  72% { transform: translateX(-50%) translateY(-4px) rotate(-7deg); }
-  76% { transform: translateX(-50%) translateY(-2px) rotate(6deg); }
-  80% { transform: translateX(-50%) translateY(-4px) rotate(-7deg); }
-  84% { transform: translateX(-50%) translateY(-2px) rotate(6deg); }
-  89% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+@keyframes gears-walk-frames {
+  0% { background-position: 0 0; }
+  25% { background-position: 33.333% 0; }
+  50% { background-position: 66.667% 0; }
+  75%, 100% { background-position: 100% 0; }
+}
+
+@keyframes gears-wave-frames {
+  0% { background-position: 0 100%; }
+  25% { background-position: 33.333% 100%; }
+  50% { background-position: 66.667% 100%; }
+  75%, 100% { background-position: 100% 100%; }
 }
 
 @keyframes intro-in {
@@ -242,8 +255,9 @@
     height: 141px;
   }
 
-  .mascot {
+  .mascotSprite {
     width: 94px;
+    height: 125px;
   }
 
   .panel {
@@ -252,7 +266,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mascot,
+  .mascotSprite,
   .launcher,
   .intro,
   .panel {
