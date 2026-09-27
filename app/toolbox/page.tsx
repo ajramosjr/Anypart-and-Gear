@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import ApgLogo from "@/components/apg-logo";
+import { getUser } from "@/lib/auth";
 import ToolboxClient from "./toolbox-client";
 import "./toolbox.css";
 
@@ -9,7 +11,10 @@ export const metadata: Metadata = {
   description: "Free workshop charts, calculators and printable references for mechanics, builders and DIYers.",
 };
 
-export default function ToolboxPage() {
+export default async function ToolboxPage() {
+  const user = await getUser();
+  if (!user) redirect("/login?next=/toolbox");
+
   return (
     <main className="toolbox-page">
       <header className="toolbox-header no-print">
