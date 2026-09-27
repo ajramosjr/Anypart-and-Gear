@@ -58,11 +58,13 @@ export function getTechArticleImage(article: Pick<TechArticle, "slug" | "imageUr
 export async function getPublishedTechArticles(): Promise<TechArticle[]> {
   const { data, error } = await publicClient().from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").eq("status", "published").order("published_at", { ascending: false });
   if (error) return techArticles;
-  return (data as DatabaseTechArticle[]).map(mapArticle);
+  const databaseArticles = (data as DatabaseTechArticle[]).map(mapArticle);
+  const databaseSlugs = new Set(databaseArticles.map((article) => article.slug));
+  return [...databaseArticles, ...techArticles.filter((article) => !databaseSlugs.has(article.slug))];
 }
 
 export async function getPublishedTechArticle(slug: string): Promise<TechArticle | undefined> {
   const { data, error } = await publicClient().from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").eq("slug", slug).eq("status", "published").maybeSingle();
   if (error) return techArticles.find((article) => article.slug === slug);
-  return data ? mapArticle(data as DatabaseTechArticle) : undefined;
+  return data ? mapArticle(data as DatabaseTechArticle) : techArticles.find((article) => article.slug === slug);
 }
