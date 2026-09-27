@@ -343,7 +343,15 @@ export function GearsAssistant() {
           <div className={styles.header}>
             <div className={styles.avatar} aria-hidden="true">
               <Image
-                className={styles.avatarImage}
+                className={`${styles.avatarImage} ${styles.avatarRing}`}
+                src="/gears-head.png"
+                width={1240}
+                height={1240}
+                sizes="64px"
+                alt=""
+              />
+              <Image
+                className={`${styles.avatarImage} ${styles.avatarFace}`}
                 src="/gears-head.png"
                 width={1240}
                 height={1240}
@@ -435,7 +443,17 @@ export function GearsAssistant() {
         aria-expanded={open}
       >
         <Image
-          className={styles.gearHead}
+          className={`${styles.gearHead} ${styles.launcherRing}`}
+          src="/gears-head.png"
+          width={1240}
+          height={1240}
+          sizes="(max-width: 560px) 78px, 88px"
+          alt=""
+          aria-hidden="true"
+          priority
+        />
+        <Image
+          className={`${styles.gearHead} ${styles.gearFace}`}
           src="/gears-head.png"
           width={1240}
           height={1240}
