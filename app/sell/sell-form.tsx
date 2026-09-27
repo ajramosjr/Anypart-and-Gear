@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { categories } from "@/lib/data";
 import { categoryGuidance, suggestListingCategory } from "@/lib/category-check";
 import { createClient } from "@/lib/supabase/client";
@@ -8,6 +8,29 @@ import { createClient } from "@/lib/supabase/client";
 export default function SellForm({ userId, sellerName, shop }: { userId: string; sellerName: string; shop: { id: string; name: string } | null }) {
   const [message, setMessage] = useState(""); const [loading, setLoading] = useState(false);
   const [confirmedMismatch, setConfirmedMismatch] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    function fillFromGears(event: Event) {
+      const form = formRef.current;
+      if (!form) return;
+      const detail = (event as CustomEvent<Record<string, string>>).detail;
+
+      for (const name of ["title", "category", "condition", "price", "location", "description"]) {
+        const field = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
+        if (!field || !detail[name]) continue;
+        field.value = detail[name];
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+        field.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      setMessage("Gears filled the listing details. Review everything, add your photos, then publish when ready.");
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    window.addEventListener("apg:fill-listing", fillFromGears);
+    return () => window.removeEventListener("apg:fill-listing", fillFromGears);
+  }, []);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setMessage("");
     const form = new FormData(event.currentTarget);
@@ -50,7 +73,7 @@ export default function SellForm({ userId, sellerName, shop }: { userId: string;
     if (error) setMessage(error.message); else window.location.assign(`/listing/${data.id}`);
     setLoading(false);
   }
-  return <form onSubmit={submit}><div className="form-grid">
+  return <form ref={formRef} onSubmit={submit}><div className="form-grid">
     <div className="field full"><label htmlFor="title">Listing title</label><input id="title" name="title" maxLength={100} required placeholder="What are you selling?" /></div>
     <div className="field"><label htmlFor="category">Category</label><select id="category" name="category" required defaultValue=""><option value="" disabled>Choose a category</option>{categories.map((c) => <option key={c.name} value={c.name}>{c.name} — {categoryGuidance[c.name] || c.description}</option>)}</select></div>
     <div className="field"><label htmlFor="condition">Condition</label><select id="condition" name="condition" required><option>New</option><option>Like new</option><option>Good</option><option>Fair</option></select></div>
