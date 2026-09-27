@@ -24,7 +24,7 @@ export default function SellForm({ userId, sellerName, shop }: { userId: string;
         field.dispatchEvent(new Event("change", { bubbles: true }));
       }
 
-      setMessage("Gears filled the listing details. Review everything, add your photos, then publish when ready.");
+      setMessage("Gear filled the listing details. Review everything, add your photos, then publish when ready.");
       form.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
