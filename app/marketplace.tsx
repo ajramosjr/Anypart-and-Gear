@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Anchor, BadgeCheck, Bike, BookOpen, Car, ChevronRight, CircleHelp, CirclePlay, Drill, Factory, FileSpreadsheet, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Upload, Wrench, X } from "lucide-react";
@@ -73,6 +73,18 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, b
     return values;
   }, [all, query, category, sort]);
   const runSearch = (e: React.FormEvent) => { e.preventDefault(); document.getElementById("listings")?.scrollIntoView({ behavior: "smooth" }); };
+
+  useEffect(() => {
+    function searchFromGears(event: Event) {
+      const detail = (event as CustomEvent<{ query?: string }>).detail;
+      if (!detail.query) return;
+      setQuery(detail.query);
+      setCategory("All");
+      document.getElementById("listings")?.scrollIntoView({ behavior: "smooth" });
+    }
+    window.addEventListener("apg:search", searchFromGears);
+    return () => window.removeEventListener("apg:search", searchFromGears);
+  }, []);
 
   return <main className="mechanical-shell min-h-screen bg-[#eef1f4] text-slate-950">
     <Toaster richColors position="top-center" />
