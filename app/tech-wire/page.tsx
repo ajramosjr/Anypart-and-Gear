@@ -71,6 +71,14 @@ export default async function TechWirePage() {
         </div>
       </header>
 
+      <section className="border-b border-slate-300 bg-[#f5f7fa]">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Parts, recalls, supply chain, vehicles &amp; tools</p>
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><h1 className="text-3xl font-black uppercase tracking-tight text-[#071a35] sm:text-4xl">Latest from APG</h1><p className="max-w-xl text-sm leading-6 text-slate-600">Search APG news and view one story at a time.</p></div>
+          <ArticleBrowser articles={techArticles} />
+        </div>
+      </section>
+
       <section className="relative overflow-hidden bg-[#071a35] text-white">
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.2)_1px,transparent_1px)] [background-size:40px_40px]" />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
@@ -132,14 +140,6 @@ export default async function TechWirePage() {
           </aside>
         </div>
       </article>
-
-      <section className="border-y border-slate-300 bg-[#f5f7fa]">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
-          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Parts, recalls, supply chain, vehicles &amp; tools</p>
-          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><h2 className="text-3xl font-black uppercase tracking-tight text-[#071a35] sm:text-4xl">Latest from APG</h2><p className="max-w-xl text-sm leading-6 text-slate-600">Clear, source-based updates on the issues that can affect parts, repairs, local shops and buyers.</p></div>
-          <ArticleBrowser articles={techArticles} />
-        </div>
-      </section>
 
       <section className="border-y border-slate-300 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
