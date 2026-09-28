@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import Link from "next/link";
 import ApgLogo from "@/components/apg-logo";
 import {
@@ -136,7 +136,11 @@ const dtcGuides: Record<string,DtcGuide> = {
 };
 
 const tools = [
+  ["drill-tap", "Drill & Tap Charts", "Find common drill sizes for SAE, metric and pipe threads.", Wrench],
   ["tape-measure", "Tape Measure Reading Chart", "Identify common fractional marks and decimal equivalents.", Ruler],
+  ["converter", "SAE–Metric Converter", "Convert measurements between inches and millimeters.", ArrowLeftRight],
+  ["bolts", "Torque & Fastener Guide", "Review common fastener grades and torque reminders.", Bolt],
+  ["electrical", "Electrical Reference", "Review common relay terminals and electrical basics.", BatteryCharging],
   ["tire", "Tire Size Calculator", "Compare diameter, speedometer reading and ground clearance.", CircleGauge],
   ["gears", "Gear Ratio & RPM", "Estimate engine RPM using speed, tire diameter and gearing.", Gauge],
   ["bolts", "SAE & Metric Bolt Guide", "Common markings, grades and strength classes.", Bolt],
@@ -148,13 +152,17 @@ const tools = [
   ["marine", "Marine Propeller & RPM Guide", "Estimate propeller slip and compare setups.", ShipWheel],
   ["electrical", "Fuse & Relay Guide", "Common fuse colors, relay terminals and electrical basics.", BatteryCharging],
   ["inspection", "Printable Vehicle Inspection", "A pre-trip and routine maintenance checklist.", CheckSquare],
+  ["bolts-reference", "SAE & Metric Bolt Guide", "Identify common SAE grades and metric property classes.", Bolt],
 ] as const;
+
+const SelectedToolContext = createContext("drill-tap");
 
 const tireDiameterInches = (tire: { width: number; ratio: number; rim: number }) =>
   tire.rim + (2 * tire.width * (tire.ratio / 100)) / 25.4;
 
 function Printable({ id, children, className = "" }: { id: string; children: React.ReactNode; className?: string }) {
-  return <section id={id} className={`tool-section ${className}`} data-tool-section><div className="print-brand" aria-hidden="true"><ApgLogo/><span>APG Toolbox</span><small>anypartandgear.com</small></div>{children}</section>;
+  const selectedTool = useContext(SelectedToolContext);
+  return <section id={id} className={`tool-section ${className}`} data-tool-section hidden={selectedTool!==id}><div className="print-brand" aria-hidden="true"><ApgLogo/><span>APG Toolbox</span><small>anypartandgear.com</small></div>{children}</section>;
 }
 
 function printSection(id?: string) {
@@ -181,6 +189,7 @@ function SectionHeading({ icon: Icon, title, target }: { icon: typeof Wrench; ti
 
 export default function ToolboxClient() {
   const [query, setQuery] = useState("");
+  const [selectedTool, setSelectedTool] = useState("drill-tap");
   const [drillTapTab, setDrillTapTab] = useState<DrillTapChartKey>("unc");
   const [drillTapSearch, setDrillTapSearch] = useState("");
   const [convertValue, setConvertValue] = useState("0.5");
@@ -220,7 +229,7 @@ export default function ToolboxClient() {
   const propTheoretical = propRpm > 0 && propRatio > 0 ? (propRpm * propPitch) / (propRatio * 1056) : 0;
   const propSlip = propTheoretical ? ((propTheoretical - propSpeed) / propTheoretical) * 100 : 0;
 
-  const filteredTools = tools.filter(([title, , description]) => `${title} ${description}`.toLowerCase().includes(query.toLowerCase()));
+  const filteredTools = tools.filter(([, title, description]) => `${title} ${description}`.toLowerCase().includes(query.toLowerCase()));
   const selectedDrillTapChart = drillTapCharts[drillTapTab];
   const drillTapMatches = drillTapSearch.trim()
     ? (Object.entries(drillTapCharts) as [DrillTapChartKey, (typeof drillTapCharts)[DrillTapChartKey]][]).flatMap(([key, chart]) =>
@@ -261,20 +270,33 @@ export default function ToolboxClient() {
     }
   }
 
-  return <>
+  return <SelectedToolContext.Provider value={selectedTool}>
     <section className="toolbox-hero no-print">
       <div className="shell toolbox-hero-grid">
         <div><span className="toolbox-kicker"><Sparkles size={16}/> Free workshop resources</span><h1>APG <em>Toolbox</em></h1><p>Practical charts, calculators and references for mechanics, builders and DIYers.</p>
-          <label className="tool-search"><Search/><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="What do you need help with?" aria-label="Search APG Toolbox"/></label>
+          <div className="toolbox-discovery">
+            <label className="tool-search"><Search/><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="What do you need help with?" aria-label="Search APG Toolbox"/></label>
+            <label className="tool-jump">
+              <span>Choose a Tool</span>
+              <select value={selectedTool} aria-label="Choose a Toolbox tool" onChange={(e)=>{
+                const target = e.currentTarget.value;
+                if (!target) return;
+                setSelectedTool(target);
+                window.setTimeout(()=>document.getElementById(target)?.scrollIntoView({ behavior:"smooth", block:"start" }), 0);
+              }}>
+                {tools.map(([id,title])=><option value={id} key={id}>{title}</option>)}
+              </select>
+            </label>
+          </div>
         </div>
         <div className="toolbox-trust"><span><Wrench/> Real tools</span><span><BookOpen/> Clear references</span><span><FileDown/> Printer friendly</span></div>
       </div>
     </section>
 
     <div className="shell toolbox-content">
-      <div className="toolbox-actions no-print"><p><strong>All tools are free.</strong> You’re signed in with access to every Toolbox feature.</p><PrintButton label="Print complete toolbox" /></div>
+      <div className="toolbox-actions no-print"><p><strong>One tool at a time.</strong> Choose the tool you need above.</p><PrintButton target={selectedTool} label="Print selected tool" /></div>
 
-      {query && <section className="tool-results no-print"><h2>Matching tools</h2><div className="mini-tool-grid">{filteredTools.map(([id,title,description,Icon])=><a href={`#${id}`} key={id}><Icon/><span><strong>{title}</strong><small>{description}</small></span></a>)}</div>{!filteredTools.length&&<p>No matching tool yet. Try “tire,” “wire,” “trailer” or “bolt.”</p>}</section>}
+      {query && <section className="tool-results no-print"><h2>Matching tools</h2><div className="mini-tool-grid">{filteredTools.map(([id,title,description,Icon])=><a href={`#${id}`} onClick={()=>setSelectedTool(id)} key={id}><Icon/><span><strong>{title}</strong><small>{description}</small></span></a>)}</div>{!filteredTools.length&&<p>No matching tool yet. Try “tire,” “wire,” “trailer” or “bolt.”</p>}</section>}
 
       <div className="primary-tools">
         <Printable id="drill-tap" className="drill-tap-tool"><SectionHeading icon={Wrench} title="Drill & Tap Charts" target="drill-tap"/><p className="tool-note">Common approximately 75% thread drill sizes. Select a chart or search all charts.</p><label className="drill-tap-search no-print"><Search size={17}/><input value={drillTapSearch} onChange={(e)=>setDrillTapSearch(e.target.value)} placeholder="Search 1/4-28, M8, #7…" aria-label="Search drill and tap charts"/></label>{drillTapSearch.trim() ? <div className="table-wrap"><table><thead><tr><th>Chart</th><th>Thread / drill</th><th>Tap drill / decimal</th><th>Decimal / metric</th></tr></thead><tbody>{drillTapMatches.map(({label,row},index)=><tr key={`${label}-${row[0]}-${index}`}><td>{label}</td>{row.map(cell=><td key={cell}>{cell}</td>)}</tr>)}</tbody></table>{!drillTapMatches.length&&<p className="chart-empty">No match found. Try the thread diameter, pitch or drill size.</p>}</div> : <><div className="chart-tabs no-print" role="tablist" aria-label="Drill and tap chart types">{(Object.entries(drillTapCharts) as [DrillTapChartKey, (typeof drillTapCharts)[DrillTapChartKey]][]).map(([key,chart])=><button type="button" role="tab" aria-selected={drillTapTab===key} className={drillTapTab===key?"active":""} onClick={()=>setDrillTapTab(key)} key={key}>{chart.label}</button>)}</div><h3 className="print-chart-title">{selectedDrillTapChart.label}</h3><div className="table-wrap"><table><thead><tr>{selectedDrillTapChart.columns.map(column=><th key={column}>{column}</th>)}</tr></thead><tbody>{selectedDrillTapChart.rows.map(row=><tr key={row[0]}>{row.map(cell=><td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div></>}<p className="tool-note">Cutting-tap recommendations vary with material and desired thread engagement. Forming taps and tapered pipe threads may require different preparation—verify the tap manufacturer’s recommendation.</p></Printable>
@@ -287,8 +309,6 @@ export default function ToolboxClient() {
 
         <Printable id="electrical"><SectionHeading icon={BatteryCharging} title="Electrical Reference" target="electrical"/><div className="electrical-grid"><article><b>Terminal 30</b><span>Battery power</span></article><article><b>Terminal 85</b><span>Relay coil ground/control</span></article><article><b>Terminal 86</b><span>Relay coil power/control</span></article><article><b>Terminal 87</b><span>Normally open output</span></article><article><b>Terminal 87a</b><span>Normally closed output</span></article><article><b>Voltage drop</b><span>Test a loaded circuit, not just continuity</span></article></div><div className="verify-callout"><Zap/>Disconnect power where required and follow the manufacturer wiring diagram.</div></Printable>
       </div>
-
-      <section className="more-tools no-print"><div className="more-tools-title"><div><span className="kicker">Quick access</span><h2>More workshop tools</h2></div></div><div className="mini-tool-grid">{tools.map(([id,title,description,Icon])=><a href={`#${id}`} key={id}><Icon/><span><strong>{title}</strong><small>{description}</small></span></a>)}</div></section>
 
       <Printable id="tire" className="wide-tool"><SectionHeading icon={CircleGauge} title="Tire Size Calculator" target="tire"/><div className="calc-grid"><div className="calc-inputs"><h3>Current tire</h3><TireInputs tire={oldTire} setTire={setOldTire}/><h3>New tire</h3><TireInputs tire={newTire} setTire={setNewTire}/><label>Indicated speed (mph)<input type="number" value={speed} onChange={e=>setSpeed(Number(e.target.value))}/></label></div><div className="result-card"><span>Diameter change</span><strong>{tireResult.percent >= 0 ? "+" : ""}{tireResult.percent.toFixed(1)}%</strong><span>Actual speed at {speed} mph indicated</span><strong>{tireResult.actual.toFixed(1)} mph</strong><span>Ground-clearance change</span><strong>{tireResult.clearance >= 0 ? "+" : ""}{tireResult.clearance.toFixed(2)} in</strong><small>{tireResult.oldD.toFixed(2)} in → {tireResult.newD.toFixed(2)} in diameter</small></div></div></Printable>
 
@@ -371,7 +391,7 @@ export default function ToolboxClient() {
     </div>
 
     <footer className="toolbox-footer no-print"><div className="shell"><ApgLogo/><p>Parts, people and practical workshop resources.</p><div><Link href="/">Marketplace</Link><Link href="/shops">Local shops</Link><Link href="/tech-wire">APG Tech Wire</Link><Link href="/safety">Safety</Link></div></div></footer>
-  </>;
+  </SelectedToolContext.Provider>;
 }
 
 function TireInputs({ tire, setTire }: { tire: {width:number;ratio:number;rim:number}; setTire: React.Dispatch<React.SetStateAction<{width:number;ratio:number;rim:number}>> }) {
