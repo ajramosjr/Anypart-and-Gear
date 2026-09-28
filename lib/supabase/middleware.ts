@@ -23,6 +23,7 @@ export async function updateSession(request: NextRequest) {
     "/api",
     "/login",
     "/listing",
+    "/links",
     "/shops",
     "/safety",
     "/tech-wire",
