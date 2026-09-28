@@ -142,9 +142,12 @@
 }
 
 .avatar {
+  position: relative;
+  display: grid;
   width: 54px;
   height: 54px;
   flex: 0 0 54px;
+  place-items: center;
   overflow: hidden;
   border: 2px solid #d9ac36;
   border-radius: 50%;
@@ -153,10 +156,9 @@
 
 .avatarImage {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 50px;
-  height: 50px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   margin: 0;
   object-fit: contain;
 }
