@@ -87,6 +87,29 @@ const drillTapCharts = {
 type DrillTapChartKey = keyof typeof drillTapCharts;
 
 type DtcGuide = { meaning:string; symptoms:string[]; causes:string[]; checks:string[]; repairs:string[] };
+type VehicleDetails = { year:string; make:string; model:string; engine:string };
+
+const dtcSystemLabels: Record<string,string> = {
+  P: "Powertrain", B: "Body", C: "Chassis", U: "Network communication",
+};
+
+function buildDtcFamilyGuide(code:string): DtcGuide {
+  const system = dtcSystemLabels[code[0]] || "Vehicle";
+  const families: Record<string,{ label:string; causes:string[]; checks:string[] }> = {
+    P0: { label:"a standardized powertrain system", causes:["Sensor, actuator or circuit fault","Air, fuel, ignition or emissions-control problem","Mechanical condition affecting the monitored system"], checks:["Read freeze-frame data and all related codes","Inspect connectors, wiring, hoses and fluid levels","Use vehicle-specific service information and test values before replacing parts"] },
+    P1: { label:"a manufacturer-specific powertrain system", causes:["Vehicle-specific sensor or actuator fault","Wiring, connector or control-module issue","Mechanical condition defined by the manufacturer"], checks:["Confirm the exact definition for the vehicle and engine","Review related codes and freeze-frame data","Follow the manufacturer diagnostic chart"] },
+    P2: { label:"an enhanced standardized powertrain system", causes:["Fuel, air, emissions or drivetrain control fault","Sensor, actuator or circuit problem","Mechanical condition affecting system performance"], checks:["Read all related codes and freeze-frame data","Inspect relevant wiring, connectors and hoses","Follow vehicle-specific pinpoint testing"] },
+    P3: { label:"an ignition, misfire or enhanced powertrain system", causes:["Ignition, fuel or air-delivery fault","Sensor, wiring or control issue","Low compression or mechanical timing problem"], checks:["Check for a flashing check-engine light before driving","Review misfire counters and related codes","Test ignition, fuel and compression as appropriate"] },
+  };
+  const family = families[code.slice(0,2)] || { label:`the ${system.toLowerCase()} system`, causes:["Sensor, actuator or circuit fault","Damaged wiring, connector or poor ground","Vehicle-specific mechanical or control-system problem"], checks:["Confirm the exact manufacturer definition","Read all related modules and freeze-frame data","Inspect relevant wiring and follow the factory diagnostic procedure"] };
+  return {
+    meaning:`${code} identifies a fault in ${family.label}. The exact definition may vary by year, make, model and installed equipment.`,
+    symptoms:["A warning light or stored fault message","Symptoms may vary or may not be noticeable","Some faults can affect drivability, safety or emissions"],
+    causes:family.causes,
+    checks:family.checks,
+    repairs:["Repair damaged wiring, connectors, hoses or leaks confirmed by testing","Replace a sensor or component only after it fails the specified test","Clear the code after repair and complete the required drive cycle to verify the fix"],
+  };
+}
 const dtcGuides: Record<string,DtcGuide> = {
   P0128: { meaning:"Coolant temperature below the thermostat regulating temperature.", symptoms:["Slow engine warm-up","Weak cabin heat","Reduced fuel economy"], causes:["Thermostat stuck open","Low coolant level or leak","Coolant-temperature sensor or wiring fault","Cooling fan running when it should not"], checks:["Check coolant only when the engine is cold","Inspect for leaks","Compare coolant and ambient temperature before startup","Verify thermostat and fan operation with service information"], repairs:["Repair leaks and restore the correct coolant mixture","Replace a confirmed faulty thermostat or sensor","Repair fan-control or wiring faults"] },
   P0171: { meaning:"Fuel system too lean, Bank 1.", symptoms:["Rough idle","Hesitation","Possible misfire or lack of power"], causes:["Vacuum or unmetered-air leak","Dirty or faulty MAF sensor","Low fuel pressure or restricted injector","Exhaust leak near the upstream oxygen sensor"], checks:["Review fuel trims and related codes","Inspect intake hoses and vacuum lines","Test fuel pressure to specification","Check for exhaust leaks and sensor wiring"], repairs:["Repair confirmed air or exhaust leaks","Correct fuel-pressure or injector problems","Service or replace a sensor only when testing supports it"] },
@@ -103,7 +126,7 @@ const tools = [
   ["gears", "Gear Ratio & RPM", "Estimate engine RPM using speed, tire diameter and gearing.", Gauge],
   ["bolts", "SAE & Metric Bolt Guide", "Common markings, grades and strength classes.", Bolt],
   ["wire", "Wire Gauge Chart", "A practical 12-volt wire reference.", Zap],
-  ["dtc", "DTC Code Lookup", "Understand the system identified by a generic OBD-II code.", Car],
+  ["dtc", "OBD-II Code Diagnostic Guide", "Identify a vehicle and review possible causes, checks and repairs for a diagnostic code.", Car],
   ["fluids", "Fluid Type & Capacity", "A safe checklist for finding vehicle-specific information.", Droplets],
   ["towing", "Trailer & Towing Calculator", "Check payload and estimated loaded trailer weight.", Truck],
   ["marine", "Marine Propeller & RPM Guide", "Estimate propeller slip and compare setups.", ShipWheel],
@@ -160,6 +183,11 @@ export default function ToolboxClient() {
   const [propRatio, setPropRatio] = useState(1.81);
   const [propSpeed, setPropSpeed] = useState(43);
   const [dtc, setDtc] = useState("P0300");
+  const [vehicleMode, setVehicleMode] = useState<"vin"|"manual"|"none">("vin");
+  const [vin, setVin] = useState("");
+  const [vehicle, setVehicle] = useState<VehicleDetails>({ year:"", make:"", model:"", engine:"" });
+  const [vinStatus, setVinStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
+  const [vinMessage, setVinMessage] = useState("");
 
   const converted = Number(convertValue || 0) * (convertDirection === "in-mm" ? 25.4 : 1 / 25.4);
   const tireResult = useMemo(() => {
@@ -179,8 +207,34 @@ export default function ToolboxClient() {
     : [];
   const normalizedDtc = dtc.trim().toUpperCase();
   const validDtc = /^[PBCU][0-3][0-9A-F]{3}$/.test(normalizedDtc);
-  const dtcGuide = validDtc ? dtcGuides[normalizedDtc] : undefined;
-  const dtcFallback = validDtc ? `Detailed guidance is not available for this ${normalizedDtc[1] === "0" ? "generic" : "manufacturer-specific or enhanced"} code yet. Verify its definition and diagnostic procedure with vehicle-specific service information.` : "Enter a five-character code such as P0300.";
+  const dtcGuide = validDtc ? (dtcGuides[normalizedDtc] || buildDtcFamilyGuide(normalizedDtc)) : undefined;
+  const dtcFallback = "Enter a five-character code such as P0300.";
+  const vehicleSummary = [vehicle.year, vehicle.make, vehicle.model, vehicle.engine].filter(Boolean).join(" ");
+
+  async function decodeVin() {
+    const normalizedVin = vin.trim().toUpperCase();
+    if (!/^[A-HJ-NPR-Z0-9]{17}$/.test(normalizedVin)) {
+      setVinStatus("error");
+      setVinMessage("Enter a complete 17-character VIN. VINs do not use I, O or Q.");
+      return;
+    }
+    setVinStatus("loading");
+    setVinMessage("");
+    try {
+      const response = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/${encodeURIComponent(normalizedVin)}?format=json`);
+      if (!response.ok) throw new Error("VIN lookup failed");
+      const payload = await response.json();
+      const result = payload?.Results?.[0];
+      if (!result || (!result.Make && !result.Model)) throw new Error("Vehicle not identified");
+      const engine = [result.DisplacementL ? `${result.DisplacementL}L` : "", result.EngineCylinders ? `${result.EngineCylinders}-cyl` : "", result.FuelTypePrimary || ""].filter(Boolean).join(" ");
+      setVehicle({ year:result.ModelYear || "", make:result.Make || "", model:result.Model || "", engine });
+      setVinStatus("success");
+      setVinMessage("Vehicle identified. Confirm the details before using the diagnostic guide.");
+    } catch {
+      setVinStatus("error");
+      setVinMessage("We couldn’t identify that VIN. Check it or enter the vehicle manually.");
+    }
+  }
 
   return <>
     <section className="toolbox-hero no-print">
@@ -218,7 +272,33 @@ export default function ToolboxClient() {
 
         <Printable id="wire"><SectionHeading icon={Zap} title="12-Volt Wire Gauge Chart" target="wire"/><div className="table-wrap"><table><thead><tr><th>Current</th><th>Short run*</th><th>Longer run*</th></tr></thead><tbody><tr><td>5 A</td><td>18 AWG</td><td>16 AWG</td></tr><tr><td>10 A</td><td>16 AWG</td><td>14 AWG</td></tr><tr><td>20 A</td><td>12 AWG</td><td>10 AWG</td></tr><tr><td>30 A</td><td>10 AWG</td><td>8 AWG</td></tr><tr><td>40 A</td><td>8 AWG</td><td>6 AWG</td></tr></tbody></table></div><p className="tool-note">*General copper-wire starting point. Length, bundling, temperature and allowable voltage drop matter. Fuse the circuit for the wire and device.</p></Printable>
 
-        <Printable id="dtc" className="dtc-tool"><SectionHeading icon={Car} title="OBD-II Code Diagnostic Guide" target="dtc"/><label className="single-input">OBD-II code<input value={dtc} maxLength={5} onChange={e=>setDtc(e.target.value.toUpperCase().replace(/[^A-F0-9PBCU]/g,""))} placeholder="P0300"/></label><div className="lookup-result"><strong>{normalizedDtc || "Code"}</strong><p>{dtcGuide?.meaning || dtcFallback}</p></div>{dtcGuide&&<div className="dtc-guide"><DtcList title="Common symptoms" items={dtcGuide.symptoms}/><DtcList title="Possible causes" items={dtcGuide.causes}/><DtcList title="Check first" items={dtcGuide.checks}/><DtcList title="Possible repairs" items={dtcGuide.repairs}/></div>}<div className="verify-callout"><AlertTriangle/>A trouble code identifies a monitored fault, not automatically a failed part. Diagnose and verify vehicle-specific procedures before replacing components.</div><p className="tool-note">Manufacturer-specific and enhanced codes can differ by year, make, model and engine. APG does not require or collect a VIN.</p></Printable>
+        <Printable id="dtc" className="dtc-tool">
+          <SectionHeading icon={Car} title="OBD-II Code Diagnostic Guide" target="dtc"/>
+          <p className="tool-note">Add a vehicle for more useful context, or look up a code without one. VIN entry is optional.</p>
+          <div className="vehicle-mode no-print" role="group" aria-label="Choose how to identify the vehicle">
+            <button type="button" className={vehicleMode==="vin"?"active":""} onClick={()=>setVehicleMode("vin")}>Identify by VIN</button>
+            <button type="button" className={vehicleMode==="manual"?"active":""} onClick={()=>setVehicleMode("manual")}>Enter manually</button>
+            <button type="button" className={vehicleMode==="none"?"active":""} onClick={()=>setVehicleMode("none")}>Code only</button>
+          </div>
+          {vehicleMode==="vin"&&<div className="vin-panel no-print">
+            <label>Vehicle identification number (VIN)<span><input value={vin} maxLength={17} autoCapitalize="characters" autoComplete="off" onChange={e=>{setVin(e.target.value.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g,""));setVinStatus("idle");setVinMessage("")}} placeholder="17-character VIN"/><button type="button" onClick={decodeVin} disabled={vinStatus==="loading"}>{vinStatus==="loading"?"Checking…":"Identify vehicle"}</button></span></label>
+            <small>Your VIN is sent securely to the U.S. Department of Transportation decoder to identify the vehicle. APG does not save it.</small>
+            {vinMessage&&<p className={`vin-status ${vinStatus}`}>{vinMessage}</p>}
+            {vinStatus==="error"&&<button type="button" className="text-button" onClick={()=>setVehicleMode("manual")}>Enter the vehicle manually</button>}
+          </div>}
+          {vehicleMode==="manual"&&<div className="vehicle-fields no-print">
+            <label>Year<input inputMode="numeric" maxLength={4} value={vehicle.year} onChange={e=>setVehicle({...vehicle,year:e.target.value.replace(/\D/g,"")})} placeholder="2021"/></label>
+            <label>Make<input value={vehicle.make} onChange={e=>setVehicle({...vehicle,make:e.target.value})} placeholder="Ford"/></label>
+            <label>Model<input value={vehicle.model} onChange={e=>setVehicle({...vehicle,model:e.target.value})} placeholder="F-150"/></label>
+            <label>Engine<input value={vehicle.engine} onChange={e=>setVehicle({...vehicle,engine:e.target.value})} placeholder="3.5L V6"/></label>
+          </div>}
+          {vehicleMode!=="none"&&vehicleSummary&&<div className="vehicle-summary"><span>Vehicle</span><strong>{vehicleSummary}</strong></div>}
+          <label className="single-input dtc-code-input">OBD-II code<input value={dtc} maxLength={5} onChange={e=>setDtc(e.target.value.toUpperCase().replace(/[^A-F0-9PBCU]/g,""))} placeholder="P0300"/></label>
+          <div className="lookup-result"><strong>{normalizedDtc || "Code"}</strong><p>{dtcGuide?.meaning || dtcFallback}</p></div>
+          {dtcGuide&&<div className="dtc-guide"><DtcList title="Common symptoms" items={dtcGuide.symptoms}/><DtcList title="Possible causes" items={dtcGuide.causes}/><DtcList title="Check first" items={dtcGuide.checks}/><DtcList title="Possible repairs" items={dtcGuide.repairs}/></div>}
+          <div className="verify-callout"><AlertTriangle/>A trouble code identifies a monitored fault, not automatically a failed part. Diagnose and verify vehicle-specific procedures before replacing components. Stop driving and seek professional help for a flashing check-engine light, severe shaking, overheating, brake warnings or loss of power.</div>
+          <p className="tool-note">Manufacturer-specific and enhanced codes can differ by year, make, model, engine and installed equipment. Always confirm the exact definition and procedure with reliable vehicle-specific service information.</p>
+        </Printable>
 
         <Printable id="towing"><SectionHeading icon={Truck} title="Trailer & Towing Calculator" target="towing"/><div className="field-stack"><NumberField label="Trailer dry weight (lb)" value={trailerDry} setValue={setTrailerDry}/><NumberField label="Cargo, fluids & options (lb)" value={cargo} setValue={setCargo}/><NumberField label="Vehicle tow rating (lb)" value={towRating} setValue={setTowRating}/></div><div className={`result-strip ${loadedTrailer > towRating ? "danger" : ""}`}><span>Estimated loaded trailer</span><strong>{loadedTrailer.toLocaleString()} lb</strong><small>{towRating-loadedTrailer >= 0 ? `${(towRating-loadedTrailer).toLocaleString()} lb below entered rating` : `${Math.abs(towRating-loadedTrailer).toLocaleString()} lb over entered rating`}</small></div><p className="tool-note">Also verify payload, tongue weight, hitch, axle, tire and combined-weight ratings.</p></Printable>
 
