@@ -5,7 +5,7 @@ import Link from "next/link";
 import ApgLogo from "@/components/apg-logo";
 import {
   AlertTriangle, ArrowLeftRight, BatteryCharging, Bolt, BookOpen,
-  Car, CheckSquare, CircleGauge, Droplets, FileDown, Gauge, Printer,
+  Car, CheckSquare, CircleGauge, Droplets, FileDown, FileText, Gauge, Printer,
   Ruler, Search, ShipWheel, Sparkles, Truck, Wrench, Zap,
 } from "lucide-react";
 
@@ -88,6 +88,21 @@ type DrillTapChartKey = keyof typeof drillTapCharts;
 
 type DtcGuide = { meaning:string; symptoms:string[]; causes:string[]; checks:string[]; repairs:string[] };
 type VehicleDetails = { year:string; make:string; model:string; engine:string };
+type SaleForm = {
+  assetType:string; state:string; saleDate:string; price:string; payment:string;
+  year:string; make:string; model:string; bodyType:string; color:string;
+  identifier:string; titleNumber:string; registration:string; odometer:string; mileageStatus:string;
+  sellerName:string; sellerAddress:string; buyerName:string; buyerAddress:string;
+  lienStatus:string; terms:string; included:string;
+};
+
+const usStates = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming","District of Columbia"];
+
+const officialSaleForms: Record<string,{ label:string; url:string }> = {
+  "California": { label:"California DMV Bill of Sale (REG 135)", url:"https://www.dmv.ca.gov/portal/uploads/2020/06/reg135.pdf" },
+  "Florida": { label:"Florida Notice of Sale/Bill of Sale (HSMV 82050)", url:"https://www.flhsmv.gov/pdf/forms/82050.pdf" },
+  "New York": { label:"New York Vehicle Bill of Sale (MV-912)", url:"https://dmv.ny.gov/forms/mv912.pdf" },
+};
 
 const dtcSystemLabels: Record<string,string> = {
   P: "Powertrain", B: "Body", C: "Chassis", U: "Network communication",
@@ -127,6 +142,7 @@ const tools = [
   ["bolts", "SAE & Metric Bolt Guide", "Common markings, grades and strength classes.", Bolt],
   ["wire", "Wire Gauge Chart", "A practical 12-volt wire reference.", Zap],
   ["dtc", "OBD-II Code Diagnostic Guide", "Identify a vehicle and review possible causes, checks and repairs for a diagnostic code.", Car],
+  ["bill-of-sale", "Bill of Sale Builder", "Create a printable sale record for a vehicle, bus, boat, motorcycle, RV or trailer.", FileText],
   ["fluids", "Fluid Type & Capacity", "A safe checklist for finding vehicle-specific information.", Droplets],
   ["towing", "Trailer & Towing Calculator", "Check payload and estimated loaded trailer weight.", Truck],
   ["marine", "Marine Propeller & RPM Guide", "Estimate propeller slip and compare setups.", ShipWheel],
@@ -188,6 +204,11 @@ export default function ToolboxClient() {
   const [vehicle, setVehicle] = useState<VehicleDetails>({ year:"", make:"", model:"", engine:"" });
   const [vinStatus, setVinStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
   const [vinMessage, setVinMessage] = useState("");
+  const [sale, setSale] = useState<SaleForm>({
+    assetType:"Passenger vehicle", state:"New York", saleDate:"", price:"", payment:"Cash",
+    year:"", make:"", model:"", bodyType:"", color:"", identifier:"", titleNumber:"", registration:"", odometer:"", mileageStatus:"Actual mileage",
+    sellerName:"", sellerAddress:"", buyerName:"", buyerAddress:"", lienStatus:"Seller states there are no liens", terms:"As-is, with no warranties expressed or implied", included:"",
+  });
 
   const converted = Number(convertValue || 0) * (convertDirection === "in-mm" ? 25.4 : 1 / 25.4);
   const tireResult = useMemo(() => {
@@ -210,6 +231,10 @@ export default function ToolboxClient() {
   const dtcGuide = validDtc ? (dtcGuides[normalizedDtc] || buildDtcFamilyGuide(normalizedDtc)) : undefined;
   const dtcFallback = "Enter a five-character code such as P0300.";
   const vehicleSummary = [vehicle.year, vehicle.make, vehicle.model, vehicle.engine].filter(Boolean).join(" ");
+  const isVessel = sale.assetType === "Boat / vessel";
+  const usesOdometer = !["Boat / vessel","Trailer","Other equipment"].includes(sale.assetType);
+  const officialForm = officialSaleForms[sale.state];
+  const updateSale = (field:keyof SaleForm, value:string) => setSale(current=>({...current,[field]:value}));
 
   async function decodeVin() {
     const normalizedVin = vin.trim().toUpperCase();
@@ -300,6 +325,37 @@ export default function ToolboxClient() {
           <p className="tool-note">Manufacturer-specific and enhanced codes can differ by year, make, model, engine and installed equipment. Always confirm the exact definition and procedure with reliable vehicle-specific service information.</p>
         </Printable>
 
+        <Printable id="bill-of-sale" className="bill-sale-tool">
+          <SectionHeading icon={FileText} title="APG Bill of Sale Builder" target="bill-of-sale"/>
+          <p className="tool-note no-print">Create a printable sale record for most vehicles and vessels. Everything stays on this device and clears when the page is refreshed.</p>
+          <div className="sale-form no-print">
+            <fieldset><legend>Sale setup</legend><div className="sale-grid three">
+              <label>What is being sold?<select value={sale.assetType} onChange={e=>updateSale("assetType",e.target.value)}>{["Passenger vehicle","Truck","Bus / commercial vehicle","Motorcycle","RV / motorhome","Trailer","Boat / vessel","ATV / UTV","Off-highway vehicle","Other equipment"].map(item=><option key={item}>{item}</option>)}</select></label>
+              <label>State where it will be titled<select value={sale.state} onChange={e=>updateSale("state",e.target.value)}>{usStates.map(state=><option key={state}>{state}</option>)}</select></label>
+              <BillField label="Date of sale" type="date" value={sale.saleDate} onChange={value=>updateSale("saleDate",value)}/>
+              <BillField label="Purchase price ($)" type="number" value={sale.price} onChange={value=>updateSale("price",value)}/>
+              <label>Payment method<select value={sale.payment} onChange={e=>updateSale("payment",e.target.value)}><option>Cash</option><option>Certified check</option><option>Electronic payment</option><option>Financed</option><option>Trade</option><option>Gift</option><option>Other</option></select></label>
+            </div></fieldset>
+            <fieldset><legend>{isVessel?"Vessel information":"Vehicle information"}</legend><div className="sale-grid four">
+              <BillField label="Year" value={sale.year} onChange={value=>updateSale("year",value)}/><BillField label="Make / builder" value={sale.make} onChange={value=>updateSale("make",value)}/><BillField label="Model" value={sale.model} onChange={value=>updateSale("model",value)}/><BillField label={isVessel?"Vessel type":"Body type"} value={sale.bodyType} onChange={value=>updateSale("bodyType",value)}/>
+              <BillField label="Color" value={sale.color} onChange={value=>updateSale("color",value)}/><BillField label={isVessel?"Hull identification number (HIN)":"Vehicle identification number (VIN)"} value={sale.identifier} onChange={value=>updateSale("identifier",value.toUpperCase())}/><BillField label="Title number" value={sale.titleNumber} onChange={value=>updateSale("titleNumber",value)}/><BillField label={isVessel?"Registration / documentation number":"License plate / registration"} value={sale.registration} onChange={value=>updateSale("registration",value)}/>
+              {usesOdometer&&<><BillField label="Odometer reading" type="number" value={sale.odometer} onChange={value=>updateSale("odometer",value)}/><label>Mileage status<select value={sale.mileageStatus} onChange={e=>updateSale("mileageStatus",e.target.value)}><option>Actual mileage</option><option>Exceeds mechanical limits</option><option>Not actual mileage</option><option>Exempt</option></select></label></>}
+            </div></fieldset>
+            <fieldset><legend>Buyer and seller</legend><div className="sale-grid two"><BillField label="Seller’s full legal name" value={sale.sellerName} onChange={value=>updateSale("sellerName",value)}/><BillField label="Buyer’s full legal name" value={sale.buyerName} onChange={value=>updateSale("buyerName",value)}/><BillField label="Seller’s complete address" value={sale.sellerAddress} onChange={value=>updateSale("sellerAddress",value)}/><BillField label="Buyer’s complete address" value={sale.buyerAddress} onChange={value=>updateSale("buyerAddress",value)}/></div></fieldset>
+            <fieldset><legend>Terms</legend><div className="sale-grid two"><label>Lien statement<select value={sale.lienStatus} onChange={e=>updateSale("lienStatus",e.target.value)}><option>Seller states there are no liens</option><option>Existing lien will be satisfied at sale</option><option>Buyer accepts disclosed lien</option><option>See additional written terms</option></select></label><label>Condition and warranty<select value={sale.terms} onChange={e=>updateSale("terms",e.target.value)}><option>As-is, with no warranties expressed or implied</option><option>Seller provides a separate written warranty</option><option>See additional written terms</option></select></label><BillField label="Included accessories, trailer, equipment or additional terms" value={sale.included} onChange={value=>updateSale("included",value)}/></div></fieldset>
+          </div>
+          <div className="state-form-callout no-print"><strong>{sale.state} requirements may differ.</strong><span>This APG document may not replace a title, odometer disclosure, notice of sale, tax form, notarization or other form required by the state.</span>{officialForm?<a href={officialForm.url} target="_blank" rel="noreferrer">Open the official {officialForm.label}</a>:<a href="https://www.usa.gov/state-motor-vehicle-services" target="_blank" rel="noreferrer">Find official motor vehicle services for {sale.state}</a>}</div>
+          <div className="sale-document">
+            <header><span>APG · ANY-PART AND GEAR</span><h3>{sale.assetType} Bill of Sale</h3><p>{sale.state}</p></header>
+            <p>For the total consideration of <strong>{sale.price?`$${Number(sale.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`:"________________"}</strong>, paid by <strong>{sale.payment}</strong>, the seller transfers the property described below to the buyer on <strong>{sale.saleDate||"________________"}</strong>.</p>
+            <div className="sale-summary"><SaleLine label="Property" value={[sale.year,sale.make,sale.model,sale.bodyType,sale.color].filter(Boolean).join(" · ")}/><SaleLine label={isVessel?"HIN":"VIN"} value={sale.identifier}/><SaleLine label="Title number" value={sale.titleNumber}/><SaleLine label={isVessel?"Registration / documentation":"Plate / registration"} value={sale.registration}/>{usesOdometer&&<><SaleLine label="Odometer" value={sale.odometer?`${Number(sale.odometer).toLocaleString()} miles`:""}/><SaleLine label="Mileage statement" value={sale.mileageStatus}/></>}<SaleLine label="Seller" value={[sale.sellerName,sale.sellerAddress].filter(Boolean).join(" · ")}/><SaleLine label="Buyer" value={[sale.buyerName,sale.buyerAddress].filter(Boolean).join(" · ")}/><SaleLine label="Lien statement" value={sale.lienStatus}/><SaleLine label="Condition" value={sale.terms}/><SaleLine label="Included / additional terms" value={sale.included}/></div>
+            <p className="sale-certification">The seller certifies that the information provided is true to the best of the seller’s knowledge and that the seller has the legal right to transfer this property. The buyer acknowledges receipt and acceptance of the property under the terms stated above.</p>
+            <div className="signature-grid"><span>Seller signature</span><span>Date</span><span>Buyer signature</span><span>Date</span><span>Witness / notary, if required</span><span>Date</span></div>
+            <div className="legal-note"><strong>Important:</strong> This is a general bill of sale and is not legal advice. State requirements vary. It does not replace a certificate of title, federal or state odometer disclosure, tax document, notice of sale, notarization or any official form required by a motor vehicle, marine or other government agency.</div>
+          </div>
+          <div className="sale-print-action no-print"><PrintButton target="bill-of-sale" label="Print or save as PDF"/><button type="button" onClick={()=>setSale(current=>({...current,sellerName:"",sellerAddress:"",buyerName:"",buyerAddress:"",identifier:"",titleNumber:"",registration:"",odometer:""}))}>Clear personal information</button></div>
+        </Printable>
+
         <Printable id="towing"><SectionHeading icon={Truck} title="Trailer & Towing Calculator" target="towing"/><div className="field-stack"><NumberField label="Trailer dry weight (lb)" value={trailerDry} setValue={setTrailerDry}/><NumberField label="Cargo, fluids & options (lb)" value={cargo} setValue={setCargo}/><NumberField label="Vehicle tow rating (lb)" value={towRating} setValue={setTowRating}/></div><div className={`result-strip ${loadedTrailer > towRating ? "danger" : ""}`}><span>Estimated loaded trailer</span><strong>{loadedTrailer.toLocaleString()} lb</strong><small>{towRating-loadedTrailer >= 0 ? `${(towRating-loadedTrailer).toLocaleString()} lb below entered rating` : `${Math.abs(towRating-loadedTrailer).toLocaleString()} lb over entered rating`}</small></div><p className="tool-note">Also verify payload, tongue weight, hitch, axle, tire and combined-weight ratings.</p></Printable>
 
         <Printable id="marine"><SectionHeading icon={ShipWheel} title="Marine Propeller & RPM Guide" target="marine"/><div className="field-stack"><NumberField label="Propeller pitch (in)" value={propPitch} setValue={setPropPitch}/><NumberField label="Engine RPM" value={propRpm} setValue={setPropRpm}/><NumberField label="Gear ratio" value={propRatio} setValue={setPropRatio} step="0.01"/><NumberField label="GPS speed (mph)" value={propSpeed} setValue={setPropSpeed}/></div><div className="result-strip"><span>Estimated propeller slip</span><strong>{propSlip.toFixed(1)}%</strong></div><p className="tool-note">Use the engine maker’s recommended wide-open-throttle RPM range. Never select a propeller by this estimate alone.</p></Printable>
@@ -332,4 +388,12 @@ function CheckList({ items, interactive=false }: { items:string[]; interactive?:
 
 function DtcList({ title, items }: { title:string; items:string[] }) {
   return <section><h4>{title}</h4><ul>{items.map(item=><li key={item}>{item}</li>)}</ul></section>;
+}
+
+function BillField({ label, value, onChange, type="text" }: { label:string; value:string; onChange:(value:string)=>void; type?:string }) {
+  return <label>{label}<input type={type} value={value} onChange={e=>onChange(e.target.value)}/></label>;
+}
+
+function SaleLine({ label, value }: { label:string; value:string }) {
+  return <div><span>{label}</span><strong>{value||"________________________________"}</strong></div>;
 }
