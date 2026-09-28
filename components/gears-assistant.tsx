@@ -43,6 +43,7 @@ const pageHelp: Record<string, string> = {
   "/shops/register": "You’re setting up a business. I can help write the specialty, description, services, and hours.",
   "/messages": "You’re in APG Messages. I can suggest a reply and check it for scam warning signs.",
   "/toolbox": "You’re in the Toolbox. Tell me the job and I’ll point you to the right chart or calculator.",
+  "/links": "You’re on APG Links, a directory for courses, training, and trusted industry resources. Provider listings stay empty until APG receives permission to add them.",
   "/account": "You’re in your seller dashboard. I can explain listings, notifications, and account options.",
   "/safety": "You’re viewing marketplace safety. Ask about pickup, shipping, payments, or suspicious messages.",
 };
@@ -243,6 +244,7 @@ export function GearsAssistant() {
       if (/negocio|tienda|inventario|csv/.test(normalized)) { addMessage("gears", "La cuenta comercial gratuita permite crear una tienda y cargar inventario por CSV. Complete el nombre, especialidad, ubicación, horario, página pública, servicios y descripción."); return; }
       if (/seguro|estafa|pago/.test(normalized)) { addMessage("gears", "Use un lugar público seguro, revise el artículo antes de pagar, use pagos protegidos y nunca comparta contraseñas ni códigos de verificación."); return; }
       if (/herramienta|taladro|rosca|medida/.test(normalized)) { addMessage("gears", "APG Toolbox incluye tablas de taladro y rosca, guía de cinta métrica, conversiones, cálculos y referencias imprimibles."); return; }
+      if (/curso|capacitación|escuela|proveedor|apg links/.test(normalized)) { addMessage("gears", "APG Links es un directorio de cursos, capacitación y recursos de la industria. Las categorías permanecen vacías hasta que APG reciba permiso de cada proveedor para publicar su nombre, información y enlace. Una publicación no significa que el proveedor patrocine o esté asociado con APG."); return; }
       addMessage("gears", "Puedo ayudarle a crear un anuncio, buscar piezas, configurar una tienda, revisar un CSV, usar Toolbox o verificar la seguridad. ¿Qué desea hacer?");
       return;
     }
@@ -252,7 +254,9 @@ export function GearsAssistant() {
       return;
     }
 
-    if (/sell|post|list|listing/.test(normalized)) {
+    if (/apg links|course|training|school|provider directory|education resource/.test(normalized)) {
+      addMessage("gears", "APG Links is a directory for courses, training, and trusted industry resources. Its categories stay empty until APG receives permission from each provider to publish its name, information, and link. A future listing will not mean the provider sponsors or is partnered with APG unless that relationship is specifically confirmed.");
+    } else if (/sell|post|list|listing/.test(normalized)) {
       startListingHelp();
     } else if (/fit|fitment|year|make|model|engine|trim|part number/.test(normalized)) {
       addMessage("gears", "Fitment checklist: record the year, make, model, engine, trim, drivetrain, OEM/part number, measurements, connector count, and mounting points. Add: ‘Buyer must verify compatibility before purchase.’");
