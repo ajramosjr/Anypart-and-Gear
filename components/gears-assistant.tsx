@@ -19,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import styles from "./gears-assistant.module.css";
+import { createClient } from "@/lib/supabase/client";
 
 const actions = [
   { href: "/#listings", label: "Find parts & gear", icon: Search },
@@ -125,6 +126,7 @@ export function GearsAssistant() {
   const [listingStep, setListingStep] = useState<ListingStep>(null);
   const [listingDraft, setListingDraft] = useState<Record<string, string>>({});
   const [language, setLanguage] = useState<Language>("en");
+  const [firstName, setFirstName] = useState("");
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, role: "gears", text: "Hi, I’m Gear. Ask me how to use APG, find something, or create a strong listing." },
@@ -134,6 +136,22 @@ export function GearsAssistant() {
   const csvInput = useRef<HTMLInputElement>(null);
 
   const hiddenOnNews = pathname.startsWith("/tech-wire");
+
+  useEffect(() => {
+    async function personalizeGreeting() {
+      const { data } = await createClient().auth.getUser();
+      const metadata = data.user?.user_metadata as Record<string, unknown> | undefined;
+      const rawName = [metadata?.first_name, metadata?.full_name, metadata?.name]
+        .find((value) => typeof value === "string" && value.trim()) as string | undefined;
+      const name = rawName?.trim().split(/\s+/)[0]?.replace(/[^\p{L}\p{M}'-]/gu, "").slice(0, 30) || "";
+      if (!name) return;
+      setFirstName(name);
+      setMessages((current) => current.map((message, index) => index === 0 && message.role === "gears" && /^Hi,? I[’']m Gear\./i.test(message.text)
+        ? { ...message, text: `Hi ${name}, I’m Gear. Ask me how to use APG, find something, or create a strong listing.` }
+        : message));
+    }
+    void personalizeGreeting();
+  }, []);
 
   useEffect(() => {
     const alreadyIntroduced = window.sessionStorage.getItem("apg-gears-introduced");
@@ -438,7 +456,7 @@ export function GearsAssistant() {
 
       {!open && showIntro ? (
         <div className={styles.intro} role="status">
-          Hi! I&apos;m Gear. Need help finding your way around APG?
+          Hi{firstName ? ` ${firstName}` : ""}! I&apos;m Gear. Need help finding your way around APG?
         </div>
       ) : null}
 
