@@ -24,6 +24,7 @@ export default async function ToolboxPage() {
             <Link href="/">Marketplace</Link>
             <Link href="/shops">Local shops</Link>
             <Link href="/tech-wire">APG Tech Wire</Link>
+            <Link href="/links">APG Links</Link>
             <Link className="active" href="/toolbox">Toolbox</Link>
           </nav>
           <Link className="button button-small" href="/sell">Sell</Link>
