@@ -33,6 +33,9 @@ type Message = { id: number; role: "gears" | "user"; text: string };
 type ListingStep = "item" | "category" | "condition" | "price" | "location" | "description" | null;
 type Language = "en" | "es";
 
+const APG_LINKS_ANSWER = "APG Links is a directory for courses, training, and trusted industry resources. Its categories stay empty until APG receives permission from each provider to publish its name, information, and link. A future listing will not mean the provider sponsors or is partnered with APG unless that relationship is specifically confirmed.";
+const APG_LINKS_ANSWER_ES = "APG Links es un directorio de cursos, capacitación y recursos de la industria. Las categorías permanecen vacías hasta que APG reciba permiso de cada proveedor para publicar su nombre, información y enlace. Una publicación no significa que el proveedor patrocine o esté asociado con APG.";
+
 const scamTerms = /gift card|wire transfer|verification code|security code|crypto|bitcoin|zelle.*deposit|venmo.*friends|cash app.*deposit|pay.*outside|text me|whatsapp/i;
 
 const pageHelp: Record<string, string> = {
@@ -149,7 +152,7 @@ export function GearsAssistant() {
   }, []);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("apg-gears-state-v1");
+    const saved = window.localStorage.getItem("apg-gear-state-v2");
     if (!saved) return;
     try {
       const parsed = JSON.parse(saved) as { messages?: Message[]; listingStep?: ListingStep; listingDraft?: Record<string, string>; language?: Language };
@@ -161,12 +164,12 @@ export function GearsAssistant() {
       if (parsed.listingDraft) setListingDraft(parsed.listingDraft);
       if (parsed.language) setLanguage(parsed.language);
     } catch {
-      window.localStorage.removeItem("apg-gears-state-v1");
+      window.localStorage.removeItem("apg-gear-state-v2");
     }
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("apg-gears-state-v1", JSON.stringify({ messages: messages.slice(-30), listingStep, listingDraft, language }));
+    window.localStorage.setItem("apg-gear-state-v2", JSON.stringify({ messages: messages.slice(-30), listingStep, listingDraft, language }));
   }, [messages, listingStep, listingDraft, language]);
 
   useEffect(() => {
@@ -244,7 +247,7 @@ export function GearsAssistant() {
       if (/negocio|tienda|inventario|csv/.test(normalized)) { addMessage("gears", "La cuenta comercial gratuita permite crear una tienda y cargar inventario por CSV. Complete el nombre, especialidad, ubicación, horario, página pública, servicios y descripción."); return; }
       if (/seguro|estafa|pago/.test(normalized)) { addMessage("gears", "Use un lugar público seguro, revise el artículo antes de pagar, use pagos protegidos y nunca comparta contraseñas ni códigos de verificación."); return; }
       if (/herramienta|taladro|rosca|medida/.test(normalized)) { addMessage("gears", "APG Toolbox incluye tablas de taladro y rosca, guía de cinta métrica, conversiones, cálculos y referencias imprimibles."); return; }
-      if (/curso|capacitación|escuela|proveedor|apg links/.test(normalized)) { addMessage("gears", "APG Links es un directorio de cursos, capacitación y recursos de la industria. Las categorías permanecen vacías hasta que APG reciba permiso de cada proveedor para publicar su nombre, información y enlace. Una publicación no significa que el proveedor patrocine o esté asociado con APG."); return; }
+      if (/curso|capacitación|escuela|proveedor|apg[\s-]*links/.test(normalized)) { addMessage("gears", APG_LINKS_ANSWER_ES); return; }
       addMessage("gears", "Puedo ayudarle a crear un anuncio, buscar piezas, configurar una tienda, revisar un CSV, usar Toolbox o verificar la seguridad. ¿Qué desea hacer?");
       return;
     }
@@ -254,8 +257,8 @@ export function GearsAssistant() {
       return;
     }
 
-    if (/apg links|course|training|school|provider directory|education resource/.test(normalized)) {
-      addMessage("gears", "APG Links is a directory for courses, training, and trusted industry resources. Its categories stay empty until APG receives permission from each provider to publish its name, information, and link. A future listing will not mean the provider sponsors or is partnered with APG unless that relationship is specifically confirmed.");
+    if (/apg[\s-]*links|course|training|school|provider directory|education resource/.test(normalized)) {
+      addMessage("gears", APG_LINKS_ANSWER);
     } else if (/sell|post|list|listing/.test(normalized)) {
       startListingHelp();
     } else if (/fit|fitment|year|make|model|engine|trim|part number/.test(normalized)) {
