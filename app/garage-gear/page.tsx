@@ -17,7 +17,7 @@ export default function GarageGearPage() {
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/">Back to marketplace</Link></div></header>
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
       <p className="eyebrow">New tools and gear</p>
-      <h1 className="section-title mt-2">Garage gear</h1>
+      <h1 className="section-title mt-2">Garage Gear</h1>
       <p className="mt-3 max-w-2xl text-slate-600">Useful starting points from Amazon, separate from APG member listings.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {gear.map(({ title, detail, query, icon: Icon }) => <article key={title} className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
