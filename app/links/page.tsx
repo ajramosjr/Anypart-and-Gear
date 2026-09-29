@@ -60,7 +60,7 @@ export default function ApgLinksPage() {
                 </div>
                 <p className="mt-5 text-xs font-black uppercase tracking-[.16em] text-amber-700">Motorcycle</p>
                 <h3 className="mt-1 text-2xl font-black text-[#071a35]">On the Road Again Motorcycle School</h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">Motorcycle training and rider education. Course schedules, pricing and registration are handled directly by the school.</p>
+                <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">Motorcycle training and rider education at four New York training locations. Course schedules, pricing and registration are handled directly by the school.</p>
                 <p className="mt-5 rounded-md bg-slate-100 px-5 py-3 text-center text-sm font-bold text-slate-600">Course link coming soon</p>
               </section>
             ) : (
