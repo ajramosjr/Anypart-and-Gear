@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import InstallApp from "./install-app";
 import SellerBadges from "@/components/seller-badges";
-import { amazonSearchUrl } from "@/lib/affiliate";
 import NotificationBell from "@/components/notification-bell";
 
 type Listing = { id: number | string; title: string; description: string; price: number; category: string; condition: string; location: string; seller: string; contactEmail?: string; contactPhone?: string; status?: string; imageUrl?: string | null; imageUrls?: string[]; year?: string; make?: string; model?: string; engine?: string; mileageHours?: string; transmission?: string; partNumber?: string; brand?: string; size?: string; color?: string; quantity?: string; emailVerified?: boolean; trustedSeller?: boolean; verifiedBusiness?: boolean; badge?: string; tone?: string };
@@ -19,24 +18,16 @@ type BusinessMarketplace = { id: string; name: string; specialty: string; locati
 
 const categories = [
   { name: "Car Parts", icon: Car, detail: "Engines, body & more" }, { name: "Boat Parts", icon: Anchor, detail: "Marine parts & gear" },
-  { name: "Boats for Sale", icon: Anchor, detail: "Complete boats & watercraft" },
   { name: "Motorcycles", icon: Bike, detail: "Street, dirt & touring" }, { name: "Machinery", icon: Factory, detail: "Heavy equipment parts" },
-  { name: "Trailers", icon: Truck, detail: "Utility, boat & cargo" },
-  { name: "Tools", icon: Drill, detail: "Shop & jobsite tools" }, { name: "Other", icon: PackageOpen, detail: "Everything in between" },
+  { name: "Tools", icon: Drill, detail: "Shop & jobsite tools" }, { name: "Vehicles for Sale", icon: Truck, detail: "Cars, trucks & equipment" },
+  { name: "Boats for Sale", icon: Anchor, detail: "Complete boats & watercraft" }, { name: "Trailers", icon: Truck, detail: "Utility, boat & cargo" },
   { name: "RC & Hobby", icon: Gamepad2, detail: "RC vehicles, drones & upgrades" },
   { name: "Workwear & Apparel", icon: Shirt, detail: "Work clothes & safety gear" },
-  { name: "Vehicles for Sale", icon: Truck, detail: "Cars, trucks & equipment" },
+  { name: "Other", icon: PackageOpen, detail: "Everything in between" },
 ];
 
 const categoryIcons: Record<string, typeof Car> = { "Car Parts": Car, "Boat Parts": Anchor, "Boats for Sale": Anchor, Motorcycles: Bike, Trucks: Truck, Machinery: Factory, Trailers: Truck, Tools: Drill, "RC & Hobby": Gamepad2, "Workwear & Apparel": Shirt, Other: PackageOpen, "Vehicles for Sale": Truck };
 
-
-const recommendedGear = [
-  { title: "OBD-II scanners", detail: "Read check-engine codes and begin diagnosing warning lights.", query: "automotive OBD2 scanner", icon: Search },
-  { title: "Mechanic's tool sets", detail: "Sockets, ratchets and hand tools for common repair work.", query: "mechanics tool set automotive", icon: Wrench },
-  { title: "Portable jump starters", detail: "Compact emergency power for cars, trucks and recreational vehicles.", query: "portable car battery jump starter", icon: ShieldCheck },
-  { title: "Torque wrenches", detail: "Tighten wheels and components to the correct specification.", query: "automotive torque wrench", icon: Drill },
-];
 
 function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; toggle: () => void }) {
   const Icon=categoryIcons[item.category]||PackageOpen;
@@ -60,6 +51,7 @@ function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; t
 export default function Marketplace({ user, signInPath, signOutPath, listings, businesses = [] }: { user: { id: string; name: string; email: string } | null; signInPath: string; signOutPath: string; listings: Listing[]; businesses?: BusinessMarketplace[] }) {
   const [query, setQuery] = useState(""); const [category, setCategory] = useState("All"); const [sort, setSort] = useState("Newest");
   const [mobileNav, setMobileNav] = useState(false); const [favorites, setFavorites] = useState<Set<string | number>>(new Set());
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const all = listings;
   const shown = useMemo(() => {
     let values = all.filter(x => (category === "All" || x.category === category) && `${x.title} ${x.description} ${x.seller}`.toLowerCase().includes(query.toLowerCase()));
@@ -86,10 +78,10 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, b
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 text-slate-900 backdrop-blur">
       <div className="mx-auto flex h-20 max-w-7xl items-center gap-6 px-4 sm:px-6">
         <a href="#" className="apg-brand" aria-label="Any-Part and Gear home"><Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="apg-brand-logo" priority /></a>
-        <nav className="ml-auto hidden items-center gap-5 text-sm font-semibold lg:flex"><a href="#listings">Browse</a><Link href="/parts-wanted">Parts Wanted</Link><Link href="/shops">Local shops</Link><Link href="/tech-wire">Tech Wire</Link><details className="group relative"><summary className="flex cursor-pointer list-none items-center gap-1 rounded-lg px-2 py-2 hover:bg-slate-100">More <ChevronDown className="size-4 transition group-open:rotate-180"/></summary><div className="absolute right-0 top-full z-50 mt-2 grid min-w-52 gap-1 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">APG Links</Link><a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/safety">Safety tips</a><a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="#business">For businesses</a></div></details></nav>
+        <nav className="ml-auto hidden items-center gap-5 text-sm font-semibold lg:flex"><a href="#listings">Browse</a><Link href="/parts-wanted">Parts Wanted</Link><Link href="/shops">Local shops</Link><Link href="/tech-wire">Tech Wire</Link><details className="group relative"><summary className="flex cursor-pointer list-none items-center gap-1 rounded-lg px-2 py-2 hover:bg-slate-100">More <ChevronDown className="size-4 transition group-open:rotate-180"/></summary><div className="absolute right-0 top-full z-50 mt-2 grid min-w-52 gap-1 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Garage gear</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">APG Links</Link><a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/safety">Safety tips</a><a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="#business">For businesses</a></div></details></nav>
         <div className="ml-auto flex items-center gap-2 lg:ml-2"><InstallApp/>{user&&<NotificationBell userId={user.id}/>} {user?<Button asChild variant="ghost" className="hidden text-slate-900 hover:bg-slate-100 sm:inline-flex"><a href="/account"><LayoutDashboard className="size-4"/> My listings</a></Button>:<Button asChild variant="ghost" className="hidden text-slate-900 hover:bg-slate-100 sm:inline-flex"><a href={signInPath}>Sign in</a></Button>}<Button asChild className="gold-button h-11 px-5 font-bold"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> <span className="hidden sm:inline">Post an item</span><span className="sm:hidden">Sell</span></a></Button><Button variant="ghost" size="icon" className="text-slate-900 lg:hidden" onClick={()=>setMobileNav(!mobileNav)} aria-label="Menu">{mobileNav?<X/>:<Menu/>}</Button></div>
       </div>
-      {mobileNav && <nav className="grid gap-1 border-t border-slate-200 px-4 py-3 text-sm font-semibold lg:hidden"><a className="rounded-lg p-3 hover:bg-slate-100" href="#listings">Browse listings</a><a className="rounded-lg p-3 hover:bg-slate-100" href="#categories">Categories</a><Link className="rounded-lg p-3 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/shops">Local shops</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/tech-wire">APG Tech Wire</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/links">APG Links</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link><a className="rounded-lg p-3 hover:bg-slate-100" href="/safety">Safety tips</a><a className="rounded-lg p-3 hover:bg-slate-100" href="#business">For businesses</a>{user?<><a className="rounded-lg p-3 hover:bg-slate-100" href="/account">My account</a><a className="rounded-lg p-3 hover:bg-slate-100" href="/messages">Messages</a><a className="rounded-lg p-3 hover:bg-slate-100" href="/notifications">Notifications</a><a className="rounded-lg p-3 text-red-700 hover:bg-red-50" href={signOutPath}>Sign out</a></>:<a className="rounded-lg border border-amber-500 bg-amber-400 p-3 text-center font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300" href={signInPath}>Sign in or create account</a>}</nav>}
+      {mobileNav && <nav className="grid gap-1 border-t border-slate-200 px-4 py-3 text-sm font-semibold lg:hidden"><a className="rounded-lg p-3 hover:bg-slate-100" href="#listings">Browse listings</a><a className="rounded-lg p-3 hover:bg-slate-100" href="#categories">Categories</a><Link className="rounded-lg p-3 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/shops">Local shops</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/tech-wire">APG Tech Wire</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/links">APG Links</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link><Link className="rounded-lg p-3 hover:bg-slate-100" href="/garage-gear">Garage gear</Link><a className="rounded-lg p-3 hover:bg-slate-100" href="/safety">Safety tips</a><a className="rounded-lg p-3 hover:bg-slate-100" href="#business">For businesses</a>{user?<><a className="rounded-lg p-3 hover:bg-slate-100" href="/account">My account</a><a className="rounded-lg p-3 hover:bg-slate-100" href="/messages">Messages</a><a className="rounded-lg p-3 hover:bg-slate-100" href="/notifications">Notifications</a><a className="rounded-lg p-3 text-red-700 hover:bg-red-50" href={signOutPath}>Sign out</a></>:<a className="rounded-lg border border-amber-500 bg-amber-400 p-3 text-center font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300" href={signInPath}>Sign in or create account</a>}</nav>}
     </header>
 
     <section className="hero-grid mech-hero overflow-hidden bg-[#071a35] text-white">
@@ -102,7 +94,7 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, b
       </div>
     </section>
 
-    <section id="categories" className="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div className="mb-6 flex items-end justify-between"><div><p className="eyebrow">Shop by category</p><h2 className="section-title">What are you looking for?</h2></div><button onClick={()=>setCategory("All")} className="hidden items-center gap-1 text-sm font-bold text-blue-900 sm:flex">View all <ChevronRight className="size-4"/></button></div><div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">{categories.map(c=><button key={c.name} onClick={()=>{setCategory(c.name);document.getElementById("listings")?.scrollIntoView({behavior:"smooth"})}} className="category-card text-left"><span className="category-icon"><c.icon/></span><strong>{c.name}</strong><small>{c.detail}</small></button>)}</div></section>
+    <section id="categories" className="mx-auto max-w-7xl px-4 py-12 sm:px-6"><div className="mb-6 flex items-end justify-between"><div><p className="eyebrow">Shop by category</p><h2 className="section-title">What are you looking for?</h2></div></div><div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">{(showAllCategories ? categories : categories.slice(0,6)).map(c=><button key={c.name} onClick={()=>{setCategory(c.name);document.getElementById("listings")?.scrollIntoView({behavior:"smooth"})}} className="category-card text-left"><span className="category-icon"><c.icon/></span><strong>{c.name}</strong><small>{c.detail}</small></button>)}</div><button type="button" onClick={()=>setShowAllCategories(value=>!value)} aria-expanded={showAllCategories} className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-blue-900 underline decoration-amber-400 underline-offset-4">{showAllCategories ? "Show fewer categories" : "View all categories"} <ChevronDown className={`size-4 transition ${showAllCategories ? "rotate-180" : ""}`}/></button></section>
 
     <section id="listings" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6"><div className="mb-6 flex flex-col gap-4 border-t border-slate-200 pt-10 sm:flex-row sm:items-end sm:justify-between"><div><p className="eyebrow">Fresh inventory</p><h2 className="section-title">List Your Parts. Reach More Buyers.</h2><p className="mt-2 text-slate-500">{shown.length} listings found</p></div><div className="flex gap-2"><Select value={category} onValueChange={setCategory}><SelectTrigger className="h-11 w-40 bg-white"><SlidersHorizontal className="size-4"/><SelectValue/></SelectTrigger><SelectContent><SelectItem value="All">All categories</SelectItem>{categories.map(c=><SelectItem value={c.name} key={c.name}>{c.name}</SelectItem>)}</SelectContent></Select><Select value={sort} onValueChange={setSort}><SelectTrigger className="h-11 w-36 bg-white"><SelectValue/></SelectTrigger><SelectContent>{["Newest","Price low","Price high"].map(s=><SelectItem value={s} key={s}>{s}</SelectItem>)}</SelectContent></Select></div></div>
       {shown.length ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{shown.map(item=><ListingCard key={item.id} item={item} liked={favorites.has(item.id)} toggle={()=>setFavorites(prev=>{const next=new Set(prev);if(next.has(item.id)){next.delete(item.id);}else{next.add(item.id);}return next})}/>)}</div>:<div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center"><PackageOpen className="mx-auto size-10 text-slate-400"/><h3 className="mt-4 text-xl font-bold">{all.length ? "No parts found" : "No listings yet"}</h3><p className="mt-2 text-slate-500">{all.length ? "Try a different search or category." : "Be the first to post an item on Any Part & Gear."}</p>{!all.length&&<Button asChild className="gold-button mt-6 h-11 px-6 font-black"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> Post the first item</a></Button>}</div>}
@@ -131,24 +123,6 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, b
 
     <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6" aria-labelledby="parts-wanted-home-title"><div className="flex flex-col gap-5 rounded-2xl border border-slate-300 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-7"><div><p className="eyebrow">Can’t find it?</p><h2 id="parts-wanted-home-title" className="mt-1 text-2xl font-black text-[#071a35]">Tell local businesses what you need.</h2><p className="mt-2 max-w-2xl leading-6 text-slate-600">Post a Parts Wanted request and let verified local businesses help locate or identify it.</p></div><div className="flex shrink-0 flex-col gap-2 sm:flex-row"><Button asChild variant="outline" className="h-11 px-5 font-bold"><Link href="/parts-wanted">How it works</Link></Button><Button asChild className="gold-button h-11 px-6 font-black"><Link href={user?"/parts-wanted/new":"/login?next=/parts-wanted/new"}><Search className="size-4"/> Request a part</Link></Button></div></div></section>
 
-
-    <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6" aria-labelledby="recommended-gear-title">
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div><p className="eyebrow">New tools and gear</p><h2 id="recommended-gear-title" className="section-title">Recommended for the garage</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Useful starting points from Amazon, kept separate from used marketplace listings.</p></div>
-          <Link href="/affiliate-disclosure" className="text-sm font-bold text-blue-900 underline decoration-amber-400 underline-offset-4">How affiliate links work</Link>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {recommendedGear.map(({ title, detail, query: gearQuery, icon: Icon }) => <article key={title} className="flex flex-col rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <span className="mb-4 grid size-11 place-items-center rounded-lg bg-[#071a35] text-amber-400"><Icon className="size-5"/></span>
-            <h3 className="font-extrabold text-slate-950">{title}</h3>
-            <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">{detail}</p>
-            <Button asChild className="gold-button mt-5 w-full font-black"><a href={amazonSearchUrl(gearQuery)} target="_blank" rel="noopener noreferrer sponsored nofollow">Shop on Amazon</a></Button>
-          </article>)}
-        </div>
-        <p className="mt-5 text-xs leading-5 text-slate-500"><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. Amazon controls pricing, availability, shipping and returns.</p>
-      </div>
-    </section>
 
     <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6"><div className="flex gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-950"><ShieldCheck className="mt-1 size-5 shrink-0"/><p><strong>Transactions happen directly between buyer and seller.</strong> Any Part and Gear only provides classified listings. We do not process payments, arrange shipping, guarantee fitment, or handle returns. Verify the item and seller before paying.</p></div></section>
 
