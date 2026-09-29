@@ -61,7 +61,7 @@ export default function ApgLinksPage() {
                 <p className="mt-5 text-xs font-black uppercase tracking-[.16em] text-amber-700">Motorcycle</p>
                 <h3 className="mt-1 text-2xl font-black text-[#071a35]">On the Road Again Motorcycle School</h3>
                 <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">Motorcycle training and rider education at four New York training locations. Course schedules, pricing and registration are handled directly by the school.</p>
-                <p className="mt-5 rounded-md bg-slate-100 px-5 py-3 text-center text-sm font-bold text-slate-600">Course link coming soon</p>
+                <a href="https://lrn2ride.com/courses/" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-amber-400 px-5 py-3 font-black text-[#071a35] shadow-sm hover:bg-amber-300">View motorcycle courses <ArrowUpRight className="size-4" /></a>
               </section>
             ) : (
               <section key={category} className="flex min-h-56 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center shadow-sm">
