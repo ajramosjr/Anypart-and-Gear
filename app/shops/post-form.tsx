@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 
 const categories = ["Auto", "Marine", "Motorcycle", "Tools", "Equipment", "Other"];
 
-export default function BusinessPostForm({ shopId, ownerId }: { shopId: string; ownerId: string }) {
+export default function BusinessPostForm({ shopId, ownerId, uploaderId = ownerId }: { shopId: string; ownerId: string; uploaderId?: string }) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -22,7 +22,7 @@ export default function BusinessPostForm({ shopId, ownerId }: { shopId: string; 
     }
     const supabase = createClient();
     const extension = image.type === "image/png" ? "png" : image.type === "image/webp" ? "webp" : "jpg";
-    const path = `${ownerId}/${crypto.randomUUID()}.${extension}`;
+    const path = `${uploaderId}/${crypto.randomUUID()}.${extension}`;
     const upload = await supabase.storage.from("part-images").upload(path, image, { upsert: false, contentType: image.type });
     if (upload.error) {
       setMessage(upload.error.message);
