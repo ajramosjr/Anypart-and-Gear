@@ -96,7 +96,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
       </section>
 
       <section className="mt-12">
-        <div className="mb-6"><span className="kicker">APG inventory</span><h2 className="page-title">Items from {shop.name}</h2><p className="mt-2 text-slate-600">{listings.length} active {listings.length === 1 ? "listing" : "listings"}</p></div>
+        <div className="mb-6"><span className="kicker">Optional APG listings</span><h2 className="page-title">Items from {shop.name}</h2><p className="mt-2 text-slate-600">{listings.length} active {listings.length === 1 ? "listing" : "listings"}</p></div>
         {listings.length ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{listings.map((listing) => <article className="listing-card" key={listing.id}>
           <div className="listing-visual bg-gradient-to-br from-blue-950 to-slate-700">
             {listing.image_url ? <Image src={listing.image_url} alt={listing.title} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" className="object-cover"/> : <><PackageOpen className="size-16 text-amber-300"/><span>{listing.category}</span></>}
@@ -108,7 +108,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
             <p className="mt-4 flex items-center gap-1 text-xs text-slate-500"><MapPin className="size-3"/>{listing.location}</p>
             <Link className="button mt-5 w-full" href={`/listing/${listing.id}`}>View item</Link>
           </div>
-        </article>)}</div> : <div className="empty-state"><PackageOpen className="mx-auto mb-3"/><h3>No active APG listings</h3><p>Visit the business website or send the shop a private message about its inventory.</p>{website && <a className="button mt-5" href={website} target="_blank" rel="noopener noreferrer nofollow">Visit Business Website</a>}</div>}
+        </article>)}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h3>Ask this business what it offers</h3><p>This shop uses its APG profile to share its services and specialty. Individual item listings are optional. Send the shop a private message or visit its website.</p>{website && <a className="button mt-5" href={website} target="_blank" rel="noopener noreferrer nofollow">Visit Business Website</a>}</div>}
       </section>
     </div>
   </main>;
