@@ -1,48 +1,63 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BadgeCheck, Clock3, MapPin, Search, Store, Wrench } from "lucide-react";
+import { MapPin, Search, Star, Store } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import ContactShop from "./contact-shop";
 import ApgLogo from "@/components/apg-logo";
+import ContactShop from "./contact-shop";
 
-type Shop = {
-  id: string; owner_id: string; name: string; specialty: string; description: string;
-  location: string; postal_code: string; hours: string; website: string | null;
-  services: string[]; is_verified: boolean;
-};
+export const dynamic = "force-dynamic";
+type Shop = { id: string; owner_id: string; name: string; specialty: string; location: string; postal_code: string };
+type Post = { id: string; shop_id: string; category: string; caption: string; image_url: string; price: number | null };
+const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "Other"];
 
-function safeWebsite(value: string | null) {
-  if (!value) return null;
-  try {
-    const url = new URL(value);
-    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : null;
-  } catch {
-    return null;
-  }
-}
-
-export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const [{ q = "" }, user] = await Promise.all([searchParams, getUser()]);
+export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string }> }) {
+  const [{ q = "", category = "All", location = "" }, user] = await Promise.all([searchParams, getUser()]);
   const supabase = await createClient();
-  const { data } = await supabase.from("shops").select("id,owner_id,name,specialty,description,location,postal_code,hours,website,services,is_verified").eq("is_active", true).order("is_verified", { ascending: false }).order("name");
-  const needle = q.trim().toLowerCase();
-  const shops = ((data || []) as Shop[]).filter((shop) => !needle || [shop.name, shop.specialty, shop.description, shop.location, shop.postal_code, ...shop.services].join(" ").toLowerCase().includes(needle));
+  const [{ data: shopData }, { data: postData }] = await Promise.all([
+    supabase.from("shops").select("id,owner_id,name,specialty,location,postal_code").eq("is_active", true),
+    supabase.from("business_posts").select("id,shop_id,category,caption,image_url,price").order("created_at", { ascending: false }).limit(120),
+  ]);
+  const shops = (shopData || []) as Shop[];
+  const posts = (postData || []) as Post[];
+  const shopById = new Map(shops.map((shop) => [shop.id, shop]));
+  const { data: reviewData } = shops.length
+    ? await supabase.from("reviews").select("reviewee_id,rating").in("reviewee_id", shops.map((shop) => shop.owner_id))
+    : { data: [] };
+  const ratings = new Map<string, { count: number; sum: number }>();
+  for (const review of reviewData || []) {
+    const current = ratings.get(review.reviewee_id) || { count: 0, sum: 0 };
+    ratings.set(review.reviewee_id, { count: current.count + 1, sum: current.sum + review.rating });
+  }
+  const term = q.trim().toLowerCase();
+  const town = location.trim().toLowerCase();
+  const selected = categories.includes(category) ? category : "All";
+  const shown = posts.filter((post) => {
+    const shop = shopById.get(post.shop_id);
+    return shop && (selected === "All" || post.category === selected)
+      && (!term || `${post.caption} ${shop.name} ${shop.specialty}`.toLowerCase().includes(term))
+      && (!town || `${shop.location} ${shop.postal_code}`.toLowerCase().includes(town));
+  });
 
-  return <main className="min-h-screen bg-[#eef1f4]">
-    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><div className="account-nav"><Link href="/messages">Messages</Link><Link href="/">Marketplace</Link></div></div></header>
-    <section className="bg-[#071a35] text-white"><div className="shell py-14"><span className="kicker text-amber-400">Local parts network</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Shops near you</h1><p className="mt-3 max-w-2xl text-slate-300">Find parts stores, repair shops, salvage yards and specialists. Ask about a part without sharing your private contact information.</p>
-      <form className="mt-7 flex max-w-2xl gap-2" action="/shops"><div className="flex flex-1 items-center gap-2 rounded-lg bg-white px-3"><Search className="size-5 text-slate-400"/><input className="h-12 w-full text-slate-950 outline-none" name="q" defaultValue={q} placeholder="Search specialty, city or ZIP code" /></div><button className="button">Search</button></form>
+  return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/">Marketplace</Link><Link aria-current="page" href="/shops">Businesses</Link><Link href="/messages">Messages</Link></nav></div></header>
+    <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Local business posts</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">From Local Businesses</h1><p className="mt-2 text-slate-600">See what shops have, then ask them directly.</p>
+      <form action="/shops" className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto_auto]"><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search businesses, parts or services" aria-label="Search business posts" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town or ZIP" aria-label="Town or ZIP" /></label><button className="button">Search</button></form>
+      <nav aria-label="Business categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={`/shops?${new URLSearchParams({ ...(q && { q }), ...(location && { location }), category: item })}`} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
     </div></section>
-    <div className="shell page-shell">
-      <div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><div><span className="kicker">{shops.length} local businesses</span><h2 className="page-title">Local shops</h2></div><Link className="button" href={user ? "/shops/register" : "/login?next=/shops/register"}><Store size={17}/> Add your business</Link></div>
-      {shops.length ? <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{shops.map((shop) => <article className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm" key={shop.id}>
-        <div className="flex items-start justify-between gap-3"><span className="grid size-12 place-items-center rounded-lg bg-amber-100 text-amber-800"><Store/></span>{shop.is_verified && <span className="verified-badge"><BadgeCheck className="size-3"/> Verified</span>}</div>
-        <h2 className="mt-4 text-xl font-black text-[#071a35]">{shop.name}</h2><p className="mt-1 flex items-center gap-2 text-sm font-bold text-amber-700"><Wrench className="size-4"/>{shop.specialty}</p>
-        <p className="mt-3 text-sm leading-6 text-slate-600">{shop.description}</p>
-        <div className="mt-4 grid gap-2 border-t border-slate-100 pt-4 text-sm text-slate-600"><span className="flex items-center gap-2"><MapPin className="size-4"/>{shop.location} · {shop.postal_code}</span><span className="flex items-center gap-2"><Clock3 className="size-4"/>{shop.hours}</span></div>
-        {shop.services.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{shop.services.map((service) => <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700" key={service}>{service}</span>)}</div>}
-        <div className="mt-5 flex flex-wrap gap-2"><Link className="button button-small" href={`/shops/${shop.id}`}>View business profile</Link>{safeWebsite(shop.website) && <a className="button button-small button-secondary" href={safeWebsite(shop.website)!} target="_blank" rel="noopener noreferrer nofollow">Visit Business Website</a>}<ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id}/></div>
-      </article>)}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h3>No shops found yet</h3><p>Try another city or ZIP code, or add the first local business.</p></div>}
+    <div className="shell py-9"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><p className="text-sm font-bold text-slate-600">{shown.length} {shown.length === 1 ? "post" : "posts"} from local businesses</p><Link className="button button-small" href={user ? "/shops/post" : "/login?next=/shops/post"}>Post for your business</Link></div>
+      {shown.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shown.map((post) => {
+        const shop = shopById.get(post.shop_id)!;
+        const rating = ratings.get(shop.owner_id);
+        return <article key={post.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div className="flex items-center gap-3 p-4"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#071a35] text-amber-400"><Store className="size-5"/></span><div className="min-w-0"><Link className="font-black hover:underline" href={`/shops/${shop.id}`}>{shop.name}</Link><p className="truncate text-xs text-slate-500">{shop.location}</p><p className="mt-0.5 flex items-center gap-1 text-xs text-slate-600">{rating ? <><Star className="size-3.5 fill-amber-400 text-amber-500"/><strong>{(rating.sum / rating.count).toFixed(1)}</strong> ({rating.count} {rating.count === 1 ? "review" : "reviews"})</> : "New — no reviews yet"}</p></div></div>
+          <div className="relative aspect-[4/3] bg-slate-100"><Image src={post.image_url} alt={`Post by ${shop.name}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover"/></div>
+          <div className="p-4"><span className="text-xs font-bold uppercase tracking-wide text-amber-700">{post.category}</span><p className="mt-1 line-clamp-3 min-h-12 font-semibold">{post.caption}</p>{post.price !== null && <p className="mt-2 font-black">${Number(post.price).toLocaleString()}</p>}<div className="mt-4"><ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id} nextPath="/shops" prompt={`I'm asking about your APG post: ${post.caption.slice(0, 120)}`} label="Ask shop"/></div><Link className="mt-3 inline-block text-sm font-bold underline" href={`/shops/${shop.id}`}>View business</Link></div>
+        </article>;
+      })}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h2>No business posts yet</h2><p>{q || location || selected !== "All" ? "Try another search or category." : "Local businesses can share one photo and a short note here. Be the first to post."}</p><Link className="button mt-5" href={user ? "/shops/post" : "/login?next=/shops/post"}>Share a business post</Link></div>}
+      <section className="mt-12 border-t border-slate-200 pt-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="kicker">Business directory</span><h2 className="page-title">Find a business</h2><p className="text-slate-600">Businesses can be found here even if they have not posted a photo.</p></div><Link className="button" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link></div>
+        {shops.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shops.map((shop) => <Link key={shop.id} href={`/shops/${shop.id}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-amber-400"><strong className="text-lg">{shop.name}</strong><p className="text-sm text-slate-600">{shop.specialty} · {shop.location}</p></Link>)}</div> : <p className="rounded-xl bg-white p-6 text-slate-600">No business profiles have been added yet.</p>}
+      </section>
     </div>
   </main>;
 }
