@@ -213,7 +213,7 @@ export function GearsAssistant() {
     const fallback = pathname.startsWith("/listing/")
       ? "You’re viewing a listing. I can suggest seller questions, fitment checks, and safe transaction steps."
       : pathname.startsWith("/shops/")
-        ? "You’re viewing a business marketplace. I can help you review its inventory or prepare a message."
+        ? "You’re viewing a business profile. I can help you explore its services or prepare a message."
         : "I can explain this page and help you choose the next step.";
     addMessage("gears", pageHelp[pathname] || fallback);
   }
@@ -262,7 +262,7 @@ export function GearsAssistant() {
     if (language === "es") {
       if (/vender|publicar|anuncio/.test(normalized)) { startListingHelp(); return; }
       if (/buscar|comprar|necesito|pieza/.test(normalized)) { addMessage("gears", "Puedo ayudarle a buscar piezas en el mercado. Escriba la marca, modelo, año o número de pieza que necesita."); return; }
-      if (/negocio|tienda|inventario|csv/.test(normalized)) { addMessage("gears", "La cuenta comercial gratuita permite crear una tienda y cargar inventario por CSV. Complete el nombre, especialidad, ubicación, horario, página pública, servicios y descripción."); return; }
+      if (/negocio|tienda|inventario|csv/.test(normalized)) { addMessage("gears", "Puede crear un perfil comercial gratuito con su especialidad, servicios, horario y sitio web. Los clientes pueden contactar a su negocio. Publicar artículos o cargar inventario es opcional y puede hacerlo después."); return; }
       if (/seguro|estafa|pago/.test(normalized)) { addMessage("gears", "Use un lugar público seguro, revise el artículo antes de pagar, use pagos protegidos y nunca comparta contraseñas ni códigos de verificación."); return; }
       if (/herramienta|taladro|rosca|medida/.test(normalized)) { addMessage("gears", "APG Toolbox incluye tablas de taladro y rosca, guía de cinta métrica, conversiones, cálculos y referencias imprimibles."); return; }
       if (/curso|capacitación|escuela|proveedor|apg[\s-]*links/.test(normalized)) { addMessage("gears", APG_LINKS_ANSWER_ES); return; }
@@ -293,7 +293,7 @@ export function GearsAssistant() {
         addMessage("gears", `I can build that search on the marketplace. Open Find parts & gear below${searchText ? ` and search for “${searchText}.”` : "."}`);
       }
     } else if (/business|shop|inventory|bulk/.test(normalized)) {
-      addMessage("gears", "Free business setup: enter the public business name, specialty, location and ZIP, hours, website/social page, services, and a clear description. After approval, listings appear under the business marketplace. For inventory, download APG’s CSV template and use my CSV checker before uploading.");
+      addMessage("gears", "Businesses can create a free APG profile to promote their specialty, services, hours and website, and let buyers contact them directly. Listing individual parts is optional. To add inventory later, post an item or use APG’s CSV template for a bulk upload. APG reviews public business details before unlocking Parts Wanted requests.");
     } else if (/reply|message|contact|offer|available/.test(normalized)) {
       addMessage("gears", "Message templates:\n• Is this still available?\n• Can you confirm the part number and condition?\n• What year, make, model, and engine did it come from?\n• Would you consider $___?\n• Where would you prefer to meet safely?\nNever include passwords, verification codes, or sensitive payment information.");
     } else if (/account|sign in|login|password|email/.test(normalized)) {
