@@ -12,7 +12,6 @@ import {
   Languages,
   FileSpreadsheet,
   ShieldCheck,
-  ShoppingBag,
   Store,
   Tag,
   Wrench,
@@ -170,25 +169,8 @@ export function GearsAssistant() {
   }, []);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("apg-gear-state-v2");
-    if (!saved) return;
-    try {
-      const parsed = JSON.parse(saved) as { messages?: Message[]; listingStep?: ListingStep; listingDraft?: Record<string, string>; language?: Language };
-      if (parsed.messages?.length) {
-        setMessages(parsed.messages.slice(-30));
-        nextMessageId.current = Math.max(...parsed.messages.map((message) => message.id)) + 1;
-      }
-      if (parsed.listingStep) setListingStep(parsed.listingStep);
-      if (parsed.listingDraft) setListingDraft(parsed.listingDraft);
-      if (parsed.language) setLanguage(parsed.language);
-    } catch {
-      window.localStorage.removeItem("apg-gear-state-v2");
-    }
+    window.localStorage.removeItem("apg-gear-state-v2");
   }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("apg-gear-state-v2", JSON.stringify({ messages: messages.slice(-30), listingStep, listingDraft, language }));
-  }, [messages, listingStep, listingDraft, language]);
 
   useEffect(() => {
     conversationEnd.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
