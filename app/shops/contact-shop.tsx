@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { requestEmailNotification } from "@/lib/notify";
 
-export default function ContactShop({ shopId, ownerId, currentUserId, nextPath = "/shops" }: { shopId: string; ownerId: string; currentUserId?: string; nextPath?: string }) {
+export default function ContactShop({ shopId, ownerId, currentUserId, nextPath = "/shops", prompt = "", label = "Message shop" }: { shopId: string; ownerId: string; currentUserId?: string; nextPath?: string; prompt?: string; label?: string }) {
   const [open, setOpen] = useState(false);
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState(prompt);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
@@ -35,5 +35,5 @@ export default function ContactShop({ shopId, ownerId, currentUserId, nextPath =
       <button className="button button-small" disabled={sending || !body.trim()} onClick={send}>{sending ? "Sending..." : "Send private inquiry"}</button>
       {error && <p className="form-message error">{error}</p>}
     </div>
-  ) : <button className="button button-small" onClick={() => setOpen(true)}>Message shop</button>;
+  ) : <button className="button button-small" onClick={() => setOpen(true)}>{label}</button>;
 }

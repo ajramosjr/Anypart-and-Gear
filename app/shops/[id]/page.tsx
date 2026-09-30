@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BadgeCheck, Clock3, ExternalLink, MapPin, PackageOpen, Store, Wrench } from "lucide-react";
+import { BadgeCheck, Clock3, ExternalLink, MapPin, PackageOpen, Star, Store, Wrench } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ApgLogo from "@/components/apg-logo";
 import ContactShop from "../contact-shop";
+import RemovePost from "../remove-post";
 
 export const dynamic = "force-dynamic";
 
@@ -66,6 +67,11 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
     .order("created_at", { ascending: false });
 
   const listings = (listingData || []) as ShopListing[];
+  const [{ data: businessPosts }, { data: reviews }] = await Promise.all([
+    supabase.from("business_posts").select("id,caption,image_url,category,price").eq("shop_id", shop.id).order("created_at", { ascending: false }).limit(12),
+    supabase.from("reviews").select("rating").eq("reviewee_id", shop.owner_id),
+  ]);
+  const rating = reviews?.length ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length : null;
   const website = safeWebsite(shop.website);
 
   return <main className="min-h-screen bg-[#eef1f4]">
@@ -79,6 +85,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
             <h1 className="mt-5 text-4xl font-black sm:text-5xl">{shop.name}</h1>
             <p className="mt-2 flex items-center gap-2 font-bold text-amber-300"><Wrench className="size-4"/>{shop.specialty}</p>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{shop.description}</p>
+            <p className="mt-3 flex items-center gap-1 text-sm text-slate-200">{rating !== null ? <><Star className="size-4 fill-amber-400 text-amber-400"/> {rating.toFixed(1)} ({reviews!.length} {reviews!.length === 1 ? "review" : "reviews"})</> : "New — no reviews yet"}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             {website && <a className="button" href={website} target="_blank" rel="noopener noreferrer nofollow"><ExternalLink size={17}/> Visit Business Website</a>}
@@ -89,11 +96,14 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
     </section>
 
     <div className="shell page-shell">
+      {user?.id === shop.owner_id && <div className="mb-6"><Link className="button" href="/shops/post">Share a business post</Link></div>}
       <section className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2">
         <span className="flex items-center gap-3 text-slate-700"><MapPin className="size-5 text-amber-700"/><strong>{shop.location} · {shop.postal_code}</strong></span>
         <span className="flex items-center gap-3 text-slate-700"><Clock3 className="size-5 text-amber-700"/><strong>{shop.hours}</strong></span>
         {shop.services.length > 0 && <div className="flex flex-wrap gap-2 sm:col-span-2">{shop.services.map((service) => <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700" key={service}>{service}</span>)}</div>}
       </section>
+
+      {!!businessPosts?.length && <section className="mt-12"><div className="mb-6"><span className="kicker">Recent posts</span><h2 className="page-title">From {shop.name}</h2></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{businessPosts.map((post) => <article key={post.id} className="overflow-hidden rounded-xl bg-white shadow-sm"><div className="relative aspect-[4/3]"><Image src={post.image_url} alt={`Post by ${shop.name}`} fill sizes="(max-width: 700px) 100vw, 33vw" className="object-cover"/></div><div className="p-5"><span className="text-xs font-bold uppercase text-amber-700">{post.category}</span><p className="mt-2 font-semibold">{post.caption}</p>{post.price !== null && <p className="mt-2 font-black">${Number(post.price).toLocaleString()}</p>}<ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id} nextPath={`/shops/${shop.id}`} prompt={`I'm asking about your APG post: ${post.caption.slice(0, 120)}`} label="Ask shop"/>{user?.id === shop.owner_id && <RemovePost postId={post.id}/>}</div></article>)}</div></section>}
 
       <section className="mt-12">
         <div className="mb-6"><span className="kicker">Optional APG listings</span><h2 className="page-title">Items from {shop.name}</h2><p className="mt-2 text-slate-600">{listings.length} active {listings.length === 1 ? "listing" : "listings"}</p></div>
