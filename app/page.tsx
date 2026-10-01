@@ -5,15 +5,6 @@ import { Listing } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
-type BusinessMarketplace = {
-  id: string;
-  name: string;
-  specialty: string;
-  location: string;
-  isVerified: boolean;
-  itemCount: number;
-};
-
 async function getListings(): Promise<Listing[]> {
   if (!hasSupabaseConfig()) return [];
   const supabase = await createClient();
@@ -28,32 +19,8 @@ async function getListings(): Promise<Listing[]> {
   return data as Listing[];
 }
 
-async function getBusinessMarketplaces(): Promise<BusinessMarketplace[]> {
-  if (!hasSupabaseConfig()) return [];
-  const supabase = await createClient();
-  const [{ data: shops, error: shopsError }, { data: inventory, error: inventoryError }] = await Promise.all([
-    supabase.from("shops").select("id,name,specialty,location,is_verified").eq("is_active", true).order("name"),
-    supabase.from("listings").select("shop_id").eq("status", "active").not("shop_id", "is", null),
-  ]);
-  if (shopsError || inventoryError || !shops?.length) return [];
-
-  const counts = new Map<string, number>();
-  inventory?.forEach((item) => {
-    if (item.shop_id) counts.set(item.shop_id, (counts.get(item.shop_id) || 0) + 1);
-  });
-
-  return shops.map((shop) => ({
-    id: shop.id,
-    name: shop.name,
-    specialty: shop.specialty,
-    location: shop.location,
-    isVerified: shop.is_verified,
-    itemCount: counts.get(shop.id) || 0,
-  }));
-}
-
 export default async function Home() {
-  const [user, sourceListings, businesses] = await Promise.all([getUser(), getListings(), getBusinessMarketplaces()]);
+  const [user, sourceListings] = await Promise.all([getUser(), getListings()]);
   const sellerIds = [...new Set(sourceListings.map((item) => item.user_id).filter((id): id is string => Boolean(id)))];
   const profileBadges = new Map<string, { emailVerified: boolean; trustedSeller: boolean }>();
   const verifiedBusinesses = new Set<string>();
@@ -83,5 +50,5 @@ export default async function Home() {
     trustedSeller: item.user_id ? profileBadges.get(item.user_id)?.trustedSeller : false,
     verifiedBusiness: item.user_id ? verifiedBusinesses.has(item.user_id) : false,
   }));
-  return <Marketplace user={signedIn} signInPath="/login" signOutPath="/auth/signout" listings={listings} businesses={businesses} />;
+  return <Marketplace user={signedIn} signInPath="/login" signOutPath="/auth/signout" listings={listings} />;
 }
