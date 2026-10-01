@@ -67,7 +67,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 
   return (
     <main>
-      <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/#listings">Back to listings</Link>{user&&<NotificationBell userId={user.id}/>}</nav></div></header>
+      <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace#listings">Back to listings</Link>{user&&<NotificationBell userId={user.id}/>}</nav></div></header>
       <div className="shell page-shell"><div className="detail-grid">
         <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />
         <div className="detail-info">

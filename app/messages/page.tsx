@@ -83,7 +83,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
       </header>
       <div className="shell page-shell messages-shell">
         <div className="messages-intro">
-          <Link href="/#listings" className="messages-back"><ArrowLeft size={16} /> Marketplace</Link>
+          <Link href="/marketplace#listings" className="messages-back"><ArrowLeft size={16} /> Marketplace</Link>
           <div><span className="kicker">APG Messages</span><h1 className="page-title">Inbox</h1></div>
           <p className="privacy-note"><LockKeyhole size={17} /><span>Chat using display names. Your phone number and email stay private.</span></p>
         </div>
@@ -136,7 +136,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
             })()}
           </div>
         ) : (
-          <div className="empty-state inbox-empty"><MessageCircle size={44}/><h3>Your APG inbox is ready</h3><p>Use Contact seller on a listing to safely begin a conversation. After that, keep chatting here—even if the listing is sold.</p><Link className="button" href="/#listings">Browse listings</Link></div>
+          <div className="empty-state inbox-empty"><MessageCircle size={44}/><h3>Your APG inbox is ready</h3><p>Use Contact seller on a listing to safely begin a conversation. After that, keep chatting here—even if the listing is sold.</p><Link className="button" href="/marketplace#listings">Browse listings</Link></div>
         )}
       </div>
     </main>

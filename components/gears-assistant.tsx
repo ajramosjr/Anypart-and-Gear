@@ -20,7 +20,7 @@ import styles from "./gears-assistant.module.css";
 import { createClient } from "@/lib/supabase/client";
 
 const actions = [
-  { href: "/#listings", label: "Find parts & gear", icon: Search },
+  { href: "/marketplace#listings", label: "Find parts & gear", icon: Search },
   { href: "/sell", label: "Post an item", icon: Tag },
   { href: "/shops", label: "Explore shops", icon: Store },
   { href: "/toolbox", label: "Open APG Toolbox", icon: Wrench },
