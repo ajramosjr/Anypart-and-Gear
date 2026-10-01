@@ -21,7 +21,7 @@ export default async function ToolboxPage() {
         <div className="shell nav-wrap">
           <ApgLogo priority />
           <nav className="toolbox-nav" aria-label="Main navigation">
-            <Link href="/">Marketplace</Link>
+            <Link href="/marketplace">Marketplace</Link>
             <Link href="/shops">Local shops</Link>
             <Link href="/tech-wire">APG Tech Wire</Link>
             <Link href="/links">APG Links</Link>
