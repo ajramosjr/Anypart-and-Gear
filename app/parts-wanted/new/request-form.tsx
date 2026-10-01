@@ -1,17 +1,36 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Camera, CircleHelp, Search, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const itemTypes = ["Car or truck", "Motorcycle", "Boat", "Trailer", "Machinery", "RC or hobby", "Tool or equipment", "Other"];
+type RequestDraft = { item_type: string; part_name: string; vehicle_year: string; make: string; model: string; description: string; location: string; postal_code: string; request_kind: "known_part" | "help_identify" };
 
 export default function RequestForm({ userId }: { userId: string }) {
   const router = useRouter();
   const [kind, setKind] = useState<"known_part" | "help_identify">("known_part");
+  const [initialDraft, setInitialDraft] = useState<RequestDraft | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    void Promise.resolve().then(() => {
+      if (!active) return;
+      try {
+        const saved = window.sessionStorage.getItem("apg-part-request-draft");
+        if (!saved) return;
+        window.sessionStorage.removeItem("apg-part-request-draft");
+        const { draft, createdAt } = JSON.parse(saved) as { draft: RequestDraft; createdAt: number };
+        if (!draft || !Number.isFinite(createdAt) || Date.now() - createdAt > 30 * 60 * 1000) return;
+        setInitialDraft(draft);
+        setKind(draft.request_kind === "help_identify" ? "help_identify" : "known_part");
+      } catch { /* The form remains blank if storage is unavailable. */ }
+    });
+    return () => { active = false; };
+  }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -75,7 +94,8 @@ export default function RequestForm({ userId }: { userId: string }) {
   }
 
   return (
-    <form className="listing-form" onSubmit={submit}>
+    <form key={initialDraft ? "gear-draft" : "blank"} className="listing-form" onSubmit={submit}>
+      {initialDraft && <p className="request-privacy-note">Gear prepared this draft. Review and edit every field before posting.</p>}
       <fieldset className="request-kind-picker">
         <legend>How can businesses help?</legend>
         <label className={kind === "known_part" ? "selected" : ""}>
@@ -89,17 +109,17 @@ export default function RequestForm({ userId }: { userId: string }) {
       </fieldset>
 
       <div className="form-grid">
-        <div className="field"><label htmlFor="item_type">Vehicle or equipment type</label><select id="item_type" name="item_type" required defaultValue=""><option value="" disabled>Choose a type</option>{itemTypes.map((type) => <option key={type}>{type}</option>)}</select></div>
-        <div className="field"><label htmlFor="vehicle_year">Year (if known)</label><input id="vehicle_year" name="vehicle_year" type="number" min="1886" max="2100" inputMode="numeric" placeholder="2008" /></div>
-        <div className="field"><label htmlFor="make">Make (if known)</label><input id="make" name="make" maxLength={100} placeholder="Jeep, Bayliner, Load Rite..." /></div>
-        <div className="field"><label htmlFor="model">Model (if known)</label><input id="model" name="model" maxLength={100} placeholder="Wrangler, Capri 1952..." /></div>
-        <div className="field full"><label htmlFor="part_name">{kind === "known_part" ? "Part needed" : "What do you think it might be? (optional)"}</label><input id="part_name" name="part_name" minLength={kind === "known_part" ? 2 : undefined} maxLength={160} required={kind === "known_part"} placeholder={kind === "known_part" ? "Front passenger-side fender" : "Plastic panel underneath the front bumper"} /></div>
-        <div className="field full"><label htmlFor="description">{kind === "known_part" ? "Details" : "Describe the problem"}</label><textarea id="description" name="description" minLength={10} maxLength={2000} required placeholder={kind === "known_part" ? "Include fitment details, color, part number or anything else that may help." : "Describe where it is, what happened, any warning lights, sounds or visible damage."} /></div>
+        <div className="field"><label htmlFor="item_type">Vehicle or equipment type</label><select id="item_type" name="item_type" required defaultValue={itemTypes.includes(initialDraft?.item_type || "") ? initialDraft?.item_type : ""}><option value="" disabled>Choose a type</option>{itemTypes.map((type) => <option key={type}>{type}</option>)}</select></div>
+        <div className="field"><label htmlFor="vehicle_year">Year (if known)</label><input id="vehicle_year" name="vehicle_year" type="number" min="1886" max="2100" inputMode="numeric" defaultValue={initialDraft?.vehicle_year} placeholder="2008" /></div>
+        <div className="field"><label htmlFor="make">Make (if known)</label><input id="make" name="make" maxLength={100} defaultValue={initialDraft?.make} placeholder="Jeep, Bayliner, Load Rite..." /></div>
+        <div className="field"><label htmlFor="model">Model (if known)</label><input id="model" name="model" maxLength={100} defaultValue={initialDraft?.model} placeholder="Wrangler, Capri 1952..." /></div>
+        <div className="field full"><label htmlFor="part_name">{kind === "known_part" ? "Part needed" : "What do you think it might be? (optional)"}</label><input id="part_name" name="part_name" minLength={kind === "known_part" ? 2 : undefined} maxLength={160} required={kind === "known_part"} defaultValue={initialDraft?.part_name} placeholder={kind === "known_part" ? "Front passenger-side fender" : "Plastic panel underneath the front bumper"} /></div>
+        <div className="field full"><label htmlFor="description">{kind === "known_part" ? "Details" : "Describe the problem"}</label><textarea id="description" name="description" minLength={10} maxLength={2000} required defaultValue={initialDraft?.description} placeholder={kind === "known_part" ? "Include fitment details, color, part number or anything else that may help." : "Describe where it is, what happened, any warning lights, sounds or visible damage."} /></div>
         <div className="field full"><label htmlFor="images"><Camera size={17} /> Photos (optional, up to 4)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple /><small>Clear close-ups and one wider photo can help a business identify the part.</small></div>
         <div className="field"><label htmlFor="condition_preference">Condition</label><select id="condition_preference" name="condition_preference" defaultValue="Either"><option>Either</option><option>New</option><option>Used</option></select></div>
         <div className="field"><label htmlFor="search_radius">Search distance</label><select id="search_radius" name="search_radius" defaultValue="25"><option value="10">Within 10 miles</option><option value="25">Within 25 miles</option><option value="50">Within 50 miles</option><option value="100">Within 100 miles</option></select></div>
-        <div className="field"><label htmlFor="location">City and state</label><input id="location" name="location" minLength={2} maxLength={120} required placeholder="Seaford, NY" /></div>
-        <div className="field"><label htmlFor="postal_code">ZIP code</label><input id="postal_code" name="postal_code" minLength={3} maxLength={12} inputMode="numeric" required placeholder="11783" /></div>
+        <div className="field"><label htmlFor="location">City and state</label><input id="location" name="location" minLength={2} maxLength={120} required defaultValue={initialDraft?.location} placeholder="Seaford, NY" /></div>
+        <div className="field"><label htmlFor="postal_code">ZIP code</label><input id="postal_code" name="postal_code" minLength={3} maxLength={12} inputMode="numeric" required defaultValue={initialDraft?.postal_code} placeholder="11783" /></div>
       </div>
 
       <div className="request-privacy-note"><ShieldCheck size={20} /><p><strong>Your contact information stays private.</strong> Verified APG businesses are alerted when your request is posted. They respond through APG, and you decide whether to continue the conversation.</p></div>
