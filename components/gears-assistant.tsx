@@ -35,6 +35,7 @@ type Language = "en" | "es";
 
 const APG_LINKS_ANSWER = "APG Links is a directory for courses, training, and trusted industry resources. Its categories stay empty until APG receives permission from each provider to publish its name, information, and link. A future listing will not mean the provider sponsors or is partnered with APG unless that relationship is specifically confirmed.";
 const APG_LINKS_ANSWER_ES = "APG Links es un directorio de cursos, capacitación y recursos de la industria. Las categorías permanecen vacías hasta que APG reciba permiso de cada proveedor para publicar su nombre, información y enlace. Una publicación no significa que el proveedor patrocine o esté asociado con APG.";
+const GEAR_GREETING_LAUNCH = Date.parse("2026-10-01T02:00:00Z");
 
 const scamTerms = /gift card|wire transfer|verification code|security code|crypto|bitcoin|zelle.*deposit|venmo.*friends|cash app.*deposit|pay.*outside|text me|whatsapp/i;
 
@@ -125,7 +126,8 @@ export function GearsAssistant() {
   const [listingStep, setListingStep] = useState<ListingStep>(null);
   const [listingDraft, setListingDraft] = useState<Record<string, string>>({});
   const [language, setLanguage] = useState<Language>("en");
-  const [firstName, setFirstName] = useState("");
+  const [introGreeting, setIntroGreeting] = useState("Hi! I'm Gear. Need help finding your way around APG?");
+  const [greetingReady, setGreetingReady] = useState(false);
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, role: "gears", text: "Hi, I’m Gear. Ask me how to use APG, find something, or create a strong listing." },
@@ -138,21 +140,32 @@ export function GearsAssistant() {
 
   useEffect(() => {
     async function personalizeGreeting() {
-      const { data } = await createClient().auth.getUser();
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
+      const user = data.user;
+      if (!user) { setGreetingReady(true); return; }
       const metadata = data.user?.user_metadata as Record<string, unknown> | undefined;
       const rawName = [metadata?.first_name, metadata?.full_name, metadata?.name]
         .find((value) => typeof value === "string" && value.trim()) as string | undefined;
       const name = rawName?.trim().split(/\s+/)[0]?.replace(/[^\p{L}\p{M}'-]/gu, "").slice(0, 30) || "";
-      if (!name) return;
-      setFirstName(name);
-      setMessages((current) => current.map((message, index) => index === 0 && message.role === "gears" && /^Hi,? I[’']m Gear\./i.test(message.text)
-        ? { ...message, text: `Hi ${name}, I’m Gear. Ask me how to use APG, find something, or create a strong listing.` }
+      const key = `apg-gear-greeted-${user.id}`;
+      const introduced = metadata?.gear_introduced === true || window.localStorage.getItem(key) === "true" || Date.parse(user.created_at) < GEAR_GREETING_LAUNCH;
+      const salutation = name ? `Welcome back, ${name}!` : "Welcome back!";
+      setIntroGreeting(introduced ? `${salutation} Need help finding your way around APG?` : `Hi${name ? ` ${name}` : ""}! I'm Gear. Need help finding your way around APG?`);
+      setMessages((current) => current.map((message, index) => index === 0 && message.role === "gears"
+        ? { ...message, text: introduced ? `${salutation} What can I help you find on APG?` : `Hi${name ? ` ${name}` : ""}, I’m Gear. Ask me how to use APG, find something, or create a strong listing.` }
         : message));
+      window.localStorage.setItem(key, "true");
+      setGreetingReady(true);
+      if (metadata?.gear_introduced !== true) {
+        void supabase.auth.updateUser({ data: { gear_introduced: true } });
+      }
     }
-    void personalizeGreeting();
+    void personalizeGreeting().catch(() => setGreetingReady(true));
   }, []);
 
   useEffect(() => {
+    if (!greetingReady) return;
     const alreadyIntroduced = window.sessionStorage.getItem("apg-gears-introduced");
     if (alreadyIntroduced) {
       return;
@@ -166,7 +179,7 @@ export function GearsAssistant() {
       window.clearTimeout(showTimer);
       window.clearTimeout(hideTimer);
     };
-  }, []);
+  }, [greetingReady]);
 
   useEffect(() => {
     window.localStorage.removeItem("apg-gear-state-v2");
@@ -438,7 +451,7 @@ export function GearsAssistant() {
 
       {!open && showIntro ? (
         <div className={styles.intro} role="status">
-          Hi{firstName ? ` ${firstName}` : ""}! I&apos;m Gear. Need help finding your way around APG?
+          {introGreeting}
         </div>
       ) : null}
 
