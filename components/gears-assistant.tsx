@@ -10,6 +10,7 @@ import {
   Send,
   Mic,
   Languages,
+  MessageCircleQuestion,
   ShieldCheck,
   Store,
   Tag,
@@ -152,15 +153,12 @@ function listingQuality(draft: Record<string, string>) {
 export function GearsAssistant() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(false);
   const [input, setInput] = useState("");
   const [listingStep, setListingStep] = useState<ListingStep>(null);
   const [listingDraft, setListingDraft] = useState<Record<string, string>>({});
   const [requestStep, setRequestStep] = useState<RequestStep>(null);
   const [requestDraft, setRequestDraft] = useState<Record<string, string>>({});
   const [language, setLanguage] = useState<Language>("en");
-  const [introGreeting, setIntroGreeting] = useState("Hi! I'm Gear. Need help finding your way around APG?");
-  const [greetingReady, setGreetingReady] = useState(false);
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, role: "gears", text: "Hi, I’m Gear. Ask me how to use APG, find something, or create a strong listing." },
@@ -175,7 +173,7 @@ export function GearsAssistant() {
       const supabase = createClient();
       const { data } = await supabase.auth.getUser();
       const user = data.user;
-      if (!user) { setGreetingReady(true); return; }
+      if (!user) return;
       const metadata = data.user?.user_metadata as Record<string, unknown> | undefined;
       const rawName = [metadata?.first_name, metadata?.full_name, metadata?.name]
         .find((value) => typeof value === "string" && value.trim()) as string | undefined;
@@ -183,35 +181,16 @@ export function GearsAssistant() {
       const key = `apg-gear-greeted-${user.id}`;
       const introduced = metadata?.gear_introduced === true || window.localStorage.getItem(key) === "true" || Date.parse(user.created_at) < GEAR_GREETING_LAUNCH;
       const salutation = name ? `Welcome back, ${name}!` : "Welcome back!";
-      setIntroGreeting(introduced ? `${salutation} Need help finding your way around APG?` : `Hi${name ? ` ${name}` : ""}! I'm Gear. Need help finding your way around APG?`);
       setMessages((current) => current.map((message, index) => index === 0 && message.role === "gears"
         ? { ...message, text: introduced ? `${salutation} What can I help you find on APG?` : `Hi${name ? ` ${name}` : ""}, I’m Gear. Ask me how to use APG, find something, or create a strong listing.` }
         : message));
       window.localStorage.setItem(key, "true");
-      setGreetingReady(true);
       if (metadata?.gear_introduced !== true) {
         void supabase.auth.updateUser({ data: { gear_introduced: true } });
       }
     }
-    void personalizeGreeting().catch(() => setGreetingReady(true));
+    void personalizeGreeting();
   }, []);
-
-  useEffect(() => {
-    if (!greetingReady) return;
-    const alreadyIntroduced = window.sessionStorage.getItem("apg-gears-introduced");
-    if (alreadyIntroduced) {
-      return;
-    }
-
-    const showTimer = window.setTimeout(() => setShowIntro(true), 900);
-    const hideTimer = window.setTimeout(() => setShowIntro(false), 6500);
-    window.sessionStorage.setItem("apg-gears-introduced", "true");
-
-    return () => {
-      window.clearTimeout(showTimer);
-      window.clearTimeout(hideTimer);
-    };
-  }, [greetingReady]);
 
   useEffect(() => {
     window.localStorage.removeItem("apg-gear-state-v2");
@@ -223,7 +202,6 @@ export function GearsAssistant() {
 
   function toggleAssistant() {
     setOpen((current) => !current);
-    setShowIntro(false);
   }
 
   function addMessage(role: Message["role"], text: string, extra?: Pick<Message, "results" | "action">) {
@@ -528,41 +506,14 @@ export function GearsAssistant() {
         </section>
       ) : null}
 
-      {!open && showIntro ? (
-        <div className={styles.intro} role="status">
-          {introGreeting}
-        </div>
-      ) : null}
-
       <button
-        className={styles.launcher}
+        className={open ? styles.launcherOpen : styles.launcher}
         type="button"
         onClick={toggleAssistant}
         aria-label={open ? "Close Gear assistant" : "Open Gear assistant"}
         aria-expanded={open}
       >
-        <Image
-          className={`${styles.gearHead} ${styles.launcherRing}`}
-          src="/gears-head.png"
-          width={1240}
-          height={1240}
-          sizes="(max-width: 560px) 78px, 88px"
-          alt=""
-          aria-hidden="true"
-          priority
-        />
-        <Image
-          className={`${styles.gearHead} ${styles.gearFace}`}
-          src="/gears-head.png"
-          width={1240}
-          height={1240}
-          sizes="(max-width: 560px) 78px, 88px"
-          alt=""
-          aria-hidden="true"
-          priority
-        />
-        <span className={styles.blink} aria-hidden="true"><span /><span /></span>
-        <span className={styles.statusDot} aria-hidden="true" />
+        {open ? <X size={20} aria-hidden="true" /> : <><MessageCircleQuestion size={19} aria-hidden="true" /><span>Ask Gear</span></>}
       </button>
     </aside>
   );

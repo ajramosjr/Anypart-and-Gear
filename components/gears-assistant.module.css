@@ -10,18 +10,23 @@
 }
 
 .launcher {
-  position: relative;
-  width: 96px;
-  height: 96px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid #d9ac36;
+  border-radius: 24px;
+  color: #0b2345;
+  background: #f4bd21;
+  box-shadow: 0 5px 16px rgb(11 35 69 / 18%);
   cursor: pointer;
-  overflow: visible;
-  transition: transform 160ms ease;
-  animation: gear-head-enter 650ms cubic-bezier(.2,.75,.2,1) both;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
 }
+
+.launcherOpen { display: none; }
 
 .blink {
   position: absolute;
@@ -56,6 +61,7 @@
 }
 
 .launcher:focus-visible,
+.launcherOpen:focus-visible,
 .close:focus-visible,
 .action:focus-visible {
   outline: 3px solid #f4bd21;
@@ -456,11 +462,6 @@
   .root {
     right: max(12px, env(safe-area-inset-right));
     bottom: max(12px, env(safe-area-inset-bottom));
-  }
-
-  .launcher {
-    width: 86px;
-    height: 86px;
   }
 
   .gearHead {
