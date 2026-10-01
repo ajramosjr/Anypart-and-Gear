@@ -14,7 +14,7 @@ const gear = [
 
 export default function GarageGearPage() {
   return <main className="min-h-screen bg-[#eef1f4] text-slate-950">
-    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/">Back to marketplace</Link></div></header>
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/marketplace">Back to marketplace</Link></div></header>
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
       <p className="eyebrow">New tools and gear</p>
       <h1 className="section-title mt-2">Garage Gear</h1>
