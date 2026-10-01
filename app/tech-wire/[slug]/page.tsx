@@ -94,6 +94,6 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
       </div>
     </article>
 
-    <section className="bg-[#071a35] text-white"><div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-10 sm:px-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xs font-black uppercase tracking-wider text-amber-400">Find the parts</p><h2 className="mt-1 text-2xl font-black">Turn the plan into a build.</h2></div><Link href="/#listings" className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-400 px-5 py-3 font-black text-[#071a35] hover:bg-amber-300">Browse marketplace <ArrowRight className="size-4" /></Link></div></section>
+    <section className="bg-[#071a35] text-white"><div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-10 sm:px-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xs font-black uppercase tracking-wider text-amber-400">Find the parts</p><h2 className="mt-1 text-2xl font-black">Turn the plan into a build.</h2></div><Link href="/marketplace#listings" className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-400 px-5 py-3 font-black text-[#071a35] hover:bg-amber-300">Browse marketplace <ArrowRight className="size-4" /></Link></div></section>
   </main>;
 }
