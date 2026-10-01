@@ -10,7 +10,6 @@ import {
   Send,
   Mic,
   Languages,
-  FileSpreadsheet,
   ShieldCheck,
   Store,
   Tag,
@@ -42,7 +41,6 @@ const scamTerms = /gift card|wire transfer|verification code|security code|crypt
 const pageHelp: Record<string, string> = {
   "/": "You’re on the marketplace. I can build a search, explain categories, or help you start a listing.",
   "/sell": "You’re posting an item. I can prepare the details, check the quality, and fill this form.",
-  "/sell/bulk": "You’re on bulk upload. I can inspect a CSV before you upload it.",
   "/shops": "You’re browsing business shops. I can explain business profiles or help locate a specialty.",
   "/shops/register": "You’re setting up a business. I can help write the specialty, description, services, and hours.",
   "/messages": "You’re in APG Messages. I can suggest a reply and check it for scam warning signs.",
@@ -134,7 +132,6 @@ export function GearsAssistant() {
   ]);
   const nextMessageId = useRef(2);
   const conversationEnd = useRef<HTMLDivElement>(null);
-  const csvInput = useRef<HTMLInputElement>(null);
 
   const hiddenOnNews = pathname.startsWith("/tech-wire");
 
@@ -232,25 +229,6 @@ export function GearsAssistant() {
     recognition.start();
   }
 
-  function checkCsv(file: File) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const text = String(reader.result || "");
-      const lines = text.split(/\r?\n/).filter((line) => line.trim());
-      const headers = (lines[0] || "").toLowerCase().split(",").map((value) => value.trim());
-      const required = ["title", "description", "price", "condition", "category", "location"];
-      const issues: string[] = [];
-      const missing = required.filter((header) => !headers.includes(header));
-      if (missing.length) issues.push(`missing columns: ${missing.join(", ")}`);
-      if (lines.length < 2) issues.push("no inventory rows");
-      if (lines.length - 1 > 100) issues.push("more than 100 inventory rows");
-      const duplicateRows = lines.slice(1).length - new Set(lines.slice(1)).size;
-      if (duplicateRows) issues.push(`${duplicateRows} exact duplicate ${duplicateRows === 1 ? "row" : "rows"}`);
-      addMessage("gears", issues.length ? `CSV check found: ${issues.join("; ")}. Correct these before uploading.` : `CSV structure looks ready: ${lines.length - 1} inventory rows and all required columns are present. APG will perform detailed validation during upload.`);
-    };
-    reader.readAsText(file);
-  }
-
   function answerGeneralQuestion(question: string) {
     const normalized = question.toLowerCase();
 
@@ -288,7 +266,7 @@ export function GearsAssistant() {
         addMessage("gears", `I can build that search on the marketplace. Open Find parts & gear below${searchText ? ` and search for “${searchText}.”` : "."}`);
       }
     } else if (/business|shop|inventory|bulk/.test(normalized)) {
-      addMessage("gears", "Businesses can create a free APG profile to promote their specialty, services, hours and website, and let buyers contact them directly. Listing individual parts is optional. To add inventory later, post an item or use APG’s CSV template for a bulk upload. APG reviews public business details before unlocking Parts Wanted requests.");
+      addMessage("gears", "Businesses can create a free APG profile to promote their specialty, services, hours and website, and let buyers contact them directly. Listing individual parts is optional. To add an individual item later, use Post an item. APG reviews public business details before unlocking Parts Wanted requests.");
     } else if (/reply|message|contact|offer|available/.test(normalized)) {
       addMessage("gears", "Message templates:\n• Is this still available?\n• Can you confirm the part number and condition?\n• What year, make, model, and engine did it come from?\n• Would you consider $___?\n• Where would you prefer to meet safely?\nNever include passwords, verification codes, or sensitive payment information.");
     } else if (/account|sign in|login|password|email/.test(normalized)) {
@@ -428,8 +406,6 @@ export function GearsAssistant() {
                 <button className={styles.listingHelper} type="button" onClick={startListingHelp}>Help me create my listing</button>
                 <button type="button" onClick={pageGuidance}>Explain this page</button>
                 <button type="button" onClick={() => addMessage("gears", photoGuides.default)}>Photo checklist</button>
-                <button type="button" onClick={() => csvInput.current?.click()}><FileSpreadsheet size={15} aria-hidden="true" /> Check a CSV</button>
-                <input ref={csvInput} className={styles.srOnly} type="file" accept=".csv,text/csv" onChange={(event) => { const file = event.target.files?.[0]; if (file) checkCsv(file); event.target.value = ""; }} />
               </div>
             ) : null}
             <p className={styles.quickLabel}>Quick links</p>
