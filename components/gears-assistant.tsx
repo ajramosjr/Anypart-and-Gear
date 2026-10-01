@@ -28,9 +28,40 @@ const actions = [
   { href: "/safety", label: "Marketplace safety", icon: ShieldCheck },
 ] as const;
 
-type Message = { id: number; role: "gears" | "user"; text: string };
+type ListingResult = { id: string; title: string; price: number; location: string; imageUrl: string | null };
+type Message = { id: number; role: "gears" | "user"; text: string; results?: ListingResult[]; action?: { href: string; label: string; draft?: Record<string, string> } };
 type ListingStep = "item" | "category" | "condition" | "price" | "location" | "description" | null;
+type RequestStep = "item_type" | "part_name" | "vehicle" | "description" | "location" | "postal_code" | null;
 type Language = "en" | "es";
+
+const requestSteps: Exclude<RequestStep, null>[] = ["item_type", "part_name", "vehicle", "description", "location", "postal_code"];
+const requestPrompts: Record<Exclude<RequestStep, null>, string> = {
+  item_type: "What is the part for: a car or truck, motorcycle, boat, trailer, machinery, RC/hobby item, tool, or something else?",
+  part_name: "What part do you need? If you are not sure, describe what you want identified.",
+  vehicle: "What year, make, and model is it for? Say ‘skip’ if you do not know.",
+  description: "What details would help a local business identify it? Include a part number, size, side, color, or visible problem if known.",
+  location: "What city and state are you in?",
+  postal_code: "What ZIP code should nearby businesses search around?",
+};
+const requestPromptsEs: Record<Exclude<RequestStep, null>, string> = {
+  item_type: "¿Para qué es la pieza: auto o camión, motocicleta, barco, remolque, maquinaria, herramienta u otro equipo?",
+  part_name: "¿Qué pieza necesita? Si no sabe el nombre, describa lo que desea identificar.",
+  vehicle: "¿Cuál es el año, la marca y el modelo? Escriba ‘omitir’ si no los sabe.",
+  description: "¿Qué detalles ayudarían a identificarla? Incluya número de pieza, tamaño, lado o problema visible si lo sabe.",
+  location: "¿En qué ciudad y estado se encuentra?",
+  postal_code: "¿Qué código postal deben usar los negocios cercanos?",
+};
+
+function requestItemType(answer: string) {
+  if (/motorcycle|motorbike|bike|motocicleta|moto/i.test(answer)) return "Motorcycle";
+  if (/boat|marine|watercraft|barco|lancha/i.test(answer)) return "Boat";
+  if (/trailer|remolque/i.test(answer)) return "Trailer";
+  if (/tool|drill|saw|herramienta/i.test(answer)) return "Tool or equipment";
+  if (/machin|equipment|tractor|forklift|maquinaria|equipo/i.test(answer)) return "Machinery";
+  if (/rc|hobby|drone/i.test(answer)) return "RC or hobby";
+  if (/car|truck|auto|vehicle|coche|camión|camion/i.test(answer)) return "Car or truck";
+  return "Other";
+}
 
 const APG_LINKS_ANSWER = "APG Links is a directory for courses, training, and trusted industry resources. Its categories stay empty until APG receives permission from each provider to publish its name, information, and link. A future listing will not mean the provider sponsors or is partnered with APG unless that relationship is specifically confirmed.";
 const APG_LINKS_ANSWER_ES = "APG Links es un directorio de cursos, capacitación y recursos de la industria. Las categorías permanecen vacías hasta que APG reciba permiso de cada proveedor para publicar su nombre, información y enlace. Una publicación no significa que el proveedor patrocine o esté asociado con APG.";
@@ -46,6 +77,8 @@ const pageHelp: Record<string, string> = {
   "/messages": "You’re in APG Messages. I can suggest a reply and check it for scam warning signs.",
   "/toolbox": "You’re in the Toolbox. Tell me the job and I’ll point you to the right chart or calculator.",
   "/links": "You’re on APG Links, a directory for courses, training, and trusted industry resources. Provider listings stay empty until APG receives permission to add them.",
+  "/parts-wanted": "You’re on Parts Wanted. I can help prepare a request for a part you cannot find.",
+  "/parts-wanted/new": "I can help prepare your request. Review every detail and add photos before you post it.",
   "/account": "You’re in your seller dashboard. I can explain listings, notifications, and account options.",
   "/safety": "You’re viewing marketplace safety. Ask about pickup, shipping, payments, or suspicious messages.",
 };
@@ -123,6 +156,8 @@ export function GearsAssistant() {
   const [input, setInput] = useState("");
   const [listingStep, setListingStep] = useState<ListingStep>(null);
   const [listingDraft, setListingDraft] = useState<Record<string, string>>({});
+  const [requestStep, setRequestStep] = useState<RequestStep>(null);
+  const [requestDraft, setRequestDraft] = useState<Record<string, string>>({});
   const [language, setLanguage] = useState<Language>("en");
   const [introGreeting, setIntroGreeting] = useState("Hi! I'm Gear. Need help finding your way around APG?");
   const [greetingReady, setGreetingReady] = useState(false);
@@ -191,14 +226,36 @@ export function GearsAssistant() {
     setShowIntro(false);
   }
 
-  function addMessage(role: Message["role"], text: string) {
-    setMessages((current) => [...current, { id: nextMessageId.current++, role, text }]);
+  function addMessage(role: Message["role"], text: string, extra?: Pick<Message, "results" | "action">) {
+    setMessages((current) => [...current, { id: nextMessageId.current++, role, text, ...extra }]);
   }
 
   function startListingHelp() {
+    setRequestStep(null);
     setListingDraft({});
     setListingStep("item");
     addMessage("gears", language === "es" ? listingPromptsEs.item : listingPrompts.item);
+  }
+
+  function startRequestHelp() {
+    setListingStep(null);
+    setRequestDraft({});
+    setRequestStep("item_type");
+    addMessage("gears", language === "es" ? `Preparemos una solicitud de pieza. Revisará el formulario antes de publicarlo. ${requestPromptsEs.item_type}` : `Let’s prepare a Parts Wanted request. You’ll review the form before anything is posted. ${requestPrompts.item_type}`);
+  }
+
+  async function searchListings(query: string) {
+    const term = query.trim().slice(0, 80);
+    if (!term) { addMessage("gears", "Tell me a part name, model, or number to search APG listings."); return; }
+    try {
+      const response = await fetch(`/api/gear/search?q=${encodeURIComponent(term)}`);
+      const data = await response.json() as { results?: ListingResult[]; error?: string };
+      if (!response.ok) { addMessage("gears", data.error || "I couldn’t search listings right now."); return; }
+      addMessage("gears", data.results?.length ? `Here are live APG listings matching “${term}”. Check the part number and fitment with the seller.` : `I found no active APG listings matching “${term}”. I can help you prepare a Parts Wanted request.`, {
+        results: data.results,
+        ...(!data.results?.length ? { action: { href: "/parts-wanted/new", label: "Open Parts Wanted" } } : {}),
+      });
+    } catch { addMessage("gears", "I couldn’t search listings right now. Please try again."); }
   }
 
   function pageGuidance() {
@@ -233,13 +290,14 @@ export function GearsAssistant() {
     const normalized = question.toLowerCase();
 
     if (language === "es") {
+      if (/solicitud|pieza buscada|no encuentro/.test(normalized)) { startRequestHelp(); return; }
       if (/vender|publicar|anuncio/.test(normalized)) { startListingHelp(); return; }
-      if (/buscar|comprar|necesito|pieza/.test(normalized)) { addMessage("gears", "Puedo ayudarle a buscar piezas en el mercado. Escriba la marca, modelo, año o número de pieza que necesita."); return; }
+      if (/buscar|comprar|necesito|pieza/.test(normalized)) { void searchListings(question.replace(/^(buscar|comprar|necesito|busco)\s*/i, "")); return; }
       if (/negocio|tienda|inventario|csv/.test(normalized)) { addMessage("gears", "Puede crear un perfil comercial gratuito con su especialidad, servicios, horario y sitio web. Los clientes pueden contactar a su negocio. Publicar artículos o cargar inventario es opcional y puede hacerlo después."); return; }
       if (/seguro|estafa|pago/.test(normalized)) { addMessage("gears", "Use un lugar público seguro, revise el artículo antes de pagar, use pagos protegidos y nunca comparta contraseñas ni códigos de verificación."); return; }
       if (/herramienta|taladro|rosca|medida/.test(normalized)) { addMessage("gears", "APG Toolbox incluye tablas de taladro y rosca, guía de cinta métrica, conversiones, cálculos y referencias imprimibles."); return; }
       if (/curso|capacitación|escuela|proveedor|apg[\s-]*links/.test(normalized)) { addMessage("gears", APG_LINKS_ANSWER_ES); return; }
-      addMessage("gears", "Puedo ayudarle a crear un anuncio, buscar piezas, configurar una tienda, revisar un CSV, usar Toolbox o verificar la seguridad. ¿Qué desea hacer?");
+      addMessage("gears", "Puedo ayudarle a crear un anuncio, buscar piezas, preparar una solicitud de pieza, configurar una tienda, usar Toolbox o verificar la seguridad. ¿Qué desea hacer?");
       return;
     }
 
@@ -248,7 +306,11 @@ export function GearsAssistant() {
       return;
     }
 
-    if (/apg[\s-]*links|course|training|school|provider directory|education resource/.test(normalized)) {
+    if (/parts wanted|request a part|request parts|can.t find|cannot find|no listing matches/.test(normalized)) {
+      startRequestHelp();
+    } else if (/^(find|search|buy|looking for|i need|show me|do you have)\b/.test(normalized)) {
+      void searchListings(question.replace(/^(find|search for|search|buy|looking for|i need|show me|do you have)\s*/i, ""));
+    } else if (/apg[\s-]*links|course|training|school|provider directory|education resource/.test(normalized)) {
       addMessage("gears", APG_LINKS_ANSWER);
     } else if (/sell|post|list|listing/.test(normalized)) {
       startListingHelp();
@@ -257,14 +319,8 @@ export function GearsAssistant() {
     } else if (/photo|picture|image/.test(normalized)) {
       const guide = /boat|marine|prop|outboard/.test(normalized) ? photoGuides.marine : /trailer/.test(normalized) ? photoGuides.trailer : /tool|drill|saw/.test(normalized) ? photoGuides.tool : /car|truck|vehicle|engine|part/.test(normalized) ? photoGuides.vehicle : photoGuides.default;
       addMessage("gears", guide);
-    } else if (/find|search|buy|part/.test(normalized)) {
-      const searchText = question.replace(/^(find|search for|search|buy|i need|looking for)\s*/i, "").trim();
-      if (pathname === "/" && searchText) {
-        window.dispatchEvent(new CustomEvent("apg:search", { detail: { query: searchText } }));
-        addMessage("gears", `I searched APG for “${searchText}” and moved you to the results.`);
-      } else {
-        addMessage("gears", `I can build that search on the marketplace. Open Find parts & gear below${searchText ? ` and search for “${searchText}.”` : "."}`);
-      }
+    } else if (/part|where can i get/.test(normalized)) {
+      void searchListings(question);
     } else if (/business|shop|inventory|bulk/.test(normalized)) {
       addMessage("gears", "Businesses can create a free APG profile to promote their specialty, services, hours and website, and let buyers contact them directly. Listing individual parts is optional. To add an individual item later, use Post an item. APG reviews public business details before unlocking Parts Wanted requests.");
     } else if (/reply|message|contact|offer|available/.test(normalized)) {
@@ -287,6 +343,41 @@ export function GearsAssistant() {
 
     addMessage("user", answer);
     setInput("");
+
+    if (requestStep) {
+      if (/^(cancel|stop|never mind|cancelar)$/i.test(answer)) {
+        setRequestStep(null);
+        setRequestDraft({});
+        addMessage("gears", "Okay, I stopped the request draft. Nothing was posted.");
+        return;
+      }
+      const updated = { ...requestDraft, [requestStep]: answer };
+      setRequestDraft(updated);
+      const next = requestSteps[requestSteps.indexOf(requestStep) + 1];
+      if (next) { setRequestStep(next); addMessage("gears", language === "es" ? requestPromptsEs[next] : requestPrompts[next]); return; }
+
+      setRequestStep(null);
+      const vehicle = updated.vehicle?.trim() || "";
+      const year = vehicle.match(/\b(?:18|19|20)\d{2}\b/)?.[0] || "";
+      const vehicleWords = /^(skip|unknown|not sure|omitir|no sé)$/i.test(vehicle) ? [] : vehicle.replace(year, "").trim().split(/\s+/).filter(Boolean);
+      const part = updated.part_name?.trim() || "";
+      const unsure = /^(not sure|unsure|unknown|help identify|no sé|no estoy seguro|identificar)/i.test(part);
+      const draft = {
+        request_kind: unsure ? "help_identify" : "known_part",
+        item_type: requestItemType(updated.item_type || ""),
+        part_name: unsure ? "" : part.slice(0, 160),
+        vehicle_year: year,
+        make: vehicleWords[0]?.slice(0, 100) || "",
+        model: vehicleWords.slice(1).join(" ").slice(0, 100),
+        description: (updated.description || "").slice(0, 1900),
+        location: (updated.location || "").slice(0, 120),
+        postal_code: (updated.postal_code || "").slice(0, 12),
+      };
+      addMessage("gears", "Your Parts Wanted draft is ready. Open the form to check the vehicle, part, details, and location. Add photos if you have them, then post only when you’re satisfied.", {
+        action: { href: "/parts-wanted/new", label: "Review Parts Wanted draft", draft },
+      });
+      return;
+    }
 
     if (!listingStep) {
       answerGeneralQuestion(answer);
@@ -380,6 +471,17 @@ export function GearsAssistant() {
               {messages.map((message) => (
                 <div className={`${styles.message} ${message.role === "user" ? styles.userMessage : styles.gearsMessage}`} key={message.id}>
                   {message.text}
+                  {message.results?.length ? <div className="mt-3 grid gap-2">{message.results.map((item) => <Link key={item.id} href={`/listing/${item.id}`} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-2 text-[#071a35] hover:border-amber-500">
+                    {item.imageUrl ? <Image src={item.imageUrl} alt="" width={52} height={52} className="size-13 shrink-0 rounded-md object-cover" /> : <span className="grid size-13 shrink-0 place-items-center rounded-md bg-slate-100"><Search size={19}/></span>}
+                    <span className="min-w-0"><strong className="block truncate text-sm">{item.title}</strong><small className="block text-xs">${Number(item.price).toLocaleString()} · {item.location}</small></span>
+                  </Link>)}</div> : null}
+                  {message.action ? <Link href={message.action.href} onClick={() => {
+                    if (message.action?.draft) {
+                      try { window.sessionStorage.setItem("apg-part-request-draft", JSON.stringify({ draft: message.action.draft, createdAt: Date.now() })); }
+                      catch { /* The user can still complete the blank form. */ }
+                    }
+                    setOpen(false);
+                  }} className="mt-3 inline-flex rounded-lg bg-amber-400 px-3 py-2 text-sm font-bold text-[#071a35]">{message.action.label}</Link> : null}
                 </div>
               ))}
               <div ref={conversationEnd} />
@@ -390,7 +492,7 @@ export function GearsAssistant() {
                 id="gears-message"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder={language === "es" ? "Pregúntale a Gear sobre APG…" : listingStep ? "Type your answer…" : "Ask Gear anything about APG…"}
+                placeholder={language === "es" ? "Pregúntale a Gear sobre APG…" : listingStep || requestStep ? "Type your answer…" : "Ask Gear anything about APG…"}
                 autoComplete="off"
               />
               <button className={styles.micButton} type="button" onClick={startVoice} aria-label="Speak to Gear">
@@ -401,9 +503,10 @@ export function GearsAssistant() {
               </button>
             </form>
             {listening ? <p className={styles.listening} role="status">Listening…</p> : null}
-            {!listingStep ? (
+            {!listingStep && !requestStep ? (
               <div className={styles.helperTools}>
                 <button className={styles.listingHelper} type="button" onClick={startListingHelp}>Help me create my listing</button>
+                <button type="button" onClick={startRequestHelp}>Help me request a part</button>
                 <button type="button" onClick={pageGuidance}>Explain this page</button>
                 <button type="button" onClick={() => addMessage("gears", photoGuides.default)}>Photo checklist</button>
               </div>
