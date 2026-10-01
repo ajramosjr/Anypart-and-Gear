@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, Bike, Car, ChevronDown, Drill, Factory, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Store, Tag, Truck, Wrench, X } from "lucide-react";
+import { Anchor, Bike, Car, ChevronDown, Drill, Factory, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Tag, Truck, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
@@ -83,10 +83,11 @@ export default function Marketplace({ user, signInPath, signOutPath, listings }:
     </header>
 
     <section className="hero-grid mech-hero overflow-hidden bg-[#071a35] text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-        <div><h1 className="max-w-3xl text-5xl font-black leading-[.98] tracking-[-.04em] sm:text-6xl lg:text-7xl">Parts. Gear.<br/><span className="text-amber-400">Vehicles.</span></h1><p className="mt-6 max-w-xl text-xl leading-8 text-slate-300">Buy and sell what keeps you moving.</p>
-          <form onSubmit={runSearch} className="mt-8 flex max-w-2xl flex-col gap-2 rounded-2xl bg-white p-2 shadow-2xl shadow-black/30 sm:flex-row"><div className="flex flex-1 items-center gap-3 px-3"><Search className="size-5 text-slate-400"/><input value={query} onChange={e=>setQuery(e.target.value)} className="h-12 w-full bg-transparent text-base text-slate-900 outline-none" placeholder="Search parts, brands, model numbers…" aria-label="Search listings"/></div><Button className="gold-button h-12 px-7 font-black">Search</Button></form>
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300"><span className="flex items-center gap-2"><Store className="size-4 text-amber-400"/> Buy directly from sellers</span><span className="flex items-center gap-2"><MapPin className="size-4 text-amber-400"/> Local pickup or seller-arranged shipping</span></div>
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-8 sm:px-6 md:py-24 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+        <div><h1 className="max-w-3xl text-4xl font-black leading-[1.04] tracking-[-.04em] sm:text-6xl lg:text-7xl">Need a part?<br/>Need a shop?<br/><span className="text-amber-400">Start local.</span></h1><p className="mt-5 max-w-xl text-lg leading-7 text-slate-300 sm:text-xl sm:leading-8">Find nearby parts, businesses, and people who can help.</p>
+          <div className="mt-5 space-y-1 text-base leading-6 text-slate-100 sm:text-lg" aria-label="Ask for what you need. Post what you have. Get connected locally."><p><span className="font-black text-amber-400">A</span>sk for what you need.</p><p><span className="font-black text-amber-400">P</span>ost what you have.</p><p><span className="font-black text-amber-400">G</span>et connected locally.</p></div>
+          <form onSubmit={runSearch} className="mt-7 flex max-w-2xl flex-col gap-2 rounded-2xl bg-white p-2 shadow-2xl shadow-black/30 sm:flex-row"><div className="flex flex-1 items-center gap-3 px-3"><Search className="size-5 text-slate-400"/><input value={query} onChange={e=>setQuery(e.target.value)} className="h-12 w-full bg-transparent text-base text-slate-900 outline-none" placeholder="Search parts, brands, model numbers…" aria-label="Search listings"/></div><Button className="gold-button h-12 px-7 font-black">Search</Button></form>
+          <p className="mt-5 text-base font-semibold text-slate-300">Together, we can find it.</p>
         </div>
         <div className="hidden lg:block"><div className="parts-orbit"><div className="orbit-core"><Wrench className="size-16"/><span>ANY JOB</span></div>{categories.slice(0,5).map((c,i)=><div key={c.name} className={`orbit-item orbit-${i+1}`}><c.icon/><span>{c.name}</span></div>)}</div></div>
       </div>
