@@ -185,7 +185,15 @@ export default function LoginForm({
         {mode === "signup" && <div className="field"><label htmlFor="name">Full name</label><input id="name" required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" /></div>}
         <div className="field"><label htmlFor="email">Email address</label><input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></div>
         {mode !== "recover" && <div className="field"><label htmlFor="password">Password</label><input id="password" type="password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} /></div>}
+        <p className="legal-note"><strong>Security check</strong> — this verifies you are human. It does not sign you in or create an account.</p>
         <div ref={turnstileContainer} aria-label="Security check" />
+        {!waitingForVerification && <p className={`form-message ${captchaToken ? "success" : ""}`} role="status" aria-live="polite">
+          {loading
+            ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating your account…" : "Requesting your reset email…"
+            : captchaToken
+              ? mode === "signin" ? "Human verification complete. You’re not signed in yet—tap Sign in below." : mode === "signup" ? "Human verification complete. Tap Create account below to continue." : "Human verification complete. Tap Email me a reset link below to continue."
+              : "Complete the human verification, then use the button below to continue."}
+        </p>}
         {emailVerified && mode === "signin" && !message && <p className="form-message success">Your email is confirmed. Sign in below to continue.</p>}
         {message && <p className={`form-message ${messageType}`}>{message}</p>}
         {waitingForVerification ? (
@@ -195,7 +203,7 @@ export default function LoginForm({
             <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>
           </>
         ) : (
-          <button className="button" disabled={loading || !captchaToken}>{loading ? "Please wait..." : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>
+          <button className="button" disabled={loading || !captchaToken}>{loading ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating account…" : "Sending reset email…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>
         )}
         {mode === "signin" && <button className="text-button" type="button" onClick={() => changeMode("recover")}>Forgot your password?</button>}
         {mode === "signin" && confirmationError && !waitingForVerification && <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>}
