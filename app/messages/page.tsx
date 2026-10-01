@@ -10,6 +10,7 @@ import TransactionReview from "./transaction-review";
 import MessageLive from "./message-live";
 import OfferActions from "./offer-actions";
 import NotificationBell from "@/components/notification-bell";
+import DeleteConversation from "./delete-conversation";
 
 type Message = { id: string; body: string; sender_id: string; created_at: string; read_at: string | null; message_type: "text" | "offer" | "offer_counter" | "offer_accept" | "offer_decline"; offer_amount: number | null; related_message_id: string | null };
 type Conversation = {
@@ -40,7 +41,13 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
     .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
     .order("updated_at", { ascending: false });
 
-  const conversations = ((data || []) as unknown as Conversation[]).map((conversation) => ({
+  const { data: inboxState } = await supabase.from("conversation_inbox_state")
+    .select("conversation_id,hidden_at").eq("user_id", user.id);
+  const hiddenAt = new Map((inboxState || []).map((item) => [item.conversation_id, item.hidden_at]));
+  const conversations = ((data || []) as unknown as Conversation[]).filter((conversation) => {
+    const hidden = hiddenAt.get(conversation.id);
+    return !hidden || conversation.messages.some((message) => message.created_at > hidden);
+  }).map((conversation) => ({
     ...conversation,
     messages: [...conversation.messages].sort((a, b) => a.created_at.localeCompare(b.created_at)),
   }));
@@ -107,7 +114,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                 <div className="conversation-heading">
                   <Link href="/messages" className="chat-back" aria-label="Back to conversations"><ArrowLeft size={20}/></Link>
                   <div className="conversation-person"><span className="conversation-avatar"><UserRound size={21}/></span><div><small>APG conversation</small><h2>{otherName}</h2></div></div>
-                  <BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/>
+                  <div className="flex flex-wrap items-center justify-end gap-1"><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/><DeleteConversation conversationId={selected.id} otherName={otherName}/></div>
                 </div>
                 <div className="conversation-subject"><MessageCircle size={14}/><small>Connected through</small><strong>{conversationSubject(selected)}</strong></div>
                 <div className="message-stack">
