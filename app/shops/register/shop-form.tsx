@@ -5,6 +5,21 @@ import { createClient } from "@/lib/supabase/client";
 
 type Shop = { name: string; specialty: string; description: string; location: string; postal_code: string; hours: string; website: string | null; services: string[]; is_verified: boolean };
 
+const BUSINESS_TYPES = [
+  "Auto Repair / Mechanic Shop",
+  "Auto Parts Store",
+  "Junkyard / Salvage Yard",
+  "Motorcycle Parts & Repair Shop",
+  "Marine Parts / Boat Repair Shop",
+  "Trailer Parts, Dealer & Repair Shop",
+  "RV Parts, Dealer & Repair Shop",
+  "Truck Parts & Repair Shop",
+  "Bus Parts & Repair Shop",
+  "Heavy Equipment Parts & Repair",
+  "Tool & Workwear Supplier",
+  "Other Parts-Related Business",
+];
+
 export default function ShopForm({ userId, shop }: { userId: string; shop: Shop | null }) {
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
@@ -44,7 +59,7 @@ export default function ShopForm({ userId, shop }: { userId: string; shop: Shop 
     </div>
     <div className="form-grid">
       <div className="field"><label htmlFor="name">Business name</label><input id="name" name="name" defaultValue={shop?.name} minLength={2} maxLength={100} required /></div>
-      <div className="field"><label htmlFor="specialty">Main specialty</label><input id="specialty" name="specialty" defaultValue={shop?.specialty} placeholder="Trailer parts, marine repair, salvage yard..." minLength={2} maxLength={120} required /></div>
+      <div className="field"><label htmlFor="specialty">What type of business are you?</label><select id="specialty" name="specialty" defaultValue={shop?.specialty || ""} required><option value="" disabled>Choose your business type</option>{shop?.specialty && !BUSINESS_TYPES.includes(shop.specialty) && <option value={shop.specialty}>{shop.specialty}</option>}{BUSINESS_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}</select><small>This specialty appears on your APG business card and shop page.</small></div>
       <div className="field full"><label htmlFor="description">About the business</label><textarea id="description" name="description" defaultValue={shop?.description} minLength={10} maxLength={800} required /></div>
       <div className="field"><label htmlFor="location">City and state</label><input id="location" name="location" defaultValue={shop?.location} placeholder="Bay Shore, NY" maxLength={120} required /></div>
       <div className="field"><label htmlFor="postal_code">ZIP code</label><input id="postal_code" name="postal_code" defaultValue={shop?.postal_code} inputMode="numeric" maxLength={12} required /></div>
