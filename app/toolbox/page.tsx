@@ -22,7 +22,7 @@ export default async function ToolboxPage() {
           <ApgLogo priority />
           <nav className="toolbox-nav" aria-label="Main navigation">
             <Link href="/marketplace">Marketplace</Link>
-            <Link href="/shops">Local shops</Link>
+            <Link href="/shops">Shops &amp; Sellers</Link>
             <Link href="/tech-wire">APG Tech Wire</Link>
             <Link href="/links">APG Links</Link>
             <Link className="active" href="/toolbox">Toolbox</Link>
