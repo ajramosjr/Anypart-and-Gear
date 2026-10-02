@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, Bike, Car, ChevronDown, Drill, Factory, Gamepad2, Heart, LayoutDashboard, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Tag, Truck, X } from "lucide-react";
+import { Anchor, Bike, Car, ChevronDown, Drill, Factory, Gamepad2, Heart, LayoutDashboard, LoaderCircle, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Tag, Truck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
@@ -28,6 +28,7 @@ const categoryIcons: Record<string, typeof Car> = { "Car Parts": Car, "Boat Part
 
 
 function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; toggle: () => void }) {
+  const [opening, setOpening] = useState(false);
   const Icon=categoryIcons[item.category]||PackageOpen;
   const share=()=>{const url=`${window.location.origin}/listing/${item.id}`;if(navigator.share){void navigator.share({title:item.title,url});}else{void navigator.clipboard.writeText(url).then(()=>toast.success("Listing link copied."));}};
   return <article className="listing-card group">
@@ -41,7 +42,7 @@ function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; t
       <div className="mt-5 border-t border-slate-100 pt-4"><p className="text-sm font-bold">{item.seller}</p><SellerBadges emailVerified={item.emailVerified} trustedSeller={item.trustedSeller} verifiedBusiness={item.verifiedBusiness}/><p className="mt-1 flex items-center gap-1 text-xs text-slate-500"><MapPin className="size-3"/>{item.location}</p>
         <div className="mt-4 flex flex-wrap gap-2">{item.contactPhone&&<Button asChild size="sm" variant="outline"><a href={`tel:${item.contactPhone}`}><Phone className="size-4"/> Call</a></Button>}{item.contactEmail&&<Button asChild size="sm" variant="outline"><a href={`mailto:${item.contactEmail}?subject=${encodeURIComponent(item.title)}`}><Mail className="size-4"/> Email</a></Button>}{!item.contactEmail&&!item.contactPhone&&<Button size="sm" variant="outline" onClick={()=>toast.info(`Contact ${item.seller} about this listing.`)}>Contact seller</Button>}</div>
       </div>
-      <div className="mt-3 flex gap-2"><Button asChild className="flex-1"><a href={`/listing/${item.id}`}>View details</a></Button><Button size="icon" variant="outline" aria-label="Share listing" onClick={share}><Share2 className="size-4"/></Button></div>
+      <div className="mt-3 flex gap-2"><Button asChild className="gold-button h-11 flex-1 font-black"><Link href={`/listing/${item.id}`} onClick={()=>setOpening(true)} aria-busy={opening}>{opening?<><LoaderCircle className="size-4 animate-spin"/> Opening…</>:<>View details</>}</Link></Button><Button size="icon" variant="outline" className="h-11 w-11" aria-label="Share listing" onClick={share}><Share2 className="size-4"/></Button></div>
     </div>
   </article>;
 }
