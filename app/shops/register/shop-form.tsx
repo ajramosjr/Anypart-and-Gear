@@ -8,6 +8,9 @@ type Shop = { name: string; specialty: string; description: string; location: st
 const BUSINESS_TYPES = [
   "Auto Repair / Mechanic Shop",
   "Auto Parts Store",
+  "Machine Shop",
+  "Transmission Shop",
+  "Hose & Hydraulic Shop",
   "Junkyard / Salvage Yard",
   "Motorcycle Parts & Repair Shop",
   "Marine Parts / Boat Repair Shop",
@@ -59,7 +62,7 @@ export default function ShopForm({ userId, shop }: { userId: string; shop: Shop 
     </div>
     <div className="form-grid">
       <div className="field"><label htmlFor="name">Business name</label><input id="name" name="name" defaultValue={shop?.name} minLength={2} maxLength={100} required /></div>
-      <div className="field"><label htmlFor="specialty">What type of business are you?</label><select id="specialty" name="specialty" defaultValue={shop?.specialty || ""} required><option value="" disabled>Choose your business type</option>{shop?.specialty && !BUSINESS_TYPES.includes(shop.specialty) && <option value={shop.specialty}>{shop.specialty}</option>}{BUSINESS_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}</select><small>This specialty appears on your APG business card and shop page.</small></div>
+      <div className="field"><label htmlFor="specialty">What type of parts store or shop are you?</label><select id="specialty" name="specialty" defaultValue={shop?.specialty || ""} required><option value="" disabled>Choose your store or shop type</option>{shop?.specialty && !BUSINESS_TYPES.includes(shop.specialty) && <option value={shop.specialty}>{shop.specialty}</option>}{BUSINESS_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}</select><small>This specialty appears on your APG business card and shop page.</small></div>
       <div className="field full"><label htmlFor="description">About the business</label><textarea id="description" name="description" defaultValue={shop?.description} minLength={10} maxLength={800} required /></div>
       <div className="field"><label htmlFor="location">City and state</label><input id="location" name="location" defaultValue={shop?.location} placeholder="Bay Shore, NY" maxLength={120} required /></div>
       <div className="field"><label htmlFor="postal_code">ZIP code</label><input id="postal_code" name="postal_code" defaultValue={shop?.postal_code} inputMode="numeric" maxLength={12} required /></div>
