@@ -72,6 +72,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
         <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />
         <div className="detail-info">
           <span className="kicker">{listing.category}</span><h1>{listing.title}</h1><strong className="detail-price">${listing.price.toLocaleString()}</strong>
+          <div className="mt-5"><ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={listing.allow_offers} listingPrice={listing.price} /></div>
           <div className="detail-facts">
             <span><b>Condition</b>{listing.condition}</span><span><b>Location</b><i><MapPin size={14} /> {listing.location}</i></span>
             <span><b>Seller</b><i>{listing.seller_name}<SellerBadges {...badges} /></i></span>
@@ -82,7 +83,6 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
             <span><b>Trade</b>{listing.trade ? "Considered" : "Not listed"}</span>
           </div>
           <h3>About this item</h3><p className="detail-description">{listing.description}</p>
-          <ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={listing.allow_offers} listingPrice={listing.price} />
           <p className="detail-warning"><ShieldCheck size={16} /> Anypart &amp; Gear does not process payments or guarantee fitment. Inspect the item, verify the seller and use a safe meeting place before paying.</p>
           <ReportListing listingId={String(listing.id)} currentUserId={user?.id} isOwner={Boolean(user?.id && listing.user_id === user.id)} reportable={reportable}/>
         </div>
