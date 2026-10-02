@@ -45,6 +45,7 @@ export default function LoginForm({
   const [message, setMessage] = useState(confirmationError || "");
   const [messageType, setMessageType] = useState<"success" | "error">(emailVerified ? "success" : "error");
   const [waitingForVerification, setWaitingForVerification] = useState(false);
+  const [canResendConfirmation, setCanResendConfirmation] = useState(Boolean(confirmationError));
   const [loading, setLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
   const turnstileContainer = useRef<HTMLDivElement>(null);
@@ -86,6 +87,7 @@ export default function LoginForm({
     setMode(nextMode);
     setMessage("");
     setWaitingForVerification(false);
+    setCanResendConfirmation(false);
     resetCaptcha();
   }
 
@@ -169,7 +171,18 @@ export default function LoginForm({
         password,
         options: { captchaToken },
       });
-      if (error) setMessage(error.message); else {
+      if (error) {
+        const needsEmailConfirmation =
+          error.code === "email_not_confirmed" ||
+          /email(?: address)? not confirmed/i.test(error.message);
+        if (needsEmailConfirmation) {
+          setCanResendConfirmation(true);
+          setMessage("Your email still needs to be verified. Complete the security check again, then tap Resend verification email below.");
+        } else {
+          setCanResendConfirmation(false);
+          setMessage(error.message);
+        }
+      } else {
         window.location.assign(nextPath);
         return;
       }
@@ -206,7 +219,7 @@ export default function LoginForm({
           <button className="button" disabled={loading || !captchaToken}>{loading ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating account…" : "Sending reset email…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>
         )}
         {mode === "signin" && <button className="text-button" type="button" onClick={() => changeMode("recover")}>Forgot your password?</button>}
-        {mode === "signin" && confirmationError && !waitingForVerification && <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>}
+        {mode === "signin" && canResendConfirmation && !waitingForVerification && <button className="text-button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>}
         <button className="text-button" type="button" onClick={() => changeMode(mode === "signin" ? "signup" : "signin")}>{mode === "signin" ? "New here? Create a free account" : "Back to sign in"}</button>
         <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use Anypart &amp; Gear safely and honestly. Sellers control payment, pickup and delivery.</p>
       </form>
