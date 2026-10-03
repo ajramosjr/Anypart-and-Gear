@@ -390,7 +390,7 @@ export default function ToolboxClient() {
       <div className="toolbox-warning"><AlertTriangle/><div><strong>Use these tools as a starting point.</strong><span>Always verify specifications, capacities, fitment and procedures with the vehicle or equipment manufacturer before beginning work.</span></div></div>
     </div>
 
-    <footer className="toolbox-footer no-print"><div className="shell"><ApgLogo/><p>Parts, people and practical workshop resources.</p><div><Link href="/marketplace">Marketplace</Link><Link href="/shops">Parts Stores &amp; Shops</Link><Link href="/tech-wire">APG Tech Wire</Link><Link href="/safety">Safety</Link></div></div></footer>
+    <footer className="toolbox-footer no-print"><div className="shell"><ApgLogo/><p>Parts, people and practical workshop resources.</p><div><Link href="/marketplace">Marketplace</Link><Link href="/shops">Parts &amp; Repair Directory</Link><Link href="/tech-wire">APG Tech Wire</Link><Link href="/safety">Safety</Link></div></div></footer>
   </SelectedToolContext.Provider>;
 }
 
