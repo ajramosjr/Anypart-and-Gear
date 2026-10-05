@@ -6,13 +6,14 @@ import { Camera, CircleHelp, Search, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const itemTypes = ["Car or truck", "Motorcycle", "Boat", "Trailer", "Machinery", "RC or hobby", "Tool or equipment", "Other"];
-type RequestDraft = { item_type: string; part_name: string; vehicle_year: string; make: string; model: string; description: string; location: string; postal_code: string; request_kind: "known_part" | "help_identify" };
+type RequestDraft = { item_type: string; part_name: string; vehicle_year: string; make: string; model: string; description: string; location: string; postal_code: string; engine?: string; delivery?: string; condition_preference?: string; request_kind: "known_part" | "help_identify" };
 
 export default function RequestForm({ userId }: { userId: string }) {
   const router = useRouter();
   const [kind, setKind] = useState<"known_part" | "help_identify">("known_part");
   const [initialDraft, setInitialDraft] = useState<RequestDraft | null>(null);
   const [saving, setSaving] = useState(false);
+  const [reviewed, setReviewed] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -34,29 +35,48 @@ export default function RequestForm({ userId }: { userId: string }) {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSaving(true);
     setMessage("");
     const form = new FormData(event.currentTarget);
+    if (!reviewed) { setMessage("Review the request and confirm before posting."); return; }
+    const textFields = ["part_name", "make", "model", "engine", "description", "location"];
+    if (textFields.some((key) => /\b[A-HJ-NPR-Z0-9]{17}\b/i.test(String(form.get(key) || "")) || /[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/.test(String(form.get(key) || "")))) {
+      setMessage("Remove VINs and email addresses before posting. Use APG Messages to communicate."); return;
+    }
+    const description = [String(form.get("description") || "").trim(), `Engine / power specification: ${String(form.get("engine") || "").trim() || "Unknown / not applicable"}`, `Pickup / shipping: ${String(form.get("delivery") || "Either")}`].join("\n");
+    setSaving(true);
     const requestId = crypto.randomUUID();
-    const files = (form.getAll("images") as File[]).filter((file) => file.size > 0).slice(0, 4);
+    const files = (form.getAll("images") as File[]).filter((file) => file.size > 0);
+    if (files.length > 4) { setMessage("Choose up to four photos."); setSaving(false); return; }
     const supabase = createClient();
     const imagePaths: string[] = [];
 
-    for (const file of files) {
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 10 * 1024 * 1024) {
-        setMessage("Use JPG, PNG or WebP photos no larger than 10 MB each.");
-        setSaving(false);
-        return;
+    if (files.some((file) => !["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 10 * 1024 * 1024)) {
+      setMessage("Use JPG, PNG or WebP photos no larger than 10 MB each."); setSaving(false); return;
+    }
+    try {
+      for (const file of files) {
+        // Re-encode pixels instead of storing the original EXIF/location metadata.
+        const bitmap = await createImageBitmap(file);
+        const canvas = document.createElement("canvas");
+        const scale = Math.min(1, 2400 / Math.max(bitmap.width, bitmap.height));
+        canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+        canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+        const context = canvas.getContext("2d");
+        if (!context) { bitmap.close(); throw new Error("Image processing unavailable"); }
+        context.fillStyle = "white";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        bitmap.close();
+        const cleanImage = await new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Image processing failed")), "image/jpeg", 0.9));
+        const path = `${userId}/${requestId}/${crypto.randomUUID()}.jpg`;
+        const { error } = await supabase.storage.from("part-request-images").upload(path, cleanImage, { upsert: false, contentType: "image/jpeg" });
+        if (error) throw new Error("Upload failed");
+        imagePaths.push(path);
       }
-      const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
-      const path = `${userId}/${requestId}/${crypto.randomUUID()}.${extension}`;
-      const { error } = await supabase.storage.from("part-request-images").upload(path, file, { upsert: false, contentType: file.type });
-      if (error) {
-        setMessage("A photo could not be uploaded. Please try again.");
-        setSaving(false);
-        return;
-      }
-      imagePaths.push(path);
+    } catch {
+      if (imagePaths.length) await supabase.storage.from("part-request-images").remove(imagePaths);
+      setMessage("A photo could not be processed or uploaded. Try another photo.");
+      setSaving(false); return;
     }
 
     const yearValue = String(form.get("vehicle_year") || "").trim();
@@ -70,7 +90,7 @@ export default function RequestForm({ userId }: { userId: string }) {
       make: String(form.get("make") || "").trim() || null,
       model: String(form.get("model") || "").trim() || null,
       part_name: partName || null,
-      description: String(form.get("description") || "").trim(),
+      description,
       location: String(form.get("location") || "").trim(),
       postal_code: String(form.get("postal_code") || "").trim(),
       search_radius: Number(form.get("search_radius") || 25),
@@ -80,7 +100,8 @@ export default function RequestForm({ userId }: { userId: string }) {
     });
 
     if (error) {
-      setMessage(error.message);
+      if (imagePaths.length) await supabase.storage.from("part-request-images").remove(imagePaths);
+      setMessage("Your request could not be saved. Please check the details and try again.");
       setSaving(false);
       return;
     }
@@ -94,7 +115,7 @@ export default function RequestForm({ userId }: { userId: string }) {
   }
 
   return (
-    <form key={initialDraft ? "gear-draft" : "blank"} className="listing-form" onSubmit={submit}>
+    <form key={initialDraft ? "gear-draft" : "blank"} className="listing-form" onSubmit={submit} onChange={() => setReviewed(false)}>
       {initialDraft && <p className="request-privacy-note">Gear prepared this draft. Review and edit every field before posting.</p>}
       <fieldset className="request-kind-picker">
         <legend>How can businesses help?</legend>
@@ -113,16 +134,19 @@ export default function RequestForm({ userId }: { userId: string }) {
         <div className="field"><label htmlFor="vehicle_year">Year (if known)</label><input id="vehicle_year" name="vehicle_year" type="number" min="1886" max="2100" inputMode="numeric" defaultValue={initialDraft?.vehicle_year} placeholder="2008" /></div>
         <div className="field"><label htmlFor="make">Make (if known)</label><input id="make" name="make" maxLength={100} defaultValue={initialDraft?.make} placeholder="Jeep, Bayliner, Load Rite..." /></div>
         <div className="field"><label htmlFor="model">Model (if known)</label><input id="model" name="model" maxLength={100} defaultValue={initialDraft?.model} placeholder="Wrangler, Capri 1952..." /></div>
+        <div className="field full"><label htmlFor="engine">Engine / power specification (if known)</label><input id="engine" name="engine" maxLength={160} defaultValue={initialDraft?.engine} placeholder="5.4 L gasoline, engine model, or equipment rating" /><small>Include engine size, fuel type, or engine model. Leave blank if unknown; do not guess.</small></div>
         <div className="field full"><label htmlFor="part_name">{kind === "known_part" ? "Part needed" : "What do you think it might be? (optional)"}</label><input id="part_name" name="part_name" minLength={kind === "known_part" ? 2 : undefined} maxLength={160} required={kind === "known_part"} defaultValue={initialDraft?.part_name} placeholder={kind === "known_part" ? "Front passenger-side fender" : "Plastic panel underneath the front bumper"} /></div>
-        <div className="field full"><label htmlFor="description">{kind === "known_part" ? "Details" : "Describe the problem"}</label><textarea id="description" name="description" minLength={10} maxLength={2000} required defaultValue={initialDraft?.description} placeholder={kind === "known_part" ? "Include fitment details, color, part number or anything else that may help." : "Describe where it is, what happened, any warning lights, sounds or visible damage."} /></div>
-        <div className="field full"><label htmlFor="images"><Camera size={17} /> Photos (optional, up to 4)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple /><small>Clear close-ups and one wider photo can help a business identify the part.</small></div>
-        <div className="field"><label htmlFor="condition_preference">Condition</label><select id="condition_preference" name="condition_preference" defaultValue="Either"><option>Either</option><option>New</option><option>Used</option></select></div>
+        <div className="field full"><label htmlFor="description">{kind === "known_part" ? "Details" : "Describe the problem"}</label><textarea id="description" name="description" minLength={10} maxLength={1600} required defaultValue={initialDraft?.description} placeholder={kind === "known_part" ? "Include fitment details, color, part number or anything else that may help." : "Describe where it is, what happened, any warning lights, sounds or visible damage."} /></div>
+        <div className="field full"><label htmlFor="images"><Camera size={17} /> Photos (optional, up to 4)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple /><small>Photograph only the part and its markings. Do not upload VIN plates, registration, IDs, or images showing personal information.</small></div>
+        <div className="field"><label htmlFor="condition_preference">Condition</label><select id="condition_preference" name="condition_preference" defaultValue={initialDraft?.condition_preference || "Either"}><option>Either</option><option>New</option><option>Used</option></select></div>
+        <div className="field"><label htmlFor="delivery">Pickup / shipping</label><select id="delivery" name="delivery" defaultValue={["Local pickup", "Shipping", "Either"].includes(initialDraft?.delivery || "") ? initialDraft?.delivery : "Either"}><option>Either</option><option>Local pickup</option><option>Shipping</option></select></div>
         <div className="field"><label htmlFor="search_radius">Search distance</label><select id="search_radius" name="search_radius" defaultValue="25"><option value="10">Within 10 miles</option><option value="25">Within 25 miles</option><option value="50">Within 50 miles</option><option value="100">Within 100 miles</option></select></div>
         <div className="field"><label htmlFor="location">City and state</label><input id="location" name="location" minLength={2} maxLength={120} required defaultValue={initialDraft?.location} placeholder="Seaford, NY" /></div>
         <div className="field"><label htmlFor="postal_code">ZIP code</label><input id="postal_code" name="postal_code" minLength={3} maxLength={12} inputMode="numeric" required defaultValue={initialDraft?.postal_code} placeholder="11783" /></div>
       </div>
 
-      <div className="request-privacy-note"><ShieldCheck size={20} /><p><strong>Your contact information stays private.</strong> Verified APG businesses are alerted when your request is posted. They respond through APG, and you decide whether to continue the conversation.</p></div>
+      <div className="request-privacy-note"><ShieldCheck size={20} /><p><strong>Review what you share.</strong> Your request and photos can be viewed by APG-verified businesses, not just the businesses that reply. Do not include VINs, phone numbers, emails, or street addresses. Businesses respond through APG. Suppliers still need to confirm fit and availability.</p></div>
+      <label className="request-privacy-note"><input type="checkbox" checked={reviewed} onChange={(event) => { event.stopPropagation(); setReviewed(event.target.checked); }} required /><span>I reviewed the details and photos, removed personal information, and understand that APG-verified businesses can view this request. Unknown specifications still need confirmation.</span></label>
       <div className="form-actions"><button className="button" disabled={saving}>{saving ? "Posting request..." : "Post Parts Wanted request"}</button>{message && <span className="form-message error">{message}</span>}</div>
     </form>
   );

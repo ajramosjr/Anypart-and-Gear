@@ -32,14 +32,19 @@ const actions = [
 type ListingResult = { id: string; title: string; price: number; location: string; imageUrl: string | null };
 type Message = { id: number; role: "gears" | "user"; text: string; results?: ListingResult[]; action?: { href: string; label: string; draft?: Record<string, string> } };
 type ListingStep = "item" | "category" | "condition" | "price" | "location" | "description" | null;
-type RequestStep = "item_type" | "part_name" | "vehicle" | "description" | "location" | "postal_code" | null;
+type RequestStep = "item_type" | "part_name" | "vehicle_year" | "make" | "model" | "engine" | "description" | "condition_preference" | "delivery" | "location" | "postal_code" | null;
 type Language = "en" | "es";
 
-const requestSteps: Exclude<RequestStep, null>[] = ["item_type", "part_name", "vehicle", "description", "location", "postal_code"];
+const requestSteps: Exclude<RequestStep, null>[] = ["item_type", "part_name", "vehicle_year", "make", "model", "engine", "description", "condition_preference", "delivery", "location", "postal_code"];
 const requestPrompts: Record<Exclude<RequestStep, null>, string> = {
   item_type: "What is the part for: a car or truck, motorcycle, boat, trailer, machinery, RC/hobby item, tool, or something else?",
   part_name: "What part do you need? If you are not sure, describe what you want identified.",
-  vehicle: "What year, make, and model is it for? Say ‘skip’ if you do not know.",
+  vehicle_year: "What year is the vehicle or equipment? Say ‘unknown’ or ‘not applicable’ when needed.",
+  make: "What is the manufacturer or make? Say ‘unknown’ if you do not know.",
+  model: "What is the model? Include trim or drivetrain if relevant. Say ‘unknown’ if needed.",
+  engine: "What engine size or equipment power specification does it have? Include fuel type if known. Say ‘unknown’ or ‘not applicable’; do not guess.",
+  condition_preference: "Would you prefer new, used, or either? For rebuilt or remanufactured, choose either and mention that in the details.",
+  delivery: "Do you want local pickup, shipping, or either?",
   description: "What details would help a local business identify it? Include a part number, size, side, color, or visible problem if known.",
   location: "What city and state are you in?",
   postal_code: "What ZIP code should nearby businesses search around?",
@@ -47,7 +52,12 @@ const requestPrompts: Record<Exclude<RequestStep, null>, string> = {
 const requestPromptsEs: Record<Exclude<RequestStep, null>, string> = {
   item_type: "¿Para qué es la pieza: auto o camión, motocicleta, barco, remolque, maquinaria, herramienta u otro equipo?",
   part_name: "¿Qué pieza necesita? Si no sabe el nombre, describa lo que desea identificar.",
-  vehicle: "¿Cuál es el año, la marca y el modelo? Escriba ‘omitir’ si no los sabe.",
+  vehicle_year: "¿Cuál es el año del vehículo o equipo? Escriba ‘no sé’ o ‘no aplica’ si corresponde.",
+  make: "¿Cuál es la marca o fabricante? Escriba ‘no sé’ si no la conoce.",
+  model: "¿Cuál es el modelo? Incluya versión o tracción si corresponde. Puede escribir ‘no sé’.",
+  engine: "¿Qué motor o especificación de potencia tiene? Incluya combustible si lo sabe. Escriba ‘no sé’ o ‘no aplica’; no adivine.",
+  condition_preference: "¿Prefiere nuevo, usado o cualquiera? Para reconstruido, elija cualquiera y añádalo en los detalles.",
+  delivery: "¿Prefiere recogida local, envío o cualquiera?",
   description: "¿Qué detalles ayudarían a identificarla? Incluya número de pieza, tamaño, lado o problema visible si lo sabe.",
   location: "¿En qué ciudad y estado se encuentra?",
   postal_code: "¿Qué código postal deben usar los negocios cercanos?",
@@ -219,7 +229,7 @@ export function GearsAssistant() {
     setListingStep(null);
     setRequestDraft({});
     setRequestStep("item_type");
-    addMessage("gears", language === "es" ? `Preparemos una solicitud de pieza. Revisará el formulario antes de publicarlo. ${requestPromptsEs.item_type}` : `Let’s prepare a Parts Wanted request. You’ll review the form before anything is posted. ${requestPrompts.item_type}`);
+    addMessage("gears", language === "es" ? `Preparemos una solicitud de pieza. Revisará el formulario antes de publicarlo. ${requestPromptsEs.item_type}` : `Let’s prepare a Parts Wanted request. You’ll review the form before anything is posted. Do not include a VIN, phone number, email, or street address. ${requestPrompts.item_type}`);
   }
 
   async function searchListings(query: string) {
@@ -254,6 +264,7 @@ export function GearsAssistant() {
       addMessage("gears", "Voice entry is not supported by this browser. You can still type your answer.");
       return;
     }
+    if (!window.confirm(language === "es" ? "La entrada de voz puede enviar audio al servicio de reconocimiento de su navegador. No dicte VIN ni datos personales. Puede escribir en su lugar. ¿Usar voz?" : "Voice entry may send audio to your browser’s speech recognition provider. Do not dictate VINs or personal information. You can type instead. Use voice entry?")) return;
     const recognition = new RecognitionApi();
     recognition.lang = language === "es" ? "es-US" : "en-US";
     recognition.interimResults = false;
@@ -329,29 +340,58 @@ export function GearsAssistant() {
         addMessage("gears", "Okay, I stopped the request draft. Nothing was posted.");
         return;
       }
-      const updated = { ...requestDraft, [requestStep]: answer };
+      const unknown = /^(skip|unknown|not sure|not applicable|n\/?a|omitir|no sé|no se|no aplica)$/i.test(answer);
+      if (/\b[A-HJ-NPR-Z0-9]{17}\b/i.test(answer) || /[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/.test(answer)) {
+        addMessage("gears", language === "es" ? "No incluya VIN ni correo electrónico. Repita la respuesta sin esos datos." : "Please leave out VINs and email addresses. Answer again without those details.");
+        return;
+      }
+      if (requestStep === "vehicle_year" && !unknown && !/^(18[89]\d|19\d{2}|20\d{2}|2100)$/.test(answer)) {
+        addMessage("gears", "Enter a four-digit year from 1886 to 2100, or say unknown / not applicable."); return;
+      }
+      if (requestStep === "vehicle_year" && !unknown && Number(answer) < 1886) {
+        addMessage("gears", "Enter a year from 1886 to 2100, or say unknown / not applicable."); return;
+      }
+      if (requestStep === "postal_code" && !/^\d{5}(?:-\d{4})?$/.test(answer)) {
+        addMessage("gears", "Enter a US ZIP code, such as 11783 or 11783-1234."); return;
+      }
+      const condition = /^(new|nuevo)$/i.test(answer) ? "New" : /^(used|usado)$/i.test(answer) ? "Used" : /^(either|any|cualquiera|ambos)$/i.test(answer) ? "Either" : "";
+      if (requestStep === "condition_preference" && !condition) {
+        addMessage("gears", language === "es" ? requestPromptsEs.condition_preference : requestPrompts.condition_preference); return;
+      }
+      if (requestStep === "description" && !unknown && answer.length < 10) {
+        addMessage("gears", "Add a little more detail (at least 10 characters), or say unknown."); return;
+      }
+      if (requestStep === "location" && answer.length < 2) {
+        addMessage("gears", language === "es" ? requestPromptsEs.location : requestPrompts.location); return;
+      }
+      const delivery = /^(local pickup|pickup|pick up|recogida local|recogida)$/i.test(answer) ? "Local pickup" : /^(shipping|ship|envío|envio)$/i.test(answer) ? "Shipping" : /^(either|any|cualquiera|ambos)$/i.test(answer) ? "Either" : "";
+      if (requestStep === "delivery" && !delivery) {
+        addMessage("gears", language === "es" ? requestPromptsEs.delivery : requestPrompts.delivery); return;
+      }
+      const updated = { ...requestDraft, [requestStep]: requestStep === "condition_preference" ? condition : requestStep === "delivery" ? delivery : unknown ? "" : answer };
       setRequestDraft(updated);
       const next = requestSteps[requestSteps.indexOf(requestStep) + 1];
       if (next) { setRequestStep(next); addMessage("gears", language === "es" ? requestPromptsEs[next] : requestPrompts[next]); return; }
 
       setRequestStep(null);
-      const vehicle = updated.vehicle?.trim() || "";
-      const year = vehicle.match(/\b(?:18|19|20)\d{2}\b/)?.[0] || "";
-      const vehicleWords = /^(skip|unknown|not sure|omitir|no sé)$/i.test(vehicle) ? [] : vehicle.replace(year, "").trim().split(/\s+/).filter(Boolean);
       const part = updated.part_name?.trim() || "";
-      const unsure = /^(not sure|unsure|unknown|help identify|no sé|no estoy seguro|identificar)/i.test(part);
+      const unsure = !part || /^(unsure|help identify|no estoy seguro|identificar)/i.test(part);
       const draft = {
         request_kind: unsure ? "help_identify" : "known_part",
         item_type: requestItemType(updated.item_type || ""),
         part_name: unsure ? "" : part.slice(0, 160),
-        vehicle_year: year,
-        make: vehicleWords[0]?.slice(0, 100) || "",
-        model: vehicleWords.slice(1).join(" ").slice(0, 100),
-        description: (updated.description || "").slice(0, 1900),
+        vehicle_year: updated.vehicle_year || "",
+        make: (updated.make || "").slice(0, 100),
+        model: (updated.model || "").slice(0, 100),
+        engine: (updated.engine || "").slice(0, 160),
+        delivery: (updated.delivery || "").slice(0, 100),
+        condition_preference: updated.condition_preference || "Either",
+        description: (updated.description || "Details not yet known; please help identify the correct part.").slice(0, 1600),
         location: (updated.location || "").slice(0, 120),
         postal_code: (updated.postal_code || "").slice(0, 12),
       };
-      addMessage("gears", "Your Parts Wanted draft is ready. Open the form to check the vehicle, part, details, and location. Add photos if you have them, then post only when you’re satisfied.", {
+      const summary = `Part: ${draft.part_name || "Help identify"}\nVehicle/equipment: ${draft.vehicle_year || "Year unknown"} ${draft.make || "Make unknown"} ${draft.model || "Model unknown"}\nEngine/specification: ${draft.engine || "Unknown / not applicable"}\nCondition: ${draft.condition_preference}\nDelivery: ${draft.delivery || "Not specified"}\nArea: ${draft.location}, ${draft.postal_code}`;
+      addMessage("gears", `${summary}\n\nReview and edit the form, add photos of the part and its markings, and confirm before posting. Unknown details need supplier confirmation. Do not upload VIN plates or personal documents.`, {
         action: { href: "/parts-wanted/new", label: "Review Parts Wanted draft", draft },
       });
       return;

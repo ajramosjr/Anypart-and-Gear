@@ -99,7 +99,7 @@ export async function POST(request: Request) {
 
     const pushResults = await Promise.all(newRecipients.map((recipientId) => sendPushNotifications(admin, recipientId, {
       title: heading,
-      body,
+      body: "A new part request is available. Sign in to APG to view the details.",
       url: link,
       tag: `apg-part-request-${partRequest.id}`,
     })));
