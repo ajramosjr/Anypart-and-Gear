@@ -1,5 +1,5 @@
+import { SeasonalLogo } from "@/components/october-awareness";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ArticleBrowser from "./article-browser";
@@ -20,7 +20,7 @@ export default async function TechWirePage() {
       <header className="border-b border-slate-300 bg-white shadow-sm">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link href="/" aria-label="Any Part and Gear home">
-            <Image src="/apg-logo.webp" alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority />
+            <SeasonalLogo alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority />
           </Link>
           <div className="flex items-center gap-2">
             <Link href="/marketplace" className="hidden items-center gap-2 text-sm font-bold text-slate-700 hover:text-slate-950 sm:flex"><ArrowLeft className="size-4" /> Marketplace</Link>

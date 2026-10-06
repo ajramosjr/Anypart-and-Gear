@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { AwarenessBanner, AskGearControl, SeasonalLogo } from "@/components/october-awareness";
 import Link from "next/link";
 import { getUser } from "@/lib/auth";
 import { LegacyMarketplaceHashRedirect } from "./marketplace/legacy-hash-redirect";
@@ -14,7 +14,7 @@ export default async function Home() {
     <LegacyMarketplaceHashRedirect />
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-20 max-w-7xl items-center gap-1 px-3 sm:gap-3 sm:px-6">
-        <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} priority className="h-auto w-[112px] sm:w-[172px]" /></Link>
+        <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><SeasonalLogo alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} priority className="h-auto w-[112px] sm:w-[172px]" /></Link>
         <div className="hidden sm:block"><InstallApp /></div>
         {user && <NotificationBell userId={user.id} />}
         <Link href="/marketplace" className="gold-button inline-flex h-11 items-center rounded-lg px-2 text-sm font-black sm:px-5 sm:text-base">Marketplace</Link>
@@ -27,6 +27,7 @@ export default async function Home() {
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">APG Tech Wire</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">APG Links</Link>
+            <AskGearControl className="rounded-lg px-3 py-2 text-left hover:bg-slate-100" />
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Garage Gear</Link>
             {user ? <><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/account">My account</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/messages">Messages</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/notifications">Notifications</Link><a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/auth/signout">Sign out</a></> : <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/login">Sign in or create account</Link>}
@@ -34,6 +35,7 @@ export default async function Home() {
         </details>
       </div>
     </header>
+    <AwarenessBanner />
     <section className="mech-hero relative overflow-hidden text-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <h1 className="max-w-3xl text-4xl font-black leading-[1.04] tracking-[-.04em] sm:text-6xl">Need a part?<br />Need a shop?<br /><span className="text-amber-400">Start local.</span></h1>

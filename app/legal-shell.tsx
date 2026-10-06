@@ -1,11 +1,11 @@
-import Image from "next/image";
+import { SeasonalLogo } from "@/components/october-awareness";
 import Link from "next/link";
 
 export default function LegalShell({ eyebrow, title, intro, children }: { eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
   return <main className="min-h-screen bg-[#eef1f4] text-slate-900">
     <header className="border-b border-slate-300 bg-white">
       <div className="mx-auto flex h-20 max-w-5xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" aria-label="Any Part and Gear home"><Image src="/apg-logo.webp" alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
+        <Link href="/" aria-label="Any Part and Gear home"><SeasonalLogo alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
         <Link href="/marketplace" className="legal-back rounded-md bg-[#0b2345] px-4 py-2.5 text-sm font-bold hover:bg-[#123f66]">Back to marketplace</Link>
       </div>
     </header>

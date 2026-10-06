@@ -521,3 +521,12 @@
 .headerGears svg:nth-child(5) { left: 63%; top: -20px; width: 43px; height: 43px; animation-direction: reverse; }
 @keyframes header-gear-turn { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .headerGears svg { animation: none; } }
+
+/* A reserved rail keeps Gear clear of page copy and controls. */
+.root { position: relative; right: auto; bottom: auto; padding: 16px; min-height: 144px; background: #eef1f4; }
+.character { position: relative; width: 100px; height: 100px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.character .gearHead { width: 100px; height: 100px; top: 50%; }
+.hideGear { min-height: 44px; padding: 8px 14px; border: 1px solid #64748b; border-radius: 24px; background: white; color: #0b2345; font-size: 13px; cursor: pointer; }
+.character:focus-visible, .hideGear:focus-visible { outline: 3px solid #b48200; outline-offset: 3px; }
+.october .launcherRing, .october .avatarRing { filter: sepia(1) saturate(5) hue-rotate(285deg); }
+@media (min-width: 1100px) { .root { position: fixed; right: 12px; bottom: 12px; background: transparent; padding: 0; } }

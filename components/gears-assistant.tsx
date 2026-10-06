@@ -17,6 +17,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import { useOctoberAwareness } from "./october-awareness";
 import styles from "./gears-assistant.module.css";
 import { createClient } from "@/lib/supabase/client";
 
@@ -162,6 +163,8 @@ function listingQuality(draft: Record<string, string>) {
 
 export function GearsAssistant() {
   const pathname = usePathname();
+  const october = useOctoberAwareness();
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [audience, setAudience] = useState<"customer" | "business" | null>(null);
   const [input, setInput] = useState("");
@@ -204,7 +207,10 @@ export function GearsAssistant() {
   }, []);
 
   useEffect(() => {
-    window.localStorage.removeItem("apg-gear-state-v2");
+    const frame = window.requestAnimationFrame(() => { try { setHidden(window.localStorage.getItem("apg-gear-hidden-v1") === "true"); } catch { /* Storage is optional. */ } });
+    const show = () => { setHidden(false); setOpen(true); try { window.localStorage.setItem("apg-gear-hidden-v1", "false"); } catch {} };
+    window.addEventListener("apg-show-gear", show);
+    return () => { window.cancelAnimationFrame(frame); window.removeEventListener("apg-show-gear", show); };
   }, []);
 
   useEffect(() => {
@@ -442,10 +448,10 @@ export function GearsAssistant() {
     );
   }
 
-  if (hiddenOnNews) return null;
+  if (hiddenOnNews || hidden) return null;
 
   return (
-    <aside className={styles.root} aria-label="Gear website assistant">
+    <aside className={`${styles.root} ${october ? styles.october : ""}`} aria-label="Gear website assistant">
       {open ? (
         <section className={styles.panel} aria-labelledby="gears-title">
           <div className={styles.header}>
@@ -551,15 +557,13 @@ export function GearsAssistant() {
         </section>
       ) : null}
 
-      <button
-        className={open ? styles.launcherOpen : styles.launcher}
-        type="button"
-        onClick={toggleAssistant}
-        aria-label={open ? "Close Gear assistant" : "Open Gear assistant"}
-        aria-expanded={open}
-      >
-        {open ? <X size={20} aria-hidden="true" /> : <><MessageCircleQuestion size={19} aria-hidden="true" /><span>Ask Gear</span></>}
-      </button>
+      {!open && <button className={styles.character} type="button" onClick={toggleAssistant} aria-label="Open Gear assistant" aria-expanded={open}>
+        <Image className={`${styles.gearHead} ${styles.launcherRing}`} src="/gears-head.png" width={1240} height={1240} sizes="100px" alt="" />
+        <Image className={`${styles.gearHead} ${styles.gearFace}`} src="/gears-head.png" width={1240} height={1240} sizes="100px" alt="" />
+        <span className={styles.blink}><span /><span /></span>
+      </button>}
+      <button className={styles.hideGear} type="button" onClick={() => { setHidden(true); setOpen(false); try { window.localStorage.setItem("apg-gear-hidden-v1", "true"); } catch {} }}>Hide Gear</button>
+
     </aside>
   );
 }
