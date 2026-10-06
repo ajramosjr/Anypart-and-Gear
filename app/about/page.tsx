@@ -39,6 +39,7 @@ export default function AboutPage() {
             <Button asChild className="gold-button h-11 px-6 font-black"><Link href="/marketplace">Explore the marketplace</Link></Button>
             <Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><Link href="/shops">Explore the Parts &amp; Repair Directory</Link></Button>
           </div>
+          <div className="mt-4"><Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><a href="/APG.vcf" download="APG.vcf">Save APG Contact</a></Button><p className="mt-2 text-sm text-slate-500">Download APG’s email, phone number, and website to your contacts.</p></div>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <span className="text-sm font-black uppercase tracking-[.12em] text-slate-500">Follow APG</span>
             <a href="https://www.facebook.com/share/1GRGa1eFPK/" target="_blank" rel="noopener noreferrer" aria-label="Follow Any-Part and Gear on Facebook" className="inline-flex size-11 items-center justify-center rounded-full bg-[#1877F2] text-white shadow-sm transition hover:bg-[#0f67d8]"><svg viewBox="0 0 24 24" aria-hidden="true" className="size-5 text-white" fill="currentColor"><path d="M13.6 22v-8h2.8l.4-3.2h-3.2v-2c0-.9.3-1.6 1.7-1.6H17V4.4c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4v2.1H7.3V14h2.8v8h3.5Z"/></svg></a>
