@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BadgeCheck, Clock3, ExternalLink, MapPin, PackageOpen, Star, Store, Wrench } from "lucide-react";
+import { BadgeCheck, ContactRound, Clock3, ExternalLink, MapPin, PackageOpen, Star, Store, Wrench } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ApgLogo from "@/components/apg-logo";
@@ -44,6 +44,31 @@ function safeWebsite(value: string | null) {
   } catch {
     return null;
   }
+}
+
+// vCard 3.0 text values must escape separators and line breaks.
+function contactCard(shop: Shop, website: string | null) {
+  const escape = (value: string) => value.replace(/\\/g, "\\\\").replace(/\r\n|\r|\n/g, "\\n").replace(/;/g, "\\;").replace(/,/g, "\\,");
+  const lines = [
+    "BEGIN:VCARD", "VERSION:3.0",
+    `FN:${escape(shop.name)}`,
+    `N:;${escape(shop.name)};;;`,
+    `ORG:${escape(shop.name)}`,
+    `NOTE:${escape([shop.specialty, [shop.location, shop.postal_code].filter(Boolean).join(" · "), "APG profile: https://www.anypartandgear.com/shops/" + encodeURIComponent(shop.id)].filter(Boolean).join("\n"))}`,
+    `URL:${website || "https://www.anypartandgear.com/shops/" + encodeURIComponent(shop.id)}`,
+    "END:VCARD", "",
+  ];
+  // Fold at 75 UTF-8 bytes without splitting a Unicode character.
+  const folded = lines.map((line) => {
+    let result = "", bytes = 0;
+    for (const char of line) {
+      const size = new TextEncoder().encode(char).length;
+      if (bytes + size > 75) { result += "\r\n "; bytes = 1; }
+      result += char; bytes += size;
+    }
+    return result;
+  }).join("\r\n");
+  return "data:text/vcard;charset=utf-8," + encodeURIComponent(folded);
 }
 
 export default async function ShopProfilePage({ params }: { params: Promise<{ id: string }> }) {
@@ -89,6 +114,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
           </div>
           <div className="flex flex-wrap gap-3">
             {website && <a className="button" href={website} target="_blank" rel="noopener noreferrer nofollow"><ExternalLink size={17}/> Visit Business Website</a>}
+            <a className="button" href={contactCard(shop, website)} download={`${shop.name.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 80) || "business"}.vcf`}><ContactRound size={17}/> Save Contact</a>
             <ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id} nextPath={`/shops/${shop.id}`}/>
           </div>
         </div>
