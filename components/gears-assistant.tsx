@@ -163,6 +163,7 @@ function listingQuality(draft: Record<string, string>) {
 export function GearsAssistant() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [audience, setAudience] = useState<"customer" | "business" | null>(null);
   const [input, setInput] = useState("");
   const [listingStep, setListingStep] = useState<ListingStep>(null);
   const [listingDraft, setListingDraft] = useState<Record<string, string>>({});
@@ -171,7 +172,7 @@ export function GearsAssistant() {
   const [language, setLanguage] = useState<Language>("en");
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, role: "gears", text: "Hi, I’m Gear. Ask me how to use APG, find something, or create a strong listing." },
+    { id: 1, role: "gears", text: "Hi, I’m Gear. Find a part, connect with a shop, or get your business started." },
   ]);
   const nextMessageId = useRef(2);
   const conversationEnd = useRef<HTMLDivElement>(null);
@@ -448,6 +449,7 @@ export function GearsAssistant() {
       {open ? (
         <section className={styles.panel} aria-labelledby="gears-title">
           <div className={styles.header}>
+            <div className={styles.headerGears} aria-hidden="true">{[0,1,2,3,4].map((gear) => <svg key={gear} viewBox="0 0 100 100"><g fill="none" stroke="currentColor" strokeWidth="5"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="12"/>{Array.from({length: 12}, (_, tooth) => <path key={tooth} d="M50 12V22" transform={`rotate(${tooth * 30} 50 50)`}/>)}</g></svg>)}</div>
             <div className={styles.avatar} aria-hidden="true">
               <Image
                 className={`${styles.avatarImage} ${styles.avatarRing}`}
@@ -469,7 +471,7 @@ export function GearsAssistant() {
             </div>
             <div className={styles.heading}>
               <strong id="gears-title">Gear</strong>
-              <span>{language === "es" ? "Asistente del sitio APG" : "APG website assistant"}</span>
+              <span>{language === "es" ? "Asistente del sitio APG" : "Your APG assistant"}</span>
             </div>
             <button className={styles.language} type="button" onClick={() => setLanguage((current) => current === "en" ? "es" : "en")} aria-label="Switch English and Spanish">
               <Languages size={17} aria-hidden="true" /> {language === "en" ? "ES" : "EN"}
@@ -504,6 +506,26 @@ export function GearsAssistant() {
               ))}
               <div ref={conversationEnd} />
             </div>
+            {!listingStep && !requestStep && <nav className={styles.audienceChoices} aria-label="Choose how Gear can help">
+              <button type="button" aria-pressed={audience === "customer"} onClick={() => setAudience(audience === "customer" ? null : "customer")}><Search size={18} aria-hidden="true"/>{language === "es" ? "Buscar piezas o servicios" : "Find parts or services"}</button>
+              <button type="button" aria-pressed={audience === "business"} onClick={() => setAudience(audience === "business" ? null : "business")}><Store size={18} aria-hidden="true"/>{language === "es" ? "Hacer crecer mi negocio" : "Grow my business"}</button>
+            </nav>}
+            {audience && !listingStep && !requestStep && <div className={styles.supportTools}>
+              <p className={styles.quickLabel}>{audience === "customer" ? "Find what you need" : "Your business on APG"}</p>
+              <nav className={styles.actions} aria-label="Helpful APG links">
+                {(audience === "customer" ? actions.filter(action => ["/marketplace#listings", "/shops", "/toolbox"].includes(action.href)) : [
+                  { href: "/shops/register", label: "Create business profile", icon: Store },
+                  { href: "/sell", label: "List an item", icon: Tag },
+                  { href: "/messages", label: "APG Messages", icon: MessageCircleQuestion },
+                ]).map(({href, label, icon: Icon}) => <Link className={styles.action} key={href} href={href} onClick={() => setOpen(false)}><Icon size={18} aria-hidden="true"/>{label}</Link>)}
+              </nav>
+              {audience === "business" && <p className={styles.businessHint}>Add your website to your business profile. Inventory listings are optional.</p>}
+              <div className={styles.helperTools}>
+                {audience === "business" ? <button type="button" onClick={startListingHelp}>Help me create my listing</button> : <button type="button" onClick={startRequestHelp}>Help me request a part</button>}
+                <button type="button" onClick={pageGuidance}>Explain this page</button>
+                {audience === "business" && <button type="button" onClick={() => addMessage("gears", photoGuides.default)}>Photo checklist</button>}
+              </div>
+            </div>}
             <form className={styles.chatForm} onSubmit={handleSubmit}>
               <label className={styles.srOnly} htmlFor="gears-message">Ask Gear a question</label>
               <input
@@ -521,23 +543,6 @@ export function GearsAssistant() {
               </button>
             </form>
             {listening ? <p className={styles.listening} role="status">Listening…</p> : null}
-            {!listingStep && !requestStep ? (
-              <div className={styles.helperTools}>
-                <button className={styles.listingHelper} type="button" onClick={startListingHelp}>Help me create my listing</button>
-                <button type="button" onClick={startRequestHelp}>Help me request a part</button>
-                <button type="button" onClick={pageGuidance}>Explain this page</button>
-                <button type="button" onClick={() => addMessage("gears", photoGuides.default)}>Photo checklist</button>
-              </div>
-            ) : null}
-            <p className={styles.quickLabel}>Quick links</p>
-            <nav className={styles.actions} aria-label="Gear quick help">
-              {actions.map(({ href, label, icon: Icon }) => (
-                <Link className={styles.action} href={href} key={href} onClick={() => setOpen(false)}>
-                  <Icon size={21} strokeWidth={2.2} aria-hidden="true" />
-                  <span>{label}</span>
-                </Link>
-              ))}
-            </nav>
             <p className={styles.note}>
               Gear provides website guidance only. Buyers and sellers remain responsible for listings,
               payments, fitment, repairs, and safe transactions.

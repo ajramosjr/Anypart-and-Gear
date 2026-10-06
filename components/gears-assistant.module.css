@@ -490,3 +490,34 @@
     transition: none;
   }
 }
+
+/* Approved chat-first layout. Existing Gear artwork and animations stay intact. */
+.panel { width: min(380px, calc(100vw - 32px)); background: #eaf0f6; }
+.content { display: flex; flex-direction: column; gap: 12px; }
+.conversation { min-height: 150px; max-height: 280px; padding: 2px 0 8px; }
+.gearsMessage { background: #fff; border-color: #e3e8ef; box-shadow: 0 2px 8px rgb(11 35 69 / 4%); }
+.message { padding: 13px 14px; line-height: 1.5; }
+.audienceChoices { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.audienceChoices button { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; max-width: 100%; padding: 10px 14px; border: 1px solid #b48200; border-radius: 24px; background: #fff; color: #0b2345; font: inherit; font-size: 13px; font-weight: 750; text-align: left; cursor: pointer; }
+.audienceChoices svg { color: #b48200; flex-shrink: 0; }
+.audienceChoices button:hover, .audienceChoices button[aria-pressed="true"] { background: #fff4d3; }
+.audienceChoices button:focus-visible { outline: 3px solid #b48200; outline-offset: 3px; }
+.supportTools { padding: 12px; background: rgb(255 255 255 / 70%); border-radius: 15px; }
+.supportTools .quickLabel { margin: 0 0 8px; }
+.supportTools .action { min-height: 44px; font-size: 12px; padding: 9px; background: #fff; }
+.businessHint { margin: 10px 0 0; color: #4c5e74; font-size: 12px; line-height: 1.5; }
+.chatForm { margin-top: 8px; padding: 8px; gap: 6px; border: 1px solid #dae2ec; border-radius: 28px; background: #fff; }
+.chatForm input { border: 0; border-radius: 22px; padding: 0 8px; }
+.chatForm button { border-radius: 50%; min-height: 42px; }
+.note { margin: 0; padding-top: 8px; }
+@media (max-width: 560px) { .panel { width: min(380px, calc(100vw - 24px)); max-height: calc(100dvh - 110px); } }
+
+.header { overflow: hidden; isolation: isolate; }
+.headerGears { position: absolute; inset: 0; overflow: hidden; z-index: -1; pointer-events: none; color: #d9ac36; opacity: .22; }
+.headerGears svg { position: absolute; width: 95px; height: 95px; left: 37%; top: -18px; animation: header-gear-turn 32s linear infinite; }
+.headerGears svg:nth-child(2) { left: 58%; top: 24px; width: 74px; height: 74px; animation-direction: reverse; }
+.headerGears svg:nth-child(3) { left: 75%; top: -28px; width: 110px; height: 110px; animation-duration: 40s; }
+.headerGears svg:nth-child(4) { left: 90%; top: 49px; width: 54px; height: 54px; animation-direction: reverse; }
+.headerGears svg:nth-child(5) { left: 63%; top: -20px; width: 43px; height: 43px; animation-direction: reverse; }
+@keyframes header-gear-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .headerGears svg { animation: none; } }
