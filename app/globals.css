@@ -538,3 +538,16 @@ a { text-decoration:none; }
 .business-verification-note{border:1px solid #d6b75e;background:#fff8df;border-radius:12px;padding:16px 18px;margin-bottom:22px;color:#172033}.business-verification-note strong{display:block;color:#0b2345;font-size:1rem}.business-verification-note p{margin:6px 0 0;line-height:1.55}.business-verification-note.verified{border-color:#76b98a;background:#eefaf1}.business-attestation{display:flex;align-items:flex-start;gap:10px;margin-top:18px;font-weight:650;line-height:1.45}.business-attestation input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}.admin-section-note{margin:-8px 0 14px;color:#556277;max-width:760px}
 
 .apg-awareness-banner { display: flex; justify-content: center; align-items: center; gap: 10px; padding: 12px 16px; background: #fce7f3; color: #831843; font-size: 15px; font-weight: 700; text-align: center; }
+
+/* Marketplace-first homepage, with seasonal October awareness accents. */
+.apg-home-cta { background: linear-gradient(135deg,#ffe18e,#e4aa26); color: #06162d; }
+.apg-home-accent { color: #f5c354; }
+.apg-home-outline { border-color: #e4aa26; }
+.apg-home-icon { background: #fbf3df; color: #9d6b09; }
+body:has(.apg-awareness-banner) .apg-home-cta { background: linear-gradient(135deg,#ffa4d0,#f56bb0); }
+body:has(.apg-awareness-banner) .apg-home-accent { color: #ff91c5; }
+body:has(.apg-awareness-banner) .apg-home-outline { border-color: #f56bb0; }
+body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be185d; }
+.apg-home-cta:hover { filter: brightness(1.06); }
+.apg-home-cta:focus-visible, .apg-home-outline:focus-visible { outline: 3px solid #db2777; outline-offset: 4px; }
+@media(max-width:640px) { .apg-home-hero { min-height: 420px; } }

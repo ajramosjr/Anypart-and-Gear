@@ -1,6 +1,6 @@
 "use client";
-
 import Image from "next/image";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
@@ -456,27 +456,9 @@ export function GearsAssistant() {
         <section className={styles.panel} aria-labelledby="gears-title">
           <div className={styles.header}>
             <div className={styles.headerGears} aria-hidden="true">{[0,1,2,3,4].map((gear) => <svg key={gear} viewBox="0 0 100 100"><g fill="none" stroke="currentColor" strokeWidth="5"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="12"/>{Array.from({length: 12}, (_, tooth) => <path key={tooth} d="M50 12V22" transform={`rotate(${tooth * 30} 50 50)`}/>)}</g></svg>)}</div>
-            <div className={styles.avatar} aria-hidden="true">
-              <Image
-                className={`${styles.avatarImage} ${styles.avatarRing}`}
-                src="/gears-head.png"
-                width={1240}
-                height={1240}
-                sizes="64px"
-                alt=""
-              />
-              <Image
-                className={`${styles.avatarImage} ${styles.avatarFace}`}
-                src="/gears-head.png"
-                width={1240}
-                height={1240}
-                sizes="64px"
-                alt=""
-              />
-              <span className={styles.blink}><span /><span /></span>
-            </div>
+            <div className={styles.industrialAvatar} aria-hidden="true">⚙</div>
             <div className={styles.heading}>
-              <strong id="gears-title">Gear</strong>
+              <strong id="gears-title">Ask APG</strong>
               <span>{language === "es" ? "Asistente del sitio APG" : "Your APG assistant"}</span>
             </div>
             <button className={styles.language} type="button" onClick={() => setLanguage((current) => current === "en" ? "es" : "en")} aria-label="Switch English and Spanish">
@@ -557,10 +539,8 @@ export function GearsAssistant() {
         </section>
       ) : null}
 
-      {!open && <button className={styles.character} type="button" onClick={toggleAssistant} aria-label="Open Gear assistant" aria-expanded={open}>
-        <Image className={`${styles.gearHead} ${styles.launcherRing}`} src="/gears-head.png" width={1240} height={1240} sizes="100px" alt="" />
-        <Image className={`${styles.gearHead} ${styles.gearFace}`} src="/gears-head.png" width={1240} height={1240} sizes="100px" alt="" />
-        <span className={styles.blink}><span /><span /></span>
+      {!open && <button className={styles.industrialLauncher} type="button" onClick={toggleAssistant} aria-label="Open APG assistant" aria-expanded={open}>
+        <span aria-hidden="true">⚙</span><strong>Ask APG</strong>
       </button>}
       <button className={styles.hideGear} type="button" onClick={() => { setHidden(true); setOpen(false); try { window.localStorage.setItem("apg-gear-hidden-v1", "true"); } catch {} }}>Hide Gear</button>
 

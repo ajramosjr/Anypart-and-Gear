@@ -1,5 +1,7 @@
-import { AwarenessBanner, AskGearControl, SeasonalLogo } from "@/components/october-awareness";
+import { AwarenessBanner, AskGearControl } from "@/components/october-awareness";
 import Link from "next/link";
+import Image from "next/image";
+import { Package, Store, ArrowRight } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { LegacyMarketplaceHashRedirect } from "./marketplace/legacy-hash-redirect";
 import NotificationBell from "@/components/notification-bell";
@@ -13,11 +15,12 @@ export default async function Home() {
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-7xl items-center gap-1 px-3 sm:gap-3 sm:px-6">
-        <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><SeasonalLogo alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} priority className="h-auto w-[112px] sm:w-[172px]" /></Link>
-        <div className="hidden sm:block"><InstallApp /></div>
+      <div className="mx-auto flex min-h-24 max-w-7xl items-center gap-1 px-3 sm:gap-3 sm:px-6">
+        <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><Image src="/apg-home-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={1983} height={793} priority className="h-auto w-[130px] sm:w-[190px]" /></Link>
+        <nav aria-label="Primary navigation" className="hidden items-center gap-6 lg:flex"><Link href="/marketplace" className="font-bold">Marketplace</Link><Link href="/shops" className="font-bold">Businesses &amp; Shops</Link><Link href="/about" className="font-bold">About</Link></nav>
+        <div className="hidden xl:block"><InstallApp /></div>
         {user && <NotificationBell userId={user.id} />}
-        <Link href="/marketplace" className="gold-button inline-flex h-11 items-center rounded-lg px-2 text-sm font-black sm:px-5 sm:text-base">Marketplace</Link>
+        <Link href={postPath} className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-black sm:px-5 sm:text-base">Post an item</Link>
         <details className="group relative">
           <summary className="flex size-11 cursor-pointer list-none items-center justify-center rounded-lg text-2xl hover:bg-slate-100 [&::-webkit-details-marker]:hidden" aria-label="Menu">☰</summary>
           <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid w-56 gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
@@ -36,16 +39,26 @@ export default async function Home() {
       </div>
     </header>
     <AwarenessBanner />
-    <section className="mech-hero relative overflow-hidden text-white">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
-        <h1 className="max-w-3xl text-4xl font-black leading-[1.04] tracking-[-.04em] sm:text-6xl">Need a part?<br />Need a shop?<br /><span className="text-amber-400">Start local.</span></h1>
-        <p className="mt-6 max-w-xl text-lg leading-7 text-slate-300">Find nearby parts, businesses, and people who can help.</p>
-        <div className="mt-6 space-y-1 text-base leading-7 text-slate-100" aria-label="Ask for what you need. Post what you have. Get connected locally."><p><span className="font-black text-amber-400">A</span>sk for what you need.</p><p><span className="font-black text-amber-400">P</span>ost what you have.</p><p><span className="font-black text-amber-400">G</span>et connected locally.</p></div>
-        <p className="mt-6 font-semibold text-slate-300">Together, we can find it.</p>
-        <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row"><Link href="/marketplace" className="gold-button inline-flex min-h-12 flex-1 items-center justify-center rounded-lg px-6 text-center font-black">Browse Marketplace →</Link><Link href={postPath} className="inline-flex min-h-12 items-center justify-center rounded-lg border border-slate-400 px-6 font-bold text-white hover:bg-white/10">Post an item</Link></div>
+    <section className="apg-home-hero relative isolate overflow-hidden text-white">
+      <Image src="/apg-marketplace-hero.webp" alt="Transmission, gears, tools, and a marine propeller on a workshop bench" fill priority sizes="100vw" className="-z-20 object-cover object-[65%_center]" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#03152b]/95 via-[#03152b]/70 to-transparent" />
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 sm:py-20">
+        <h1 className="max-w-xl text-6xl font-black leading-[.98] tracking-[-.04em] sm:text-8xl">Post it.<br /><span className="apg-home-accent">Sell it.</span></h1>
+        <p className="mt-5 max-w-lg text-xl leading-8 text-slate-200 sm:text-2xl">A growing marketplace for parts, tools, and gear.</p>
+        <div className="mt-7 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">List an item <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/shops" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80">Browse local shops <ArrowRight aria-hidden="true" size={22} /></Link></div>
       </div>
     </section>
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6"><h2 className="text-2xl font-black">What is APG?</h2><p className="mt-3 max-w-2xl leading-7 text-slate-600">Any-Part and Gear is a growing marketplace where people and businesses can post parts, gear, vehicles, and services. Listings and shop profiles vary by area as members join.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/shops" className="rounded-lg border border-slate-300 bg-white px-5 py-3 font-bold hover:border-amber-400">Find parts &amp; repair services</Link><Link href="/parts-wanted" className="rounded-lg border border-slate-300 bg-white px-5 py-3 font-bold hover:border-amber-400">Request a part</Link></div></section>
+    <section aria-label="Explore APG" className="mx-auto grid max-w-7xl gap-5 px-4 py-6 sm:px-6 lg:grid-cols-[1.3fr_1fr]">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
+        <div className="flex items-center gap-4"><span className="apg-home-icon rounded-full p-4"><Package size={30} aria-hidden="true" /></span><div><h2 className="text-2xl font-black">Individual Marketplace</h2><p className="mt-1 text-slate-600">Listings from individual sellers.</p></div></div>
+        <div className="py-8 text-center"><Package className="mx-auto mb-4 text-slate-300" size={70} strokeWidth={1} aria-hidden="true" /><h3 className="text-2xl font-black">Help get the marketplace started.</h3><p className="mx-auto mt-3 max-w-md text-slate-600">Post what you have, or explore what people have listed.</p><Link href={postPath} className="apg-home-cta mt-5 inline-flex min-h-12 items-center gap-3 rounded-lg px-6 font-black">Post your first item <ArrowRight size={20} aria-hidden="true" /></Link><div className="mt-4"><Link href="/marketplace" className="font-bold underline underline-offset-4">Browse individual listings</Link></div></div>
+      </div>
+      <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
+        <div className="flex items-center gap-4"><span className="apg-home-icon rounded-full p-4"><Store size={30} aria-hidden="true" /></span><div><h2 className="text-2xl font-black">Businesses &amp; Shops</h2><p className="mt-1 text-slate-600">See what local shops have to offer.</p></div></div>
+        <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-5"><h3 className="text-xl font-black">Explore local business pages</h3><p className="mt-3 leading-7 text-slate-600">Find parts suppliers and repair shops. Visit each business’s page to see its services and any inventory it has posted.</p><Link href="/shops" className="apg-home-outline mt-4 inline-flex min-h-12 items-center gap-3 rounded-lg border-2 px-5 font-bold">View business pages <ArrowRight size={20} aria-hidden="true" /></Link></div>
+        <Link href="/shops/register" className="mt-6 flex min-h-12 items-center gap-4 font-bold"><Store size={25} aria-hidden="true" /><span>Own a business?<span className="block text-sm font-normal text-slate-600">Create your business page.</span></span><ArrowRight className="ml-auto" size={20} aria-hidden="true" /></Link>
+      </div>
+    </section>
     <footer className="bg-[#06162d] px-4 py-8 text-sm text-slate-300"><div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-3"><strong className="mr-auto text-white">ANY-PART &amp; GEAR</strong><Link href="/about" className="hover:text-white">About Us</Link><a href="/APG.vcf" download="APG.vcf" className="font-bold text-amber-400 hover:text-amber-300">Save APG Contact</a><Link href="/trust" className="hover:text-white">Trust &amp; Transparency</Link><Link href="/safety" className="hover:text-white">Safety</Link><Link href="/support" className="hover:text-white">Support</Link><Link href="/terms" className="hover:text-white">Terms</Link><Link href="/privacy" className="hover:text-white">Privacy</Link></div></footer>
   </main>;
 }

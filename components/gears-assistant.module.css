@@ -543,3 +543,9 @@
     bottom: max(18px, env(safe-area-inset-bottom));
   }
 }
+
+.industrialLauncher { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 86px; height: 86px; border: 1px solid #be8a20; border-radius: 50%; background: linear-gradient(135deg,#ffe5a0,#dfa51d); color: #06162d; box-shadow: 0 6px 22px #03152b40; cursor: pointer; }
+.industrialLauncher span { font-size: 46px; line-height: 1; }
+.industrialLauncher strong { font-size: 13px; }
+.industrialLauncher:focus-visible { outline: 3px solid #db2777; outline-offset: 4px; }
+.industrialAvatar { display: grid; place-items: center; width: 56px; height: 56px; flex-shrink: 0; color: #eab645; font-size: 52px; }

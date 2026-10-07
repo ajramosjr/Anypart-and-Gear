@@ -18,5 +18,5 @@ export function AwarenessBanner() {
   return active ? <div className="apg-awareness-banner"><svg aria-hidden="true" viewBox="0 0 32 40" width="24" height="30" fill="#db2777"><path d="M16 1C5 1 5 10 8 16L25 39l6-6L14 10c-1-2 0-3 2-3s3 1 2 3L1 33l6 6 17-23C27 10 27 1 16 1Z" /></svg><span>APG supports Breast Cancer Awareness Month</span></div> : null;
 }
 export function AskGearControl({ className }: { className?: string }) {
-  return <button type="button" className={className} onClick={() => window.dispatchEvent(new Event("apg-show-gear"))}>Ask Gear</button>;
+  return <button type="button" className={className} onClick={() => window.dispatchEvent(new Event("apg-show-gear"))}>Ask APG</button>;
 }
