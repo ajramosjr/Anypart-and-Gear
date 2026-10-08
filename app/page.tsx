@@ -3,14 +3,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { Package, Store, ArrowRight } from "lucide-react";
 import { getUser } from "@/lib/auth";
+import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 import { LegacyMarketplaceHashRedirect } from "./marketplace/legacy-hash-redirect";
 import NotificationBell from "@/components/notification-bell";
 import InstallApp from "./install-app";
 
 export const dynamic = "force-dynamic";
 
+async function getLatestListings() {
+  if (!hasSupabaseConfig()) return { listings: [], unavailable: false };
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("listings")
+    .select("id,title,price,category,location,image_url")
+    .eq("status", "active").is("shop_id", null)
+    .order("created_at", { ascending: false }).limit(4);
+  if (error) { console.error("Homepage listings unavailable:", error.code); return { listings: [], unavailable: true }; }
+  return { listings: data ?? [], unavailable: false };
+}
+
 export default async function Home() {
-  const user = await getUser();
+  const [user, { listings, unavailable }] = await Promise.all([getUser(), getLatestListings()]);
   const postPath = user ? "/sell" : "/login?next=/sell";
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
@@ -42,17 +54,20 @@ export default async function Home() {
     <section className="apg-home-hero relative isolate overflow-hidden text-white">
       <Image src="/apg-marketplace-hero.webp" alt="Transmission, gears, tools, and a marine propeller on a workshop bench" fill priority sizes="100vw" className="-z-20 object-cover object-[65%_center]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#03152b]/95 via-[#03152b]/70 to-transparent" />
-      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 sm:py-20">
-        <h1 className="max-w-xl text-6xl font-black leading-[.98] tracking-[-.04em] sm:text-8xl">Post it.<br /><span className="apg-home-accent">Sell it.</span></h1>
-        <p className="mt-5 max-w-lg text-xl leading-8 text-slate-200 sm:text-2xl">A growing marketplace for parts, tools, and gear.</p>
-        <div className="mt-7 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">List an item <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/shops" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80">Browse local shops <ArrowRight aria-hidden="true" size={22} /></Link></div>
+      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-6 sm:py-10">
+        <h1 className="max-w-3xl text-5xl font-black leading-[.98] tracking-[-.04em] sm:text-7xl">Post it. <span className="apg-home-accent">Sell it.</span></h1>
+        <p className="mt-4 max-w-2xl text-lg leading-7 text-slate-200 sm:text-xl">A growing marketplace for parts, tools, and gear.</p>
+        <div className="mt-5 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">List an item <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/shops" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80">Browse local shops <ArrowRight aria-hidden="true" size={22} /></Link></div>
       </div>
     </section>
-    <section aria-label="Explore APG" className="mx-auto grid max-w-7xl gap-5 px-4 py-6 sm:px-6 lg:grid-cols-[1.3fr_1fr]">
-      <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
-        <div className="flex items-center gap-4"><span className="apg-home-icon rounded-full p-4"><Package size={30} aria-hidden="true" /></span><div><h2 className="text-2xl font-black">Individual Marketplace</h2><p className="mt-1 text-slate-600">Listings from individual sellers.</p></div></div>
-        <div className="py-8 text-center"><Package className="mx-auto mb-4 text-slate-300" size={70} strokeWidth={1} aria-hidden="true" /><h3 className="text-2xl font-black">Help get the marketplace started.</h3><p className="mx-auto mt-3 max-w-md text-slate-600">Post what you have, or explore what people have listed.</p><Link href={postPath} className="apg-home-cta mt-5 inline-flex min-h-12 items-center gap-3 rounded-lg px-6 font-black">Post your first item <ArrowRight size={20} aria-hidden="true" /></Link><div className="mt-4"><Link href="/marketplace" className="font-bold underline underline-offset-4">Browse individual listings</Link></div></div>
-      </div>
+    <section aria-labelledby="individual-marketplace-title" className="mx-auto max-w-7xl px-4 py-7 sm:px-6">
+      <div className="flex flex-wrap items-end justify-between gap-4"><div><h2 id="individual-marketplace-title" className="text-3xl font-black">Individual Marketplace</h2><p className="mt-2 text-slate-600">Browse listings from individual sellers.</p></div><Link href="/marketplace" className="inline-flex min-h-11 items-center gap-2 font-bold">View all listings <ArrowRight size={20} aria-hidden="true" /></Link></div>
+      {listings.length ? <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">{listings.map((listing) => <Link key={listing.id} href={`/listing/${listing.id}`} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:border-pink-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-600">
+        <div className="relative aspect-[4/3] bg-slate-100">{listing.image_url ? <Image src={listing.image_url} alt={listing.title} fill sizes="(max-width: 1023px) 50vw, 320px" className="object-cover transition-transform group-hover:scale-105" /> : <div className="flex h-full items-center justify-center"><Package size={48} className="text-slate-400" aria-hidden="true" /><span className="sr-only">No photo provided</span></div>}</div>
+        <div className="p-3 sm:p-4"><h3 className="line-clamp-2 font-extrabold">{listing.title}</h3><p className="mt-1 truncate text-sm text-slate-500">{listing.category}</p><strong className="mt-3 block text-xl">{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(Number(listing.price))}</strong><p className="mt-1 truncate text-sm text-slate-500">{listing.location}</p></div>
+      </Link>)}</div> : <div className="mt-5 rounded-xl border border-slate-200 bg-white px-6 py-8 text-center"><Package className="mx-auto mb-3 text-slate-300" size={48} strokeWidth={1} aria-hidden="true" /><h3 className="text-2xl font-black">{unavailable ? "Browse the individual marketplace" : "Help get the marketplace started."}</h3><p className="mt-3 text-slate-600">{unavailable ? "Listings are temporarily unavailable here. Try the marketplace or check back shortly." : "Have parts, tools, or gear? Be the first to post an item."}</p><Link href={unavailable ? "/marketplace" : postPath} className="apg-home-cta mt-5 inline-flex min-h-12 items-center gap-3 rounded-lg px-6 font-black">{unavailable ? "Browse marketplace" : "Post your first item"} <ArrowRight size={20} aria-hidden="true" /></Link></div>}
+    </section>
+    <section aria-label="Businesses and shops" className="mx-auto max-w-7xl px-4 pb-7 sm:px-6">
       <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
         <div className="flex items-center gap-4"><span className="apg-home-icon rounded-full p-4"><Store size={30} aria-hidden="true" /></span><div><h2 className="text-2xl font-black">Businesses &amp; Shops</h2><p className="mt-1 text-slate-600">See what local shops have to offer.</p></div></div>
         <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-5"><h3 className="text-xl font-black">Explore local business pages</h3><p className="mt-3 leading-7 text-slate-600">Find parts suppliers and repair shops. Visit each business’s page to see its services and any inventory it has posted.</p><Link href="/shops" className="apg-home-outline mt-4 inline-flex min-h-12 items-center gap-3 rounded-lg border-2 px-5 font-bold">View business pages <ArrowRight size={20} aria-hidden="true" /></Link></div>
