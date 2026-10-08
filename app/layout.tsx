@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GearsAssistant } from "@/components/gears-assistant";
+import PasswordRecoveryRedirect from "@/components/password-recovery-redirect";
 import VisitCounter from "@/components/visit-counter";
 import "./globals.css";
 import "./listing-overrides.css";
@@ -53,6 +54,7 @@ export default function RootLayout({
         <meta name="impact-site-verification" {...{ value: "bcd74494-e5d4-4dce-996c-b986ed203c39" }} />
       </head>
       <body>
+        <PasswordRecoveryRedirect />
         {children}
         <GearsAssistant />
         <VisitCounter />

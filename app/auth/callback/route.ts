@@ -6,7 +6,8 @@ export async function GET(request: Request) {
   const code = url.searchParams.get("code");
   const providerErrorCode = url.searchParams.get("error_code");
   const providerErrorDescription = url.searchParams.get("error_description");
-  const requestedNext = url.searchParams.get("next");
+  const recovery = url.searchParams.get("type") === "recovery" || url.searchParams.get("next") === "/reset-password";
+  const requestedNext = recovery ? "/reset-password" : url.searchParams.get("next");
   const next = requestedNext?.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/";
   let exchangeErrorCode: string | undefined;
   let exchangeErrorMessage: string | undefined;

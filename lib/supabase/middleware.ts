@@ -22,6 +22,7 @@ export async function updateSession(request: NextRequest) {
     "/auth",
     "/api",
     "/login",
+    "/reset-password",
     "/listing",
     "/links",
     "/garage-gear",
