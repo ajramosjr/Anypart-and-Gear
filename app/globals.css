@@ -551,3 +551,14 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .apg-home-cta:hover { filter: brightness(1.06); }
 .apg-home-cta:focus-visible, .apg-home-outline:focus-visible { outline: 3px solid #db2777; outline-offset: 4px; }
 @media(max-width:640px) { .apg-home-hero { min-height: 420px; } }
+
+/* Compact mobile homepage; desktop styling remains above the breakpoint. */
+@media (max-width: 639px) {
+  .apg-home-hero.apg-mobile-hero { min-height: 0; }
+  .apg-mobile-hero > img { object-position: 64% center; }
+  .apg-home-actions { flex-wrap: nowrap; gap: 10px; }
+  .apg-home-actions > a { min-width: 0; flex: 1; padding: 0 10px; gap: 6px; min-height: 48px; font-size: 14px; }
+  .apg-home-actions svg { width: 17px; flex-shrink: 0; }
+  .apg-awareness-banner { font-size: 12px; padding: 7px 10px; gap: 7px; }
+  .apg-awareness-banner svg { width: 17px; height: 23px; flex-shrink: 0; }
+}
