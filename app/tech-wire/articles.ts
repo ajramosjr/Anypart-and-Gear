@@ -17,6 +17,68 @@ export type TechArticle = {
 };
 
 export const techArticles: TechArticle[] = [
+{
+  "slug": "how-to-spot-counterfeit-name-brand-parts",
+  "imageUrl": "/tech-wire/how-to-spot-counterfeit-name-brand-parts.webp",
+  "category": "Buyer guide",
+  "title": "Is That Part Genuine? How to Spot Counterfeit Name-Brand Parts",
+  "summary": "A familiar logo is not proof. Learn how to check sellers, part numbers, packaging, and manufacturer verification before installing a suspicious part.",
+  "readTime": "5 min read",
+  "published": "October 7, 2026",
+  "sections": [
+    {
+      "heading": "A convincing box does not prove what is inside",
+      "body": "Counterfeit parts imitate a brand without its authorization. They can look convincing online and in your hand. An honestly labeled aftermarket replacement, however, is not automatically a counterfeit just because it is not made by the original vehicle manufacturer. Separate three questions: Is it genuine? Is it the correct part? Is its condition suitable for the job? Passing one check does not answer the others."
+    },
+    {
+      "heading": "1. Check the seller before the part",
+      "body": "Start with the manufacturer’s official website and distributor locator when available. Confirm a claim of authorized-dealer status with the brand rather than relying on a seller’s badge or certificate. For an individual selling unused stock, ask where it was purchased and whether there is a receipt. Missing paperwork does not prove fraud, but it leaves more uncertainty. A low price is a reason to ask questions, not a verdict.",
+      "bullets": [
+        "Ask for photos of the actual item and its packaging, not only catalog pictures.",
+        "Keep the listing, seller details, receipt, and written description.",
+        "Check the return policy before paying."
+      ]
+    },
+    {
+      "heading": "2. Match the exact part number and application",
+      "body": "Look up the number using the brand’s official catalog. Compare the number on the box with the number on the item, where the manufacturer marks it. Verify year, model, engine, equipment serial range, and any required revision. A copied genuine part number does not authenticate an item. Even a genuine part may be wrong for your application. Ask a qualified supplier to confirm fitment when the catalog is unclear."
+    },
+    {
+      "heading": "3. Use packaging and markings as clues",
+      "body": "Misspellings, inconsistent printing, damaged seals, or markings that differ from the manufacturer’s guidance deserve investigation. Packaging can legitimately vary by region, production date, or redesign. Do not declare a part fake based on box color, country of manufacture, weight, or font alone. A barcode or QR code can also be copied. Use the brand’s official verification service if it provides one for that specific product, and reach that service through its official website."
+    },
+    {
+      "heading": "4. Follow product-specific manufacturer guidance",
+      "body": "Niterra’s NGK guidance describes markings and electrode details for counterfeit spark plugs, including examples involving CR9EIX plugs. Those examples are not a universal test for every plug. DENSO also publishes spark-plug inspection guidance; electrode specifications vary with the exact part number. Compare your item with the correct manufacturer reference rather than a random online photo. These checks help flag concerns; they do not give APG the ability to certify authenticity."
+    },
+    {
+      "heading": "5. Let the brand verify suspicious bearings",
+      "body": "SKF warns that counterfeit bearings can be difficult to distinguish visually. Its SKF Authenticate service lets buyers submit product and packaging photos plus purchase information for expert review. Use the official SKF website to find the service or an authorized distributor. A smooth-spinning bearing or convincing branded box is not enough to authenticate it."
+    },
+    {
+      "heading": "If you suspect a fake, pause before installation",
+      "body": "Set the part aside and preserve its packaging. Photograph the item, markings, labels, and purchase documents. Contact the manufacturer through independently verified contact details and ask what evidence it needs. Ask the seller for clarification and use the seller’s or payment provider’s dispute process when appropriate. Avoid destructive scratch tests unless the manufacturer specifically directs you to perform them. For brakes, steering, lifting equipment, and other safety-critical uses, have a qualified professional assess the part before use."
+    },
+    {
+      "heading": "Buying and selling on APG",
+      "body": "Buyers can use APG Messages to request clear photos, sourcing details, and condition information before agreeing to a purchase. Sellers should describe what they actually know and avoid claiming manufacturer authorization or verified authenticity without support. An APG account badge does not authenticate a part. Report a suspicious listing through APG Support and provide the listing link and supporting evidence. Buyers and sellers arrange payment directly; APG does not certify parts."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Niterra / NGK: Original versus counterfeit spark plugs",
+      "url": "https://www.ngkntk.com/newsroom/blog/emea/fake-or-not/"
+    },
+    {
+      "label": "DENSO: Spark plug counterfeiting and inspection guidance",
+      "url": "https://www.denso-am.eu/news/protecting-engines-and-businesses-how-denso-fights-spark-plug-counterfeiting-2"
+    },
+    {
+      "label": "SKF: Brand protection and expert authentication",
+      "url": "https://africa.promo.skf.com/acton/media/22833/mainpage-all-intro-za-all-brandprotectiongeneralceemea"
+    }
+  ]
+},
   {
     slug: "fuel-guide-gasoline-ethanol-diesel-marine-equipment",
     category: "Fuel guide",
