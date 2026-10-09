@@ -51,11 +51,12 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
       <head>
         <meta name="fo-verify" content="0db0813a-76e8-499e-ace8-89554311b01e" />
-        <script type="text/javascript" src="https://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007" async />
         <meta name="theme-color" content="#0b2345" />
         <meta name="impact-site-verification" {...{ value: "bcd74494-e5d4-4dce-996c-b986ed203c39" }} />
       </head>
       <body>
+        {/* Preserve AvantLink’s exact temporary ownership tag for its source checker. */}
+        <div hidden dangerouslySetInnerHTML={{ __html: "<script type=\"text/javascript\" src=\"http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007\"></script>" }} />
         <PasswordRecoveryRedirect />
         {children}
         <GearsAssistant />
