@@ -2904,5 +2904,283 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers"
     ]
+  },
+  {
+    "name": "Giant Auto Salvage",
+    "address": "557 Wilson Ave, Newark, NJ 07105",
+    "category": "Auto",
+    "detail": "Used auto parts supplier and salvage yard. Contact the yard for current inventory.",
+    "website": "https://www.giantautosalvage.com/",
+    "phone": "973-465-9383",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Essex, NJ",
+    "sourceUrl": "https://www.giantautosalvage.com/contact-us",
+    "checkedOn": "2026-10-09",
+    "town": "Newark",
+    "postal_code": "07105",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Auto Parts Suppliers"
+    ]
+  },
+  {
+    "name": "All American Auto Salvage",
+    "address": "192 Leesville Ave, Rahway, NJ 07065",
+    "category": "Auto",
+    "detail": "Salvage yard supplying reclaimed car, truck and SUV parts, including body panels, engines and transmissions.",
+    "website": "https://allamericanautosalvage.com/",
+    "phone": "732-574-1945",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Union, NJ",
+    "sourceUrl": "https://allamericanautosalvage.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Rahway",
+    "postal_code": "07065",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Auto Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Certified Products Inc.",
+    "address": "269 Kearney Avenue, Jersey City, NJ 07305",
+    "category": "Equipment",
+    "detail": "Hydraulic cylinder repairs, hose assemblies, components, machining and welding.",
+    "website": "https://cerprodnjhydraulics.com/",
+    "phone": "201-433-0013",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "county": "Hudson, NJ",
+    "sourceUrl": "https://cerprodnjhydraulics.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Jersey City",
+    "postal_code": "07305",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops",
+      "Machine & Fabrication Shops",
+      "Equipment Parts Suppliers",
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Van Hydraulics",
+    "address": "643 Sayre Avenue, Perth Amboy, NJ 08861",
+    "category": "Equipment",
+    "detail": "Hydraulic component supply, service and repairs, machine shop services and chrome plating.",
+    "website": "https://vanhydraulics.com/",
+    "phone": "732-442-5500",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "county": "Middlesex, NJ",
+    "sourceUrl": "https://vanhydraulics.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Perth Amboy",
+    "postal_code": "08861",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops",
+      "Machine & Fabrication Shops",
+      "Equipment Parts Suppliers",
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Reyco Auto",
+    "address": "25 Bergen Blvd, Fairview, NJ 07022",
+    "category": "Auto",
+    "detail": "General auto repairs, diagnostics, tire sales and fitting, alignment, transmission service and automotive A/C repairs.",
+    "website": "https://www.reycoauto.com/",
+    "phone": "201-840-9787",
+    "directoryGroup": "Mechanic Shops",
+    "county": "Bergen, NJ",
+    "sourceUrl": "https://www.reycoauto.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Fairview",
+    "postal_code": "07022",
+    "directoryTypes": [
+      "Mechanic Shops",
+      "Tire Shops",
+      "Transmission Shops",
+      "A/C & Cooling Shops"
+    ]
+  },
+  {
+    "name": "H & H Auto Parts",
+    "address": "287 NJ-94, Vernon Township, NJ 07462",
+    "category": "Auto",
+    "detail": "Auto parts supplier including automotive A/C compressors, condensers, receiver-driers and cooling-system parts. Parts supply rather than an A/C repair shop.",
+    "website": "https://www.handhautopartsnj.com/",
+    "phone": "973-827-3459",
+    "directoryGroup": "Auto Parts Suppliers",
+    "county": "Sussex, NJ",
+    "sourceUrl": "https://www.handhautopartsnj.com/auto_ac_auto_parts.html",
+    "checkedOn": "2026-10-09",
+    "town": "Vernon Township",
+    "postal_code": "07462",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers",
+      "A/C & Cooling Shops"
+    ]
+  },
+  {
+    "name": "Waxman of Tristate Auto Body & Collision Center",
+    "address": "18-24 Bayview Ave, Jersey City, NJ 07305",
+    "category": "Auto",
+    "detail": "Collision and body repairs, mechanical service, tire fitting and balancing, wheel repairs and refinishing.",
+    "website": "https://waxmancollision.com/",
+    "phone": "551-325-3030",
+    "directoryGroup": "Collision & Body Shops",
+    "county": "Hudson, NJ",
+    "sourceUrl": "https://waxmancollision.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Jersey City",
+    "postal_code": "07305",
+    "directoryTypes": [
+      "Collision & Body Shops",
+      "Mechanic Shops",
+      "Tire Shops"
+    ]
+  },
+  {
+    "name": "New Jersey Outboards",
+    "address": "105 Atlantic City Blvd, Bayville, NJ 08721",
+    "category": "Marine",
+    "detail": "Boat and outboard parts and accessories; marine parts store next door to the dealership. Call for specific parts and availability.",
+    "website": "https://www.njoutboards.com/",
+    "phone": "732-505-3002",
+    "directoryGroup": "Marine Parts Suppliers",
+    "county": "Ocean, NJ",
+    "sourceUrl": "https://www.njoutboards.com/boat-parts-department-bayville-nj-philadelphia-pa-new-york--parts",
+    "checkedOn": "2026-10-09",
+    "town": "Bayville",
+    "postal_code": "08721",
+    "directoryTypes": [
+      "Marine Parts Suppliers",
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "The Good Old Motorcycle Parts Company",
+    "address": "430 Communipaw Avenue, Suite B3A-3, Jersey City, NJ 07304",
+    "category": "Motorcycle",
+    "detail": "Classic motorcycle parts, restoration components and custom manufactured parts. Contact before visiting the listed company address.",
+    "website": "https://www.thegoodoldmotorcyclepartscompany.com/",
+    "phone": "201-683-8977",
+    "directoryGroup": "Motorcycle Parts Suppliers",
+    "county": "Hudson, NJ",
+    "sourceUrl": "https://www.thegoodoldmotorcyclepartscompany.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Jersey City",
+    "postal_code": "07304",
+    "directoryTypes": [
+      "Motorcycle Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers",
+      "Machine & Fabrication Shops"
+    ]
+  },
+  {
+    "name": "Bittone Equipment Services",
+    "address": "474 Center Street, Phillipsburg, NJ 08865",
+    "category": "Equipment",
+    "detail": "Truck and trailer parts, hydraulic hose assemblies, equipment repairs, welding, fabrication and commercial collision work.",
+    "website": "https://www.bittoneequipment.com/default.htm",
+    "phone": "908-434-7021",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "county": "Warren, NJ",
+    "sourceUrl": "https://www.bittoneequipment.com/default.htm",
+    "checkedOn": "2026-10-09",
+    "town": "Phillipsburg",
+    "postal_code": "08865",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops",
+      "Truck & Diesel Parts Suppliers",
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Machine & Fabrication Shops",
+      "Collision & Body Shops"
+    ]
+  },
+  {
+    "name": "Ruggieri Precision Machine",
+    "address": "1413 Route 179, Lambertville, NJ 08530",
+    "category": "Equipment",
+    "detail": "Precision machining, welding and fabrication, pump service and hydraulic cylinder repairs.",
+    "website": "https://www.ruggierimachine.com/",
+    "phone": "609-397-4378",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "county": "Hunterdon, NJ",
+    "sourceUrl": "https://www.ruggierimachine.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Lambertville",
+    "postal_code": "08530",
+    "directoryTypes": [
+      "Machine & Fabrication Shops",
+      "Hydraulic & Hose Shops"
+    ]
+  },
+  {
+    "name": "Centro Auto Body",
+    "address": "334 Hoboken Ave, Jersey City, NJ 07306",
+    "category": "Auto",
+    "detail": "Auto body and collision repairs.",
+    "website": "https://centroautobodynj.com/",
+    "phone": "201-653-7753",
+    "directoryGroup": "Collision & Body Shops",
+    "county": "Hudson, NJ",
+    "sourceUrl": "https://centroautobodynj.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Jersey City",
+    "postal_code": "07306",
+    "directoryTypes": [
+      "Collision & Body Shops"
+    ]
+  },
+  {
+    "name": "Allstar Fisher Trans",
+    "address": "507 Belmont Ave, Haledon, NJ 07508",
+    "category": "Auto",
+    "detail": "Transmission repair and rebuilding, drivetrain service, component machining and wholesale or retail transmission parts.",
+    "website": "https://www.cfiallstar.com/",
+    "phone": "973-942-5488",
+    "directoryGroup": "Transmission Shops",
+    "county": "Passaic, NJ",
+    "sourceUrl": "https://www.cfiallstar.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Haledon",
+    "postal_code": "07508",
+    "directoryTypes": [
+      "Transmission Shops",
+      "Machine & Fabrication Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "PowerHobby",
+    "address": "256 US Highway 202/31 N, Flemington, NJ 08822",
+    "category": "RC & Hobby",
+    "detail": "RC parts, performance upgrades, batteries, electronics, slot cars and model trains. Contact before visiting the listed business address.",
+    "website": "https://www.powerhobby.com/",
+    "phone": "800-380-3727",
+    "directoryGroup": "RC & Hobby Parts Suppliers",
+    "county": "Hunterdon, NJ",
+    "sourceUrl": "https://www.powerhobby.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Flemington",
+    "postal_code": "08822",
+    "directoryTypes": [
+      "RC & Hobby Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers",
+      "Hobby Shops"
+    ]
   }
 ];
