@@ -13,7 +13,7 @@ type Post = { id: string; shop_id: string; category: string; caption: string; im
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
 const directoryAreas = ["Nassau", "Suffolk", "Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island"];
-const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
+const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Junkyards, Salvage & Recycling"];
 const directoryBusinesses = [
   {
     "name": "Joseph's Service & Collision",
@@ -841,7 +841,7 @@ const directoryBusinesses = [
     "name": "Bay Auto Parts & Recycling",
     "address": "360 Atlantic Ave, Bellport, NY 11713",
     "category": "Auto",
-    "directoryGroup": "Salvage & Recycling",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
     "detail": "Used automotive replacement parts and vehicle recycling.",
     "website": "https://www.bayautony.com/contact.html",
     "phone": "631-286-4500",
@@ -851,7 +851,7 @@ const directoryBusinesses = [
     "town": "Bellport",
     "postal_code": "11713",
     "directoryTypes": [
-      "Salvage & Recycling",
+      "Junkyards, Salvage & Recycling",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
     ]
@@ -2096,6 +2096,95 @@ const directoryBusinesses = [
       "Mechanic Shops",
       "A/C & Cooling Shops"
     ]
+  },
+  {
+    "name": "LKQ Hunts Point Auto Parts",
+    "address": "1390 Spofford Ave, Bronx, NY 10459",
+    "category": "Auto",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "detail": "Recycled and used auto parts, aftermarket parts, remanufactured engines and rebuilt transmissions.",
+    "website": "https://locations.lkqcorp.com/us/ny/bronx/1390-spofford-ave/",
+    "phone": "888-893-0309",
+    "county": "Bronx",
+    "sourceUrl": "https://locations.lkqcorp.com/us/ny/bronx/1390-spofford-ave/",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10459",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Bronx Junk Car Depot",
+    "address": "1287 E Bay Ave, Bronx, NY 10474",
+    "category": "Auto",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "detail": "Junk vehicle removal and scrap metal recycling. Contact the business for pickup arrangements.",
+    "website": "https://www.bronxjunkcardepot.com/contact/",
+    "phone": "718-620-1981",
+    "county": "Bronx",
+    "sourceUrl": "https://www.bronxjunkcardepot.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10474",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "A&L Sheet Metal Fabrications",
+    "address": "1243 Oakpoint Ave, Bronx, NY 10474",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Sheet metal fabrication, laser cutting, bending, welding, tool and die making and machining.",
+    "website": "https://www.aandlsheetmetal.com/contact_us.html",
+    "phone": "718-842-1600",
+    "county": "Bronx",
+    "sourceUrl": "https://www.aandlsheetmetal.com/contact_us.html",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10474",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
+  },
+  {
+    "name": "Mil & Mir Steel Products",
+    "address": "1210 Randall Ave, Bronx, NY 10474",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Custom steel fabrication, welding and repairs, precision metal work and equipment fabrication.",
+    "website": "https://milandmirsteelproducts.com/contact/",
+    "phone": "718-328-7596",
+    "county": "Bronx",
+    "sourceUrl": "https://milandmirsteelproducts.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10474",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
+  },
+  {
+    "name": "Hunts Point Service Station",
+    "address": "565 Hunts Point Ave, Bronx, NY 10474",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Vehicle maintenance, mechanical and diesel repairs, inspections and air conditioning service.",
+    "website": "https://www.huntspointauto.com/",
+    "phone": "718-991-8808",
+    "county": "Bronx",
+    "sourceUrl": "https://www.huntspointauto.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10474",
+    "directoryTypes": [
+      "Mechanic Shops",
+      "A/C & Cooling Shops"
+    ]
   }
 ];
 
@@ -2121,7 +2210,8 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const town = location.trim().toLowerCase();
   const selected = categories.includes(category) ? category : "All";
   const selectedCounty = directoryAreas.includes(county) ? county : "All";
-  const selectedType = directoryGroups.includes(type) ? type : "All";
+  const requestedType = type === "Salvage & Recycling" ? "Junkyards, Salvage & Recycling" : type;
+  const selectedType = directoryGroups.includes(requestedType) ? requestedType : "All";
   const localResults = directoryBusinesses.filter((business) =>
     (selected === "All" || selected === business.category)
     && (selectedCounty === "All" || business.county === selectedCounty)
@@ -2143,7 +2233,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Parts &amp; Repair Directory</Link><Link href="/messages">Messages</Link></nav></div></header>
     <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island & NYC parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
-      <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Truck & Diesel Parts", type: "Truck & Diesel Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} style={{ color: "#071a35" }} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-amber-500 bg-amber-400" : "border-slate-300 bg-white hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
+      <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Truck & Diesel Parts", type: "Truck & Diesel Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }, { label: "Junkyards & Salvage", type: "Junkyards, Salvage & Recycling" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} style={{ color: "#071a35" }} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-amber-500 bg-amber-400" : "border-slate-300 bg-white hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
       <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town, borough or ZIP" aria-label="Town, neighborhood, borough or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County or borough" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All counties &amp; boroughs</option>{directoryAreas.map((area) => <option key={area}>{area}</option>)}</select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
       <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={queryLink({ category: item })} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
     </div></section>
