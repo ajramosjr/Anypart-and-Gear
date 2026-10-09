@@ -161,6 +161,15 @@ function listingQuality(draft: Record<string, string>) {
   return suggestions;
 }
 
+function GearPortrait() {
+  return (
+    <picture className={styles.gearPortrait} aria-hidden="true">
+      <source media="(prefers-reduced-motion: reduce)" srcSet="/gear-front.webp" />
+      <img src="/gear-blinking.webp" alt="" width={600} height={600} />
+    </picture>
+  );
+}
+
 export function GearsAssistant() {
   const pathname = usePathname();
   const october = useOctoberAwareness();
@@ -456,7 +465,7 @@ export function GearsAssistant() {
         <section className={styles.panel} aria-labelledby="gears-title">
           <div className={styles.header}>
             <div className={styles.headerGears} aria-hidden="true">{[0,1,2,3,4].map((gear) => <svg key={gear} viewBox="0 0 100 100"><g fill="none" stroke="currentColor" strokeWidth="5"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="12"/>{Array.from({length: 12}, (_, tooth) => <path key={tooth} d="M50 12V22" transform={`rotate(${tooth * 30} 50 50)`}/>)}</g></svg>)}</div>
-            <div className={styles.industrialAvatar} aria-hidden="true">⚙</div>
+            <div className={styles.industrialAvatar}><GearPortrait /></div>
             <div className={styles.heading}>
               <strong id="gears-title">Ask APG</strong>
               <span>{language === "es" ? "Asistente del sitio APG" : "Your APG assistant"}</span>
@@ -540,7 +549,7 @@ export function GearsAssistant() {
       ) : null}
 
       {!open && <button className={styles.industrialLauncher} type="button" onClick={toggleAssistant} aria-label="Open APG assistant" aria-expanded={open}>
-        <span aria-hidden="true">⚙</span><strong>Ask APG</strong>
+        <GearPortrait /><strong>Ask APG</strong>
       </button>}
       <button className={styles.hideGear} type="button" onClick={() => { setHidden(true); setOpen(false); try { window.localStorage.setItem("apg-gear-hidden-v1", "true"); } catch {} }}>Hide Gear</button>
 

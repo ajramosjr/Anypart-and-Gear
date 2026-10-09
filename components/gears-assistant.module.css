@@ -549,3 +549,27 @@
 .industrialLauncher strong { font-size: 13px; }
 .industrialLauncher:focus-visible { outline: 3px solid #db2777; outline-offset: 4px; }
 .industrialAvatar { display: grid; place-items: center; width: 56px; height: 56px; flex-shrink: 0; color: #eab645; font-size: 52px; }
+
+/* Gear stays still; only the eyes blink. */
+.industrialLauncher {
+  width: 92px;
+  height: auto;
+  min-height: 108px;
+  padding: 6px 4px 8px;
+  gap: 4px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  box-shadow: none;
+}
+.gearPortrait { display: block; width: 80px; height: 80px; flex-shrink: 0; }
+.gearPortrait img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.industrialLauncher strong {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #0b2345;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.industrialAvatar .gearPortrait { width: 56px; height: 56px; }
