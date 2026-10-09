@@ -8,19 +8,27 @@ export const dynamic = "force-dynamic";
 async function getListings(): Promise<Listing[]> {
   if (!hasSupabaseConfig()) return [];
   const supabase = await createClient();
+  const listings: Listing[] = [];
+  for (let offset = 0; ; offset += 500) {
   const { data, error } = await supabase
     .from("listings")
     .select("id,user_id,title,description,price,condition,category,location,seller_name,image_url,image_urls,trade,created_at")
     .eq("status", "active")
     .is("shop_id", null)
     .order("created_at", { ascending: false })
-    .limit(24);
-  if (error || !data?.length) return [];
-  return data as Listing[];
+    .range(offset, offset + 499);
+  if (error) throw new Error("Unable to load marketplace listings.");
+  listings.push(...(data || []) as Listing[]);
+  if (!data || data.length < 500) break;
+  }
+  return listings;
 }
 
-export default async function MarketplacePage() {
-  const [user, sourceListings] = await Promise.all([getUser(), getListings()]);
+export default async function MarketplacePage({ searchParams }: { searchParams: Promise<{ location?: string; category?: string; q?: string; sort?: string }> }) {
+  const [user, allListings, filters] = await Promise.all([getUser(), getListings(), searchParams]);
+  const locations = [...new Set(allListings.map(item => item.location?.trim()).filter((value): value is string => Boolean(value)))].sort((a, b) => a.localeCompare(b));
+  const selectedLocation = locations.includes(filters.location || "") ? filters.location! : "";
+  const sourceListings = selectedLocation ? allListings.filter(item => item.location?.trim() === selectedLocation) : allListings;
   const sellerIds = [...new Set(sourceListings.map((item) => item.user_id).filter((id): id is string => Boolean(id)))];
   const profileBadges = new Map<string, { emailVerified: boolean; trustedSeller: boolean }>();
   const verifiedBusinesses = new Set<string>();
@@ -50,5 +58,5 @@ export default async function MarketplacePage() {
     trustedSeller: item.user_id ? profileBadges.get(item.user_id)?.trustedSeller : false,
     verifiedBusiness: item.user_id ? verifiedBusinesses.has(item.user_id) : false,
   }));
-  return <Marketplace user={signedIn} signInPath="/login" signOutPath="/auth/signout" listings={listings} />;
+  return <Marketplace user={signedIn} signInPath="/login" signOutPath="/auth/signout" listings={listings} locations={locations} initialLocation={selectedLocation} initialQuery={filters.q || ""} initialCategory={filters.category || "All"} initialSort={filters.sort || "Newest"} />;
 }
