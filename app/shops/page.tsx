@@ -31,7 +31,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Sunrise Tire & Auto Repair \u2014 Seaford",
+    "name": "Sunrise Tire & Auto Repair — Seaford",
     "address": "4066 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Tires, wheel alignment, brakes, diagnostics and general auto maintenance.",
@@ -48,7 +48,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Toyota of Massapequa \u2014 Parts & Service",
+    "name": "Toyota of Massapequa — Parts & Service",
     "address": "3660 Sunrise Highway, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Toyota parts department and vehicle maintenance and repair services.",
@@ -67,7 +67,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Final Touch Auto Collision \u2014 Seaford",
+    "name": "Final Touch Auto Collision — Seaford",
     "address": "3586 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Collision, body, frame and mechanical repair services.",
@@ -84,7 +84,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Masters Auto Collision \u2014 Seaford",
+    "name": "Masters Auto Collision — Seaford",
     "address": "3530 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Auto body and collision repairs, painting and towing services.",
@@ -101,7 +101,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Jiffy Lube \u2014 Seaford",
+    "name": "Jiffy Lube — Seaford",
     "address": "3848 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Oil changes and vehicle preventive maintenance. Contact the location for available services.",
@@ -209,7 +209,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Moreland Hose \u2014 Hempstead",
+    "name": "Moreland Hose — Hempstead",
     "address": "135 Adams Ave, Hempstead, NY 11550",
     "category": "Equipment",
     "directoryGroup": "Hydraulic & Hose Shops",
@@ -226,7 +226,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Moreland Hose \u2014 Oakdale",
+    "name": "Moreland Hose — Oakdale",
     "address": "4118 Sunrise Hwy, Oakdale, NY 11769",
     "category": "Equipment",
     "directoryGroup": "Hydraulic & Hose Shops",
@@ -421,7 +421,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Arch Auto Parts \u2014 Elmont",
+    "name": "Arch Auto Parts — Elmont",
     "address": "1239 Hempstead Tpke, Elmont, NY 11003",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -440,7 +440,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Arch Auto Parts \u2014 Inwood",
+    "name": "Arch Auto Parts — Inwood",
     "address": "165 Sheridan Blvd, Inwood, NY 11096",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -459,7 +459,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Arch Auto Parts \u2014 Mineola",
+    "name": "Arch Auto Parts — Mineola",
     "address": "290 Willis Ave, Mineola, NY 11501",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -478,7 +478,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Arch Auto Parts \u2014 Plainview",
+    "name": "Arch Auto Parts — Plainview",
     "address": "125 Newtown Rd, Plainview, NY 11803",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -497,7 +497,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Tinker Auto Parts \u2014 Brentwood (200 Suffolk Ave)",
+    "name": "Tinker Auto Parts — Brentwood (200 Suffolk Ave)",
     "address": "200 Suffolk Ave, Brentwood, NY 11717",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -516,7 +516,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Tinker Auto Parts \u2014 Brentwood (1091 Suffolk Ave)",
+    "name": "Tinker Auto Parts — Brentwood (1091 Suffolk Ave)",
     "address": "1091 Suffolk Ave, Brentwood, NY 11717",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -535,7 +535,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Tinker Auto Parts \u2014 Bay Shore (199 5th Ave)",
+    "name": "Tinker Auto Parts — Bay Shore (199 5th Ave)",
     "address": "199 5th Ave, Bay Shore, NY 11706",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -554,7 +554,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Tinker Auto Parts \u2014 Bohemia (1650 Locust Ave)",
+    "name": "Tinker Auto Parts — Bohemia (1650 Locust Ave)",
     "address": "1650 Locust Ave, Bohemia, NY 11716",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -855,7 +855,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Sunrise Tire & Auto Repair \u2014 Massapequa Park",
+    "name": "Sunrise Tire & Auto Repair — Massapequa Park",
     "address": "4900 Sunrise Hwy, Massapequa Park, NY 11762",
     "category": "Auto",
     "directoryGroup": "Mechanic Shops",
@@ -991,7 +991,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Advance Auto Parts \u2014 Patchogue (282 Medford Ave)",
+    "name": "Advance Auto Parts — Patchogue (282 Medford Ave)",
     "address": "282 Medford Ave, Patchogue, NY 11772",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1010,7 +1010,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Advance Auto Parts \u2014 Patchogue (252 E Main St)",
+    "name": "Advance Auto Parts — Patchogue (252 E Main St)",
     "address": "252 E Main St, Patchogue, NY 11772",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1029,7 +1029,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Advance Auto Parts \u2014 Glen Cove (64 Forest Ave)",
+    "name": "Advance Auto Parts — Glen Cove (64 Forest Ave)",
     "address": "64 Forest Ave, Glen Cove, NY 11542",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1048,7 +1048,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Advance Auto Parts \u2014 Huntington Station (161 W Hills Rd)",
+    "name": "Advance Auto Parts — Huntington Station (161 W Hills Rd)",
     "address": "161 W Hills Rd, Huntington Station, NY 11746",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1067,7 +1067,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Advance Auto Parts \u2014 Huntington Station (619 E Jericho Tpke)",
+    "name": "Advance Auto Parts — Huntington Station (619 E Jericho Tpke)",
     "address": "619 E Jericho Tpke, Huntington Station, NY 11746",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1086,7 +1086,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "Advance Auto Parts \u2014 Port Jefferson Station (5170 Nesconset Hwy)",
+    "name": "Advance Auto Parts — Port Jefferson Station (5170 Nesconset Hwy)",
     "address": "5170 Nesconset Hwy, Port Jefferson Station, NY 11776",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1429,7 +1429,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "NAPA Auto Parts \u2014 Port Washington",
+    "name": "NAPA Auto Parts — Port Washington",
     "address": "352 Port Washington Blvd, Port Washington, NY 11050",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1448,7 +1448,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "NAPA Auto Parts \u2014 Franklin Square",
+    "name": "NAPA Auto Parts — Franklin Square",
     "address": "261 Franklin Ave, Franklin Square, NY 11010",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1467,7 +1467,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "NAPA Quick Auto Parts \u2014 Hicksville",
+    "name": "NAPA Quick Auto Parts — Hicksville",
     "address": "2 Bloomingdale Road, Hicksville, NY 11801",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1486,7 +1486,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "NAPA Auto Parts \u2014 Ronkonkoma",
+    "name": "NAPA Auto Parts — Ronkonkoma",
     "address": "206 Portion Road, Ronkonkoma, NY 11779",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1505,7 +1505,7 @@ const directoryBusinesses = [
     ]
   },
   {
-    "name": "NAPA Auto Parts \u2014 Massapequa",
+    "name": "NAPA Auto Parts — Massapequa",
     "address": "40 Brooklyn Ave, Massapequa, NY 11758",
     "category": "Auto",
     "directoryGroup": "Auto Parts Suppliers",
@@ -1520,6 +1520,25 @@ const directoryBusinesses = [
     "directoryTypes": [
       "Parts Suppliers",
       "Auto Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Island Hobby Nut",
+    "address": "1141 Jericho Turnpike, Suite 4, Commack, NY 11725",
+    "category": "RC & Hobby",
+    "directoryGroup": "Hobby Shops",
+    "detail": "RC cars, trucks, boats and planes, replacement parts, upgrades and accessories.",
+    "website": "https://islandhobbynut.com/",
+    "phone": "646-560-0909",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.northgateshops.com/stores/island-hobby-nut/",
+    "checkedOn": "2026-10-09",
+    "town": "Commack",
+    "postal_code": "11725",
+    "directoryTypes": [
+      "Hobby Shops",
+      "RC & Hobby Parts Suppliers",
       "All Parts Suppliers"
     ]
   }
