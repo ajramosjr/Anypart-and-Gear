@@ -38,6 +38,7 @@ export default function ApgLinksPage() {
         </div>
 
         <TrainingDirectory />
+        <p className="mt-8 leading-7 text-slate-600">More training schools and course providers will be added as we receive their permission to list them.</p>
         <p className="mt-8 text-sm leading-6 text-slate-500">BoatUS Foundation and On the Road Again Motorcycle School are independent course providers. Listings in APG Links do not imply sponsorship or a partnership with APG.</p>
       </section>
     </main>
