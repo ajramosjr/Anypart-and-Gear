@@ -11,7 +11,7 @@ type Shop = { id: string; owner_id: string; name: string; specialty: string; loc
 type Post = { id: string; shop_id: string; category: string; caption: string; image_url: string; price: number | null };
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
-const directoryGroups = ["Mechanic Shops", "Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
+const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
 const directoryBusinesses = [
   {
     "name": "Joseph's Service & Collision",
@@ -54,14 +54,16 @@ const directoryBusinesses = [
     "detail": "Toyota parts department and vehicle maintenance and repair services.",
     "website": "https://www.toyotaofmassapequany.com/parts-department",
     "phone": "516-981-4100",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "county": "Nassau",
     "sourceUrl": "https://www.toyotaofmassapequany.com/parts-department",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
     "postal_code": "11783",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -129,7 +131,9 @@ const directoryBusinesses = [
     "town": "Seaford",
     "postal_code": "11783",
     "directoryTypes": [
-      "Marine Shops"
+      "Marine Shops",
+      "Marine Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -180,7 +184,9 @@ const directoryBusinesses = [
     "town": "Freeport",
     "postal_code": "11520",
     "directoryTypes": [
-      "Hobby Shops"
+      "Hobby Shops",
+      "RC & Hobby Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -197,7 +203,9 @@ const directoryBusinesses = [
     "town": "Mineola",
     "postal_code": "11501",
     "directoryTypes": [
-      "Hobby Shops"
+      "Hobby Shops",
+      "RC & Hobby Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -350,7 +358,9 @@ const directoryBusinesses = [
     "town": "Oceanside",
     "postal_code": "11572",
     "directoryTypes": [
-      "Marine Shops"
+      "Marine Shops",
+      "Marine Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -367,7 +377,9 @@ const directoryBusinesses = [
     "town": "Southold",
     "postal_code": "11971",
     "directoryTypes": [
-      "Marine Shops"
+      "Marine Shops",
+      "Marine Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -384,14 +396,16 @@ const directoryBusinesses = [
     "town": "Southold",
     "postal_code": "11971",
     "directoryTypes": [
-      "Marine Shops"
+      "Marine Shops",
+      "Marine Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Long Island Heavy Equipment Parts",
     "address": "1581 Route 112, Unit B, Port Jefferson Station, NY 11776",
     "category": "Equipment",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Equipment Parts Suppliers",
     "detail": "Replacement parts for heavy equipment and construction machinery.",
     "website": "https://www.liheavyequipmentparts.com/contact-us",
     "phone": "631-468-8851",
@@ -401,14 +415,16 @@ const directoryBusinesses = [
     "town": "Port Jefferson Station",
     "postal_code": "11776",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Equipment Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Arch Auto Parts \u2014 Elmont",
     "address": "1239 Hempstead Tpke, Elmont, NY 11003",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
     "website": "https://archautoparts.com/locations/",
     "phone": "516-354-3888",
@@ -418,14 +434,16 @@ const directoryBusinesses = [
     "town": "Elmont",
     "postal_code": "11003",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Arch Auto Parts \u2014 Inwood",
     "address": "165 Sheridan Blvd, Inwood, NY 11096",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
     "website": "https://archautoparts.com/locations/",
     "phone": "516-239-8998",
@@ -435,14 +453,16 @@ const directoryBusinesses = [
     "town": "Inwood",
     "postal_code": "11096",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Arch Auto Parts \u2014 Mineola",
     "address": "290 Willis Ave, Mineola, NY 11501",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
     "website": "https://archautoparts.com/locations/",
     "phone": "516-625-0940",
@@ -452,14 +472,16 @@ const directoryBusinesses = [
     "town": "Mineola",
     "postal_code": "11501",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Arch Auto Parts \u2014 Plainview",
     "address": "125 Newtown Rd, Plainview, NY 11803",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
     "website": "https://archautoparts.com/locations/",
     "phone": "516-631-0100",
@@ -469,14 +491,16 @@ const directoryBusinesses = [
     "town": "Plainview",
     "postal_code": "11803",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Brentwood (200 Suffolk Ave)",
     "address": "200 Suffolk Ave, Brentwood, NY 11717",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
     "website": "https://www.tinkerautoparts.net/",
     "phone": "631-273-1771",
@@ -486,14 +510,16 @@ const directoryBusinesses = [
     "town": "Brentwood",
     "postal_code": "11717",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Brentwood (1091 Suffolk Ave)",
     "address": "1091 Suffolk Ave, Brentwood, NY 11717",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
     "website": "https://www.tinkerautoparts.net/",
     "phone": "631-952-0980",
@@ -503,14 +529,16 @@ const directoryBusinesses = [
     "town": "Brentwood",
     "postal_code": "11717",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Bay Shore (199 5th Ave)",
     "address": "199 5th Ave, Bay Shore, NY 11706",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
     "website": "https://www.tinkerautoparts.net/",
     "phone": "631-665-0700",
@@ -520,14 +548,16 @@ const directoryBusinesses = [
     "town": "Bay Shore",
     "postal_code": "11706",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Bohemia (1650 Locust Ave)",
     "address": "1650 Locust Ave, Bohemia, NY 11716",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
     "website": "https://www.tinkerautoparts.net/",
     "phone": "631-567-1991",
@@ -537,7 +567,9 @@ const directoryBusinesses = [
     "town": "Bohemia",
     "postal_code": "11716",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -657,7 +689,8 @@ const directoryBusinesses = [
     "postal_code": "11901",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -675,7 +708,8 @@ const directoryBusinesses = [
     "postal_code": "11710",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -693,7 +727,8 @@ const directoryBusinesses = [
     "postal_code": "11801",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -710,7 +745,9 @@ const directoryBusinesses = [
     "town": "Bay Shore",
     "postal_code": "11706",
     "directoryTypes": [
-      "Hobby Shops"
+      "Hobby Shops",
+      "RC & Hobby Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -812,7 +849,9 @@ const directoryBusinesses = [
     "town": "Bellport",
     "postal_code": "11713",
     "directoryTypes": [
-      "Salvage & Recycling"
+      "Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -955,7 +994,7 @@ const directoryBusinesses = [
     "name": "Advance Auto Parts \u2014 Patchogue (282 Medford Ave)",
     "address": "282 Medford Ave, Patchogue, NY 11772",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
     "website": "https://stores.advanceautoparts.com/ny/patchogue/282-medford-ave",
     "phone": "631-576-4243",
@@ -965,14 +1004,16 @@ const directoryBusinesses = [
     "town": "Patchogue",
     "postal_code": "11772",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Advance Auto Parts \u2014 Patchogue (252 E Main St)",
     "address": "252 E Main St, Patchogue, NY 11772",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
     "website": "https://stores.advanceautoparts.com/ny/patchogue/252-e-main-st",
     "phone": "631-687-3490",
@@ -982,14 +1023,16 @@ const directoryBusinesses = [
     "town": "Patchogue",
     "postal_code": "11772",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Advance Auto Parts \u2014 Glen Cove (64 Forest Ave)",
     "address": "64 Forest Ave, Glen Cove, NY 11542",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
     "website": "https://stores.advanceautoparts.com/ny/glen-cove/64-forest-ave",
     "phone": "516-686-9935",
@@ -999,14 +1042,16 @@ const directoryBusinesses = [
     "town": "Glen Cove",
     "postal_code": "11542",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Advance Auto Parts \u2014 Huntington Station (161 W Hills Rd)",
     "address": "161 W Hills Rd, Huntington Station, NY 11746",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
     "website": "https://stores.advanceautoparts.com/ny/huntington-station/161-w-hills-rd",
     "phone": "631-479-3757",
@@ -1016,14 +1061,16 @@ const directoryBusinesses = [
     "town": "Huntington Station",
     "postal_code": "11746",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Advance Auto Parts \u2014 Huntington Station (619 E Jericho Tpke)",
     "address": "619 E Jericho Tpke, Huntington Station, NY 11746",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
     "website": "https://stores.advanceautoparts.com/ny/huntington-station/619-e-jericho-tpke",
     "phone": "631-421-3151",
@@ -1033,14 +1080,16 @@ const directoryBusinesses = [
     "town": "Huntington Station",
     "postal_code": "11746",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "Advance Auto Parts \u2014 Port Jefferson Station (5170 Nesconset Hwy)",
     "address": "5170 Nesconset Hwy, Port Jefferson Station, NY 11776",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
     "website": "https://stores.advanceautoparts.com/ny/port-jefferson-station/5170-nesconset-hwy",
     "phone": "631-791-4036",
@@ -1050,7 +1099,9 @@ const directoryBusinesses = [
     "town": "Port Jefferson Station",
     "postal_code": "11776",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1221,7 +1272,8 @@ const directoryBusinesses = [
     "postal_code": "11706",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1239,7 +1291,8 @@ const directoryBusinesses = [
     "postal_code": "11769",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1257,7 +1310,8 @@ const directoryBusinesses = [
     "postal_code": "11769",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1275,7 +1329,8 @@ const directoryBusinesses = [
     "postal_code": "11727",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1293,7 +1348,8 @@ const directoryBusinesses = [
     "postal_code": "11746",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1311,7 +1367,8 @@ const directoryBusinesses = [
     "postal_code": "11758",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1329,7 +1386,8 @@ const directoryBusinesses = [
     "postal_code": "11801",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1347,7 +1405,8 @@ const directoryBusinesses = [
     "postal_code": "11710",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
@@ -1365,14 +1424,15 @@ const directoryBusinesses = [
     "postal_code": "11501",
     "directoryTypes": [
       "Motorcycle Shops",
-      "Motorcycle Parts Suppliers"
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "NAPA Auto Parts \u2014 Port Washington",
     "address": "352 Port Washington Blvd, Port Washington, NY 11050",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive parts, hydraulic hoses and snow plow parts.",
     "website": "https://portnapa.com/contact/",
     "phone": "516-767-8100",
@@ -1382,14 +1442,16 @@ const directoryBusinesses = [
     "town": "Port Washington",
     "postal_code": "11050",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "NAPA Auto Parts \u2014 Franklin Square",
     "address": "261 Franklin Ave, Franklin Square, NY 11010",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries and maintenance supplies.",
     "website": "https://www.napaonline.com/en/ny/franklin-square/store/805304",
     "phone": "516-437-8281",
@@ -1399,14 +1461,16 @@ const directoryBusinesses = [
     "town": "Franklin Square",
     "postal_code": "11010",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "NAPA Quick Auto Parts \u2014 Hicksville",
     "address": "2 Bloomingdale Road, Hicksville, NY 11801",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries and maintenance supplies.",
     "website": "https://www.napaonline.com/en/ny/hicksville/store/32551",
     "phone": "516-938-4900",
@@ -1416,14 +1480,16 @@ const directoryBusinesses = [
     "town": "Hicksville",
     "postal_code": "11801",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "NAPA Auto Parts \u2014 Ronkonkoma",
     "address": "206 Portion Road, Ronkonkoma, NY 11779",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries and maintenance supplies.",
     "website": "https://www.napaonline.com/en/ny/ronkonkoma/store/805755",
     "phone": "631-676-4300",
@@ -1433,14 +1499,16 @@ const directoryBusinesses = [
     "town": "Ronkonkoma",
     "postal_code": "11779",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   },
   {
     "name": "NAPA Auto Parts \u2014 Massapequa",
     "address": "40 Brooklyn Ave, Massapequa, NY 11758",
     "category": "Auto",
-    "directoryGroup": "Parts Suppliers",
+    "directoryGroup": "Auto Parts Suppliers",
     "detail": "Automotive replacement parts, batteries and maintenance supplies.",
     "website": "https://www.napaonline.com/en/ny/massapequa/store/805752",
     "phone": "516-420-9060",
@@ -1450,7 +1518,9 @@ const directoryBusinesses = [
     "town": "Massapequa",
     "postal_code": "11758",
     "directoryTypes": [
-      "Parts Suppliers"
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "All Parts Suppliers"
     ]
   }
 ];
@@ -1499,6 +1569,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Parts &amp; Repair Directory</Link><Link href="/messages">Messages</Link></nav></div></header>
     <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
+      <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-[#071a35] bg-[#071a35] text-white" : "border-slate-300 bg-white text-[#071a35] hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
       <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town or ZIP" aria-label="Town or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All counties</option><option>Nassau</option><option>Suffolk</option></select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
       <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={queryLink({ category: item })} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
     </div></section>
