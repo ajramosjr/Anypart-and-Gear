@@ -11,10 +11,8 @@ type Shop = { id: string; owner_id: string; name: string; specialty: string; loc
 type Post = { id: string; shop_id: string; category: string; caption: string; image_url: string; price: number | null };
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
-const localHobbyShops = [{"name":"Nassau Hobby Center","address":"13 W Merrick Road, Freeport, NY 11520","detail":"RC parts, power and control accessories, drones, helicopters, planes, cars, trucks and boats.","website":"https://nassauhobby.com/","phone":"516-378-9594"},{"name":"Willis Hobbies","address":"300 Willis Avenue, Mineola, NY 11501","detail":"RC and model hobby products, parts and accessories.","website":"https://willishobbies.com/","phone":"516-746-3944"}];
-
-const directoryGroups = ["Mechanic Shops", "Parts Suppliers", "Marine Shops", "Collision & Body Shops"];
-const seafordBusinesses = [
+const directoryGroups = ["Mechanic Shops", "Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
+const directoryBusinesses = [
   {
     "name": "Joseph's Service & Collision",
     "address": "3458 Merrick Road, Seaford, NY 11783",
@@ -22,52 +20,82 @@ const seafordBusinesses = [
     "detail": "Auto diagnostics, maintenance, mechanical repairs and collision service.",
     "website": "https://www.josephsservice.com/",
     "phone": "516-679-8944",
-    "directoryGroup": "Mechanic Shops"
+    "directoryGroup": "Mechanic Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.josephsservice.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
-    "name": "Sunrise Tire & Auto Repair — Seaford",
+    "name": "Sunrise Tire & Auto Repair \u2014 Seaford",
     "address": "4066 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Tires, wheel alignment, brakes, diagnostics and general auto maintenance.",
     "website": "https://www.sunrisetire.net/Find-Us/Mode/3/4066-Merrick-Rd-Seaford-NY-11783/details",
     "phone": "516-785-6015",
-    "directoryGroup": "Mechanic Shops"
+    "directoryGroup": "Mechanic Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.sunrisetire.net/Find-Us/Mode/3/4066-Merrick-Rd-Seaford-NY-11783/details",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
-    "name": "Toyota of Massapequa — Parts & Service",
+    "name": "Toyota of Massapequa \u2014 Parts & Service",
     "address": "3660 Sunrise Highway, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Toyota parts department and vehicle maintenance and repair services.",
     "website": "https://www.toyotaofmassapequany.com/parts-department",
     "phone": "516-981-4100",
-    "directoryGroup": "Parts Suppliers"
+    "directoryGroup": "Parts Suppliers",
+    "county": "Nassau",
+    "sourceUrl": "https://www.toyotaofmassapequany.com/parts-department",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
-    "name": "Final Touch Auto Collision — Seaford",
+    "name": "Final Touch Auto Collision \u2014 Seaford",
     "address": "3586 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Collision, body, frame and mechanical repair services.",
     "website": "https://www.finaltouchli.com/contact/",
     "phone": "516-221-7611",
-    "directoryGroup": "Collision & Body Shops"
+    "directoryGroup": "Collision & Body Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.finaltouchli.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
-    "name": "Masters Auto Collision — Seaford",
+    "name": "Masters Auto Collision \u2014 Seaford",
     "address": "3530 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Auto body and collision repairs, painting and towing services.",
     "website": "https://www.masterscollision.com/services/",
     "phone": "516-826-2763",
-    "directoryGroup": "Collision & Body Shops"
+    "directoryGroup": "Collision & Body Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.masterscollision.com/services/",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
-    "name": "Jiffy Lube — Seaford",
+    "name": "Jiffy Lube \u2014 Seaford",
     "address": "3848 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
     "detail": "Oil changes and vehicle preventive maintenance. Contact the location for available services.",
     "website": "https://www.jiffylube.com/locations/ny/seaford/815",
     "phone": "516-783-4324",
-    "directoryGroup": "Mechanic Shops"
+    "directoryGroup": "Mechanic Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.jiffylube.com/locations/ny/seaford/815",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
     "name": "Blue Marlin Boats",
@@ -76,7 +104,12 @@ const seafordBusinesses = [
     "detail": "Boat parts and accessories, maintenance and repair services.",
     "website": "https://www.bluemarlinboats.net/we-offer-great-variety-of-boats-dealership--parts",
     "phone": "516-679-2121",
-    "directoryGroup": "Marine Shops"
+    "directoryGroup": "Marine Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.bluemarlinboats.net/we-offer-great-variety-of-boats-dealership--parts",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
     "name": "Jetmore Jetski",
@@ -85,7 +118,12 @@ const seafordBusinesses = [
     "detail": "Jet ski and jet boat repairs, mobile service, winterization and storage.",
     "website": "https://jetmorejetski.com/",
     "phone": "516-765-1861",
-    "directoryGroup": "Marine Shops"
+    "directoryGroup": "Marine Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://jetmorejetski.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
   },
   {
     "name": "Matt's Marina",
@@ -94,12 +132,871 @@ const seafordBusinesses = [
     "detail": "Marina storage, dockage, maintenance, repairs and repowers.",
     "website": "https://mattsmarinali.com/",
     "phone": "516-324-6819",
-    "directoryGroup": "Marine Shops"
+    "directoryGroup": "Marine Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://mattsmarinali.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Seaford",
+    "postal_code": "11783"
+  },
+  {
+    "name": "Nassau Hobby Center",
+    "address": "13 W Merrick Road, Freeport, NY 11520",
+    "detail": "RC parts, power and control accessories, drones, helicopters, planes, cars, trucks and boats.",
+    "website": "https://nassauhobby.com/",
+    "phone": "516-378-9594",
+    "category": "RC & Hobby",
+    "directoryGroup": "Hobby Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://nassauhobby.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Freeport",
+    "postal_code": "11520"
+  },
+  {
+    "name": "Willis Hobbies",
+    "address": "300 Willis Avenue, Mineola, NY 11501",
+    "detail": "RC and model hobby products, parts and accessories.",
+    "website": "https://willishobbies.com/",
+    "phone": "516-746-3944",
+    "category": "RC & Hobby",
+    "directoryGroup": "Hobby Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://willishobbies.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Mineola",
+    "postal_code": "11501"
+  },
+  {
+    "name": "Moreland Hose \u2014 Hempstead",
+    "address": "135 Adams Ave, Hempstead, NY 11550",
+    "category": "Equipment",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "detail": "Hydraulic, industrial, marine and automotive hose assemblies and fittings.",
+    "website": "https://morelandhose.com/contact/",
+    "phone": "516-844-0294",
+    "county": "Nassau",
+    "sourceUrl": "https://morelandhose.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Hempstead",
+    "postal_code": "11550"
+  },
+  {
+    "name": "Moreland Hose \u2014 Oakdale",
+    "address": "4118 Sunrise Hwy, Oakdale, NY 11769",
+    "category": "Equipment",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "detail": "Custom hydraulic and industrial hoses, fittings and on-site fabrication.",
+    "website": "https://morelandhose.com/contact/",
+    "phone": "631-349-2973",
+    "county": "Suffolk",
+    "sourceUrl": "https://morelandhose.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Oakdale",
+    "postal_code": "11769"
+  },
+  {
+    "name": "Long Island Hose Company",
+    "address": "3 Rockwood Ave, Massapequa, NY 11758",
+    "category": "Equipment",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "detail": "Hydraulic, auto, truck and marine hoses, fittings and custom assemblies.",
+    "website": "https://longislandhose.com/",
+    "phone": "516-855-0155",
+    "county": "Nassau",
+    "sourceUrl": "https://longislandhose.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Massapequa",
+    "postal_code": "11758"
+  },
+  {
+    "name": "Buxton Machining & Fabricating",
+    "address": "289 Knickerbocker Ave, Bohemia, NY 11716",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "CNC and manual machining, welding, metal fabrication and prototype parts.",
+    "website": "https://buxtonmachine.com/",
+    "phone": "631-218-2791",
+    "county": "Suffolk",
+    "sourceUrl": "https://buxtonmachine.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Bohemia",
+    "postal_code": "11716"
+  },
+  {
+    "name": "Pronto Manufacturing",
+    "address": "50 Remington Blvd, Ronkonkoma, NY 11779",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "CNC milling and turning, tool and die work and metal stamping.",
+    "website": "https://www.prontomfg.com/contact-us",
+    "phone": "631-981-8920",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.prontomfg.com/contact-us",
+    "checkedOn": "2026-10-09",
+    "town": "Ronkonkoma",
+    "postal_code": "11779"
+  },
+  {
+    "name": "Hunter Metal Industries",
+    "address": "14 Hewlett Ave, East Patchogue, NY 11772",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Metal cutting, forming, welding, coating and component fabrication.",
+    "website": "https://huntermetalindustries.com/",
+    "phone": "631-475-5900",
+    "county": "Suffolk",
+    "sourceUrl": "https://huntermetalindustries.com/",
+    "checkedOn": "2026-10-09",
+    "town": "East Patchogue",
+    "postal_code": "11772"
+  },
+  {
+    "name": "Mid Island Steel",
+    "address": "295 Middle Island Rd, Medford, NY 11763",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Steel supply, custom metal fabrication, sheet metal and welding.",
+    "website": "https://midislandsteel.com/contact/",
+    "phone": "631-696-0066",
+    "county": "Suffolk",
+    "sourceUrl": "https://midislandsteel.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Medford",
+    "postal_code": "11763"
+  },
+  {
+    "name": "Midhampton Welding",
+    "address": "20 Enterprise Zone Drive, Unit D, Riverhead, NY 11901",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Custom welding, metal fabrication and equipment and trailer repairs. Call ahead.",
+    "website": "https://www.midhampton.com/",
+    "phone": "631-375-3422",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.midhampton.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901"
+  },
+  {
+    "name": "All Island Marine",
+    "address": "480 Reina Road, Oceanside, NY 11572",
+    "category": "Marine",
+    "directoryGroup": "Marine Shops",
+    "detail": "Marine engine parts, repairs, repowers, boat maintenance and storage.",
+    "website": "https://allisland.com/contact-us/",
+    "phone": "516-764-3300",
+    "county": "Nassau",
+    "sourceUrl": "https://allisland.com/contact-us/",
+    "checkedOn": "2026-10-09",
+    "town": "Oceanside",
+    "postal_code": "11572"
+  },
+  {
+    "name": "Peconic Marine",
+    "address": "46770 County Rd 48, Southold, NY 11971",
+    "category": "Marine",
+    "directoryGroup": "Marine Shops",
+    "detail": "Boat parts, maintenance, service and storage.",
+    "website": "https://peconicmarine.com/contact/",
+    "phone": "631-640-8833",
+    "county": "Suffolk",
+    "sourceUrl": "https://peconicmarine.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Southold",
+    "postal_code": "11971"
+  },
+  {
+    "name": "Port of Egypt Marine",
+    "address": "62300 Main Rd, Southold, NY 11971",
+    "category": "Marine",
+    "directoryGroup": "Marine Shops",
+    "detail": "Boat service, marine parts and supplies, dockage and storage.",
+    "website": "https://www.poemarine.com/hours",
+    "phone": "631-765-2445",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.poemarine.com/hours",
+    "checkedOn": "2026-10-09",
+    "town": "Southold",
+    "postal_code": "11971"
+  },
+  {
+    "name": "Long Island Heavy Equipment Parts",
+    "address": "1581 Route 112, Unit B, Port Jefferson Station, NY 11776",
+    "category": "Equipment",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Replacement parts for heavy equipment and construction machinery.",
+    "website": "https://www.liheavyequipmentparts.com/contact-us",
+    "phone": "631-468-8851",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.liheavyequipmentparts.com/contact-us",
+    "checkedOn": "2026-10-09",
+    "town": "Port Jefferson Station",
+    "postal_code": "11776"
+  },
+  {
+    "name": "Arch Auto Parts \u2014 Elmont",
+    "address": "1239 Hempstead Tpke, Elmont, NY 11003",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "516-354-3888",
+    "county": "Nassau",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Elmont",
+    "postal_code": "11003"
+  },
+  {
+    "name": "Arch Auto Parts \u2014 Inwood",
+    "address": "165 Sheridan Blvd, Inwood, NY 11096",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "516-239-8998",
+    "county": "Nassau",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Inwood",
+    "postal_code": "11096"
+  },
+  {
+    "name": "Arch Auto Parts \u2014 Mineola",
+    "address": "290 Willis Ave, Mineola, NY 11501",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "516-625-0940",
+    "county": "Nassau",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Mineola",
+    "postal_code": "11501"
+  },
+  {
+    "name": "Arch Auto Parts \u2014 Plainview",
+    "address": "125 Newtown Rd, Plainview, NY 11803",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts and supplies. Contact the store for stock.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "516-631-0100",
+    "county": "Nassau",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Plainview",
+    "postal_code": "11803"
+  },
+  {
+    "name": "Tinker Auto Parts \u2014 Brentwood (200 Suffolk Ave)",
+    "address": "200 Suffolk Ave, Brentwood, NY 11717",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
+    "website": "https://www.tinkerautoparts.net/",
+    "phone": "631-273-1771",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.tinkerautoparts.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Brentwood",
+    "postal_code": "11717"
+  },
+  {
+    "name": "Tinker Auto Parts \u2014 Brentwood (1091 Suffolk Ave)",
+    "address": "1091 Suffolk Ave, Brentwood, NY 11717",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
+    "website": "https://www.tinkerautoparts.net/",
+    "phone": "631-952-0980",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.tinkerautoparts.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Brentwood",
+    "postal_code": "11717"
+  },
+  {
+    "name": "Tinker Auto Parts \u2014 Bay Shore (199 5th Ave)",
+    "address": "199 5th Ave, Bay Shore, NY 11706",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
+    "website": "https://www.tinkerautoparts.net/",
+    "phone": "631-665-0700",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.tinkerautoparts.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Bay Shore",
+    "postal_code": "11706"
+  },
+  {
+    "name": "Tinker Auto Parts \u2014 Bohemia (1650 Locust Ave)",
+    "address": "1650 Locust Ave, Bohemia, NY 11716",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive parts, tools and equipment for retail and wholesale customers.",
+    "website": "https://www.tinkerautoparts.net/",
+    "phone": "631-567-1991",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.tinkerautoparts.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Bohemia",
+    "postal_code": "11716"
+  },
+  {
+    "name": "Holbrook MTA Auto Service",
+    "address": "397 Union Ave, Suite A, Holbrook, NY 11741",
+    "category": "Auto",
+    "directoryGroup": "A/C & Cooling Shops",
+    "detail": "Automotive air conditioning, heating and cooling repairs; general auto service.",
+    "website": "https://www.holbrookmta.com/AC-repair-Holbrook.html",
+    "phone": "631-585-6656",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.holbrookmta.com/AC-repair-Holbrook.html",
+    "checkedOn": "2026-10-09",
+    "town": "Holbrook",
+    "postal_code": "11741"
+  },
+  {
+    "name": "East Coast Transmissions",
+    "address": "1015A North Wellwood Avenue, North Lindenhurst, NY 11757",
+    "category": "Auto",
+    "directoryGroup": "Transmission Shops",
+    "detail": "Transmission service and general auto and truck repairs.",
+    "website": "https://transmissionslongisland.com/",
+    "phone": "631-841-0895",
+    "county": "Suffolk",
+    "sourceUrl": "https://transmissionslongisland.com/",
+    "checkedOn": "2026-10-09",
+    "town": "North Lindenhurst",
+    "postal_code": "11757"
+  },
+  {
+    "name": "Sunrise Transmission",
+    "address": "2877 Sunrise Highway, Islip Terrace, NY 11752",
+    "category": "Auto",
+    "directoryGroup": "Transmission Shops",
+    "detail": "Transmission repairs, axles, transfer cases and torque converters.",
+    "website": "https://www.sunrisetransmissionny.com/",
+    "phone": "631-277-4433",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.sunrisetransmissionny.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Islip Terrace",
+    "postal_code": "11752"
+  },
+  {
+    "name": "Sunny's Transmissions",
+    "address": "3375 Lawson Blvd, Oceanside, NY 11572",
+    "category": "Auto",
+    "directoryGroup": "Transmission Shops",
+    "detail": "Automotive transmission repairs and rebuilds.",
+    "website": "https://www.sunnystransmission.com/",
+    "phone": "516-239-2600",
+    "county": "Nassau",
+    "sourceUrl": "https://www.sunnystransmission.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Oceanside",
+    "postal_code": "11572"
+  },
+  {
+    "name": "Star Transmissions",
+    "address": "994 Fulton St, Farmingdale, NY 11735",
+    "category": "Auto",
+    "directoryGroup": "Transmission Shops",
+    "detail": "Transmission diagnosis, repairs and rebuilds.",
+    "website": "https://startransmissions.com/",
+    "phone": "516-962-0619",
+    "county": "Nassau",
+    "sourceUrl": "https://startransmissions.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Farmingdale",
+    "postal_code": "11735"
+  },
+  {
+    "name": "F & J Transmissions",
+    "address": "188-3 Frowein Rd, East Moriches, NY 11940",
+    "category": "Auto",
+    "directoryGroup": "Transmission Shops",
+    "detail": "Transmission and general auto repairs.",
+    "website": "https://www.fjautomotivecenter.com/contact",
+    "phone": "631-874-3417",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.fjautomotivecenter.com/contact",
+    "checkedOn": "2026-10-09",
+    "town": "East Moriches",
+    "postal_code": "11940"
+  },
+  {
+    "name": "Long Island Motorcycle Connect",
+    "address": "1290 Flanders Road, Suite B, Flanders, NY 11901",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle repair, performance work, parts and apparel.",
+    "website": "https://www.longislandmotorcycleconnect.com/contact",
+    "phone": "631-508-0518",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.longislandmotorcycleconnect.com/contact",
+    "checkedOn": "2026-10-09",
+    "town": "Flanders",
+    "postal_code": "11901"
+  },
+  {
+    "name": "Triumph & Royal Enfield Nassau County",
+    "address": "853 Sunrise Highway, Bellmore, NY 11710",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle parts, accessories, maintenance, repairs and customization.",
+    "website": "https://triumphnassaucounty.com/service-and-maintenance",
+    "phone": "516-409-1010",
+    "county": "Nassau",
+    "sourceUrl": "https://triumphnassaucounty.com/service-and-maintenance",
+    "checkedOn": "2026-10-09",
+    "town": "Bellmore",
+    "postal_code": "11710"
+  },
+  {
+    "name": "Long Island Kawasaki Yamaha",
+    "address": "67 N Broadway, Hicksville, NY 11801",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle, ATV and personal watercraft parts and service.",
+    "website": "https://www.likawasaki.com/",
+    "phone": "516-935-6969",
+    "county": "Nassau",
+    "sourceUrl": "https://www.likawasaki.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Hicksville",
+    "postal_code": "11801"
+  },
+  {
+    "name": "Bay Shore Hobbies & Toys",
+    "address": "2056 Sunrise Hwy, Bay Shore, NY 11706",
+    "category": "RC & Hobby",
+    "directoryGroup": "Hobby Shops",
+    "detail": "RC vehicles, parts, model kits and hobby supplies.",
+    "website": "https://bayshorehobbiesandtoys.com/",
+    "phone": "631-968-8547",
+    "county": "Suffolk",
+    "sourceUrl": "https://bayshorehobbiesandtoys.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Bay Shore",
+    "postal_code": "11706"
+  },
+  {
+    "name": "Acme Radiator",
+    "address": "49 Carleton Avenue, Islip Terrace, NY 11752",
+    "category": "Auto",
+    "directoryGroup": "A/C & Cooling Shops",
+    "detail": "Vehicle air conditioning, heating, radiator and cooling system repairs.",
+    "website": "https://www.acmeradiator.shop/local-home",
+    "phone": "631-581-9199",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.acmeradiator.shop/local-home",
+    "checkedOn": "2026-10-09",
+    "town": "Islip Terrace",
+    "postal_code": "11752"
+  },
+  {
+    "name": "Alpha Manufacturing Corporation",
+    "address": "152 Verdi Street, Farmingdale, NY 11735",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "CNC machining and precision components for industrial applications.",
+    "website": "https://alphamfgcorp.com/contact-us",
+    "phone": "631-249-3700",
+    "county": "Suffolk",
+    "sourceUrl": "https://alphamfgcorp.com/contact-us",
+    "checkedOn": "2026-10-09",
+    "town": "Farmingdale",
+    "postal_code": "11735"
+  },
+  {
+    "name": "RS Precision",
+    "address": "295 Adams Blvd, Farmingdale, NY 11735",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Precision CNC machining and manufacturing.",
+    "website": "https://www.rsprecision.com/contact/",
+    "phone": "631-249-2600",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.rsprecision.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Farmingdale",
+    "postal_code": "11735"
+  },
+  {
+    "name": "JL Machining & Tooling",
+    "address": "17 Field Street, Unit C, West Babylon, NY 11704",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "CNC milling, precision parts and prototype machining. By appointment.",
+    "website": "https://jlmachining.co/",
+    "phone": "516-266-6215",
+    "county": "Suffolk",
+    "sourceUrl": "https://jlmachining.co/",
+    "checkedOn": "2026-10-09",
+    "town": "West Babylon",
+    "postal_code": "11704"
+  },
+  {
+    "name": "Southold Marine Center",
+    "address": "49900 Route 25, Southold, NY 11971",
+    "category": "Marine",
+    "directoryGroup": "Marine Shops",
+    "detail": "Marine services and supplies. Contact the business for available services.",
+    "website": "https://www.southoldmarine.com/contact",
+    "phone": "631-765-3131",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.southoldmarine.com/contact",
+    "checkedOn": "2026-10-09",
+    "town": "Southold",
+    "postal_code": "11971"
+  },
+  {
+    "name": "Bay Auto Parts & Recycling",
+    "address": "360 Atlantic Ave, Bellport, NY 11713",
+    "category": "Auto",
+    "directoryGroup": "Salvage & Recycling",
+    "detail": "Used automotive replacement parts and vehicle recycling.",
+    "website": "https://www.bayautony.com/contact.html",
+    "phone": "631-286-4500",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.bayautony.com/contact.html",
+    "checkedOn": "2026-10-09",
+    "town": "Bellport",
+    "postal_code": "11713"
+  },
+  {
+    "name": "Sunrise Tire & Auto Repair \u2014 Massapequa Park",
+    "address": "4900 Sunrise Hwy, Massapequa Park, NY 11762",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Tires, wheels, diagnostics and general automotive repairs.",
+    "website": "https://www.sunrisetire.net/Find-Us",
+    "phone": "516-798-1400",
+    "county": "Nassau",
+    "sourceUrl": "https://www.sunrisetire.net/Find-Us",
+    "checkedOn": "2026-10-09",
+    "town": "Massapequa Park",
+    "postal_code": "11762"
+  },
+  {
+    "name": "Nassau Shores Auto Repair",
+    "address": "5200 Merrick Road, Massapequa, NY 11758",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, tires and preventive maintenance.",
+    "website": "https://www.sunrisetire.net/Find-Us",
+    "phone": "516-799-8525",
+    "county": "Nassau",
+    "sourceUrl": "https://www.sunrisetire.net/Find-Us",
+    "checkedOn": "2026-10-09",
+    "town": "Massapequa",
+    "postal_code": "11758"
+  },
+  {
+    "name": "K&K Automotive",
+    "address": "353 Long Beach Road, South Hempstead, NY 11550",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, tires, diagnostics, air conditioning and maintenance.",
+    "website": "https://www.kkautomotiveinc.com/locations",
+    "phone": "516-483-7168",
+    "county": "Nassau",
+    "sourceUrl": "https://www.kkautomotiveinc.com/locations",
+    "checkedOn": "2026-10-09",
+    "town": "South Hempstead",
+    "postal_code": "11550"
+  },
+  {
+    "name": "K&K Auto & Tire",
+    "address": "300 Hempstead Avenue, West Hempstead, NY 11552",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, tires, diagnostics, air conditioning and maintenance.",
+    "website": "https://www.kkautomotiveinc.com/locations",
+    "phone": "516-538-5500",
+    "county": "Nassau",
+    "sourceUrl": "https://www.kkautomotiveinc.com/locations",
+    "checkedOn": "2026-10-09",
+    "town": "West Hempstead",
+    "postal_code": "11552"
+  },
+  {
+    "name": "K&K Auto & Tire Center",
+    "address": "176 Hendrickson Avenue, Lynbrook, NY 11563",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, tires, diagnostics, air conditioning and maintenance.",
+    "website": "https://www.kkautomotiveinc.com/locations",
+    "phone": "516-599-4700",
+    "county": "Nassau",
+    "sourceUrl": "https://www.kkautomotiveinc.com/locations",
+    "checkedOn": "2026-10-09",
+    "town": "Lynbrook",
+    "postal_code": "11563"
+  },
+  {
+    "name": "T&V Automotive Concepts",
+    "address": "198 North Long Beach Road, Rockville Centre, NY 11570",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, tires, diagnostics, air conditioning and maintenance.",
+    "website": "https://www.kkautomotiveinc.com/locations",
+    "phone": "516-763-1111",
+    "county": "Nassau",
+    "sourceUrl": "https://www.kkautomotiveinc.com/locations",
+    "checkedOn": "2026-10-09",
+    "town": "Rockville Centre",
+    "postal_code": "11570"
+  },
+  {
+    "name": "A & R Auto Repair",
+    "address": "376 E Main St, Smithtown, NY 11787",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Auto diagnostics, brakes, inspections, air conditioning and maintenance.",
+    "website": "https://www.arautocare.com/",
+    "phone": "631-499-1994",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.arautocare.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Smithtown",
+    "postal_code": "11787"
+  },
+  {
+    "name": "TLC Auto & Truck Repair Center",
+    "address": "230 NY-109, Farmingdale, NY 11735",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Car, truck, diesel and fleet repairs and maintenance.",
+    "website": "https://tlcautotruck.com/",
+    "phone": "631-753-2211",
+    "county": "Suffolk",
+    "sourceUrl": "https://tlcautotruck.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Farmingdale",
+    "postal_code": "11735"
+  },
+  {
+    "name": "Advance Auto Parts \u2014 Patchogue (282 Medford Ave)",
+    "address": "282 Medford Ave, Patchogue, NY 11772",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
+    "website": "https://stores.advanceautoparts.com/ny/patchogue/282-medford-ave",
+    "phone": "631-576-4243",
+    "county": "Suffolk",
+    "sourceUrl": "https://stores.advanceautoparts.com/ny/patchogue/282-medford-ave",
+    "checkedOn": "2026-10-09",
+    "town": "Patchogue",
+    "postal_code": "11772"
+  },
+  {
+    "name": "Advance Auto Parts \u2014 Patchogue (252 E Main St)",
+    "address": "252 E Main St, Patchogue, NY 11772",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
+    "website": "https://stores.advanceautoparts.com/ny/patchogue/252-e-main-st",
+    "phone": "631-687-3490",
+    "county": "Suffolk",
+    "sourceUrl": "https://stores.advanceautoparts.com/ny/patchogue/252-e-main-st",
+    "checkedOn": "2026-10-09",
+    "town": "Patchogue",
+    "postal_code": "11772"
+  },
+  {
+    "name": "Advance Auto Parts \u2014 Glen Cove (64 Forest Ave)",
+    "address": "64 Forest Ave, Glen Cove, NY 11542",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
+    "website": "https://stores.advanceautoparts.com/ny/glen-cove/64-forest-ave",
+    "phone": "516-686-9935",
+    "county": "Nassau",
+    "sourceUrl": "https://stores.advanceautoparts.com/ny/glen-cove/64-forest-ave",
+    "checkedOn": "2026-10-09",
+    "town": "Glen Cove",
+    "postal_code": "11542"
+  },
+  {
+    "name": "Advance Auto Parts \u2014 Huntington Station (161 W Hills Rd)",
+    "address": "161 W Hills Rd, Huntington Station, NY 11746",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
+    "website": "https://stores.advanceautoparts.com/ny/huntington-station/161-w-hills-rd",
+    "phone": "631-479-3757",
+    "county": "Suffolk",
+    "sourceUrl": "https://stores.advanceautoparts.com/ny/huntington-station/161-w-hills-rd",
+    "checkedOn": "2026-10-09",
+    "town": "Huntington Station",
+    "postal_code": "11746"
+  },
+  {
+    "name": "Advance Auto Parts \u2014 Huntington Station (619 E Jericho Tpke)",
+    "address": "619 E Jericho Tpke, Huntington Station, NY 11746",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
+    "website": "https://stores.advanceautoparts.com/ny/huntington-station/619-e-jericho-tpke",
+    "phone": "631-421-3151",
+    "county": "Suffolk",
+    "sourceUrl": "https://stores.advanceautoparts.com/ny/huntington-station/619-e-jericho-tpke",
+    "checkedOn": "2026-10-09",
+    "town": "Huntington Station",
+    "postal_code": "11746"
+  },
+  {
+    "name": "Advance Auto Parts \u2014 Port Jefferson Station (5170 Nesconset Hwy)",
+    "address": "5170 Nesconset Hwy, Port Jefferson Station, NY 11776",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, accessories and maintenance supplies.",
+    "website": "https://stores.advanceautoparts.com/ny/port-jefferson-station/5170-nesconset-hwy",
+    "phone": "631-791-4036",
+    "county": "Suffolk",
+    "sourceUrl": "https://stores.advanceautoparts.com/ny/port-jefferson-station/5170-nesconset-hwy",
+    "checkedOn": "2026-10-09",
+    "town": "Port Jefferson Station",
+    "postal_code": "11776"
+  },
+  {
+    "name": "Dietrich's Auto Repair",
+    "address": "25 County Rd 39, Southampton, NY 11968",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repair and maintenance services.",
+    "website": "https://www.dietrichsauto.com/contact",
+    "phone": "631-204-0200",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.dietrichsauto.com/contact",
+    "checkedOn": "2026-10-09",
+    "town": "Southampton",
+    "postal_code": "11968"
+  },
+  {
+    "name": "Joe's Garage",
+    "address": "1426 N Sea Rd, Southampton, NY 11968",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Auto repair, diagnostics, brakes and preventive maintenance.",
+    "website": "https://www.joesgarageinc.net/",
+    "phone": "631-283-2098",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.joesgarageinc.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Southampton",
+    "postal_code": "11968"
+  },
+  {
+    "name": "R&K Precision Autoworks",
+    "address": "3241 Sound Avenue, Riverhead, NY 11901",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, brakes, inspections and maintenance.",
+    "website": "https://www.rkprecisionauto.com/contact/",
+    "phone": "631-727-2223",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.rkprecisionauto.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901"
+  },
+  {
+    "name": "Bock Auto",
+    "address": "541 Montauk Highway, Amagansett, NY 11930",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs and maintenance services.",
+    "website": "https://bockauto.com/",
+    "phone": "631-267-5631",
+    "county": "Suffolk",
+    "sourceUrl": "https://bockauto.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Amagansett",
+    "postal_code": "11930"
+  },
+  {
+    "name": "Main Street Equipment",
+    "address": "1794 W Main St, Riverhead, NY 11901",
+    "category": "Equipment",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "detail": "Hydraulic cylinder repair, rod fabrication and custom hydraulic hoses.",
+    "website": "https://www.mainstreetequipment.net/",
+    "phone": "631-727-5027",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.mainstreetequipment.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901"
+  },
+  {
+    "name": "Midway Auto Repair",
+    "address": "551 Mastic Rd, Mastic Beach, NY 11951",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "General auto repairs, inspections, engine service and preventive maintenance.",
+    "website": "https://morichesmidway.com/",
+    "phone": "631-909-8111",
+    "county": "Suffolk",
+    "sourceUrl": "https://morichesmidway.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Mastic Beach",
+    "postal_code": "11951"
+  },
+  {
+    "name": "C & C Automotive Repair of the Hamptons",
+    "address": "172 W Montauk Hwy, Hampton Bays, NY 11946",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, diagnostics, brakes and maintenance.",
+    "website": "https://www.cncautohamptonbays.net/",
+    "phone": "631-728-9018",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.cncautohamptonbays.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Hampton Bays",
+    "postal_code": "11946"
+  },
+  {
+    "name": "Tire Country",
+    "address": "1174 E Main St, Riverhead, NY 11901",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Automotive repairs, tires, brakes and maintenance.",
+    "website": "https://www.tire-country.com/",
+    "phone": "631-369-2600",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.tire-country.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901"
+  },
+  {
+    "name": "Hydraulic Repair & Hose",
+    "address": "5 44th St, Islip, NY 11751",
+    "category": "Equipment",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "detail": "Hydraulic parts, hose and cylinder repairs, machining and welding.",
+    "website": "https://hydraulicrepairandhose.com/",
+    "phone": "631-942-6479",
+    "county": "Suffolk",
+    "sourceUrl": "https://hydraulicrepairandhose.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Islip",
+    "postal_code": "11751"
   }
 ];
 
-export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string }> }) {
-  const [{ q = "", category = "All", location = "" }, user] = await Promise.all([searchParams, getUser()]);
+export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string; county?: string; type?: string }> }) {
+  const [{ q = "", category = "All", location = "", county = "All", type = "All" }, user] = await Promise.all([searchParams, getUser()]);
   const supabase = await createClient();
   const [{ data: shopData }, { data: postData }] = await Promise.all([
     supabase.from("shops").select("id,owner_id,name,specialty,location,postal_code").eq("is_active", true),
@@ -119,7 +1016,19 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const term = q.trim().toLowerCase();
   const town = location.trim().toLowerCase();
   const selected = categories.includes(category) ? category : "All";
-  const localResults = seafordBusinesses.filter((business) => (selected === "All" || selected === business.category) && (!term || `${business.name} ${business.detail}`.toLowerCase().includes(term)) && (!town || business.address.toLowerCase().includes(town)));
+  const selectedCounty = ["Nassau", "Suffolk"].includes(county) ? county : "All";
+  const selectedType = directoryGroups.includes(type) ? type : "All";
+  const localResults = directoryBusinesses.filter((business) =>
+    (selected === "All" || selected === business.category)
+    && (selectedCounty === "All" || business.county === selectedCounty)
+    && (selectedType === "All" || business.directoryGroup === selectedType)
+    && (!term || `${business.name} ${business.detail} ${business.directoryGroup} ${business.address}`.toLowerCase().includes(term))
+    && (!town || business.town.toLowerCase().includes(town) || business.postal_code === town)
+  ).sort((a, b) => a.town.localeCompare(b.town) || a.name.localeCompare(b.name));
+  const towns = [...new Set(localResults.map((business) => business.town))];
+  const locationChoices = [...new Set(directoryBusinesses.map((business) => `${business.town} (${business.postal_code})`))].sort();
+  const filteredShops = shops.filter((shop) => (!term || `${shop.name} ${shop.specialty}`.toLowerCase().includes(term)) && (!town || `${shop.location} ${shop.postal_code}`.toLowerCase().includes(town)) && (selected === "All" || shop.specialty.toLowerCase().includes(selected.toLowerCase())));
+  const queryLink = (overrides: Record<string, string>) => `/shops?${new URLSearchParams({ q, location, category: selected, county: selectedCounty, type: selectedType, ...overrides })}#long-island-directory`;
   const shown = posts.filter((post) => {
     const shop = shopById.get(post.shop_id);
     return shop && (selected === "All" || post.category === selected)
@@ -129,11 +1038,24 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
 
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Parts &amp; Repair Directory</Link><Link href="/messages">Messages</Link></nav></div></header>
-    <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Local parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
-      <form action="/shops" className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto_auto]"><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search parts and repair posts" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town or ZIP" aria-label="Town or ZIP" /></label><button className="button">Search</button></form>
-      <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={`/shops?${new URLSearchParams({ ...(q && { q }), ...(location && { location }), category: item })}`} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
+    <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
+      <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town or ZIP" aria-label="Town or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All counties</option><option>Nassau</option><option>Suffolk</option></select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
+      <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={queryLink({ category: item })} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
     </div></section>
-    <div className="shell py-9"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><p className="text-sm font-bold text-slate-600">{shown.length} {shown.length === 1 ? "post" : "posts"} from local businesses</p><Link className="button button-small" href={user ? "/shops/post" : "/login?next=/shops/post"}>Post for your business</Link></div>
+    <div className="shell py-9">      <section id="long-island-directory" className="mt-10 scroll-mt-6 border-t border-slate-200 pt-8">
+        <h2 className="text-2xl font-black">Long Island Parts &amp; Repair Businesses</h2>
+        <p className="mt-2 text-slate-600">Browse Nassau and Suffolk businesses by town or ZIP, county and shop type. Independent listings are unclaimed and do not imply an APG partnership. Contact each business for current services and stock.</p>
+        <p className="mt-2 text-sm text-slate-600">Coverage is growing; this is not a complete list of every Long Island business.</p>
+        <div className="mt-5 flex flex-wrap items-center gap-3"><strong>{localResults.length} {localResults.length === 1 ? "business" : "businesses"} · {towns.length} {towns.length === 1 ? "town" : "towns"}</strong>{(q || location || selected !== "All" || selectedCounty !== "All" || selectedType !== "All") && <Link href="/shops#long-island-directory" className="text-sm font-bold underline">Clear filters</Link>}</div>
+        <nav aria-label="Browse directory by town" className="mt-4 flex flex-wrap gap-2">{towns.map((name) => <a key={name} href={`#town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold">{name}</a>)}</nav>
+        {towns.length ? towns.map((name) => {
+          const businesses = localResults.filter((business) => business.town === name);
+          return <section key={name} id={`town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="mt-8 scroll-mt-6"><h3 className="text-xl font-black">{name} <span className="text-sm font-semibold text-slate-500">{businesses[0].county} County · {[...new Set(businesses.map((business) => business.postal_code))].join(", ")}</span></h3>
+          {directoryGroups.map((group) => { const grouped = businesses.filter((business) => business.directoryGroup === group); return grouped.length ? <div key={group} className="mt-5"><h4 className="font-black text-slate-700">{group}</h4><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{grouped.map((business) => <article key={`${business.name}-${business.address}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing · {business.category}</span><h5 className="mt-2 text-lg font-black">{business.name}</h5><p className="mt-2 text-sm text-slate-600">{business.detail}</p><p className="mt-3 text-sm text-slate-600">{business.address}</p>{business.phone && <a href={`tel:${business.phone.replace(/[^0-9+]/g, "")}`} className="mt-2 inline-block text-sm font-bold underline">{business.phone}</a>}<div className="mt-4 flex flex-wrap gap-3"><a href={business.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address}`)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-bold underline">Directions</a></div></article>)}</div></div> : null; })}</section>;
+        }) : <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6"><h3 className="font-black">No directory businesses match these filters yet</h3><p className="mt-2 text-slate-600">Try another town, ZIP or shop type. Coverage is growing.</p><Link href="/shops#long-island-directory" className="mt-3 inline-block font-bold underline">Browse all directory businesses</Link></div>}
+        <p className="mt-6 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p>
+      </section>
+<div className="mb-5 mt-12 flex flex-wrap items-center justify-between gap-3"><p className="text-sm font-bold text-slate-600">{shown.length} {shown.length === 1 ? "post" : "posts"} from local businesses</p><Link className="button button-small" href={user ? "/shops/post" : "/login?next=/shops/post"}>Post for your business</Link></div>
       {shown.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shown.map((post) => {
         const shop = shopById.get(post.shop_id)!;
         const rating = ratings.get(shop.owner_id);
@@ -144,11 +1066,9 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
         </article>;
       })}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h2>No business posts yet</h2><p>{q || location || selected !== "All" ? "No posts match this search yet. Try another area or category; APG is still growing." : "APG is a new marketplace. Businesses can add their profiles and posts here as they join."}</p><Link className="button mt-5" href={user ? "/shops/post" : "/login?next=/shops/post"}>Share a business post</Link></div>}
       <section className="mt-12 border-t border-slate-200 pt-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="kicker">Parts &amp; Repair Directory</span><h2 className="page-title">Find parts &amp; repair services</h2><p className="text-slate-600">Businesses can be found here even if they have not posted a photo.</p></div><Link className="button" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link></div>
-        {shops.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shops.map((shop) => <Link key={shop.id} href={`/shops/${shop.id}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-amber-400"><strong className="text-lg">{shop.name}</strong><p className="text-sm text-slate-600">{shop.specialty} · {shop.location}</p></Link>)}</div> : <p className="rounded-xl bg-white p-6 text-slate-600">APG is growing its local business directory. No businesses have added a profile yet. Own a shop, parts store, marina, or industrial business? Join APG for free, showcase what you offer, and connect with new customers. <Link className="font-semibold text-[#071a35] underline" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link>.</p>}
+        {filteredShops.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{filteredShops.map((shop) => <Link key={shop.id} href={`/shops/${shop.id}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-amber-400"><strong className="text-lg">{shop.name}</strong><p className="text-sm text-slate-600">{shop.specialty} · {shop.location}</p></Link>)}</div> : <p className="rounded-xl bg-white p-6 text-slate-600">No registered business profiles match this search yet. Browse the independent listings above or try another town or category. Own a shop, parts store, marina, or industrial business? Join APG for free, showcase what you offer, and connect with new customers. <Link className="font-semibold text-[#071a35] underline" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link>.</p>}
       </section>
 
-      {localResults.length > 0 && <section className="mt-10 border-t border-slate-200 pt-8"><h2 className="text-2xl font-black">Parts &amp; repair businesses in 11783</h2><p className="mt-2 text-slate-600">Browse by business type. These independent directory listings are unclaimed and do not imply an APG partnership. Contact each business for current services and stock.</p><nav aria-label="Business types" className="mt-5 flex flex-wrap gap-3">{directoryGroups.filter((group) => localResults.some((business) => business.directoryGroup === group)).map((group) => <a key={group} href={`#directory-${group.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-lg border border-slate-300 bg-white px-4 py-3 font-bold">{group}</a>)}{(selected === "All" || selected === "RC & Hobby") && (!town || localHobbyShops.some((shop) => shop.address.toLowerCase().includes(town))) && <a href="#nearby-hobby-shops" className="rounded-lg border border-slate-300 bg-white px-4 py-3 font-bold">Hobby Shops</a>}</nav>{directoryGroups.map((group) => { const businesses = localResults.filter((business) => business.directoryGroup === group); return businesses.length > 0 ? <section key={group} id={`directory-${group.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="mt-8 scroll-mt-6"><h3 className="text-xl font-black">{group}</h3><div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{businesses.map((business) => <article key={business.website} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing · {business.category}</span><h4 className="mt-2 text-lg font-black">{business.name}</h4><p className="mt-2 text-sm text-slate-600">{business.detail}</p><p className="mt-3 text-sm text-slate-600">{business.address}</p><a href={`tel:${business.phone}`} className="mt-2 inline-block text-sm font-bold underline">{business.phone}</a><div className="mt-4"><a href={business.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a></div></article>)}</div></section> : null; })}<p className="mt-4 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p></section>}
-      {(selected === "All" || selected === "RC & Hobby") && (!town || localHobbyShops.some((shop) => shop.address.toLowerCase().includes(town))) && <section id="nearby-hobby-shops" className="mt-10 scroll-mt-6 border-t border-slate-200 pt-8"><h2 className="text-2xl font-black">Hobby shops around Seaford (11783)</h2><p className="mt-2 text-slate-600">Nearby options in Freeport and Mineola. These independent directory listings are unclaimed; listing a business does not imply an APG partnership. Contact each shop for current stock.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{localHobbyShops.filter((shop) => (!term || `${shop.name} ${shop.detail}`.toLowerCase().includes(term)) && (!town || shop.address.toLowerCase().includes(town))).map((shop) => <article key={shop.website} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing</span><h3 className="mt-2 text-lg font-black">{shop.name}</h3><p className="mt-2 text-sm text-slate-600">{shop.detail}</p><p className="mt-3 text-sm text-slate-600">{shop.address}</p><a href={`tel:${shop.phone}`} className="mt-2 inline-block text-sm font-bold underline">{shop.phone}</a><div className="mt-4"><a href={shop.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a></div></article>)}</div><p className="mt-4 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p></section>}
 
     </div>
     <section id="for-businesses" className="bg-[#0b2345] text-white"><div className="shell grid gap-8 py-12 sm:grid-cols-[1fr_auto] sm:items-center"><div><p className="text-sm font-black uppercase tracking-widest text-amber-400">For businesses</p><h2 className="mt-2 text-3xl font-black">Promote your business on APG.</h2><p className="mt-4 max-w-2xl text-slate-300">Create a free profile to show your specialty, services, hours and website. Buyers can contact your shop directly. Posting individual items or inventory is optional.</p><div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300"><span className="flex items-center gap-2"><Store className="size-4 text-amber-400"/> Business profile</span><span className="flex items-center gap-2"><Upload className="size-4 text-amber-400"/> Optional inventory</span><span className="flex items-center gap-2"><ShieldCheck className="size-4 text-amber-400"/> Direct buyer contact</span></div></div><Link className="button whitespace-nowrap" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link></div></section>
