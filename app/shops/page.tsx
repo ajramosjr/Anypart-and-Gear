@@ -11,7 +11,7 @@ type Shop = { id: string; owner_id: string; name: string; specialty: string; loc
 type Post = { id: string; shop_id: string; category: string; caption: string; image_url: string; price: number | null };
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
-const directoryGroups = ["Mechanic Shops", "Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
+const directoryGroups = ["Mechanic Shops", "Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
 const directoryBusinesses = [
   {
     "name": "Joseph's Service & Collision",
@@ -25,7 +25,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.josephsservice.com/",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Sunrise Tire & Auto Repair \u2014 Seaford",
@@ -39,7 +42,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.sunrisetire.net/Find-Us/Mode/3/4066-Merrick-Rd-Seaford-NY-11783/details",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Toyota of Massapequa \u2014 Parts & Service",
@@ -53,7 +59,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.toyotaofmassapequany.com/parts-department",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Final Touch Auto Collision \u2014 Seaford",
@@ -67,7 +76,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.finaltouchli.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Collision & Body Shops"
+    ]
   },
   {
     "name": "Masters Auto Collision \u2014 Seaford",
@@ -81,7 +93,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.masterscollision.com/services/",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Collision & Body Shops"
+    ]
   },
   {
     "name": "Jiffy Lube \u2014 Seaford",
@@ -95,7 +110,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.jiffylube.com/locations/ny/seaford/815",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Blue Marlin Boats",
@@ -109,7 +127,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.bluemarlinboats.net/we-offer-great-variety-of-boats-dealership--parts",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Jetmore Jetski",
@@ -123,7 +144,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://jetmorejetski.com/",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Matt's Marina",
@@ -137,7 +161,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://mattsmarinali.com/",
     "checkedOn": "2026-10-09",
     "town": "Seaford",
-    "postal_code": "11783"
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Nassau Hobby Center",
@@ -151,7 +178,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://nassauhobby.com/",
     "checkedOn": "2026-10-09",
     "town": "Freeport",
-    "postal_code": "11520"
+    "postal_code": "11520",
+    "directoryTypes": [
+      "Hobby Shops"
+    ]
   },
   {
     "name": "Willis Hobbies",
@@ -165,7 +195,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://willishobbies.com/",
     "checkedOn": "2026-10-09",
     "town": "Mineola",
-    "postal_code": "11501"
+    "postal_code": "11501",
+    "directoryTypes": [
+      "Hobby Shops"
+    ]
   },
   {
     "name": "Moreland Hose \u2014 Hempstead",
@@ -179,7 +212,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://morelandhose.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Hempstead",
-    "postal_code": "11550"
+    "postal_code": "11550",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops"
+    ]
   },
   {
     "name": "Moreland Hose \u2014 Oakdale",
@@ -193,7 +229,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://morelandhose.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Oakdale",
-    "postal_code": "11769"
+    "postal_code": "11769",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops"
+    ]
   },
   {
     "name": "Long Island Hose Company",
@@ -207,7 +246,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://longislandhose.com/",
     "checkedOn": "2026-10-09",
     "town": "Massapequa",
-    "postal_code": "11758"
+    "postal_code": "11758",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops"
+    ]
   },
   {
     "name": "Buxton Machining & Fabricating",
@@ -221,7 +263,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://buxtonmachine.com/",
     "checkedOn": "2026-10-09",
     "town": "Bohemia",
-    "postal_code": "11716"
+    "postal_code": "11716",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "Pronto Manufacturing",
@@ -235,7 +280,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.prontomfg.com/contact-us",
     "checkedOn": "2026-10-09",
     "town": "Ronkonkoma",
-    "postal_code": "11779"
+    "postal_code": "11779",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "Hunter Metal Industries",
@@ -249,7 +297,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://huntermetalindustries.com/",
     "checkedOn": "2026-10-09",
     "town": "East Patchogue",
-    "postal_code": "11772"
+    "postal_code": "11772",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "Mid Island Steel",
@@ -263,7 +314,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://midislandsteel.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Medford",
-    "postal_code": "11763"
+    "postal_code": "11763",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "Midhampton Welding",
@@ -277,7 +331,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.midhampton.com/",
     "checkedOn": "2026-10-09",
     "town": "Riverhead",
-    "postal_code": "11901"
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "All Island Marine",
@@ -291,7 +348,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://allisland.com/contact-us/",
     "checkedOn": "2026-10-09",
     "town": "Oceanside",
-    "postal_code": "11572"
+    "postal_code": "11572",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Peconic Marine",
@@ -305,7 +365,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://peconicmarine.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Southold",
-    "postal_code": "11971"
+    "postal_code": "11971",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Port of Egypt Marine",
@@ -319,7 +382,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.poemarine.com/hours",
     "checkedOn": "2026-10-09",
     "town": "Southold",
-    "postal_code": "11971"
+    "postal_code": "11971",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Long Island Heavy Equipment Parts",
@@ -333,7 +399,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.liheavyequipmentparts.com/contact-us",
     "checkedOn": "2026-10-09",
     "town": "Port Jefferson Station",
-    "postal_code": "11776"
+    "postal_code": "11776",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Arch Auto Parts \u2014 Elmont",
@@ -347,7 +416,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://archautoparts.com/locations/",
     "checkedOn": "2026-10-09",
     "town": "Elmont",
-    "postal_code": "11003"
+    "postal_code": "11003",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Arch Auto Parts \u2014 Inwood",
@@ -361,7 +433,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://archautoparts.com/locations/",
     "checkedOn": "2026-10-09",
     "town": "Inwood",
-    "postal_code": "11096"
+    "postal_code": "11096",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Arch Auto Parts \u2014 Mineola",
@@ -375,7 +450,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://archautoparts.com/locations/",
     "checkedOn": "2026-10-09",
     "town": "Mineola",
-    "postal_code": "11501"
+    "postal_code": "11501",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Arch Auto Parts \u2014 Plainview",
@@ -389,7 +467,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://archautoparts.com/locations/",
     "checkedOn": "2026-10-09",
     "town": "Plainview",
-    "postal_code": "11803"
+    "postal_code": "11803",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Brentwood (200 Suffolk Ave)",
@@ -403,7 +484,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.tinkerautoparts.net/",
     "checkedOn": "2026-10-09",
     "town": "Brentwood",
-    "postal_code": "11717"
+    "postal_code": "11717",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Brentwood (1091 Suffolk Ave)",
@@ -417,7 +501,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.tinkerautoparts.net/",
     "checkedOn": "2026-10-09",
     "town": "Brentwood",
-    "postal_code": "11717"
+    "postal_code": "11717",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Bay Shore (199 5th Ave)",
@@ -431,7 +518,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.tinkerautoparts.net/",
     "checkedOn": "2026-10-09",
     "town": "Bay Shore",
-    "postal_code": "11706"
+    "postal_code": "11706",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Tinker Auto Parts \u2014 Bohemia (1650 Locust Ave)",
@@ -445,7 +535,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.tinkerautoparts.net/",
     "checkedOn": "2026-10-09",
     "town": "Bohemia",
-    "postal_code": "11716"
+    "postal_code": "11716",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Holbrook MTA Auto Service",
@@ -459,7 +552,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.holbrookmta.com/AC-repair-Holbrook.html",
     "checkedOn": "2026-10-09",
     "town": "Holbrook",
-    "postal_code": "11741"
+    "postal_code": "11741",
+    "directoryTypes": [
+      "A/C & Cooling Shops"
+    ]
   },
   {
     "name": "East Coast Transmissions",
@@ -473,7 +569,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://transmissionslongisland.com/",
     "checkedOn": "2026-10-09",
     "town": "North Lindenhurst",
-    "postal_code": "11757"
+    "postal_code": "11757",
+    "directoryTypes": [
+      "Transmission Shops"
+    ]
   },
   {
     "name": "Sunrise Transmission",
@@ -487,7 +586,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.sunrisetransmissionny.com/",
     "checkedOn": "2026-10-09",
     "town": "Islip Terrace",
-    "postal_code": "11752"
+    "postal_code": "11752",
+    "directoryTypes": [
+      "Transmission Shops"
+    ]
   },
   {
     "name": "Sunny's Transmissions",
@@ -501,7 +603,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.sunnystransmission.com/",
     "checkedOn": "2026-10-09",
     "town": "Oceanside",
-    "postal_code": "11572"
+    "postal_code": "11572",
+    "directoryTypes": [
+      "Transmission Shops"
+    ]
   },
   {
     "name": "Star Transmissions",
@@ -515,7 +620,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://startransmissions.com/",
     "checkedOn": "2026-10-09",
     "town": "Farmingdale",
-    "postal_code": "11735"
+    "postal_code": "11735",
+    "directoryTypes": [
+      "Transmission Shops"
+    ]
   },
   {
     "name": "F & J Transmissions",
@@ -529,7 +637,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.fjautomotivecenter.com/contact",
     "checkedOn": "2026-10-09",
     "town": "East Moriches",
-    "postal_code": "11940"
+    "postal_code": "11940",
+    "directoryTypes": [
+      "Transmission Shops"
+    ]
   },
   {
     "name": "Long Island Motorcycle Connect",
@@ -543,7 +654,11 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.longislandmotorcycleconnect.com/contact",
     "checkedOn": "2026-10-09",
     "town": "Flanders",
-    "postal_code": "11901"
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
   },
   {
     "name": "Triumph & Royal Enfield Nassau County",
@@ -557,7 +672,11 @@ const directoryBusinesses = [
     "sourceUrl": "https://triumphnassaucounty.com/service-and-maintenance",
     "checkedOn": "2026-10-09",
     "town": "Bellmore",
-    "postal_code": "11710"
+    "postal_code": "11710",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
   },
   {
     "name": "Long Island Kawasaki Yamaha",
@@ -571,7 +690,11 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.likawasaki.com/",
     "checkedOn": "2026-10-09",
     "town": "Hicksville",
-    "postal_code": "11801"
+    "postal_code": "11801",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
   },
   {
     "name": "Bay Shore Hobbies & Toys",
@@ -585,7 +708,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://bayshorehobbiesandtoys.com/",
     "checkedOn": "2026-10-09",
     "town": "Bay Shore",
-    "postal_code": "11706"
+    "postal_code": "11706",
+    "directoryTypes": [
+      "Hobby Shops"
+    ]
   },
   {
     "name": "Acme Radiator",
@@ -599,7 +725,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.acmeradiator.shop/local-home",
     "checkedOn": "2026-10-09",
     "town": "Islip Terrace",
-    "postal_code": "11752"
+    "postal_code": "11752",
+    "directoryTypes": [
+      "A/C & Cooling Shops"
+    ]
   },
   {
     "name": "Alpha Manufacturing Corporation",
@@ -613,7 +742,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://alphamfgcorp.com/contact-us",
     "checkedOn": "2026-10-09",
     "town": "Farmingdale",
-    "postal_code": "11735"
+    "postal_code": "11735",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "RS Precision",
@@ -627,7 +759,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.rsprecision.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Farmingdale",
-    "postal_code": "11735"
+    "postal_code": "11735",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "JL Machining & Tooling",
@@ -641,7 +776,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://jlmachining.co/",
     "checkedOn": "2026-10-09",
     "town": "West Babylon",
-    "postal_code": "11704"
+    "postal_code": "11704",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
   },
   {
     "name": "Southold Marine Center",
@@ -655,7 +793,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.southoldmarine.com/contact",
     "checkedOn": "2026-10-09",
     "town": "Southold",
-    "postal_code": "11971"
+    "postal_code": "11971",
+    "directoryTypes": [
+      "Marine Shops"
+    ]
   },
   {
     "name": "Bay Auto Parts & Recycling",
@@ -669,7 +810,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.bayautony.com/contact.html",
     "checkedOn": "2026-10-09",
     "town": "Bellport",
-    "postal_code": "11713"
+    "postal_code": "11713",
+    "directoryTypes": [
+      "Salvage & Recycling"
+    ]
   },
   {
     "name": "Sunrise Tire & Auto Repair \u2014 Massapequa Park",
@@ -683,7 +827,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.sunrisetire.net/Find-Us",
     "checkedOn": "2026-10-09",
     "town": "Massapequa Park",
-    "postal_code": "11762"
+    "postal_code": "11762",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Nassau Shores Auto Repair",
@@ -697,7 +844,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.sunrisetire.net/Find-Us",
     "checkedOn": "2026-10-09",
     "town": "Massapequa",
-    "postal_code": "11758"
+    "postal_code": "11758",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "K&K Automotive",
@@ -711,7 +861,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.kkautomotiveinc.com/locations",
     "checkedOn": "2026-10-09",
     "town": "South Hempstead",
-    "postal_code": "11550"
+    "postal_code": "11550",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "K&K Auto & Tire",
@@ -725,7 +878,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.kkautomotiveinc.com/locations",
     "checkedOn": "2026-10-09",
     "town": "West Hempstead",
-    "postal_code": "11552"
+    "postal_code": "11552",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "K&K Auto & Tire Center",
@@ -739,7 +895,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.kkautomotiveinc.com/locations",
     "checkedOn": "2026-10-09",
     "town": "Lynbrook",
-    "postal_code": "11563"
+    "postal_code": "11563",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "T&V Automotive Concepts",
@@ -753,7 +912,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.kkautomotiveinc.com/locations",
     "checkedOn": "2026-10-09",
     "town": "Rockville Centre",
-    "postal_code": "11570"
+    "postal_code": "11570",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "A & R Auto Repair",
@@ -767,7 +929,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.arautocare.com/",
     "checkedOn": "2026-10-09",
     "town": "Smithtown",
-    "postal_code": "11787"
+    "postal_code": "11787",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "TLC Auto & Truck Repair Center",
@@ -781,7 +946,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://tlcautotruck.com/",
     "checkedOn": "2026-10-09",
     "town": "Farmingdale",
-    "postal_code": "11735"
+    "postal_code": "11735",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Advance Auto Parts \u2014 Patchogue (282 Medford Ave)",
@@ -795,7 +963,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://stores.advanceautoparts.com/ny/patchogue/282-medford-ave",
     "checkedOn": "2026-10-09",
     "town": "Patchogue",
-    "postal_code": "11772"
+    "postal_code": "11772",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Advance Auto Parts \u2014 Patchogue (252 E Main St)",
@@ -809,7 +980,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://stores.advanceautoparts.com/ny/patchogue/252-e-main-st",
     "checkedOn": "2026-10-09",
     "town": "Patchogue",
-    "postal_code": "11772"
+    "postal_code": "11772",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Advance Auto Parts \u2014 Glen Cove (64 Forest Ave)",
@@ -823,7 +997,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://stores.advanceautoparts.com/ny/glen-cove/64-forest-ave",
     "checkedOn": "2026-10-09",
     "town": "Glen Cove",
-    "postal_code": "11542"
+    "postal_code": "11542",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Advance Auto Parts \u2014 Huntington Station (161 W Hills Rd)",
@@ -837,7 +1014,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://stores.advanceautoparts.com/ny/huntington-station/161-w-hills-rd",
     "checkedOn": "2026-10-09",
     "town": "Huntington Station",
-    "postal_code": "11746"
+    "postal_code": "11746",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Advance Auto Parts \u2014 Huntington Station (619 E Jericho Tpke)",
@@ -851,7 +1031,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://stores.advanceautoparts.com/ny/huntington-station/619-e-jericho-tpke",
     "checkedOn": "2026-10-09",
     "town": "Huntington Station",
-    "postal_code": "11746"
+    "postal_code": "11746",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Advance Auto Parts \u2014 Port Jefferson Station (5170 Nesconset Hwy)",
@@ -865,7 +1048,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://stores.advanceautoparts.com/ny/port-jefferson-station/5170-nesconset-hwy",
     "checkedOn": "2026-10-09",
     "town": "Port Jefferson Station",
-    "postal_code": "11776"
+    "postal_code": "11776",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   },
   {
     "name": "Dietrich's Auto Repair",
@@ -879,7 +1065,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.dietrichsauto.com/contact",
     "checkedOn": "2026-10-09",
     "town": "Southampton",
-    "postal_code": "11968"
+    "postal_code": "11968",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Joe's Garage",
@@ -893,7 +1082,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.joesgarageinc.net/",
     "checkedOn": "2026-10-09",
     "town": "Southampton",
-    "postal_code": "11968"
+    "postal_code": "11968",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "R&K Precision Autoworks",
@@ -907,7 +1099,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.rkprecisionauto.com/contact/",
     "checkedOn": "2026-10-09",
     "town": "Riverhead",
-    "postal_code": "11901"
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Bock Auto",
@@ -921,7 +1116,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://bockauto.com/",
     "checkedOn": "2026-10-09",
     "town": "Amagansett",
-    "postal_code": "11930"
+    "postal_code": "11930",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Main Street Equipment",
@@ -935,7 +1133,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.mainstreetequipment.net/",
     "checkedOn": "2026-10-09",
     "town": "Riverhead",
-    "postal_code": "11901"
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops"
+    ]
   },
   {
     "name": "Midway Auto Repair",
@@ -949,7 +1150,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://morichesmidway.com/",
     "checkedOn": "2026-10-09",
     "town": "Mastic Beach",
-    "postal_code": "11951"
+    "postal_code": "11951",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "C & C Automotive Repair of the Hamptons",
@@ -963,7 +1167,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.cncautohamptonbays.net/",
     "checkedOn": "2026-10-09",
     "town": "Hampton Bays",
-    "postal_code": "11946"
+    "postal_code": "11946",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Tire Country",
@@ -977,7 +1184,10 @@ const directoryBusinesses = [
     "sourceUrl": "https://www.tire-country.com/",
     "checkedOn": "2026-10-09",
     "town": "Riverhead",
-    "postal_code": "11901"
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
   },
   {
     "name": "Hydraulic Repair & Hose",
@@ -991,7 +1201,257 @@ const directoryBusinesses = [
     "sourceUrl": "https://hydraulicrepairandhose.com/",
     "checkedOn": "2026-10-09",
     "town": "Islip",
-    "postal_code": "11751"
+    "postal_code": "11751",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops"
+    ]
+  },
+  {
+    "name": "Crossbay Motorsports",
+    "address": "1660 Sunrise Hwy, Bay Shore, NY 11706",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle parts, accessories and powersports service.",
+    "website": "https://www.crossbaymotorsports.com/Parts/Parts-Department",
+    "phone": "631-206-6851",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.crossbaymotorsports.com/Parts/Parts-Department",
+    "checkedOn": "2026-10-09",
+    "town": "Bay Shore",
+    "postal_code": "11706",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Suffolk County Harley-Davidson",
+    "address": "4020 Sunrise Hwy, Oakdale, NY 11769",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Harley-Davidson motorcycles, genuine parts and accessories.",
+    "website": "https://hdsuffolk.com/parts",
+    "phone": "631-244-9000",
+    "county": "Suffolk",
+    "sourceUrl": "https://hdsuffolk.com/parts",
+    "checkedOn": "2026-10-09",
+    "town": "Oakdale",
+    "postal_code": "11769",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Formula One Motorsports",
+    "address": "4030 Sunrise Hwy, Oakdale, NY 11769",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle and powersports sales, parts, accessories and service.",
+    "website": "https://www.formulaonemotorsports.com/",
+    "phone": "631-244-7447",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.formulaonemotorsports.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Oakdale",
+    "postal_code": "11769",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "CPM Motorsports",
+    "address": "125 Middle Country Road, Coram, NY 11727",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle repairs, parts, accessories and dyno tuning.",
+    "website": "https://cpmmotorsportsinc.com/",
+    "phone": "631-580-1301",
+    "county": "Suffolk",
+    "sourceUrl": "https://cpmmotorsportsinc.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Coram",
+    "postal_code": "11727",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Habberstad Powersports",
+    "address": "390 E. Jericho Turnpike, Huntington Station, NY 11746",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle and powersports parts, maintenance and repairs.",
+    "website": "https://www.habberstadpowersports.com/service-repair-atvs-utvs-motorcycles-dealership--service",
+    "phone": "631-427-4400",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.habberstadpowersports.com/service-repair-atvs-utvs-motorcycles-dealership--service",
+    "checkedOn": "2026-10-09",
+    "town": "Huntington Station",
+    "postal_code": "11746",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Island Powersports",
+    "address": "4116 Sunrise Hwy, Massapequa, NY 11758",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle, ATV and UTV parts, accessories and service.",
+    "website": "https://www.islandpowersports.com/parts-atvs-utvs-motorcycles-dealership--parts",
+    "phone": "516-795-4400",
+    "county": "Nassau",
+    "sourceUrl": "https://www.islandpowersports.com/parts-atvs-utvs-motorcycles-dealership--parts",
+    "checkedOn": "2026-10-09",
+    "town": "Massapequa",
+    "postal_code": "11758",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Champion Honda",
+    "address": "544 W Old Country Road, Hicksville, NY 11801",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Honda motorcycles, powersports parts and service.",
+    "website": "https://www.champion-honda.com/",
+    "phone": "516-433-6700",
+    "county": "Nassau",
+    "sourceUrl": "https://www.champion-honda.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Hicksville",
+    "postal_code": "11801",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Harley-Davidson of Nassau County",
+    "address": "2428 Sunrise Hwy, Bellmore, NY 11710",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Harley-Davidson motorcycles, genuine parts, accessories and service.",
+    "website": "https://nassaucountyharleydavidson.com/genuine-parts",
+    "phone": "516-409-9200",
+    "county": "Nassau",
+    "sourceUrl": "https://nassaucountyharleydavidson.com/genuine-parts",
+    "checkedOn": "2026-10-09",
+    "town": "Bellmore",
+    "postal_code": "11710",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mineolamoto / Indian Motorcycle of Mineola",
+    "address": "336 Jericho Turnpike, Mineola, NY 11501",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle sales, service, parts and accessories.",
+    "website": "https://www.indianmotorcycleofmineola.com/Dealer-Info/Map-Hours",
+    "phone": "516-248-5555",
+    "county": "Nassau",
+    "sourceUrl": "https://www.indianmotorcycleofmineola.com/Dealer-Info/Map-Hours",
+    "checkedOn": "2026-10-09",
+    "town": "Mineola",
+    "postal_code": "11501",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Auto Parts \u2014 Port Washington",
+    "address": "352 Port Washington Blvd, Port Washington, NY 11050",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive parts, hydraulic hoses and snow plow parts.",
+    "website": "https://portnapa.com/contact/",
+    "phone": "516-767-8100",
+    "county": "Nassau",
+    "sourceUrl": "https://portnapa.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Port Washington",
+    "postal_code": "11050",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Auto Parts \u2014 Franklin Square",
+    "address": "261 Franklin Ave, Franklin Square, NY 11010",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://www.napaonline.com/en/ny/franklin-square/store/805304",
+    "phone": "516-437-8281",
+    "county": "Nassau",
+    "sourceUrl": "https://www.napaonline.com/en/ny/franklin-square/store/805304",
+    "checkedOn": "2026-10-09",
+    "town": "Franklin Square",
+    "postal_code": "11010",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Quick Auto Parts \u2014 Hicksville",
+    "address": "2 Bloomingdale Road, Hicksville, NY 11801",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://www.napaonline.com/en/ny/hicksville/store/32551",
+    "phone": "516-938-4900",
+    "county": "Nassau",
+    "sourceUrl": "https://www.napaonline.com/en/ny/hicksville/store/32551",
+    "checkedOn": "2026-10-09",
+    "town": "Hicksville",
+    "postal_code": "11801",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Auto Parts \u2014 Ronkonkoma",
+    "address": "206 Portion Road, Ronkonkoma, NY 11779",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://www.napaonline.com/en/ny/ronkonkoma/store/805755",
+    "phone": "631-676-4300",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.napaonline.com/en/ny/ronkonkoma/store/805755",
+    "checkedOn": "2026-10-09",
+    "town": "Ronkonkoma",
+    "postal_code": "11779",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Auto Parts \u2014 Massapequa",
+    "address": "40 Brooklyn Ave, Massapequa, NY 11758",
+    "category": "Auto",
+    "directoryGroup": "Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://www.napaonline.com/en/ny/massapequa/store/805752",
+    "phone": "516-420-9060",
+    "county": "Nassau",
+    "sourceUrl": "https://www.napaonline.com/en/ny/massapequa/store/805752",
+    "checkedOn": "2026-10-09",
+    "town": "Massapequa",
+    "postal_code": "11758",
+    "directoryTypes": [
+      "Parts Suppliers"
+    ]
   }
 ];
 
@@ -1021,8 +1481,8 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const localResults = directoryBusinesses.filter((business) =>
     (selected === "All" || selected === business.category)
     && (selectedCounty === "All" || business.county === selectedCounty)
-    && (selectedType === "All" || business.directoryGroup === selectedType)
-    && (!term || `${business.name} ${business.detail} ${business.directoryGroup} ${business.address}`.toLowerCase().includes(term))
+    && (selectedType === "All" || business.directoryTypes.includes(selectedType))
+    && (!term || `${business.name} ${business.detail} ${business.directoryTypes.join(" ")} ${business.address}`.toLowerCase().includes(term))
     && (!town || business.town.toLowerCase().includes(town) || business.postal_code === town)
   ).sort((a, b) => a.town.localeCompare(b.town) || a.name.localeCompare(b.name));
   const towns = [...new Set(localResults.map((business) => business.town))];
@@ -1051,7 +1511,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
         {towns.length ? towns.map((name) => {
           const businesses = localResults.filter((business) => business.town === name);
           return <section key={name} id={`town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="mt-8 scroll-mt-6"><h3 className="text-xl font-black">{name} <span className="text-sm font-semibold text-slate-500">{businesses[0].county} County · {[...new Set(businesses.map((business) => business.postal_code))].join(", ")}</span></h3>
-          {directoryGroups.map((group) => { const grouped = businesses.filter((business) => business.directoryGroup === group); return grouped.length ? <div key={group} className="mt-5"><h4 className="font-black text-slate-700">{group}</h4><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{grouped.map((business) => <article key={`${business.name}-${business.address}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing · {business.category}</span><h5 className="mt-2 text-lg font-black">{business.name}</h5><p className="mt-2 text-sm text-slate-600">{business.detail}</p><p className="mt-3 text-sm text-slate-600">{business.address}</p>{business.phone && <a href={`tel:${business.phone.replace(/[^0-9+]/g, "")}`} className="mt-2 inline-block text-sm font-bold underline">{business.phone}</a>}<div className="mt-4 flex flex-wrap gap-3"><a href={business.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address}`)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-bold underline">Directions</a></div></article>)}</div></div> : null; })}</section>;
+          {(selectedType === "All" ? directoryGroups : [selectedType]).map((group) => { const grouped = businesses.filter((business) => selectedType === "All" ? business.directoryGroup === group : business.directoryTypes.includes(group)); return grouped.length ? <div key={group} className="mt-5"><h4 className="font-black text-slate-700">{group}</h4><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{grouped.map((business) => <article key={`${business.name}-${business.address}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing · {business.category}</span><h5 className="mt-2 text-lg font-black">{business.name}</h5><p className="mt-2 text-sm text-slate-600">{business.detail}</p><p className="mt-3 text-sm text-slate-600">{business.address}</p>{business.phone && <a href={`tel:${business.phone.replace(/[^0-9+]/g, "")}`} className="mt-2 inline-block text-sm font-bold underline">{business.phone}</a>}<div className="mt-4 flex flex-wrap gap-3"><a href={business.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address}`)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-bold underline">Directions</a></div></article>)}</div></div> : null; })}</section>;
         }) : <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6"><h3 className="font-black">No directory businesses match these filters yet</h3><p className="mt-2 text-slate-600">Try another town, ZIP or shop type. Coverage is growing.</p><Link href="/shops#long-island-directory" className="mt-3 inline-block font-bold underline">Browse all directory businesses</Link></div>}
         <p className="mt-6 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p>
       </section>
