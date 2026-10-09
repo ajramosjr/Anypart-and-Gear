@@ -11,7 +11,7 @@ type Shop = { id: string; owner_id: string; name: string; specialty: string; loc
 type Post = { id: string; shop_id: string; category: string; caption: string; image_url: string; price: number | null };
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
-const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
+const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
 const directoryBusinesses = [
   {
     "name": "Joseph's Service & Collision",
@@ -1541,6 +1541,105 @@ const directoryBusinesses = [
       "RC & Hobby Parts Suppliers",
       "All Parts Suppliers"
     ]
+  },
+  {
+    "name": "FleetPride — Medford (formerly Long Island Truck Parts)",
+    "address": "3070 Route 112, Medford, NY 11763",
+    "category": "Auto",
+    "directoryGroup": "Truck & Diesel Parts Suppliers",
+    "detail": "Parts supplier: medium- and heavy-duty truck and trailer replacement parts. Former Long Island Truck Parts location.",
+    "website": "https://branches.fleetpride.com/ny/medford/truckparts-mdf.html",
+    "phone": "631-736-3434",
+    "county": "Suffolk",
+    "sourceUrl": "https://branches.fleetpride.com/ny/medford/truckparts-mdf.html",
+    "checkedOn": "2026-10-09",
+    "town": "Medford",
+    "postal_code": "11763",
+    "directoryTypes": [
+      "Truck & Diesel Parts Suppliers",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "FleetPride — New Hyde Park (formerly Long Island Truck Parts)",
+    "address": "23 Denton Ave, New Hyde Park, NY 11040",
+    "category": "Auto",
+    "directoryGroup": "Truck & Diesel Parts Suppliers",
+    "detail": "Parts supplier: medium- and heavy-duty truck and trailer replacement parts. Former Long Island Truck Parts location.",
+    "website": "https://branches.fleetpride.com/ny/newhydepark/truckparts-nhp.html",
+    "phone": "516-519-8855",
+    "county": "Nassau",
+    "sourceUrl": "https://branches.fleetpride.com/ny/newhydepark/truckparts-nhp.html",
+    "checkedOn": "2026-10-09",
+    "town": "New Hyde Park",
+    "postal_code": "11040",
+    "directoryTypes": [
+      "Truck & Diesel Parts Suppliers",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "FleetPride — Riverhead (formerly Long Island Truck Parts)",
+    "address": "121 Main Road, Riverhead, NY 11901",
+    "category": "Auto",
+    "directoryGroup": "Truck & Diesel Parts Suppliers",
+    "detail": "Parts supplier: medium- and heavy-duty truck and trailer replacement parts. Former Long Island Truck Parts location.",
+    "website": "https://branches.fleetpride.com/ny/riverhead/truckparts-riv.html",
+    "phone": "631-369-5600",
+    "county": "Suffolk",
+    "sourceUrl": "https://branches.fleetpride.com/ny/riverhead/truckparts-riv.html",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Truck & Diesel Parts Suppliers",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "FleetPride — West Babylon (formerly Long Island Truck Parts)",
+    "address": "565 Sunrise Hwy, West Babylon, NY 11704",
+    "category": "Auto",
+    "directoryGroup": "Truck & Diesel Parts Suppliers",
+    "detail": "Parts supplier: medium- and heavy-duty truck and trailer replacement parts. Former Long Island Truck Parts location.",
+    "website": "https://branches.fleetpride.com/ny/westbabylon/truckparts-wba.html",
+    "phone": "631-422-7060",
+    "county": "Suffolk",
+    "sourceUrl": "https://branches.fleetpride.com/ny/westbabylon/truckparts-wba.html",
+    "checkedOn": "2026-10-09",
+    "town": "West Babylon",
+    "postal_code": "11704",
+    "directoryTypes": [
+      "Truck & Diesel Parts Suppliers",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mako Marine — Cummins Authorized Dealer",
+    "address": "117 Hudson Avenue, Freeport, NY 11520",
+    "category": "Marine",
+    "directoryGroup": "Marine Shops",
+    "detail": "Parts and service: Cummins and Volvo marine diesel engines, replacement parts, maintenance, repairs and repowers. Cummins authorized dealer.",
+    "website": "https://makomarina.com/cummins-parts/",
+    "phone": "516-378-7331",
+    "county": "Nassau",
+    "sourceUrl": "https://makomarina.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Freeport",
+    "postal_code": "11520",
+    "directoryTypes": [
+      "Marine Shops",
+      "Marine Parts Suppliers",
+      "All Parts Suppliers"
+    ]
   }
 ];
 
@@ -1588,7 +1687,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Parts &amp; Repair Directory</Link><Link href="/messages">Messages</Link></nav></div></header>
     <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
-      <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-[#071a35] bg-[#071a35] text-white" : "border-slate-300 bg-white text-[#071a35] hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
+      <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Truck & Diesel Parts", type: "Truck & Diesel Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-[#071a35] bg-[#071a35] text-white" : "border-slate-300 bg-white text-[#071a35] hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
       <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town or ZIP" aria-label="Town or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All counties</option><option>Nassau</option><option>Suffolk</option></select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
       <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={queryLink({ category: item })} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
     </div></section>
