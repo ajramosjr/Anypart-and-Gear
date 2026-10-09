@@ -13,6 +13,81 @@ const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment",
 
 const localHobbyShops = [{"name":"Nassau Hobby Center","address":"13 W Merrick Road, Freeport, NY 11520","detail":"RC parts, power and control accessories, drones, helicopters, planes, cars, trucks and boats.","website":"https://nassauhobby.com/","phone":"516-378-9594"},{"name":"Willis Hobbies","address":"300 Willis Avenue, Mineola, NY 11501","detail":"RC and model hobby products, parts and accessories.","website":"https://willishobbies.com/","phone":"516-746-3944"}];
 
+const seafordBusinesses = [
+  {
+    "name": "Joseph's Service & Collision",
+    "address": "3458 Merrick Road, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "Auto diagnostics, maintenance, mechanical repairs and collision service.",
+    "website": "https://www.josephsservice.com/",
+    "phone": "516-679-8944"
+  },
+  {
+    "name": "Sunrise Tire & Auto Repair — Seaford",
+    "address": "4066 Merrick Road, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "Tires, wheel alignment, brakes, diagnostics and general auto maintenance.",
+    "website": "https://www.sunrisetire.net/Find-Us/Mode/3/4066-Merrick-Rd-Seaford-NY-11783/details",
+    "phone": "516-785-6015"
+  },
+  {
+    "name": "Toyota of Massapequa — Parts & Service",
+    "address": "3660 Sunrise Highway, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "Toyota parts department and vehicle maintenance and repair services.",
+    "website": "https://www.toyotaofmassapequany.com/parts-department",
+    "phone": "516-981-4100"
+  },
+  {
+    "name": "Final Touch Auto Collision — Seaford",
+    "address": "3586 Merrick Road, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "Collision, body, frame and mechanical repair services.",
+    "website": "https://www.finaltouchli.com/contact/",
+    "phone": "516-221-7611"
+  },
+  {
+    "name": "Masters Auto Collision — Seaford",
+    "address": "3530 Merrick Road, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "Auto body and collision repairs, painting and towing services.",
+    "website": "https://www.masterscollision.com/services/",
+    "phone": "516-826-2763"
+  },
+  {
+    "name": "Jiffy Lube — Seaford",
+    "address": "3848 Merrick Road, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "Oil changes and vehicle preventive maintenance. Contact the location for available services.",
+    "website": "https://www.jiffylube.com/locations/ny/seaford/815",
+    "phone": "516-783-4324"
+  },
+  {
+    "name": "Blue Marlin Boats",
+    "address": "4076 Merrick Road, Seaford, NY 11783",
+    "category": "Marine",
+    "detail": "Boat parts and accessories, maintenance and repair services.",
+    "website": "https://www.bluemarlinboats.net/we-offer-great-variety-of-boats-dealership--parts",
+    "phone": "516-679-2121"
+  },
+  {
+    "name": "Jetmore Jetski",
+    "address": "3726 Ocean Avenue, Seaford, NY 11783",
+    "category": "Marine",
+    "detail": "Jet ski and jet boat repairs, mobile service, winterization and storage.",
+    "website": "https://jetmorejetski.com/",
+    "phone": "516-765-1861"
+  },
+  {
+    "name": "Matt's Marina",
+    "address": "2740 Peconic Avenue, Seaford, NY 11783",
+    "category": "Marine",
+    "detail": "Marina storage, dockage, maintenance, repairs and repowers.",
+    "website": "https://mattsmarinali.com/",
+    "phone": "516-324-6819"
+  }
+];
+
 export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string }> }) {
   const [{ q = "", category = "All", location = "" }, user] = await Promise.all([searchParams, getUser()]);
   const supabase = await createClient();
@@ -34,6 +109,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const term = q.trim().toLowerCase();
   const town = location.trim().toLowerCase();
   const selected = categories.includes(category) ? category : "All";
+  const localResults = seafordBusinesses.filter((business) => (selected === "All" || selected === business.category) && (!term || `${business.name} ${business.detail}`.toLowerCase().includes(term)) && (!town || business.address.toLowerCase().includes(town)));
   const shown = posts.filter((post) => {
     const shop = shopById.get(post.shop_id);
     return shop && (selected === "All" || post.category === selected)
@@ -60,7 +136,9 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
       <section className="mt-12 border-t border-slate-200 pt-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="kicker">Parts &amp; Repair Directory</span><h2 className="page-title">Find parts &amp; repair services</h2><p className="text-slate-600">Businesses can be found here even if they have not posted a photo.</p></div><Link className="button" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link></div>
         {shops.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shops.map((shop) => <Link key={shop.id} href={`/shops/${shop.id}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-amber-400"><strong className="text-lg">{shop.name}</strong><p className="text-sm text-slate-600">{shop.specialty} · {shop.location}</p></Link>)}</div> : <p className="rounded-xl bg-white p-6 text-slate-600">APG is growing its local business directory. No businesses have added a profile yet. Own a shop, parts store, marina, or industrial business? Join APG for free, showcase what you offer, and connect with new customers. <Link className="font-semibold text-[#071a35] underline" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link>.</p>}
       </section>
-      {(selected === "All" || selected === "RC & Hobby") && (!town || town === "11783" || town === "seaford" || localHobbyShops.some((shop) => shop.address.toLowerCase().includes(town))) && <section className="mt-10 border-t border-slate-200 pt-8"><h2 className="text-2xl font-black">Hobby shops around Seaford (11783)</h2><p className="mt-2 text-slate-600">Nearby options in Freeport and Mineola. These independent directory listings are unclaimed; listing a business does not imply an APG partnership. Contact each shop for current stock.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{localHobbyShops.filter((shop) => (!term || `${shop.name} ${shop.detail}`.toLowerCase().includes(term)) && (!town || town === "11783" || town === "seaford" || shop.address.toLowerCase().includes(town))).map((shop) => <article key={shop.website} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing</span><h3 className="mt-2 text-lg font-black">{shop.name}</h3><p className="mt-2 text-sm text-slate-600">{shop.detail}</p><p className="mt-3 text-sm text-slate-600">{shop.address}</p><a href={`tel:${shop.phone}`} className="mt-2 inline-block text-sm font-bold underline">{shop.phone}</a><div className="mt-4"><a href={shop.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a></div></article>)}</div><p className="mt-4 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p></section>}
+
+      {localResults.length > 0 && <section className="mt-10 border-t border-slate-200 pt-8"><h2 className="text-2xl font-black">Parts &amp; repair businesses in 11783</h2><p className="mt-2 text-slate-600">Independent, unclaimed directory listings based on public business information. These businesses have not joined or endorsed APG through these listings. Contact them for current parts availability and services.</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{localResults.map((business) => <article key={business.website} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing · {business.category}</span><h3 className="mt-2 text-lg font-black">{business.name}</h3><p className="mt-2 text-sm text-slate-600">{business.detail}</p><p className="mt-3 text-sm text-slate-600">{business.address}</p><a href={`tel:${business.phone}`} className="mt-2 inline-block text-sm font-bold underline">{business.phone}</a><div className="mt-4"><a href={business.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a></div></article>)}</div><p className="mt-4 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p></section>}
+      {(selected === "All" || selected === "RC & Hobby") && (!town || localHobbyShops.some((shop) => shop.address.toLowerCase().includes(town))) && <section className="mt-10 border-t border-slate-200 pt-8"><h2 className="text-2xl font-black">Hobby shops around Seaford (11783)</h2><p className="mt-2 text-slate-600">Nearby options in Freeport and Mineola. These independent directory listings are unclaimed; listing a business does not imply an APG partnership. Contact each shop for current stock.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{localHobbyShops.filter((shop) => (!term || `${shop.name} ${shop.detail}`.toLowerCase().includes(term)) && (!town || shop.address.toLowerCase().includes(town))).map((shop) => <article key={shop.website} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing</span><h3 className="mt-2 text-lg font-black">{shop.name}</h3><p className="mt-2 text-sm text-slate-600">{shop.detail}</p><p className="mt-3 text-sm text-slate-600">{shop.address}</p><a href={`tel:${shop.phone}`} className="mt-2 inline-block text-sm font-bold underline">{shop.phone}</a><div className="mt-4"><a href={shop.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit website</a></div></article>)}</div><p className="mt-4 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p></section>}
 
     </div>
     <section id="for-businesses" className="bg-[#0b2345] text-white"><div className="shell grid gap-8 py-12 sm:grid-cols-[1fr_auto] sm:items-center"><div><p className="text-sm font-black uppercase tracking-widest text-amber-400">For businesses</p><h2 className="mt-2 text-3xl font-black">Promote your business on APG.</h2><p className="mt-4 max-w-2xl text-slate-300">Create a free profile to show your specialty, services, hours and website. Buyers can contact your shop directly. Posting individual items or inventory is optional.</p><div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300"><span className="flex items-center gap-2"><Store className="size-4 text-amber-400"/> Business profile</span><span className="flex items-center gap-2"><Upload className="size-4 text-amber-400"/> Optional inventory</span><span className="flex items-center gap-2"><ShieldCheck className="size-4 text-amber-400"/> Direct buyer contact</span></div></div><Link className="button whitespace-nowrap" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link></div></section>
