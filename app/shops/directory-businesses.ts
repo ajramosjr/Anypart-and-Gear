@@ -30,7 +30,8 @@ export const directoryBusinesses = [
     "town": "Seaford",
     "postal_code": "11783",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -854,7 +855,8 @@ export const directoryBusinesses = [
     "town": "Massapequa Park",
     "postal_code": "11762",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -871,7 +873,8 @@ export const directoryBusinesses = [
     "town": "Massapequa",
     "postal_code": "11758",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -888,7 +891,8 @@ export const directoryBusinesses = [
     "town": "South Hempstead",
     "postal_code": "11550",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -905,7 +909,8 @@ export const directoryBusinesses = [
     "town": "West Hempstead",
     "postal_code": "11552",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -922,7 +927,8 @@ export const directoryBusinesses = [
     "town": "Lynbrook",
     "postal_code": "11563",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -939,7 +945,8 @@ export const directoryBusinesses = [
     "town": "Rockville Centre",
     "postal_code": "11570",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {
@@ -1223,7 +1230,8 @@ export const directoryBusinesses = [
     "town": "Riverhead",
     "postal_code": "11901",
     "directoryTypes": [
-      "Mechanic Shops"
+      "Mechanic Shops",
+      "Tire Shops"
     ]
   },
   {

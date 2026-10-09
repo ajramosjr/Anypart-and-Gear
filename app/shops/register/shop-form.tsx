@@ -8,6 +8,7 @@ type Shop = { name: string; specialty: string; description: string; location: st
 
 const BUSINESS_TYPES = [
   "Auto Repair / Mechanic Shop",
+  "Tire Shop",
   "Auto Parts Store",
   "Machine Shop",
   "Transmission Shop",

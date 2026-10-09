@@ -14,7 +14,7 @@ type Post = { id: string; shop_id: string; category: string; caption: string; im
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
 const directoryAreas = ["Nassau", "Suffolk", "Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island"];
-const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Junkyards, Salvage & Recycling"];
+const directoryGroups = ["Mechanic Shops", "Tire Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Junkyards, Salvage & Recycling"];
 
 
 export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string; county?: string; type?: string }> }) {
