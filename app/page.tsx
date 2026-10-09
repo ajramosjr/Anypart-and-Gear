@@ -35,16 +35,29 @@ export default async function Home() {
         <Link href={postPath} className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-black sm:px-5 sm:text-base"><span className="sm:hidden">+ Post</span><span className="hidden sm:inline">Post an item</span></Link>
         <details className="group relative">
           <summary className="flex size-11 cursor-pointer list-none items-center justify-center rounded-lg text-2xl hover:bg-slate-100 [&::-webkit-details-marker]:hidden" aria-label="Menu">☰</summary>
-          <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid w-56 gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
+          <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] overflow-y-auto gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/marketplace">Browse Marketplace</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href={postPath}>Post an item</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Parts &amp; Repair Directory</Link>
+            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Shops &amp; Suppliers</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">APG Tech Wire</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">APG Links</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Tools &amp; Gear — Support APG</Link>
-            {user ? <><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/account">My account</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/messages">Messages</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/notifications">Notifications</Link><a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/auth/signout">Sign out</a></> : <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/login">Sign in or create account</Link>}
+            <details className="border-t border-slate-200 pt-1">
+              <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">Resources</summary>
+              <div className="grid gap-1 pl-3">
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">APG Tech Wire</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Tools &amp; Work Gear</Link>
+              </div>
+            </details>
+            {user ? <details className="border-t border-slate-200 pt-1">
+              <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">My Account</summary>
+              <div className="grid gap-1 pl-3">
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/account">My account</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/messages">Messages</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/notifications">Notifications</Link>
+                <a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/auth/signout">Sign out</a>
+              </div>
+            </details> : <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/login">Sign in or create account</Link>}
           </nav>
         </details>
       </div>
