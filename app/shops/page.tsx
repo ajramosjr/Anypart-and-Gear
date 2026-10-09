@@ -12,6 +12,7 @@ type Shop = { id: string; owner_id: string; name: string; specialty: string; loc
 type Post = { id: string; shop_id: string; category: string; caption: string; image_url: string; price: number | null };
 const categories = ["All", "Auto", "Marine", "Motorcycle", "Tools", "Equipment", "RC & Hobby", "Other"];
 
+const directoryAreas = ["Nassau", "Suffolk", "Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island"];
 const directoryGroups = ["Mechanic Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Salvage & Recycling"];
 const directoryBusinesses = [
   {
@@ -1641,6 +1642,460 @@ const directoryBusinesses = [
       "Marine Parts Suppliers",
       "All Parts Suppliers"
     ]
+  },
+  {
+    "name": "Arch Auto Parts — Boston Road",
+    "address": "3533 Boston Road, Bronx, NY 10469",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-971-5953",
+    "county": "Bronx",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10469",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Atlantic Ave",
+    "address": "3354 Atlantic Ave, Brooklyn, NY 11208",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-647-0400",
+    "county": "Brooklyn",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11208",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Avenue D",
+    "address": "5109 Avenue D, Brooklyn, NY 11203",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-251-1000",
+    "county": "Brooklyn",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11203",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Eastern Pkwy",
+    "address": "1764 Eastern Pkwy, Brooklyn, NY 11233",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-407-3555",
+    "county": "Brooklyn",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11233",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Flatlands Ave",
+    "address": "5913 Flatlands Ave, Brooklyn, NY 11234",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-924-2427",
+    "county": "Brooklyn",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11234",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Utica Ave",
+    "address": "677 Utica Ave, Brooklyn, NY 11203",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-774-5090",
+    "county": "Brooklyn",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11203",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Hollis",
+    "address": "181-06 Jamaica Ave, Hollis, NY 11423",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-657-9600",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Hollis",
+    "postal_code": "11423",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Jamaica",
+    "address": "168-04 Liberty Ave, Jamaica, NY 11433",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-228-0100",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Jamaica",
+    "postal_code": "11433",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Kew Gardens",
+    "address": "127-25 Metropolitan Ave, Kew Gardens, NY 11415",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-658-2455",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Kew Gardens",
+    "postal_code": "11415",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Laurelton",
+    "address": "234-02 Merrick Blvd, Laurelton, NY 11422",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-481-8500",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Laurelton",
+    "postal_code": "11422",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Richmond Hill",
+    "address": "113-19 Atlantic Ave, Richmond Hill, NY 11418",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-441-7800",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Richmond Hill",
+    "postal_code": "11418",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — South Ozone Park",
+    "address": "140-15 Rockaway Blvd, South Ozone Park, NY 11436",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-322-2200",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "South Ozone Park",
+    "postal_code": "11436",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Arch Auto Parts — Woodside",
+    "address": "6201 Northern Blvd, Woodside, NY 11377",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries and maintenance supplies.",
+    "website": "https://archautoparts.com/locations/",
+    "phone": "718-927-6701",
+    "county": "Queens",
+    "sourceUrl": "https://archautoparts.com/locations/",
+    "checkedOn": "2026-10-09",
+    "town": "Woodside",
+    "postal_code": "11377",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Auto Parts — Staten Island (Hylan Blvd)",
+    "address": "4150 Hylan Blvd, Staten Island, NY 10308",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, tools and maintenance supplies.",
+    "website": "https://www.napaonline.com/en/ny/staten-island/store/802045",
+    "phone": "718-948-0300",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.napaonline.com/en/ny/staten-island/store/802045",
+    "checkedOn": "2026-10-09",
+    "town": "Staten Island",
+    "postal_code": "10308",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "NAPA Auto Parts — Staten Island (Port Richmond Ave)",
+    "address": "421 Port Richmond Ave, Staten Island, NY 10302",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Automotive replacement parts, batteries, tools and maintenance supplies.",
+    "website": "https://www.napaonline.com/en/ny/staten%20island/store/31755",
+    "phone": "718-442-8300",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.napaonline.com/en/ny/staten%20island/store/31755",
+    "checkedOn": "2026-10-09",
+    "town": "Staten Island",
+    "postal_code": "10302",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Cycle Therapy NYC",
+    "address": "230 E 127th Street, New York, NY 10035",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle parts, accessories, maintenance and repair services.",
+    "website": "https://www.cycletherapynyc.com/",
+    "phone": "212-828-2575",
+    "county": "Manhattan",
+    "sourceUrl": "https://www.cycletherapynyc.com/",
+    "checkedOn": "2026-10-09",
+    "town": "New York",
+    "postal_code": "10035",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Team Straus Motorcycles — Brooklyn",
+    "address": "1643 Utica Ave, Brooklyn, NY 11234",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle and powersports parts, accessories, tires and service.",
+    "website": "https://www.teamstrausmotorcycle.com/",
+    "phone": "718-692-7251",
+    "county": "Brooklyn",
+    "sourceUrl": "https://www.teamstrausmotorcycle.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11234",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "New York Motorcycle",
+    "address": "222-02 Jamaica Ave, Queens Village, NY 11428",
+    "category": "Motorcycle",
+    "directoryGroup": "Motorcycle Shops",
+    "detail": "Motorcycle and powersports sales, parts and service.",
+    "website": "https://newyorkmc.dz.cfmotousa.com/",
+    "phone": "718-479-7777",
+    "county": "Queens",
+    "sourceUrl": "https://newyorkmc.dz.cfmotousa.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Queens Village",
+    "postal_code": "11428",
+    "directoryTypes": [
+      "Motorcycle Shops",
+      "Motorcycle Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Bridge Marine Supply",
+    "address": "673 City Island Ave, Bronx, NY 10464",
+    "category": "Marine",
+    "directoryGroup": "Marine Shops",
+    "detail": "Marine engine replacement parts and boating supplies.",
+    "website": "https://www.bridgemarinesupply.com/contact-us.html",
+    "phone": "718-885-2302",
+    "county": "Bronx",
+    "sourceUrl": "https://www.bridgemarinesupply.com/contact-us.html",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10464",
+    "directoryTypes": [
+      "Marine Shops",
+      "Marine Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "New York Engine & Machine",
+    "address": "32-63 110th Street, East Elmhurst, NY 11369",
+    "category": "Auto",
+    "directoryGroup": "Auto Parts Suppliers",
+    "detail": "Wholesale engine parts and machine shop supplies for automotive, marine and heavy-duty applications.",
+    "website": "https://nycengine.com/contact-us/",
+    "phone": "718-651-3900",
+    "county": "Queens",
+    "sourceUrl": "https://nycengine.com/contact-us/",
+    "checkedOn": "2026-10-09",
+    "town": "East Elmhurst",
+    "postal_code": "11369",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Marine Parts Suppliers",
+      "Truck & Diesel Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Yanes Machine Shop",
+    "address": "1922 Pitkin Ave, Brooklyn, NY 11207",
+    "category": "Equipment",
+    "directoryGroup": "Machine & Fabrication Shops",
+    "detail": "Custom machining, industrial parts, fabrication and laser cutting.",
+    "website": "https://yanesmachineshop.com/contact-us/",
+    "phone": "347-787-1262",
+    "county": "Brooklyn",
+    "sourceUrl": "https://yanesmachineshop.com/contact-us/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11207",
+    "directoryTypes": [
+      "Machine & Fabrication Shops"
+    ]
+  },
+  {
+    "name": "American Hose & Hydraulics — Bronx",
+    "address": "521 Longfellow Ave, Bronx, NY 10474",
+    "category": "Equipment",
+    "directoryGroup": "Hydraulic & Hose Shops",
+    "detail": "Hydraulic and industrial hoses, fittings and replacement hydraulic components.",
+    "website": "https://americanhose.net/locations",
+    "phone": "718-893-8157",
+    "county": "Bronx",
+    "sourceUrl": "https://americanhose.net/locations",
+    "checkedOn": "2026-10-09",
+    "town": "Bronx",
+    "postal_code": "10474",
+    "directoryTypes": [
+      "Hydraulic & Hose Shops",
+      "Equipment Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Manhattan Auto Repair",
+    "address": "552 W 48th Street, New York, NY 10036",
+    "category": "Auto",
+    "directoryGroup": "Mechanic Shops",
+    "detail": "Vehicle maintenance, mechanical repairs and New York State inspections.",
+    "website": "https://manhattanautoinc.com/",
+    "phone": "212-757-4366",
+    "county": "Manhattan",
+    "sourceUrl": "https://manhattanautoinc.com/",
+    "checkedOn": "2026-10-09",
+    "town": "New York",
+    "postal_code": "10036",
+    "directoryTypes": [
+      "Mechanic Shops"
+    ]
+  },
+  {
+    "name": "AAMCO — Staten Island",
+    "address": "635 Richmond Road, Staten Island, NY 10304",
+    "category": "Auto",
+    "directoryGroup": "Transmission Shops",
+    "detail": "Transmission and clutch repairs, general auto maintenance and air conditioning service.",
+    "website": "https://www.aamcostatenisland.com/",
+    "phone": "718-865-3996",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.aamcostatenisland.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Staten Island",
+    "postal_code": "10304",
+    "directoryTypes": [
+      "Transmission Shops",
+      "Mechanic Shops",
+      "A/C & Cooling Shops"
+    ]
   }
 ];
 
@@ -1665,14 +2120,14 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const term = q.trim().toLowerCase();
   const town = location.trim().toLowerCase();
   const selected = categories.includes(category) ? category : "All";
-  const selectedCounty = ["Nassau", "Suffolk"].includes(county) ? county : "All";
+  const selectedCounty = directoryAreas.includes(county) ? county : "All";
   const selectedType = directoryGroups.includes(type) ? type : "All";
   const localResults = directoryBusinesses.filter((business) =>
     (selected === "All" || selected === business.category)
     && (selectedCounty === "All" || business.county === selectedCounty)
     && (selectedType === "All" || business.directoryTypes.includes(selectedType))
     && (!term || `${business.name} ${business.detail} ${business.directoryTypes.join(" ")} ${business.address}`.toLowerCase().includes(term))
-    && (!town || business.town.toLowerCase().includes(town) || business.postal_code === town)
+    && (!town || business.town.toLowerCase().includes(town) || business.county.toLowerCase() === town || (business.county === "Manhattan" && town === "manhattan") || business.postal_code === town)
   ).sort((a, b) => a.town.localeCompare(b.town) || a.name.localeCompare(b.name));
   const towns = [...new Set(localResults.map((business) => business.town))];
   const locationChoices = [...new Set(directoryBusinesses.map((business) => `${business.town} (${business.postal_code})`))].sort();
@@ -1687,20 +2142,20 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
 
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Parts &amp; Repair Directory</Link><Link href="/messages">Messages</Link></nav></div></header>
-    <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
+    <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island & NYC parts and repair services</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Parts &amp; Repair Directory</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, salvage yards, and more.</p>
       <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Truck & Diesel Parts", type: "Truck & Diesel Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} style={{ color: "#071a35" }} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-amber-500 bg-amber-400" : "border-slate-300 bg-white hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
-      <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town or ZIP" aria-label="Town or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All counties</option><option>Nassau</option><option>Suffolk</option></select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
+      <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town, borough or ZIP" aria-label="Town, neighborhood, borough or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County or borough" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All counties &amp; boroughs</option>{directoryAreas.map((area) => <option key={area}>{area}</option>)}</select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
       <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={queryLink({ category: item })} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
     </div></section>
     <div className="shell py-9">      <section id="long-island-directory" className="mt-10 scroll-mt-6 border-t border-slate-200 pt-8">
-        <h2 className="text-2xl font-black">Long Island Parts &amp; Repair Businesses</h2>
-        <p className="mt-2 text-slate-600">Browse Nassau and Suffolk businesses by town or ZIP, county and shop type. Independent listings are unclaimed and do not imply an APG partnership. Contact each business for current services and stock.</p>
-        <p className="mt-2 text-sm text-slate-600">Coverage is growing; this is not a complete list of every Long Island business.</p>
+        <h2 className="text-2xl font-black">Long Island &amp; NYC Parts &amp; Repair Businesses</h2>
+        <p className="mt-2 text-slate-600">Browse Nassau, Suffolk and all five NYC boroughs by town, neighborhood or ZIP, area and shop type. Independent listings are unclaimed and do not imply an APG partnership. Contact each business for current services and stock.</p>
+        <p className="mt-2 text-sm text-slate-600">Coverage is growing; this is not a complete list of every Long Island or NYC business.</p>
         <p className="mt-4 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600"><strong>About these links:</strong> Business details checked refers to the listed business and its public contact information. Website links open an external site in a new tab. APG does not control those sites or guarantee website security, products or services.</p><div className="mt-5 flex flex-wrap items-center gap-3"><strong>{localResults.length} {localResults.length === 1 ? "business" : "businesses"} · {towns.length} {towns.length === 1 ? "town" : "towns"}</strong>{(q || location || selected !== "All" || selectedCounty !== "All" || selectedType !== "All") && <Link href="/shops#long-island-directory" className="text-sm font-bold underline">Clear filters</Link>}</div>
         <nav aria-label="Browse directory by town" className="mt-4 flex flex-wrap gap-2">{towns.map((name) => <a key={name} href={`#town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold">{name}</a>)}</nav>
         {towns.length ? towns.map((name) => {
           const businesses = localResults.filter((business) => business.town === name);
-          return <section key={name} id={`town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="mt-8 scroll-mt-6"><h3 className="text-xl font-black">{name} <span className="text-sm font-semibold text-slate-500">{businesses[0].county} County · {[...new Set(businesses.map((business) => business.postal_code))].join(", ")}</span></h3>
+          return <section key={name} id={`town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="mt-8 scroll-mt-6"><h3 className="text-xl font-black">{name} <span className="text-sm font-semibold text-slate-500">{businesses[0].county} {["Nassau", "Suffolk"].includes(businesses[0].county) ? "County" : "borough"} · {[...new Set(businesses.map((business) => business.postal_code))].join(", ")}</span></h3>
           {(selectedType === "All" ? directoryGroups : [selectedType]).map((group) => { const grouped = businesses.filter((business) => selectedType === "All" ? business.directoryGroup === group : business.directoryTypes.includes(group)); return grouped.length ? <div key={group} className="mt-5"><h4 className="font-black text-slate-700">{group}</h4><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{grouped.map((business) => <article key={`${business.name}-${business.address}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><span className="text-xs font-bold uppercase tracking-wide text-slate-500">Unclaimed listing · {business.category}</span><h5 className="mt-2 text-lg font-black">{business.name}</h5><p className="mt-2 text-sm text-slate-600">{business.detail}</p><p className="mt-3 text-sm text-slate-600">{business.address}</p><p className="mt-3 text-xs text-slate-500">Business details checked {new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${business.checkedOn}T00:00:00Z`))}</p>{business.phone && <a href={`tel:${business.phone.replace(/[^0-9+]/g, "")}`} className="mt-2 inline-block text-sm font-bold underline">{business.phone}</a>}<p className="mt-2 break-all text-xs text-slate-600">{new URL(business.website).hostname.replace(/^www\./, "")}</p><div className="mt-4 flex flex-wrap gap-3"><a href={business.website} target="_blank" rel="noopener noreferrer" className="button button-small">Visit business website ↗</a><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address}`)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-bold underline">Directions</a></div><ReportDirectory name={business.name} address={business.address} website={business.website} currentUserId={user?.id} /></article>)}</div></div> : null; })}</section>;
         }) : <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6"><h3 className="font-black">No directory businesses match these filters yet</h3><p className="mt-2 text-slate-600">Try another town, ZIP or shop type. Coverage is growing.</p><Link href="/shops#long-island-directory" className="mt-3 inline-block font-bold underline">Browse all directory businesses</Link></div>}
         <p className="mt-6 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p>
