@@ -106,7 +106,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
       <div className="shell py-12">
         <div className="flex flex-col justify-between gap-7 lg:flex-row lg:items-end">
           <div>
-            <div className="flex flex-wrap items-center gap-3"><span className="grid size-14 place-items-center rounded-lg bg-amber-400 text-[#071a35]"><Store className="size-7"/></span>{shop.is_verified && <span className="verified-badge business-badge"><BadgeCheck className="size-3"/> Verified business</span>}</div>
+            <div className="flex flex-wrap items-center gap-3"><span className="grid size-14 place-items-center rounded-lg bg-amber-400 text-[#071a35]"><Store className="size-7"/></span>{shop.is_verified && <span className="verified-badge business-badge"><BadgeCheck className="size-3"/> APG Messages enabled</span>}</div>
             <h1 className="mt-5 text-4xl font-black sm:text-5xl">{shop.name}</h1>
             <p className="mt-2 flex items-center gap-2 font-bold text-amber-300"><Wrench className="size-4"/>{shop.specialty}</p>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{shop.description}</p>

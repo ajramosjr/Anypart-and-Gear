@@ -38,7 +38,7 @@ export function BusinessResponseForm({ requestId, shopId, userId }: { requestId:
   }
 
   return <form className="business-response-form" onSubmit={submit}>
-    <h2>Respond as a verified business</h2>
+    <h2>Respond as a activated business</h2>
     <p>Let the requester know what you have or ask for another detail. Their contact information stays private.</p>
     <div className="form-grid">
       <div className="field"><label htmlFor="availability">Availability</label><select id="availability" name="availability" defaultValue="In stock"><option>In stock</option><option>Can source it</option><option>Need more information</option></select></div>
