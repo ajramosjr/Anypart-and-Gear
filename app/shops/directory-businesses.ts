@@ -2177,5 +2177,425 @@ export const directoryBusinesses = [
       "Mechanic Shops",
       "A/C & Cooling Shops"
     ]
+  },
+  {
+    "name": "Mavis Discount Tire — Great Neck",
+    "address": "200 Northern Blvd., Great Neck, NY 11020",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/great-neck-ny/",
+    "phone": "516-717-0409",
+    "directoryGroup": "Tire Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.mavis.com/locations/great-neck-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Great Neck",
+    "postal_code": "11020",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Westbury",
+    "address": "885 Old Country Rd., Westbury, NY 11590",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/westbury-ny/",
+    "phone": "516-360-3839",
+    "directoryGroup": "Tire Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.mavis.com/locations/westbury-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Westbury",
+    "postal_code": "11590",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Elmont",
+    "address": "1841 Hempstead Turnpike, Elmont, NY 11003",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/elmont-ny/",
+    "phone": "516-373-6432",
+    "directoryGroup": "Tire Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.mavis.com/locations/elmont-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Elmont",
+    "postal_code": "11003",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — East Meadow",
+    "address": "2139 Hempstead Turnpike, East Meadow, NY 11554",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/east-meadow-2139-hemp-tpk-ny/",
+    "phone": "516-893-4293",
+    "directoryGroup": "Tire Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://www.mavis.com/locations/east-meadow-2139-hemp-tpk-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "East Meadow",
+    "postal_code": "11554",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Huntington Station",
+    "address": "929 East Jericho Tpk., Huntington Station, NY 11746",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/huntington-929-e-jer-tpk-ny/",
+    "phone": "631-729-9435",
+    "directoryGroup": "Tire Shops",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.mavis.com/locations/huntington-929-e-jer-tpk-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Huntington Station",
+    "postal_code": "11746",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Patchogue",
+    "address": "314 Medford Ave., Patchogue, NY 11772",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/patchogue-ny/",
+    "phone": "631-729-9451",
+    "directoryGroup": "Tire Shops",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.mavis.com/locations/patchogue-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Patchogue",
+    "postal_code": "11772",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Riverhead",
+    "address": "1064 Woodcrest Ave., Riverhead, NY 11901",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/riverhead-ny/",
+    "phone": "631-729-9355",
+    "directoryGroup": "Tire Shops",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.mavis.com/locations/riverhead-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Southampton Tire",
+    "address": "321 N. Sea Road, Southampton, NY 11968",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.southamptontirellc.com/",
+    "phone": "631-283-4205",
+    "directoryGroup": "Tire Shops",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.southamptontirellc.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Southampton",
+    "postal_code": "11968",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Consumer’s Tire, Auto & Marine",
+    "address": "8 Sherrill Fosters Path, East Hampton, NY 11937",
+    "category": "Auto",
+    "detail": "Tire and alignment shop with auto and marine services; contact the business for current services and availability.",
+    "website": "https://www.consumertireeh.com/",
+    "phone": "631-324-8292",
+    "directoryGroup": "Tire Shops",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.consumertireeh.com/",
+    "checkedOn": "2026-10-09",
+    "town": "East Hampton",
+    "postal_code": "11937",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Manhattan Auto Care Inc.",
+    "address": "275 Delancey St, New York, NY 10002",
+    "category": "Auto",
+    "detail": "Tire repair, replacement, mounting and balancing, plus mechanical and collision repairs.",
+    "website": "https://manhattanautocare.com/",
+    "phone": "212-353-0125",
+    "directoryGroup": "Tire Shops",
+    "county": "Manhattan",
+    "sourceUrl": "https://manhattanautocare.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Lower East Side",
+    "postal_code": "10002",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mercedes-Benz of Manhattan — Tire Center",
+    "address": "770 11th Avenue, New York, NY 10019",
+    "category": "Auto",
+    "detail": "Mercedes-Benz tire sales and professional installation; contact the tire center for fitment and availability.",
+    "website": "https://www.mbmanhattan.com/service/tire-center/",
+    "phone": "212-629-1600",
+    "directoryGroup": "Tire Shops",
+    "county": "Manhattan",
+    "sourceUrl": "https://www.mbmanhattan.com/service/tire-center/",
+    "checkedOn": "2026-10-09",
+    "town": "Hell’s Kitchen",
+    "postal_code": "10019",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Brooklyn Tire Warehouse",
+    "address": "1113 Neptune Ave, Brooklyn, NY 11224",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.brooklyntirewarehouse.com/",
+    "phone": "718-996-2739",
+    "directoryGroup": "Tire Shops",
+    "county": "Brooklyn",
+    "sourceUrl": "https://www.brooklyntirewarehouse.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Coney Island",
+    "postal_code": "11224",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Brooklyn Utica Avenue",
+    "address": "611 Utica Ave., Brooklyn, NY 11203",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/brooklyn-utica-ave-ny/",
+    "phone": "347-218-8543",
+    "directoryGroup": "Tire Shops",
+    "county": "Brooklyn",
+    "sourceUrl": "https://www.mavis.com/locations/brooklyn-utica-ave-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "East Flatbush",
+    "postal_code": "11203",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "TM & T Tire",
+    "address": "4115 Northern Blvd, Long Island City, NY 11101",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.tmttire.net/",
+    "phone": "718-729-3500",
+    "directoryGroup": "Tire Shops",
+    "county": "Queens",
+    "sourceUrl": "https://www.tmttire.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Long Island City",
+    "postal_code": "11101",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Jamaica",
+    "address": "166-15 Baisley Blvd., Jamaica, NY 11434",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/jamaica-ny/",
+    "phone": "347-227-2469",
+    "directoryGroup": "Tire Shops",
+    "county": "Queens",
+    "sourceUrl": "https://www.mavis.com/locations/jamaica-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Jamaica",
+    "postal_code": "11434",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Bronx Williamsbridge",
+    "address": "2575 Boston Rd., Bronx, NY 10467",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/bronx-williamsbridge-ny/",
+    "phone": "347-218-8426",
+    "directoryGroup": "Tire Shops",
+    "county": "Bronx",
+    "sourceUrl": "https://www.mavis.com/locations/bronx-williamsbridge-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Williamsbridge",
+    "postal_code": "10467",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "National Discount Tires and Wheels",
+    "address": "1959 Birchall Ave, Bronx, NY 10462",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.nationaldiscounttires.com/",
+    "phone": "718-829-8989",
+    "directoryGroup": "Tire Shops",
+    "county": "Bronx",
+    "sourceUrl": "https://www.nationaldiscounttires.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Van Nest",
+    "postal_code": "10462",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Co-Op City Tire & Auto",
+    "address": "3525 Conner St, Bronx, NY 10475",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.co-opcitytire.com/",
+    "phone": "718-994-9600",
+    "directoryGroup": "Tire Shops",
+    "county": "Bronx",
+    "sourceUrl": "https://www.co-opcitytire.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Eastchester",
+    "postal_code": "10475",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Mavis Discount Tire — Staten Island",
+    "address": "2060 Forest Ave., Staten Island, NY 10303",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.mavis.com/locations/staten-island-ny/",
+    "phone": "347-227-2102",
+    "directoryGroup": "Tire Shops",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.mavis.com/locations/staten-island-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Mariners Harbor",
+    "postal_code": "10303",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Wil John’s Tire Empire Tire Pros",
+    "address": "2044 Hylan Boulevard, Staten Island, NY 10306",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.tireempire.com/",
+    "phone": "718-980-1000",
+    "directoryGroup": "Tire Shops",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.tireempire.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Grant City",
+    "postal_code": "10306",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Guy’s Tire Buys LLC",
+    "address": "4099 Hylan Blvd, Staten Island, NY 10308",
+    "category": "Auto",
+    "detail": "Tire sales, installation, balancing and flat-tire repair.",
+    "website": "https://www.guystirebuys.net/",
+    "phone": "718-317-7007",
+    "directoryGroup": "Tire Shops",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.guystirebuys.net/",
+    "checkedOn": "2026-10-09",
+    "town": "Great Kills",
+    "postal_code": "10308",
+    "directoryTypes": [
+      "Tire Shops",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
   }
 ];
