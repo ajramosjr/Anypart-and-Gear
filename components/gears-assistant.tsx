@@ -457,7 +457,15 @@ export function GearsAssistant() {
     );
   }
 
-  if (hiddenOnNews || hidden) return null;
+  if (hiddenOnNews) return null;
+  if (hidden) return (
+    <aside className={`${styles.root} ${october ? styles.october : ""}`} aria-label="Restore Gear assistant">
+      <button className={styles.hideGear} type="button" onClick={() => {
+        setHidden(false);
+        try { window.localStorage.removeItem("apg-gear-hidden-v1"); } catch {}
+      }}>Show Gear</button>
+    </aside>
+  );
 
   return (
     <aside className={`${styles.root} ${october ? styles.october : ""}`} aria-label="Gear website assistant">
