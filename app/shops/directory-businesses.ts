@@ -2597,5 +2597,312 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers"
     ]
+  },
+  {
+    "name": "Gershow Recycling — Brooklyn",
+    "address": "1888 Pitkin Ave, Brooklyn, NY 11212",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/brooklyn-ny/",
+    "phone": "718-345-2240",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Brooklyn",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/brooklyn-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11212",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Freeport",
+    "address": "143 Hanse Ave, Freeport, NY 11520",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/freeport-ny/",
+    "phone": "516-634-0644",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Nassau",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/freeport-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Freeport",
+    "postal_code": "11520",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Huntington Station",
+    "address": "149 W 11th St, Huntington Station, NY 11746",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/huntington-ny/",
+    "phone": "631-385-1200",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/huntington-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Huntington Station",
+    "postal_code": "11746",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Bay Shore",
+    "address": "33 McAdam St, Bay Shore, NY 11706",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/bay-shore-ny/",
+    "phone": "631-234-1022",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/bay-shore-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Bay Shore",
+    "postal_code": "11706",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Medford",
+    "address": "71 Peconic Ave, Medford, NY 11763",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/medford-ny/",
+    "phone": "631-289-6188",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/medford-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Medford",
+    "postal_code": "11763",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Valley Stream",
+    "address": "97 East Hawthorne Ave, Valley Stream, NY 11580",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/valley-stream-ny/",
+    "phone": "516-825-7244",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Nassau",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/valley-stream-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Valley Stream",
+    "postal_code": "11580",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — New Hyde Park",
+    "address": "24 Denton Ave, New Hyde Park, NY 11040",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/new-hyde-park-ny/",
+    "phone": "516-746-1081",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Nassau",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/new-hyde-park-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "New Hyde Park",
+    "postal_code": "11040",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Lindenhurst",
+    "address": "635 Muncy Ave, Lindenhurst, NY 11757",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/lindenhurst-ny/",
+    "phone": "631-587-1991",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/lindenhurst-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Lindenhurst",
+    "postal_code": "11757",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Gershow Recycling — Riverhead",
+    "address": "27 Hubbard Ave, Riverhead, NY 11901",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-vehicle recycling. Does not retail auto parts to the general public.",
+    "website": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/riverhead-ny/",
+    "phone": "631-727-3521",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.gershow.com/locations-suffolk-scrap-yard-nassau-metal-recycling/riverhead-ny/",
+    "checkedOn": "2026-10-09",
+    "town": "Riverhead",
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Ace Auto Wreckers",
+    "address": "1028 Long Island Ave, Deer Park, NY 11729",
+    "category": "Auto",
+    "detail": "Used car and truck replacement parts, online inventory, local pickup and shipping.",
+    "website": "https://www.aceautowreckers.com/",
+    "phone": "631-667-3331",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.aceautowreckers.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Deer Park",
+    "postal_code": "11729",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "All American Auto Wreckers",
+    "address": "1383 Montauk Highway, East Patchogue, NY 11772",
+    "category": "Auto",
+    "detail": "Used automotive parts and vehicle recycling; online inventory and part lookup.",
+    "website": "https://www.allamericanautowreckers.com/contact/",
+    "phone": "631-286-5500",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.allamericanautowreckers.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "East Patchogue",
+    "postal_code": "11772",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Action Auto Wreckers",
+    "address": "38 E Chestnut Street, Massapequa, NY 11758",
+    "category": "Auto",
+    "detail": "Used car and truck parts, engines and diesel engines; salvage parts and shipping.",
+    "website": "https://www.actionautowreckers.com/shopcustcontact.asp",
+    "phone": "516-797-9300",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Nassau",
+    "sourceUrl": "https://www.actionautowreckers.com/shopcustcontact.asp",
+    "checkedOn": "2026-10-09",
+    "town": "Massapequa",
+    "postal_code": "11758",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Ace Auto Salvage",
+    "address": "1335 Castleton Ave, Staten Island, NY 10310",
+    "category": "Auto",
+    "detail": "Recycled domestic and import car and truck parts. Office: 1335 Castleton Ave; yard: 95 Rector Street. Call before visiting.",
+    "website": "https://aceautosalvage.com/",
+    "phone": "718-273-4100",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Staten Island",
+    "sourceUrl": "https://aceautosalvage.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Staten Island",
+    "postal_code": "10310",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "J&J Recycling",
+    "address": "1641 Richmond Terrace, Staten Island, NY 10310",
+    "category": "Auto",
+    "detail": "Scrap metal and junk-car recycling. Contact for accepted materials and vehicle arrangements.",
+    "website": "https://www.jandjrecycling.com/contact-3",
+    "phone": "718-273-3000",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Staten Island",
+    "sourceUrl": "https://www.jandjrecycling.com/contact-3",
+    "checkedOn": "2026-10-09",
+    "town": "Staten Island",
+    "postal_code": "10310",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Plakos Scrap Processing",
+    "address": "769 E 95th St, Brooklyn, NY 11236",
+    "category": "Auto",
+    "detail": "Junk-car, truck and scrap-metal recycling; serves NYC including Manhattan. Retail replacement-part sales are not confirmed.",
+    "website": "https://plakosscrapcars.com/",
+    "phone": "718-385-0707",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Brooklyn",
+    "sourceUrl": "https://plakosscrapcars.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11236",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling"
+    ]
+  },
+  {
+    "name": "Alliance Auto Parts — Woodside",
+    "address": "50-16 72nd Street, Woodside, NY 11377",
+    "category": "Auto",
+    "detail": "Recycled OEM automotive parts, online inventory and nationwide parts locating.",
+    "website": "https://www.allianceautoparts.com/contact/",
+    "phone": "718-672-3800",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Queens",
+    "sourceUrl": "https://www.allianceautoparts.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Woodside",
+    "postal_code": "11377",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Alliance Auto Parts — Lindenhurst",
+    "address": "807 Albin Ave, Lindenhurst, NY 11757",
+    "category": "Auto",
+    "detail": "Recycled OEM automotive parts; contact this location for inventory and pickup.",
+    "website": "https://www.allianceautoparts.com/contact/",
+    "phone": "631-884-8444",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.allianceautoparts.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Lindenhurst",
+    "postal_code": "11757",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
   }
 ];
