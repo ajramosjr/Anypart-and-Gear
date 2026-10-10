@@ -3055,6 +3055,44 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers"
     ]
+  },
+  {
+    "name": "Trailer City — Hempstead",
+    "address": "236 Front Street, Hempstead, NY 11550",
+    "category": "Trailers",
+    "detail": "Trailer replacement parts, hitches, towing equipment and truck accessories; trailer installations and repairs. Call for specific parts availability.",
+    "website": "https://trailercity.com/",
+    "phone": "516-486-0960",
+    "directoryGroup": "Parts Suppliers",
+    "county": "Nassau",
+    "sourceUrl": "https://trailercity.com/",
+    "checkedOn": "2026-10-10",
+    "town": "Hempstead",
+    "postal_code": "11550",
+    "directoryTypes": [
+      "Parts Suppliers",
+      "All Parts Suppliers",
+      "Truck & Diesel Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Trailer City — Riverhead",
+    "address": "1064 Route 58, Riverhead, NY 11901",
+    "category": "Trailers",
+    "detail": "Trailer replacement parts, hitches, towing equipment and truck accessories; trailer installations and repairs. Call for specific parts availability.",
+    "website": "https://trailercity.com/",
+    "phone": "631-208-1999",
+    "directoryGroup": "Parts Suppliers",
+    "county": "Suffolk",
+    "sourceUrl": "https://trailercity.com/",
+    "checkedOn": "2026-10-10",
+    "town": "Riverhead",
+    "postal_code": "11901",
+    "directoryTypes": [
+      "Parts Suppliers",
+      "All Parts Suppliers",
+      "Truck & Diesel Parts Suppliers"
+    ]
   }
 ];
 
@@ -3202,6 +3240,20 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.mcmaster.com/",
     "detail": "Fasteners, bearings, seals, hoses, fittings, tools and industrial replacement components.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "Boats.net",
+    "categories": [
+      "Marine"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Marine Parts Suppliers"
+    ],
+    "website": "https://www.boats.net/catalog/accessories",
+    "detail": "OEM marine engine parts and aftermarket boat accessories; search by engine brand, model or part number.",
     "checkedOn": "2026-10-10"
   }
 ];
