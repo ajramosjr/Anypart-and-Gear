@@ -4,6 +4,7 @@ import { MapPin, Search, ShieldCheck, Star, Store, Upload } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ApgLogo from "@/components/apg-logo";
+import { AMAZON_ASSOCIATE_TAG } from "@/lib/affiliate";
 import ContactShop from "./contact-shop";
 import { directoryBusinesses, onlineSuppliers } from "./directory-businesses";
 import ReportDirectory from "./report-directory";
@@ -119,6 +120,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
           <p className="mt-3 text-xs text-slate-500">Website &amp; product categories checked {new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${supplier.checkedOn}T00:00:00Z`))}</p>
           <p className="mt-2 break-all text-xs text-slate-600">{new URL(supplier.website).hostname.replace(/^www\./, "")}</p>
           <a className="button button-small mt-4" href={supplier.website} target="_blank" rel="noopener noreferrer">Visit supplier website ↗</a>
+          {supplier.name === "Carhartt" && <div className="mt-3"><a className="button button-small" href={`https://www.amazon.com/stores/Carhartt/page/4D749FEE-ACA7-4043-8DF6-FCA7CF7BEE1F?tag=${encodeURIComponent(AMAZON_ASSOCIATE_TAG)}`} target="_blank" rel="noopener noreferrer sponsored nofollow">Shop Carhartt on Amazon ↗</a><p className="mt-2 text-xs text-slate-600">Affiliate link: As an Amazon Associate I earn from qualifying purchases. <Link href="/affiliate-disclosure" className="font-bold underline">How affiliate links work</Link></p></div>}
         </article>)}</div> : <p className="mt-4 text-sm text-slate-600">No online suppliers match these filters. <Link className="font-bold underline" href={queryLink({ county: "Online", location: "", type: "Online Suppliers", category: "All", q: "", specialty: "All" }).replace("#long-island-directory", "#online-suppliers")}>Browse all online suppliers</Link></p>}
       </section>}      {!isOnline && <section id="long-island-directory" className="scroll-mt-6">
         <h2 className="text-2xl font-black">{isSuppliers ? "Local Suppliers" : "Local Shops"}</h2>
