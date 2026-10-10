@@ -6,6 +6,7 @@ import { ReportAction, VerifyShop } from "./moderation-actions";
 import TechWireEditor from "./tech-wire-editor";
 import type { DatabaseTechArticle } from "@/app/tech-wire/article-store";
 import ApgLogo from "@/components/apg-logo";
+import CommunityControls from "./community-controls";
 
 type Report = { id:string; reason:string; details:string|null; status:string; created_at:string; listings:{title:string}|null };
 type Shop = { id:string; name:string; specialty:string; location:string; postal_code:string; website:string|null; is_verified:boolean; is_active:boolean };
@@ -21,7 +22,8 @@ function safeWebsite(value: string | null) {
   }
 }
 
-export default async function AdminPage() {
+export default async function AdminPage({ searchParams }: { searchParams: Promise<{ community?: string }> }) {
+  const { community } = await searchParams;
   const user = await getUser();
   if (!user) redirect("/login?next=/admin");
   if (user.app_metadata?.role !== "admin") redirect("/account");
@@ -42,6 +44,7 @@ export default async function AdminPage() {
       <p className="mt-3 text-sm text-slate-600">Private to administrators. Sign-ups include accounts awaiting email confirmation. Months use New York time. Visitor counting began October 6, 2026; earlier visits are not included. Visitors are estimated by browser; repeat visits count once per month. Common bots and signed-in administrators are excluded.</p>
       {totalsError && <p role="status" className="mt-2 text-sm text-amber-800">Totals could not be loaded. Refresh this page to try again.</p>}
     </section>
+    <CommunityControls message={community} />
     <TechWireEditor initialArticles={(articles || []) as DatabaseTechArticle[]} userId={user.id} />
     <h2 className="admin-section">Listing reports</h2><div className="admin-list">{((reports || []) as unknown as Report[]).map((report) => <article className="admin-row" key={report.id}><div><strong>{report.reason}</strong><p>{report.listings?.title || (report.reason.startsWith("Directory:") ? "Directory business report" : "Removed listing")}</p>{report.details && <small>{report.details}</small>}</div><ReportAction id={report.id} status={report.status} /></article>)}{!reports?.length && <p>No reports waiting.</p>}</div>
     <h2 className="admin-section">Business activation requests</h2><p className="admin-section-note">Confirm that the account holder is authorized to represent the business using an official business email or a callback to its published number before approving activation. Approval enables Parts Wanted access and APG Messages. No licenses or identity documents are uploaded.</p><div className="admin-list">{((shops || []) as Shop[]).map((shop) => <article className="admin-row" key={shop.id}><div><strong>{shop.name}</strong><p>{shop.specialty} · {shop.location} {shop.postal_code}</p>{safeWebsite(shop.website) && <a href={safeWebsite(shop.website)!} target="_blank" rel="noopener noreferrer nofollow">Review public business page</a>}<small>{shop.is_verified ? "APG Messages enabled" : "Activation pending"}</small><p><Link href={`/admin/business-post?shop=${shop.id}`}>Post a shop-approved photo for this business</Link></p></div><VerifyShop id={shop.id} verified={shop.is_verified} /></article>)}{!shops?.length && <p>No shops registered yet.</p>}</div>
