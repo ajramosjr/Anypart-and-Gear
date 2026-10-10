@@ -3061,7 +3061,7 @@ export const directoryBusinesses = [
     "address": "1937 Flushing Avenue, Ridgewood, NY 11385",
     "category": "Auto",
     "detail": "Used late-model foreign and domestic auto parts, computerized inventory and nationwide parts locating. Call for availability.",
-    "website": "https://www.agautodismantling.com/",
+    "website": "",
     "phone": "718-497-3900",
     "directoryGroup": "Junkyards, Salvage & Recycling",
     "county": "Queens",
