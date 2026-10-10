@@ -17,8 +17,9 @@ const directoryAreas = ["Online", "Nassau", "Suffolk", "Manhattan", "Brooklyn", 
 const directoryGroups = ["Online Suppliers", "Mechanic Shops", "Tire Shops", "All Parts Suppliers", "Parts Suppliers", "Auto Parts Suppliers", "Truck & Diesel Parts Suppliers", "Marine Parts Suppliers", "Equipment Parts Suppliers", "RC & Hobby Parts Suppliers", "Machine & Fabrication Shops", "A/C & Cooling Shops", "Hydraulic & Hose Shops", "Transmission Shops", "Marine Shops", "Motorcycle Shops", "Motorcycle Parts Suppliers", "Collision & Body Shops", "Hobby Shops", "Junkyards, Salvage & Recycling"];
 
 
-export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string; county?: string; type?: string }> }) {
-  const [{ q = "", category = "All", location = "", county = "All", type = "All" }, user] = await Promise.all([searchParams, getUser()]);
+export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string; county?: string; type?: string; view?: string }> }) {
+  const [{ q = "", category = "All", location = "", county = "All", type = "All", view = "" }, user] = await Promise.all([searchParams, getUser()]);
+  const isOnline = view === "online" || (view !== "local" && (county === "Online" || type === "Online Suppliers"));
   const supabase = await createClient();
   const [{ data: shopData }, { data: postData }] = await Promise.all([
     supabase.from("shops").select("id,owner_id,name,specialty,location,postal_code,is_verified").eq("is_active", true),
@@ -58,7 +59,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   const towns = [...new Set(localResults.map((business) => business.town))];
   const locationChoices = [...new Set(directoryBusinesses.map((business) => `${business.town} (${business.postal_code})`))].sort();
   const filteredShops = shops.filter((shop) => (!term || `${shop.name} ${shop.specialty}`.toLowerCase().includes(term)) && (!town || `${shop.location} ${shop.postal_code}`.toLowerCase().includes(town)) && (selected === "All" || shop.specialty.toLowerCase().includes(selected.toLowerCase())));
-  const queryLink = (overrides: Record<string, string>) => `/shops?${new URLSearchParams({ q, location, category: selected, county: selectedCounty, type: selectedType, ...overrides })}#${(overrides.county ?? selectedCounty) === "Online" || (overrides.type ?? selectedType) === "Online Suppliers" ? "online-suppliers" : "long-island-directory"}`;
+  const queryLink = (overrides: Record<string, string>) => `/shops?${new URLSearchParams({ q, location, category: selected, county: selectedCounty, type: selectedType, view: isOnline ? "online" : "local", ...overrides })}`;
   const shown = posts.filter((post) => {
     const shop = shopById.get(post.shop_id);
     return shop && (selected === "All" || post.category === selected)
@@ -68,13 +69,35 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
 
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Shops &amp; Suppliers</Link><Link href="/messages">Messages</Link></nav></div></header>
-    <section className="bg-white"><div className="shell py-10 sm:py-14"><span className="kicker">Long Island, NYC & New Jersey shops and suppliers</span><h1 className="mt-2 text-4xl font-black sm:text-5xl">Shops &amp; Suppliers</h1><p className="mt-2 text-slate-600">Find parts suppliers, mechanic shops, machine shops, transmission specialists, hose &amp; hydraulic shops, body shops, tire shops, junkyards &amp; salvage yards, and more.</p>
-      <nav aria-label="Parts categories" className="mt-5 flex flex-wrap gap-2">{[{ label: "All Parts", type: "All Parts Suppliers" }, { label: "Auto Parts", type: "Auto Parts Suppliers" }, { label: "Truck & Diesel Parts", type: "Truck & Diesel Parts Suppliers" }, { label: "Marine Parts", type: "Marine Parts Suppliers" }, { label: "Motorcycle Parts", type: "Motorcycle Parts Suppliers" }, { label: "Equipment Parts", type: "Equipment Parts Suppliers" }, { label: "RC & Hobby Parts", type: "RC & Hobby Parts Suppliers" }, { label: "Junkyards & Salvage", type: "Junkyards, Salvage & Recycling" }].map((item) => <Link key={item.type} href={queryLink({ type: item.type, category: "All" })} aria-current={selectedType === item.type ? "page" : undefined} style={{ color: "#071a35" }} className={`rounded-full border px-4 py-2 text-sm font-bold ${selectedType === item.type ? "border-amber-500 bg-amber-400" : "border-slate-300 bg-white hover:border-amber-500"}`}>{item.label}</Link>)}</nav>
-      <form action="/shops#long-island-directory" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]"><input type="hidden" name="category" value={selected}/><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 text-slate-500"/><input className="h-12 w-full outline-none" name="q" defaultValue={q} placeholder="Search suppliers, shops, parts or services" aria-label="Search businesses, parts and services" /></label><label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 text-slate-500"/><input className="h-12 w-full outline-none sm:w-36" name="location" defaultValue={location} placeholder="Town, borough or ZIP" aria-label="Town, neighborhood, borough or ZIP" list="directory-locations" /></label><datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist><select name="county" defaultValue={selectedCounty} aria-label="County, borough or state" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All areas</option>{directoryAreas.map((area) => <option key={area}>{area}</option>)}</select><select name="type" defaultValue={selectedType} aria-label="Business type" className="h-12 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.map((group) => <option key={group}>{group}</option>)}</select><button className="button">Search</button></form>
-      <nav aria-label="Parts and repair categories" className="mt-5 flex gap-2 overflow-x-auto pb-2">{categories.map((item) => <Link key={item} href={queryLink({ category: item })} aria-current={selected === item ? "page" : undefined} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${selected === item ? "border-amber-500 bg-amber-400 text-[#071a35]" : "border-slate-300 bg-white text-slate-700"}`}>{item}</Link>)}</nav>
+    <section className="bg-white"><div className="shell py-7 sm:py-10">
+      <h1 className="text-3xl font-black sm:text-5xl">Shops &amp; Suppliers</h1>
+      <p className="mt-2 text-slate-600">Find parts, supplies and repair services.</p>
+      <nav aria-label="Supplier directory" className="mt-5 grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1">
+        {[{ label: "Local Shops & Suppliers", view: "local" }, { label: "Online Suppliers", view: "online" }].map((tab) => <Link key={tab.view} href={queryLink({ view: tab.view, county: tab.view === "online" ? "Online" : "All", type: "All", location: "" })} aria-current={isOnline === (tab.view === "online") ? "page" : undefined} className={`rounded-lg px-3 py-3 text-center text-sm font-bold ${isOnline === (tab.view === "online") ? "bg-[#071a35] text-white shadow-sm" : "text-slate-600 hover:bg-white"}`}>{tab.label}</Link>)}
+      </nav>
+      <form action="/shops" className="mt-5 space-y-3">
+        <input type="hidden" name="view" value={isOnline ? "online" : "local"} />
+        {isOnline && <><input type="hidden" name="county" value="Online"/><input type="hidden" name="type" value="All"/></>}
+        <div className="grid gap-3 sm:grid-cols-[1fr_14rem_auto]">
+          <label className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 shrink-0 text-slate-500"/><input className="h-12 min-w-0 w-full outline-none" name="q" defaultValue={q} placeholder="Search businesses or parts" aria-label="Search businesses or parts" /></label>
+          <select name="category" defaultValue={selected} aria-label="Parts category" className="h-12 min-w-0 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All categories</option>{categories.filter((item) => item !== "All").map((item) => <option key={item}>{item}</option>)}</select>
+          <button className="button">Search</button>
+        </div>
+        {!isOnline && <>
+          <label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 shrink-0 text-slate-500"/><input className="h-12 min-w-0 w-full outline-none" name="location" defaultValue={location} placeholder="Town, borough or ZIP" aria-label="Town, neighborhood, borough or ZIP" list="directory-locations" /></label>
+          <datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist>
+          <details open={selectedCounty !== "All" || selectedType !== "All"} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+            <summary className="cursor-pointer text-sm font-bold">More filters</summary>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <select name="county" defaultValue={selectedCounty === "Online" ? "All" : selectedCounty} aria-label="County, borough or state" className="h-12 min-w-0 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All areas</option>{directoryAreas.filter((area) => area !== "Online").map((area) => <option key={area}>{area}</option>)}</select>
+              <select name="type" defaultValue={selectedType === "Online Suppliers" ? "All" : selectedType} aria-label="Business type" className="h-12 min-w-0 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All shop types</option>{directoryGroups.filter((group) => group !== "Online Suppliers").map((group) => <option key={group}>{group}</option>)}</select>
+            </div>
+          </details>
+        </>}
+      </form>
     </div></section>
     <div className="shell py-9">
-      <section id="online-suppliers" className="scroll-mt-6 rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+      {isOnline && <section id="online-suppliers" className="scroll-mt-6 rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-black">Online Parts &amp; Gear Suppliers</h2><Link className="text-sm font-bold underline" href={queryLink({ county: "Online", location: "", type: "Online Suppliers", category: "All", q: "" }).replace("#long-island-directory", "#online-suppliers")}>Browse online suppliers</Link></div>
         <p className="mt-2 text-sm text-slate-600">Order through these suppliers’ websites. These are online shopping listings, separate from local shops; some suppliers also operate physical stores. Independent listings do not imply an APG partnership.</p>
         <p className="mt-2 text-sm text-slate-600">Check the supplier’s checkout for shipping destinations, charges and current stock.</p>
@@ -86,11 +109,11 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
           <p className="mt-2 break-all text-xs text-slate-600">{new URL(supplier.website).hostname.replace(/^www\./, "")}</p>
           <a className="button button-small mt-4" href={supplier.website} target="_blank" rel="noopener noreferrer">Visit supplier website ↗</a>
         </article>)}</div> : <p className="mt-4 text-sm text-slate-600">No online suppliers match these filters. <Link className="font-bold underline" href={queryLink({ county: "Online", location: "", type: "Online Suppliers", category: "All", q: "" }).replace("#long-island-directory", "#online-suppliers")}>Browse all online suppliers</Link></p>}
-      </section>      {selectedCounty !== "Online" && selectedType !== "Online Suppliers" && <section id="long-island-directory" className="mt-10 scroll-mt-6 border-t border-slate-200 pt-8">
-        <h2 className="text-2xl font-black">Long Island, NYC &amp; New Jersey Businesses</h2>
-        <p className="mt-2 text-slate-600">Browse New Jersey, Nassau, Suffolk and all five NYC boroughs by town, neighborhood or ZIP, area and shop type. Independent listings are publicly listed and do not imply an APG partnership. Contact each business for current services and stock.</p>
-        <p className="mt-2 text-sm text-slate-600">Coverage is growing; this is not a complete list of every Long Island, NYC or New Jersey business.</p>
-        <p className="mt-4 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600"><strong>About these links:</strong> Business details checked refers to the listed business and its public contact information. Website links open an external site in a new tab. APG does not control those sites or guarantee website security, products or services.</p><div className="mt-5 flex flex-wrap items-center gap-3"><strong>{localResults.length} {localResults.length === 1 ? "business" : "businesses"} · {towns.length} {towns.length === 1 ? "town" : "towns"}</strong>{(q || location || selected !== "All" || selectedCounty !== "All" || selectedType !== "All") && <Link href="/shops#long-island-directory" className="text-sm font-bold underline">Clear filters</Link>}</div>
+      </section>}      {!isOnline && <section id="long-island-directory" className="scroll-mt-6">
+        <h2 className="text-2xl font-black">Local Shops &amp; Suppliers</h2>
+        <p className="mt-2 text-slate-600">Long Island, New York City and New Jersey. Contact businesses for current services and stock.</p>
+        
+        <details className="mt-3 text-sm text-slate-600"><summary className="cursor-pointer">About directory listings</summary><p className="mt-2">Independent listings do not imply an APG partnership. Coverage is growing.  Business details checked refers to the listed business and its public contact information. Website links open an external site in a new tab. APG does not control those sites or guarantee website security, products or services.</p></details><div className="mt-5 flex flex-wrap items-center gap-3"><strong>{localResults.length} {localResults.length === 1 ? "business" : "businesses"} · {towns.length} {towns.length === 1 ? "town" : "towns"}</strong>{(q || location || selected !== "All" || selectedCounty !== "All" || selectedType !== "All") && <Link href="/shops#long-island-directory" className="text-sm font-bold underline">Clear filters</Link>}</div>
         <nav aria-label="Browse directory by town" className="mt-4 flex flex-wrap gap-2">{towns.map((name) => <a key={name} href={`#town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold">{name}</a>)}</nav>
         {towns.length ? towns.map((name) => {
           const businesses = localResults.filter((business) => business.town === name);
@@ -99,7 +122,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
         }) : <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6"><h3 className="font-black">No directory businesses match these filters yet</h3><p className="mt-2 text-slate-600">Try another town, ZIP or shop type. Coverage is growing.</p><Link href="/shops#long-island-directory" className="mt-3 inline-block font-bold underline">Browse all directory businesses</Link></div>}
         <p className="mt-6 text-sm text-slate-600">Business owner? <Link href="/support" className="font-bold underline">Request a correction or removal</Link>, or <Link href="/shops/register" className="font-bold underline">create your APG business profile</Link>.</p>
       </section>}
-<div className="mb-5 mt-12 flex flex-wrap items-center justify-between gap-3"><p className="text-sm font-bold text-slate-600">{shown.length} {shown.length === 1 ? "post" : "posts"} from local businesses</p><Link className="button button-small" href={user ? "/shops/post" : "/login?next=/shops/post"}>Post for your business</Link></div>
+{!isOnline && <><div className="mb-5 mt-12 flex flex-wrap items-center justify-between gap-3"><p className="text-sm font-bold text-slate-600">{shown.length} {shown.length === 1 ? "post" : "posts"} from local businesses</p><Link className="button button-small" href={user ? "/shops/post" : "/login?next=/shops/post"}>Post for your business</Link></div>
       {shown.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shown.map((post) => {
         const shop = shopById.get(post.shop_id)!;
         const rating = ratings.get(shop.owner_id);
@@ -114,6 +137,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
       </section>
 
 
+    </>}
     </div>
     <section id="for-businesses" className="bg-[#0b2345] text-white"><div className="shell grid gap-8 py-12 sm:grid-cols-[1fr_auto] sm:items-center"><div><p className="text-sm font-black uppercase tracking-widest text-amber-400">For businesses</p><h2 className="mt-2 text-3xl font-black">Promote your business on APG.</h2><p className="mt-4 max-w-2xl text-slate-300">Create a free profile to show your specialty, services, hours and website. Buyers can contact your shop directly. Posting individual items or inventory is optional.</p><div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300"><span className="flex items-center gap-2"><Store className="size-4 text-amber-400"/> Business profile</span><span className="flex items-center gap-2"><Upload className="size-4 text-amber-400"/> Optional inventory</span><span className="flex items-center gap-2"><ShieldCheck className="size-4 text-amber-400"/> Direct buyer contact</span></div></div><Link className="button whitespace-nowrap" href={user ? "/shops/register" : "/login?next=/shops/register"}>Add your business</Link></div></section>
   </main>;
