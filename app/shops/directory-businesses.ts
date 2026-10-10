@@ -1,5 +1,23 @@
 export const directoryBusinesses = [
   {
+    "name": "Seamans Neck Auto Care",
+    "address": "3818 Sunrise Highway, Seaford, NY 11783",
+    "category": "Auto",
+    "detail": "General auto repairs, engine diagnostics, brakes, oil changes, tire services, New York State inspections and automotive A/C repairs.",
+    "website": "https://seamansneckautocare.com/",
+    "phone": "516-654-9745",
+    "directoryGroup": "Mechanic Shops",
+    "county": "Nassau",
+    "sourceUrl": "https://seamansneckautocare.com/",
+    "checkedOn": "2026-10-10",
+    "town": "Seaford",
+    "postal_code": "11783",
+    "directoryTypes": [
+      "Mechanic Shops",
+      "A/C & Cooling Shops"
+    ]
+  },
+  {
     "name": "Joseph's Service & Collision",
     "address": "3458 Merrick Road, Seaford, NY 11783",
     "category": "Auto",
