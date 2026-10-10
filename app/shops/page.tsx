@@ -73,7 +73,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
       <h1 className="text-3xl font-black sm:text-5xl">Shops &amp; Suppliers</h1>
       <p className="mt-2 text-slate-600">Find parts, supplies and repair services.</p>
       <nav aria-label="Supplier directory" className="mt-5 grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1">
-        {[{ label: "Local Shops & Suppliers", view: "local" }, { label: "Online Suppliers", view: "online" }].map((tab) => <Link key={tab.view} href={queryLink({ view: tab.view, county: tab.view === "online" ? "Online" : "All", type: "All", location: "" })} aria-current={isOnline === (tab.view === "online") ? "page" : undefined} style={{ color: isOnline === (tab.view === "online") ? "#ffffff" : "#475569" }} className={`rounded-lg px-3 py-3 text-center text-sm font-bold ${isOnline === (tab.view === "online") ? "bg-[#071a35] text-white shadow-sm" : "text-slate-600 hover:bg-white"}`}>{tab.label}</Link>)}
+        {[{ label: "Local Shops & Suppliers", view: "local" }, { label: "Online Suppliers", view: "online" }].map((tab) => <Link key={tab.view} href={queryLink({ view: tab.view, county: tab.view === "online" ? "Online" : "All", type: "All", location: "" })} aria-current={isOnline === (tab.view === "online") ? "page" : undefined} style={{ color: isOnline === (tab.view === "online") ? "#071a35" : "#475569" }} className={`rounded-lg px-3 py-3 text-center text-sm font-bold ${isOnline === (tab.view === "online") ? "bg-[#e6b944] text-[#071a35] shadow-sm" : "text-slate-600 hover:bg-white"}`}>{tab.label}</Link>)}
       </nav>
       <form action="/shops" className="mt-5 space-y-3">
         <input type="hidden" name="view" value={isOnline ? "online" : "local"} />
