@@ -20,10 +20,10 @@ const directoryGroups = ["Online Suppliers", "Mechanic Shops", "Tire Shops", "Al
 export default async function ShopsPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string; location?: string; county?: string; type?: string; view?: string }> }) {
   const [{ q = "", category = "All", location = "", county = "All", type = "All", view = "" }, user] = await Promise.all([searchParams, getUser()]);
   const isOnline = view === "online" || (view !== "local" && (county === "Online" || type === "Online Suppliers"));
-  const isSuppliers = view === "suppliers";
+  const isSuppliers = view === "suppliers" || (!view && (type.includes("Parts Suppliers") || type === "Junkyards, Salvage & Recycling" || type === "Salvage & Recycling"));
   const localView = isSuppliers ? "suppliers" : "local";
   const supplierGroups = ["Parts Suppliers", "All Parts Suppliers", "Junkyards, Salvage & Recycling", "Hobby Shops"];
-  const isSupplier = (business: (typeof directoryBusinesses)[number]) => business.directoryTypes.some((group) => group.includes("Parts Suppliers") || supplierGroups.includes(group));
+  const isSupplier = (business: (typeof directoryBusinesses)[number]) => business.directoryTypes.some((group) => group.includes("Parts Suppliers") || supplierGroups.includes(group)) || /\bparts\b/i.test(business.detail);
   const isShop = (business: (typeof directoryBusinesses)[number]) => business.directoryTypes.some((group) => group.includes("Shops") && group !== "Hobby Shops");
   const supabase = await createClient();
   const [{ data: shopData }, { data: postData }] = await Promise.all([
