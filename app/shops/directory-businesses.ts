@@ -3055,25 +3055,5 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers"
     ]
-  },
-  {
-    "name": "Parts R Us",
-    "address": "1937 Flushing Avenue, Ridgewood, NY 11385",
-    "category": "Auto",
-    "detail": "Used late-model foreign and domestic auto parts, computerized inventory and nationwide parts locating. Call for availability.",
-    "website": "",
-    "phone": "718-497-3900",
-    "directoryGroup": "Junkyards, Salvage & Recycling",
-    "county": "Queens",
-    "sourceUrl": "https://www.agautodismantling.com/",
-    "checkedOn": "2026-10-09",
-    "town": "Ridgewood",
-    "postal_code": "11385",
-    "directoryTypes": [
-      "Junkyards, Salvage & Recycling",
-      "Auto Parts Suppliers",
-      "Parts Suppliers",
-      "All Parts Suppliers"
-    ]
   }
 ];
