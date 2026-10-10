@@ -3571,5 +3571,16 @@ export const onlineSuppliers = [
     "specialties": [
       "Performance & Upgrades"
     ]
+  },
+  {
+    "name": "Carhartt",
+    "categories": [
+      "Workwear & Apparel"
+    ],
+    "directoryTypes": [],
+    "website": "https://www.carhartt.com/",
+    "detail": "Work pants, jackets, shirts, bib overalls, footwear and other workwear. Order directly through Carhartt’s official online store.",
+    "checkedOn": "2026-10-10",
+    "specialties": []
   }
 ];
