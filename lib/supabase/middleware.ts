@@ -41,7 +41,7 @@ export async function updateSession(request: NextRequest) {
     "/offline.html",
     "/sw.js",
   ];
-  const isPublicPage = pathname === "/" || pathname === "/community" || pathname === "/community/" || pathname === "/marketplace" || pathname === "/marketplace/" || pathname === "/parts-wanted" || pathname === "/parts-wanted/" || publicPrefixes.some((page) => pathname.startsWith(page));
+  const isPublicPage = pathname === "/" || pathname === "/community" || pathname === "/community/" || pathname === "/shout-outs" || pathname === "/shout-outs/" || pathname === "/marketplace" || pathname === "/marketplace/" || pathname === "/parts-wanted" || pathname === "/parts-wanted/" || publicPrefixes.some((page) => pathname.startsWith(page));
 
   try {
     // Check if Supabase credentials are configured
