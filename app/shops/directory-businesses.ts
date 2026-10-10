@@ -3057,3 +3057,151 @@ export const directoryBusinesses = [
     ]
   }
 ];
+
+
+export const onlineSuppliers = [
+  {
+    "name": "RockAuto",
+    "categories": [
+      "Auto"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Auto Parts Suppliers"
+    ],
+    "website": "https://www.rockauto.com/",
+    "detail": "Car and light-truck replacement parts; search by vehicle or part number.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "FinditParts",
+    "categories": [
+      "Auto"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Truck & Diesel Parts Suppliers"
+    ],
+    "website": "https://www.finditparts.com/",
+    "detail": "Heavy-duty truck, diesel and commercial vehicle replacement parts.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "MarineEngine.com",
+    "categories": [
+      "Marine"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Marine Parts Suppliers"
+    ],
+    "website": "https://www.marineengine.com/",
+    "detail": "Outboard, inboard and sterndrive engine parts, propellers and boating components.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "RevZilla",
+    "categories": [
+      "Motorcycle"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Motorcycle Parts Suppliers"
+    ],
+    "website": "https://www.revzilla.com/",
+    "detail": "Motorcycle OEM and aftermarket parts, maintenance supplies and riding gear.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "Messick’s",
+    "categories": [
+      "Equipment"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Equipment Parts Suppliers"
+    ],
+    "website": "https://www.messicks.com/",
+    "detail": "Tractor, agricultural and construction equipment parts with model diagrams.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "eReplacementParts",
+    "categories": [
+      "Tools",
+      "Equipment",
+      "Other"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Equipment Parts Suppliers"
+    ],
+    "website": "https://www.ereplacementparts.com/",
+    "detail": "Replacement parts for power tools, lawn equipment, appliances and HVAC equipment.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "etrailer",
+    "categories": [
+      "Trailers",
+      "Auto",
+      "Marine"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Auto Parts Suppliers",
+      "Marine Parts Suppliers"
+    ],
+    "website": "https://www.etrailer.com/",
+    "detail": "Trailer brakes, hubs, bearings, axles, lights, towing components and boat-trailer parts.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "Tower Hobbies",
+    "categories": [
+      "RC & Hobby"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "RC & Hobby Parts Suppliers"
+    ],
+    "website": "https://www.towerhobbies.com/",
+    "detail": "RC car, truck, airplane and boat parts, batteries, electronics and hobby accessories.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "Dickies",
+    "categories": [
+      "Workwear & Apparel"
+    ],
+    "directoryTypes": [],
+    "website": "https://www.dickies.com/en-us",
+    "detail": "Work pants, coveralls, shirts and other workwear. Apparel supplier; does not sell mechanical parts.",
+    "checkedOn": "2026-10-10"
+  },
+  {
+    "name": "McMaster-Carr",
+    "categories": [
+      "Tools",
+      "Equipment",
+      "Other"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers",
+      "Equipment Parts Suppliers",
+      "Hydraulic & Hose Shops"
+    ],
+    "website": "https://www.mcmaster.com/",
+    "detail": "Fasteners, bearings, seals, hoses, fittings, tools and industrial replacement components.",
+    "checkedOn": "2026-10-10"
+  }
+];
