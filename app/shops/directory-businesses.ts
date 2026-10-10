@@ -2995,5 +2995,85 @@ export const directoryBusinesses = [
       "All Parts Suppliers",
       "Hobby Shops"
     ]
+  },
+  {
+    "name": "Sambucci Bros Auto Salvage",
+    "address": "1 South Denton Avenue, Garden City Park, NY 11040",
+    "category": "Auto",
+    "detail": "Used automotive replacement parts with parts search and tested drivetrain and accessory parts.",
+    "website": "https://sambuccibros.com/contact/",
+    "phone": "516-747-0250",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Nassau",
+    "sourceUrl": "https://sambuccibros.com/contact/",
+    "checkedOn": "2026-10-09",
+    "town": "Garden City Park",
+    "postal_code": "11040",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "J and V Auto Parts",
+    "address": "519 E 83rd St, Brooklyn, NY 11236",
+    "category": "Auto",
+    "detail": "Used salvage auto parts for foreign and domestic vehicles.",
+    "website": "https://www.autopartsstorebrooklyn.com/",
+    "phone": "718-241-7809",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Brooklyn",
+    "sourceUrl": "https://www.autopartsstorebrooklyn.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11236",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Anton Junicic Enterprises",
+    "address": "776 3rd Avenue, Brooklyn, NY 11232",
+    "category": "Auto",
+    "detail": "Used automotive replacement parts, including fenders and transmissions; vehicle dismantling and recycling.",
+    "website": "https://antonjunicic.com/",
+    "phone": "718-768-8884",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Brooklyn",
+    "sourceUrl": "https://antonjunicic.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Brooklyn",
+    "postal_code": "11232",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
+  },
+  {
+    "name": "Parts R Us",
+    "address": "1937 Flushing Avenue, Ridgewood, NY 11385",
+    "category": "Auto",
+    "detail": "Used late-model foreign and domestic auto parts, computerized inventory and nationwide parts locating. Call for availability.",
+    "website": "https://www.agautodismantling.com/",
+    "phone": "718-497-3900",
+    "directoryGroup": "Junkyards, Salvage & Recycling",
+    "county": "Queens",
+    "sourceUrl": "https://www.agautodismantling.com/",
+    "checkedOn": "2026-10-09",
+    "town": "Ridgewood",
+    "postal_code": "11385",
+    "directoryTypes": [
+      "Junkyards, Salvage & Recycling",
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ]
   }
 ];
