@@ -15,7 +15,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Joseph's Service & Collision",
@@ -32,7 +33,8 @@ export const directoryBusinesses = [
     "postal_code": "11783",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Sunrise Tire & Auto Repair — Seaford",
@@ -50,7 +52,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Toyota of Massapequa — Parts & Service",
@@ -69,7 +72,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Final Touch Auto Collision — Seaford",
@@ -86,7 +90,8 @@ export const directoryBusinesses = [
     "postal_code": "11783",
     "directoryTypes": [
       "Collision & Body Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Masters Auto Collision — Seaford",
@@ -103,9 +108,9 @@ export const directoryBusinesses = [
     "postal_code": "11783",
     "directoryTypes": [
       "Collision & Body Shops"
-    ]
+    ],
+    "specialties": []
   },
-
   {
     "name": "Blue Marlin Boats",
     "address": "4076 Merrick Road, Seaford, NY 11783",
@@ -123,7 +128,8 @@ export const directoryBusinesses = [
       "Marine Shops",
       "Marine Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Jetmore Jetski",
@@ -140,7 +146,8 @@ export const directoryBusinesses = [
     "postal_code": "11783",
     "directoryTypes": [
       "Marine Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Matt's Marina",
@@ -157,7 +164,8 @@ export const directoryBusinesses = [
     "postal_code": "11783",
     "directoryTypes": [
       "Marine Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Nassau Hobby Center",
@@ -176,7 +184,8 @@ export const directoryBusinesses = [
       "Hobby Shops",
       "RC & Hobby Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Willis Hobbies",
@@ -195,7 +204,8 @@ export const directoryBusinesses = [
       "Hobby Shops",
       "RC & Hobby Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Moreland Hose — Hempstead",
@@ -212,7 +222,8 @@ export const directoryBusinesses = [
     "postal_code": "11550",
     "directoryTypes": [
       "Hydraulic & Hose Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Moreland Hose — Oakdale",
@@ -229,7 +240,8 @@ export const directoryBusinesses = [
     "postal_code": "11769",
     "directoryTypes": [
       "Hydraulic & Hose Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Long Island Hose Company",
@@ -246,7 +258,8 @@ export const directoryBusinesses = [
     "postal_code": "11758",
     "directoryTypes": [
       "Hydraulic & Hose Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Buxton Machining & Fabricating",
@@ -263,7 +276,8 @@ export const directoryBusinesses = [
     "postal_code": "11716",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Pronto Manufacturing",
@@ -280,7 +294,8 @@ export const directoryBusinesses = [
     "postal_code": "11779",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Hunter Metal Industries",
@@ -297,7 +312,8 @@ export const directoryBusinesses = [
     "postal_code": "11772",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mid Island Steel",
@@ -314,7 +330,8 @@ export const directoryBusinesses = [
     "postal_code": "11763",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Midhampton Welding",
@@ -331,7 +348,8 @@ export const directoryBusinesses = [
     "postal_code": "11901",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "All Island Marine",
@@ -350,7 +368,8 @@ export const directoryBusinesses = [
       "Marine Shops",
       "Marine Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Peconic Marine",
@@ -369,7 +388,8 @@ export const directoryBusinesses = [
       "Marine Shops",
       "Marine Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Port of Egypt Marine",
@@ -388,7 +408,8 @@ export const directoryBusinesses = [
       "Marine Shops",
       "Marine Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Long Island Heavy Equipment Parts",
@@ -407,7 +428,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Equipment Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Elmont",
@@ -426,7 +448,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Inwood",
@@ -445,7 +468,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Mineola",
@@ -464,7 +488,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Plainview",
@@ -483,7 +508,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Tinker Auto Parts — Brentwood (200 Suffolk Ave)",
@@ -502,7 +528,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Tinker Auto Parts — Brentwood (1091 Suffolk Ave)",
@@ -521,7 +548,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Tinker Auto Parts — Bay Shore (199 5th Ave)",
@@ -540,7 +568,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Tinker Auto Parts — Bohemia (1650 Locust Ave)",
@@ -559,7 +588,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Holbrook MTA Auto Service",
@@ -576,7 +606,8 @@ export const directoryBusinesses = [
     "postal_code": "11741",
     "directoryTypes": [
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "East Coast Transmissions",
@@ -593,7 +624,8 @@ export const directoryBusinesses = [
     "postal_code": "11757",
     "directoryTypes": [
       "Transmission Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Sunrise Transmission",
@@ -610,7 +642,8 @@ export const directoryBusinesses = [
     "postal_code": "11752",
     "directoryTypes": [
       "Transmission Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Sunny's Transmissions",
@@ -627,7 +660,8 @@ export const directoryBusinesses = [
     "postal_code": "11572",
     "directoryTypes": [
       "Transmission Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Star Transmissions",
@@ -644,7 +678,8 @@ export const directoryBusinesses = [
     "postal_code": "11735",
     "directoryTypes": [
       "Transmission Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "F & J Transmissions",
@@ -661,7 +696,8 @@ export const directoryBusinesses = [
     "postal_code": "11940",
     "directoryTypes": [
       "Transmission Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Long Island Motorcycle Connect",
@@ -680,7 +716,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Triumph & Royal Enfield Nassau County",
@@ -699,7 +736,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Long Island Kawasaki Yamaha",
@@ -718,7 +756,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Bay Shore Hobbies & Toys",
@@ -737,7 +776,8 @@ export const directoryBusinesses = [
       "Hobby Shops",
       "RC & Hobby Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Acme Radiator",
@@ -754,7 +794,8 @@ export const directoryBusinesses = [
     "postal_code": "11752",
     "directoryTypes": [
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Alpha Manufacturing Corporation",
@@ -771,7 +812,8 @@ export const directoryBusinesses = [
     "postal_code": "11735",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "RS Precision",
@@ -788,7 +830,8 @@ export const directoryBusinesses = [
     "postal_code": "11735",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "JL Machining & Tooling",
@@ -805,7 +848,8 @@ export const directoryBusinesses = [
     "postal_code": "11704",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Southold Marine Center",
@@ -822,7 +866,8 @@ export const directoryBusinesses = [
     "postal_code": "11971",
     "directoryTypes": [
       "Marine Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Bay Auto Parts & Recycling",
@@ -841,7 +886,8 @@ export const directoryBusinesses = [
       "Junkyards, Salvage & Recycling",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Sunrise Tire & Auto Repair — Massapequa Park",
@@ -859,7 +905,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Nassau Shores Auto Repair",
@@ -877,7 +924,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "K&K Automotive",
@@ -895,7 +943,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "K&K Auto & Tire",
@@ -913,7 +962,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "K&K Auto & Tire Center",
@@ -931,7 +981,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "T&V Automotive Concepts",
@@ -949,7 +1000,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "A & R Auto Repair",
@@ -966,7 +1018,8 @@ export const directoryBusinesses = [
     "postal_code": "11787",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "TLC Auto & Truck Repair Center",
@@ -983,7 +1036,8 @@ export const directoryBusinesses = [
     "postal_code": "11735",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Advance Auto Parts — Patchogue (282 Medford Ave)",
@@ -1002,7 +1056,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Advance Auto Parts — Patchogue (252 E Main St)",
@@ -1021,7 +1076,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Advance Auto Parts — Glen Cove (64 Forest Ave)",
@@ -1040,7 +1096,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Advance Auto Parts — Huntington Station (161 W Hills Rd)",
@@ -1059,7 +1116,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Advance Auto Parts — Huntington Station (619 E Jericho Tpke)",
@@ -1078,7 +1136,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Advance Auto Parts — Port Jefferson Station (5170 Nesconset Hwy)",
@@ -1097,7 +1156,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Dietrich's Auto Repair",
@@ -1114,7 +1174,8 @@ export const directoryBusinesses = [
     "postal_code": "11968",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Joe's Garage",
@@ -1131,7 +1192,8 @@ export const directoryBusinesses = [
     "postal_code": "11968",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "R&K Precision Autoworks",
@@ -1148,7 +1210,8 @@ export const directoryBusinesses = [
     "postal_code": "11901",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Bock Auto",
@@ -1165,7 +1228,8 @@ export const directoryBusinesses = [
     "postal_code": "11930",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Main Street Equipment",
@@ -1182,7 +1246,8 @@ export const directoryBusinesses = [
     "postal_code": "11901",
     "directoryTypes": [
       "Hydraulic & Hose Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Midway Auto Repair",
@@ -1199,7 +1264,8 @@ export const directoryBusinesses = [
     "postal_code": "11951",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "C & C Automotive Repair of the Hamptons",
@@ -1216,7 +1282,8 @@ export const directoryBusinesses = [
     "postal_code": "11946",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Tire Country",
@@ -1234,7 +1301,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Hydraulic Repair & Hose",
@@ -1251,7 +1319,8 @@ export const directoryBusinesses = [
     "postal_code": "11751",
     "directoryTypes": [
       "Hydraulic & Hose Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Crossbay Motorsports",
@@ -1270,7 +1339,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Suffolk County Harley-Davidson",
@@ -1289,7 +1359,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Formula One Motorsports",
@@ -1308,7 +1379,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "CPM Motorsports",
@@ -1327,7 +1399,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Habberstad Powersports",
@@ -1346,7 +1419,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Island Powersports",
@@ -1365,7 +1439,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Champion Honda",
@@ -1384,7 +1459,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Harley-Davidson of Nassau County",
@@ -1403,7 +1479,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mineolamoto / Indian Motorcycle of Mineola",
@@ -1422,7 +1499,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Auto Parts — Port Washington",
@@ -1441,7 +1519,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Auto Parts — Franklin Square",
@@ -1460,7 +1539,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Quick Auto Parts — Hicksville",
@@ -1479,7 +1559,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Auto Parts — Ronkonkoma",
@@ -1498,7 +1579,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Auto Parts — Massapequa",
@@ -1517,7 +1599,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Auto Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Island Hobby Nut",
@@ -1536,7 +1619,8 @@ export const directoryBusinesses = [
       "Hobby Shops",
       "RC & Hobby Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "FleetPride — Medford (formerly Long Island Truck Parts)",
@@ -1556,7 +1640,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "FleetPride — New Hyde Park (formerly Long Island Truck Parts)",
@@ -1576,7 +1661,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "FleetPride — Riverhead (formerly Long Island Truck Parts)",
@@ -1596,7 +1682,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "FleetPride — West Babylon (formerly Long Island Truck Parts)",
@@ -1616,7 +1703,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mako Marine — Cummins Authorized Dealer",
@@ -1635,7 +1723,8 @@ export const directoryBusinesses = [
       "Marine Shops",
       "Marine Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Boston Road",
@@ -1654,7 +1743,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Atlantic Ave",
@@ -1673,7 +1763,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Avenue D",
@@ -1692,7 +1783,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Eastern Pkwy",
@@ -1711,7 +1803,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Flatlands Ave",
@@ -1730,7 +1823,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Utica Ave",
@@ -1749,7 +1843,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Hollis",
@@ -1768,7 +1863,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Jamaica",
@@ -1787,7 +1883,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Kew Gardens",
@@ -1806,7 +1903,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Laurelton",
@@ -1825,7 +1923,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Richmond Hill",
@@ -1844,7 +1943,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — South Ozone Park",
@@ -1863,7 +1963,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Arch Auto Parts — Woodside",
@@ -1882,7 +1983,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Auto Parts — Staten Island (Hylan Blvd)",
@@ -1901,7 +2003,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "NAPA Auto Parts — Staten Island (Port Richmond Ave)",
@@ -1920,7 +2023,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Cycle Therapy NYC",
@@ -1939,7 +2043,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Team Straus Motorcycles — Brooklyn",
@@ -1958,7 +2063,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "New York Motorcycle",
@@ -1977,7 +2083,8 @@ export const directoryBusinesses = [
       "Motorcycle Shops",
       "Motorcycle Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Bridge Marine Supply",
@@ -1996,7 +2103,8 @@ export const directoryBusinesses = [
       "Marine Shops",
       "Marine Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "New York Engine & Machine",
@@ -2017,7 +2125,8 @@ export const directoryBusinesses = [
       "Truck & Diesel Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Yanes Machine Shop",
@@ -2034,7 +2143,8 @@ export const directoryBusinesses = [
     "postal_code": "11207",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "American Hose & Hydraulics — Bronx",
@@ -2053,7 +2163,8 @@ export const directoryBusinesses = [
       "Hydraulic & Hose Shops",
       "Equipment Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Manhattan Auto Repair",
@@ -2070,7 +2181,8 @@ export const directoryBusinesses = [
     "postal_code": "10036",
     "directoryTypes": [
       "Mechanic Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "AAMCO — Staten Island",
@@ -2089,7 +2201,8 @@ export const directoryBusinesses = [
       "Transmission Shops",
       "Mechanic Shops",
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "LKQ Hunts Point Auto Parts",
@@ -2109,7 +2222,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Bronx Junk Car Depot",
@@ -2126,7 +2240,8 @@ export const directoryBusinesses = [
     "postal_code": "10474",
     "directoryTypes": [
       "Junkyards, Salvage & Recycling"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "A&L Sheet Metal Fabrications",
@@ -2143,7 +2258,8 @@ export const directoryBusinesses = [
     "postal_code": "10474",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mil & Mir Steel Products",
@@ -2160,7 +2276,8 @@ export const directoryBusinesses = [
     "postal_code": "10474",
     "directoryTypes": [
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Hunts Point Service Station",
@@ -2178,7 +2295,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Mechanic Shops",
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Great Neck",
@@ -2198,7 +2316,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Westbury",
@@ -2218,7 +2337,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Elmont",
@@ -2238,7 +2358,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — East Meadow",
@@ -2258,7 +2379,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Huntington Station",
@@ -2278,7 +2400,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Patchogue",
@@ -2298,7 +2421,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Riverhead",
@@ -2318,7 +2442,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Southampton Tire",
@@ -2338,7 +2463,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Consumer’s Tire, Auto & Marine",
@@ -2358,7 +2484,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Manhattan Auto Care Inc.",
@@ -2378,7 +2505,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mercedes-Benz of Manhattan — Tire Center",
@@ -2398,7 +2526,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Brooklyn Tire Warehouse",
@@ -2418,7 +2547,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Brooklyn Utica Avenue",
@@ -2438,7 +2568,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "TM & T Tire",
@@ -2458,7 +2589,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Jamaica",
@@ -2478,7 +2610,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Bronx Williamsbridge",
@@ -2498,7 +2631,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "National Discount Tires and Wheels",
@@ -2518,7 +2652,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Co-Op City Tire & Auto",
@@ -2538,7 +2673,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Mavis Discount Tire — Staten Island",
@@ -2558,7 +2694,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Wil John’s Tire Empire Tire Pros",
@@ -2578,7 +2715,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Guy’s Tire Buys LLC",
@@ -2598,7 +2736,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Ace Auto Wreckers",
@@ -2618,7 +2757,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "All American Auto Wreckers",
@@ -2638,7 +2778,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Action Auto Wreckers",
@@ -2658,7 +2799,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Ace Auto Salvage",
@@ -2678,7 +2820,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Alliance Auto Parts — Woodside",
@@ -2698,7 +2841,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Alliance Auto Parts — Lindenhurst",
@@ -2718,7 +2862,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Giant Auto Salvage",
@@ -2738,7 +2883,8 @@ export const directoryBusinesses = [
       "All Parts Suppliers",
       "Parts Suppliers",
       "Auto Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "All American Auto Salvage",
@@ -2758,7 +2904,8 @@ export const directoryBusinesses = [
       "All Parts Suppliers",
       "Parts Suppliers",
       "Auto Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Certified Products Inc.",
@@ -2779,7 +2926,8 @@ export const directoryBusinesses = [
       "Equipment Parts Suppliers",
       "All Parts Suppliers",
       "Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Van Hydraulics",
@@ -2800,7 +2948,8 @@ export const directoryBusinesses = [
       "Equipment Parts Suppliers",
       "All Parts Suppliers",
       "Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Reyco Auto",
@@ -2820,7 +2969,8 @@ export const directoryBusinesses = [
       "Tire Shops",
       "Transmission Shops",
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "H & H Auto Parts",
@@ -2840,7 +2990,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers",
       "A/C & Cooling Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Waxman of Tristate Auto Body & Collision Center",
@@ -2859,7 +3010,8 @@ export const directoryBusinesses = [
       "Collision & Body Shops",
       "Mechanic Shops",
       "Tire Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "New Jersey Outboards",
@@ -2878,7 +3030,8 @@ export const directoryBusinesses = [
       "Marine Parts Suppliers",
       "All Parts Suppliers",
       "Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "The Good Old Motorcycle Parts Company",
@@ -2898,7 +3051,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers",
       "Machine & Fabrication Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Bittone Equipment Services",
@@ -2920,7 +3074,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "Machine & Fabrication Shops",
       "Collision & Body Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Ruggieri Precision Machine",
@@ -2938,7 +3093,8 @@ export const directoryBusinesses = [
     "directoryTypes": [
       "Machine & Fabrication Shops",
       "Hydraulic & Hose Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Centro Auto Body",
@@ -2955,7 +3111,8 @@ export const directoryBusinesses = [
     "postal_code": "07306",
     "directoryTypes": [
       "Collision & Body Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Allstar Fisher Trans",
@@ -2976,7 +3133,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "PowerHobby",
@@ -2996,7 +3154,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers",
       "Hobby Shops"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Sambucci Bros Auto Salvage",
@@ -3016,7 +3175,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "J and V Auto Parts",
@@ -3036,7 +3196,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Anton Junicic Enterprises",
@@ -3056,7 +3217,8 @@ export const directoryBusinesses = [
       "Auto Parts Suppliers",
       "Parts Suppliers",
       "All Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Trailer City — Hempstead",
@@ -3075,7 +3237,8 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers",
       "Truck & Diesel Parts Suppliers"
-    ]
+    ],
+    "specialties": []
   },
   {
     "name": "Trailer City — Riverhead",
@@ -3094,10 +3257,54 @@ export const directoryBusinesses = [
       "Parts Suppliers",
       "All Parts Suppliers",
       "Truck & Diesel Parts Suppliers"
+    ],
+    "specialties": []
+  },
+  {
+    "name": "S-K Speed",
+    "address": "1075 Route 109, Lindenhurst, NY 11757",
+    "category": "Auto",
+    "detail": "Automotive performance parts, engine components, brakes and suspension upgrades. Retail showroom; call for current stock.",
+    "website": "https://www.skspeed.com/",
+    "phone": "631-957-9525",
+    "directoryGroup": "Auto Parts Suppliers",
+    "county": "Suffolk",
+    "sourceUrl": "https://www.skspeed.com/showroom/",
+    "checkedOn": "2026-10-10",
+    "town": "Lindenhurst",
+    "postal_code": "11757",
+    "directoryTypes": [
+      "Auto Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ],
+    "specialties": [
+      "Performance & Upgrades"
+    ]
+  },
+  {
+    "name": "XDP — Wall Township",
+    "address": "1758 State Route 34 North, Wall Township, NJ 07727",
+    "category": "Auto",
+    "detail": "Diesel truck replacement and performance parts. Sales team and product showroom; call for specific parts availability.",
+    "website": "https://www.xtremediesel.com/",
+    "phone": "888-343-7354",
+    "directoryGroup": "Truck & Diesel Parts Suppliers",
+    "county": "Monmouth, NJ",
+    "sourceUrl": "https://www.xtremediesel.com/locations",
+    "checkedOn": "2026-10-10",
+    "town": "Wall Township",
+    "postal_code": "07727",
+    "directoryTypes": [
+      "Truck & Diesel Parts Suppliers",
+      "Parts Suppliers",
+      "All Parts Suppliers"
+    ],
+    "specialties": [
+      "Performance & Upgrades"
     ]
   }
 ];
-
 
 export const onlineSuppliers = [
   {
@@ -3112,7 +3319,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.rockauto.com/",
     "detail": "Car and light-truck replacement parts; search by vehicle or part number.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "FinditParts",
@@ -3126,7 +3334,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.finditparts.com/",
     "detail": "Heavy-duty truck, diesel and commercial vehicle replacement parts.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "MarineEngine.com",
@@ -3140,7 +3349,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.marineengine.com/",
     "detail": "Outboard, inboard and sterndrive engine parts, propellers and boating components.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "RevZilla",
@@ -3154,7 +3364,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.revzilla.com/",
     "detail": "Motorcycle OEM and aftermarket parts, maintenance supplies and riding gear.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "Messick’s",
@@ -3168,7 +3379,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.messicks.com/",
     "detail": "Tractor, agricultural and construction equipment parts with model diagrams.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "eReplacementParts",
@@ -3184,7 +3396,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.ereplacementparts.com/",
     "detail": "Replacement parts for power tools, lawn equipment, appliances and HVAC equipment.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "etrailer",
@@ -3201,7 +3414,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.etrailer.com/",
     "detail": "Trailer brakes, hubs, bearings, axles, lights, towing components and boat-trailer parts.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "Tower Hobbies",
@@ -3215,7 +3429,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.towerhobbies.com/",
     "detail": "RC car, truck, airplane and boat parts, batteries, electronics and hobby accessories.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "Dickies",
@@ -3225,7 +3440,8 @@ export const onlineSuppliers = [
     "directoryTypes": [],
     "website": "https://www.dickies.com/en-us",
     "detail": "Work pants, coveralls, shirts and other workwear. Apparel supplier; does not sell mechanical parts.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "McMaster-Carr",
@@ -3242,7 +3458,8 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.mcmaster.com/",
     "detail": "Fasteners, bearings, seals, hoses, fittings, tools and industrial replacement components.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
   },
   {
     "name": "Boats.net",
@@ -3256,6 +3473,103 @@ export const onlineSuppliers = [
     ],
     "website": "https://www.boats.net/catalog/accessories",
     "detail": "OEM marine engine parts and aftermarket boat accessories; search by engine brand, model or part number.",
-    "checkedOn": "2026-10-10"
+    "checkedOn": "2026-10-10",
+    "specialties": []
+  },
+  {
+    "name": "Summit Racing",
+    "categories": [
+      "Auto"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ],
+    "website": "https://www.summitracing.com/",
+    "detail": "Automotive performance parts, engine components, brakes and suspension upgrades.",
+    "checkedOn": "2026-10-10",
+    "specialties": [
+      "Performance & Upgrades"
+    ]
+  },
+  {
+    "name": "Rough Country",
+    "categories": [
+      "Auto"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ],
+    "website": "https://www.roughcountry.com/",
+    "detail": "Lift kits, leveling kits, shocks and suspension upgrades for trucks, SUVs and Jeeps.",
+    "checkedOn": "2026-10-10",
+    "specialties": [
+      "Performance & Upgrades"
+    ]
+  },
+  {
+    "name": "XDP",
+    "categories": [
+      "Auto"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ],
+    "website": "https://www.xtremediesel.com/",
+    "detail": "Diesel truck replacement and performance parts, fuel-system components and cooling upgrades.",
+    "checkedOn": "2026-10-10",
+    "specialties": [
+      "Performance & Upgrades"
+    ]
+  },
+  {
+    "name": "CP Performance",
+    "categories": [
+      "Marine"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ],
+    "website": "https://www.cpperformance.com/",
+    "detail": "Marine performance parts, engine components, exhaust systems and gauges.",
+    "checkedOn": "2026-10-10",
+    "specialties": [
+      "Performance & Upgrades"
+    ]
+  },
+  {
+    "name": "Dennis Kirk",
+    "categories": [
+      "Motorcycle"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ],
+    "website": "https://www.denniskirk.com/",
+    "detail": "Motorcycle and powersports aftermarket parts, performance exhausts and accessories.",
+    "checkedOn": "2026-10-10",
+    "specialties": [
+      "Performance & Upgrades"
+    ]
+  },
+  {
+    "name": "AMain Hobbies",
+    "categories": [
+      "RC & Hobby"
+    ],
+    "directoryTypes": [
+      "All Parts Suppliers",
+      "Parts Suppliers"
+    ],
+    "website": "https://www.amainhobbies.com/",
+    "detail": "RC upgrade parts, motors, electronic speed controllers, batteries and suspension components.",
+    "checkedOn": "2026-10-10",
+    "specialties": [
+      "Performance & Upgrades"
+    ]
   }
 ];
