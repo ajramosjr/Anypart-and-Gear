@@ -105,23 +105,7 @@ export const directoryBusinesses = [
       "Collision & Body Shops"
     ]
   },
-  {
-    "name": "Jiffy Lube — Seaford",
-    "address": "3848 Merrick Road, Seaford, NY 11783",
-    "category": "Auto",
-    "detail": "Oil changes and vehicle preventive maintenance. Contact the location for available services.",
-    "website": "https://www.jiffylube.com/locations/ny/seaford/815",
-    "phone": "516-783-4324",
-    "directoryGroup": "Mechanic Shops",
-    "county": "Nassau",
-    "sourceUrl": "https://www.jiffylube.com/locations/ny/seaford/815",
-    "checkedOn": "2026-10-09",
-    "town": "Seaford",
-    "postal_code": "11783",
-    "directoryTypes": [
-      "Mechanic Shops"
-    ]
-  },
+
   {
     "name": "Blue Marlin Boats",
     "address": "4076 Merrick Road, Seaford, NY 11783",
