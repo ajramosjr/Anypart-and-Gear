@@ -7,6 +7,7 @@ import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 import { LegacyMarketplaceHashRedirect } from "./marketplace/legacy-hash-redirect";
 import NotificationBell from "@/components/notification-bell";
 import InstallApp from "./install-app";
+import { getCommunityState } from "@/lib/community";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ async function getLatestListings() {
 }
 
 export default async function Home() {
-  const [user, { listings, unavailable }] = await Promise.all([getUser(), getLatestListings()]);
+  const [user, { listings, unavailable }, community] = await Promise.all([getUser(), getLatestListings(), getCommunityState()]);
   const postPath = user ? "/sell" : "/login?next=/sell";
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
@@ -40,6 +41,7 @@ export default async function Home() {
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href={postPath}>Post an item</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Shops &amp; Suppliers</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
+            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/community">APG Community{!community.enabled && <span className="ml-2 text-xs font-bold text-amber-800">Coming Soon</span>}</Link>
             <details className="border-t border-slate-200 pt-1">
               <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">Resources</summary>
               <div className="grid gap-1 pl-3">
