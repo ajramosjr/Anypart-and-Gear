@@ -1,5 +1,5 @@
 "use client";
-import { SeasonalLogo } from "@/components/october-awareness";
+import { AwarenessBanner, SeasonalLogo } from "@/components/october-awareness";
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -107,6 +107,7 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, l
       </nav>}
 
     </header>
+    <AwarenessBanner />
 
     <section className="border-b border-slate-200 bg-white"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><p className="eyebrow">APG Marketplace</p><h1 className="mt-2 text-3xl font-black tracking-tight sm:text-5xl">Browse Marketplace</h1><p className="mt-3 text-slate-600">Search individual sellers’ listings by city or town, choose a category, or sort by price. Find business pages in Shops & Suppliers.</p>
       <form onSubmit={runSearch} className="mt-6 flex max-w-3xl flex-col gap-2 rounded-xl border border-slate-300 bg-white p-2 sm:flex-row"><div className="flex flex-1 items-center gap-3 px-3"><Search className="size-5 text-slate-400"/><input value={query} onChange={e=>setQuery(e.target.value)} className="h-12 w-full bg-transparent text-base text-slate-900 outline-none" placeholder="Search parts, brands, model numbers…" aria-label="Search listings"/></div><Button className="gold-button h-12 px-7 font-black">Search</Button></form>
