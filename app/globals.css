@@ -573,3 +573,11 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .simple-header.sell-header { background: #fff; color: var(--navy); border: 5px solid var(--navy); }
 .sell-header .account-nav > a { color: var(--navy); }
 .sell-header .apg-header-logo-image { filter: none; }
+
+/* Gold header controls remain easy to spot against the white background. */
+.sell-header .account-nav { align-items: center; }
+.sell-header .account-nav > a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 14px; border: 1px solid #c99412; border-radius: 8px; background: #f6b91b; color: var(--navy); text-align: center; line-height: 1.25; }
+.sell-header .account-nav > a[href="/notifications"] { width: 44px; padding: 0; flex-shrink: 0; }
+.sell-header .account-nav > a:hover { background: #e8aa12; }
+.sell-header .account-nav > a:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+@media (max-width: 640px) { .sell-header .account-nav { gap: 8px; } .sell-header .account-nav > a { padding: 8px 10px; font-size: 12px; } }
