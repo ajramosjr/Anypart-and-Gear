@@ -17,14 +17,14 @@ export default async function TechWirePage() {
 
   return (
     <main className="min-h-screen bg-[#f5f7fa] text-slate-950">
-      <header className="border-b border-slate-300 bg-white shadow-sm">
+      <header className="apg-site-header border-b border-slate-300 bg-white shadow-sm">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link href="/" aria-label="Any Part and Gear home">
             <SeasonalLogo alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority />
           </Link>
           <div className="flex items-center gap-2">
             <Link href="/marketplace" className="hidden items-center gap-2 text-sm font-bold text-slate-700 hover:text-slate-950 sm:flex"><ArrowLeft className="size-4" /> Marketplace</Link>
-            <Link href="/shops" className="rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300">Parts &amp; Repair Directory</Link>
+            <Link href="/shops" className="apg-header-control rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300">Parts &amp; Repair Directory</Link>
           </div>
         </div>
       </header>

@@ -34,10 +34,10 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
 
   return <main className="min-h-screen bg-[#e9edf1] text-slate-950">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }} />
-    <header className="border-b border-slate-300 bg-white shadow-sm">
+    <header className="apg-site-header border-b border-slate-300 bg-white shadow-sm">
       <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" aria-label="Any Part and Gear home"><SeasonalLogo alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
-        <Link href="/tech-wire" className="inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] hover:bg-amber-300"><ArrowLeft className="size-4" /> Parts &amp; Industry News</Link>
+        <Link href="/tech-wire" className="apg-header-control inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] hover:bg-amber-300"><ArrowLeft className="size-4" /> Parts &amp; Industry News</Link>
       </div>
     </header>
 

@@ -27,7 +27,7 @@ export default async function Home() {
   const postPath = user ? "/sell" : "/login?next=/sell";
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="apg-site-header sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex min-h-18 max-w-7xl sm:min-h-24 items-center gap-2 px-3 sm:gap-3 sm:px-6">
         <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><Image src="/apg-home-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={1983} height={793} priority className="h-auto w-[140px] sm:w-[190px]" /></Link>
         <nav aria-label="Primary navigation" className="hidden items-center gap-6 lg:flex"><Link href="/marketplace" className="font-bold">Marketplace</Link><Link href="/shops" className="font-bold">Businesses &amp; Shops</Link><Link href="/about" className="font-bold">About</Link></nav>
@@ -35,7 +35,7 @@ export default async function Home() {
         {user && <NotificationBell userId={user.id} />}
         <Link href={postPath} className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-black sm:px-5 sm:text-base"><span className="sm:hidden">+ Post</span><span className="hidden sm:inline">Post an item</span></Link>
         <details className="group relative">
-          <summary className="flex size-11 cursor-pointer list-none items-center justify-center rounded-lg text-2xl hover:bg-slate-100 [&::-webkit-details-marker]:hidden" aria-label="Menu">☰</summary>
+          <summary className="apg-header-control flex size-11 cursor-pointer list-none items-center justify-center rounded-lg text-2xl hover:bg-slate-100 [&::-webkit-details-marker]:hidden" aria-label="Menu">☰</summary>
           <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] overflow-y-auto gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/marketplace">Browse Marketplace</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href={postPath}>Post an item</Link>

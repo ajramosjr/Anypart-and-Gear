@@ -629,3 +629,60 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .apg-awareness-copy a { text-decoration: underline; text-underline-offset: 3px; font-size: .9em; font-weight: 650; }
 .apg-awareness-copy a:hover { color: #be185d; }
 .apg-awareness-copy a:focus-visible { outline: 2px solid #831843; outline-offset: 3px; border-radius: 2px; }
+
+/* Shared site header: keep every page aligned with the approved APG design. */
+.simple-header,
+.apg-site-header,
+.mechanical-shell .apg-site-header,
+.toolbox-page .toolbox-header {
+  background: #fff;
+  color: var(--navy);
+  border: 5px solid var(--navy);
+}
+.simple-header .apg-header-logo-image,
+.apg-site-header .apg-header-logo-image { filter: none; }
+.simple-header .nav-wrap { gap: 16px; padding-top: 10px; padding-bottom: 10px; }
+.simple-header .account-nav { align-items: center; gap: 10px; }
+.simple-header .account-nav > a,
+.simple-header .nav-wrap > a:not(.apg-header-logo),
+.apg-site-header .apg-header-control,
+.apg-site-header .legal-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #c99412;
+  border-radius: 8px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+.simple-header .account-nav > a:hover,
+.simple-header .nav-wrap > a:not(.apg-header-logo):hover,
+.apg-site-header .apg-header-control:hover,
+.apg-site-header .legal-back:hover { background: #e8aa12; }
+.simple-header .account-nav > a:focus-visible,
+.simple-header .nav-wrap > a:not(.apg-header-logo):focus-visible,
+.apg-site-header .apg-header-control:focus-visible,
+.apg-site-header .legal-back:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+.simple-header .account-nav > a[href="/notifications"] { width: 44px; padding: 0; flex-shrink: 0; }
+.mechanical-shell .apg-site-header:after { display: none; }
+.apg-site-header > div:first-child { height: auto; min-height: 80px; padding-top: 10px; padding-bottom: 10px; }
+@media (max-width: 640px) {
+  .simple-header .nav-wrap { flex-wrap: wrap; gap: 12px; }
+  .simple-header .apg-header-logo-image { width: clamp(100px, 32vw, 172px); height: auto; max-height: 50px; }
+  .simple-header .account-nav { flex-wrap: wrap; gap: 8px; margin-left: auto; }
+  .simple-header .account-nav > a { padding: 8px 10px; font-size: 12px; }
+  .simple-header .nav-wrap > a:last-child:not(.apg-header-logo) { max-width: 52%; color: var(--navy); font-size: 12px; text-align: center; }
+  .dashboard-header .nav-wrap { flex-wrap: nowrap; }
+  .dashboard-header .account-nav { flex-wrap: nowrap; }
+  .apg-site-header > div:first-child { gap: 8px; }
+  .apg-site-header .legal-back,
+  .apg-site-header .apg-header-control { font-size: 12px; padding: 8px 10px; }
+  .apg-site-header .legal-back { max-width: 48%; }
+}

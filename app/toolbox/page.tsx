@@ -17,17 +17,26 @@ export default async function ToolboxPage() {
 
   return (
     <main className="toolbox-page">
-      <header className="toolbox-header no-print">
+      <header className="simple-header sell-header dashboard-header no-print">
         <div className="shell nav-wrap">
           <ApgLogo priority />
-          <nav className="toolbox-nav" aria-label="Main navigation">
+          <nav className="account-nav" aria-label="Main navigation">
             <Link href="/marketplace">Marketplace</Link>
-            <Link href="/shops">Parts &amp; Repair Directory</Link>
+            <Link href="/shops">Shops &amp; Suppliers</Link>
             <Link href="/tech-wire">APG Tech Wire</Link>
-            <Link href="/links">APG Links</Link>
-            <Link className="active" href="/toolbox">Toolbox</Link>
+            <Link href="/links">Courses &amp; Training</Link>
+            <Link href="/sell">Post an item</Link>
+            <details className="dashboard-menu">
+              <summary>Menu</summary>
+              <div className="dashboard-menu-links">
+                <Link href="/marketplace">Marketplace</Link>
+                <Link href="/shops">Shops &amp; Suppliers</Link>
+                <Link href="/tech-wire">APG Tech Wire</Link>
+                <Link href="/links">Courses &amp; Training</Link>
+                <Link href="/sell">Post an item</Link>
+              </div>
+            </details>
           </nav>
-          <Link className="button button-small" href="/sell">Sell</Link>
         </div>
       </header>
       <ToolboxClient />
