@@ -35,7 +35,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     supabase.from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").order("updated_at", { ascending:false }),
   ]);
 
-  return <main><header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/account">My account</Link></div></header><div className="shell page-shell"><div className="page-intro"><span className="kicker">Owner controls</span><h1 className="page-title">Admin dashboard</h1><p>Publish Parts &amp; Industry News articles, review reports and approve businesses.</p></div>
+  return <main><header className="simple-header sell-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Admin navigation"><Link href="/account">My account</Link></nav></div></header><div className="shell page-shell"><div className="page-intro"><span className="kicker">Owner controls</span><h1 className="page-title">Admin dashboard</h1><p>Publish Parts &amp; Industry News articles, review reports and approve businesses.</p></div>
     <section aria-label="Private site totals" className="mb-10">
       <h2 className="mb-4 text-xl font-bold">Your site at a glance</h2>
       <div className="grid gap-4 sm:grid-cols-3">
