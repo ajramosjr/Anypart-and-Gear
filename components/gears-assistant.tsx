@@ -457,7 +457,7 @@ export function GearsAssistant() {
     );
   }
 
-  if (hiddenOnNews) return null;
+  if (hiddenOnNews || (pathname === "/sell" && (hidden || !open))) return null;
   if (hidden) return (
     <aside className={`${styles.root} ${october ? styles.october : ""}`} aria-label="Restore Gear assistant">
       <button className={styles.hideGear} type="button" onClick={() => {

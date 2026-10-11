@@ -562,3 +562,9 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
   .apg-awareness-banner { font-size: 12px; padding: 7px 10px; gap: 7px; }
   .apg-awareness-banner svg { width: 17px; height: 23px; flex-shrink: 0; }
 }
+
+/* Keep the sell-page introduction compact and assistant help outside the form. */
+.sell-intro .page-title { font-size: clamp(2rem, 7vw, 2.75rem); line-height: 1.12; }
+.sell-intro { margin-bottom: 24px; }
+.sell-intro p { margin: 12px 0 16px; }
+.sell-gear-help { display: flex; width: fit-content; margin-top: 16px; min-height: 44px; }

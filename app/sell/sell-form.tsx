@@ -77,7 +77,7 @@ export default function SellForm({ userId, sellerName, shop }: { userId: string;
     <div className="field full"><label htmlFor="title">Listing title</label><input id="title" name="title" maxLength={100} required placeholder="What are you selling?" /></div>
     <div className="field"><label htmlFor="category">Category</label><select id="category" name="category" required defaultValue=""><option value="" disabled>Choose a category</option>{categories.map((c) => <option key={c.name} value={c.name}>{c.name} — {categoryGuidance[c.name] || c.description}</option>)}</select></div>
     <div className="field"><label htmlFor="condition">Condition</label><select id="condition" name="condition" required><option>New</option><option>Like new</option><option>Good</option><option>Fair</option></select></div>
-    <div className="field"><label htmlFor="price">Price</label><input id="price" name="price" type="number" min="0" step="0.01" required placeholder="0.00" /></div>
+    <div className="field"><label htmlFor="price">Price ($)</label><input id="price" name="price" type="number" min="0" step="0.01" required placeholder="0.00" /></div>
     <div className="field"><label htmlFor="location">Location</label><input id="location" name="location" required placeholder="City, State" /></div>
     <div className="field full"><label htmlFor="description">Description</label><textarea id="description" name="description" required maxLength={2500} placeholder="Include measurements, fitment details, known issues and pickup information." /></div>
     <div className="field full"><label htmlFor="images">Photos (up to 6)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple required /></div>
