@@ -148,8 +148,8 @@ footer { padding: 60px 0 25px; background: var(--navy); color: #fff; }
 
 .simple-header { background: var(--navy); color: #fff; }
 .simple-header .nav-wrap { min-height: 76px; }
-.apg-header-logo { display: inline-flex; flex: 0 0 auto; align-items: center; border-radius: 8px; background: #fff; padding: 4px 7px; }
-.apg-header-logo-image { display: block; width: 172px; height: 50px; object-fit: contain; }
+.apg-header-logo { display: inline-flex; flex: 0 0 auto; align-items: center; padding: 4px 7px; }
+.apg-header-logo-image { display: block; width: 172px; height: 50px; object-fit: contain; filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
 .page-shell { min-height: 70vh; padding: 60px 0 90px; }
 .page-intro { max-width: 720px; margin-bottom: 35px; }
 .page-intro p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
