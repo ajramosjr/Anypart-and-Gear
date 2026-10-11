@@ -43,10 +43,10 @@ export default async function Home() {
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/community">APG Community{!community.enabled && <span className="ml-2 text-xs font-bold text-amber-800">Coming Soon</span>}</Link>
             <details className="border-t border-slate-200 pt-1">
-              <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">Resources</summary>
+              <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">Learn &amp; Resources</summary>
               <div className="grid gap-1 pl-3">
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shout-outs">APG Shout-Outs</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">APG Tech Wire</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/engine-preview.html">How Things Work</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Tools &amp; Work Gear</Link>
