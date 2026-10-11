@@ -615,3 +615,10 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .dashboard-menu-links a:hover,
 .dashboard-menu-links a:focus-visible,
 .dashboard-menu-links a:active { background: #f1c761; color: var(--navy); }
+
+/* Match header dropdowns to the marketplace's clean white navigation panel. */
+.dashboard-menu-links { width: 224px; max-width: calc(100vw - 24px); padding: 8px; gap: 4px; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 12px 28px rgba(7,26,45,.15); font-size: 14px; }
+.dashboard-menu-links a { min-height: 44px; padding: 10px 12px; border: 0; border-radius: 8px; background: #fff; color: var(--ink); font-weight: 650; line-height: 1.4; }
+.dashboard-menu-links a:hover,
+.dashboard-menu-links a:focus-visible,
+.dashboard-menu-links a:active { background: #f1f5f9; color: var(--navy); }
