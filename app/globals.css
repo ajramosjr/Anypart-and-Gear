@@ -599,3 +599,22 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
   .dashboard-header .apg-header-logo { min-width: 0; padding: 0; }
   .dashboard-header .apg-header-logo-image { width: clamp(100px, 32vw, 172px); height: auto; max-height: 50px; }
 }
+
+/* Dashboard controls use gold only as an interaction highlight. */
+.dashboard-header .account-nav > a,
+.dashboard-menu summary,
+.dashboard-menu-links a { background: #fff; color: var(--navy); border: 1px solid var(--navy); transition: background .15s; }
+.dashboard-header .account-nav > a:hover,
+.dashboard-header .account-nav > a:focus-visible,
+.dashboard-header .account-nav > a:active,
+.dashboard-menu summary:hover,
+.dashboard-menu summary:focus-visible,
+.dashboard-menu summary:active,
+.dashboard-menu-links a:hover,
+.dashboard-menu-links a:focus-visible,
+.dashboard-menu-links a:active { background: #f6b91b; color: var(--navy); }
+@media (hover: none) {
+  .dashboard-header .account-nav > a:hover:not(:active):not(:focus-visible),
+  .dashboard-menu summary:hover:not(:active):not(:focus-visible),
+  .dashboard-menu-links a:hover:not(:active):not(:focus-visible) { background: #fff; }
+}
