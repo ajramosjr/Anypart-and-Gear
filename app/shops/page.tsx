@@ -78,7 +78,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   });
 
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
-    <header className="simple-header sell-header dashboard-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Directory navigation"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Shops &amp; Suppliers</Link><Link href="/messages">Messages</Link><details className="dashboard-menu"><summary aria-label="Open directory menu">Menu</summary><div className="dashboard-menu-links"><Link href="/marketplace">Marketplace</Link><Link aria-current="page" href="/shops">Shops &amp; Suppliers</Link><Link href="/messages">Messages</Link></div></details></nav></div></header>
+    <header className="simple-header sell-header dashboard-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Directory navigation"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link><details className="dashboard-menu"><summary aria-label="Open directory menu">Menu</summary><div className="dashboard-menu-links"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link></div></details></nav></div></header>
     <section className="bg-white"><div className="shell py-7 sm:py-10">
       <h1 className="text-3xl font-black sm:text-5xl">Shops &amp; Suppliers</h1>
       <p className="mt-2 text-slate-600">Find parts, supplies and repair services.</p>
