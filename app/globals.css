@@ -568,3 +568,8 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .sell-intro { margin-bottom: 24px; }
 .sell-intro p { margin: 12px 0 16px; }
 .sell-gear-help { display: flex; width: fit-content; margin-top: 16px; min-height: 44px; }
+
+/* Approved white sell-page header with a substantial navy frame. */
+.simple-header.sell-header { background: #fff; color: var(--navy); border: 5px solid var(--navy); }
+.sell-header .account-nav > a { color: var(--navy); }
+.sell-header .apg-header-logo-image { filter: none; }
