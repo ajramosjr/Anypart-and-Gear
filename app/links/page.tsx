@@ -33,14 +33,13 @@ export default function ApgLinksPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16" aria-labelledby="resource-directory-title">
         <div className="max-w-3xl">
-          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Approved providers</p>
+          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Learning resources</p>
           <h2 id="resource-directory-title" className="mt-2 text-3xl font-black text-[#071a35]">Training and course directory</h2>
-          <p className="mt-3 leading-7 text-slate-600">APG lists course providers only after receiving permission. Course prices and availability are controlled by each provider.</p>
+          <p className="mt-3 leading-7 text-slate-600">Explore independent schools, training programs and course resources. Course prices, eligibility and availability are controlled by each provider.</p>
         </div>
 
         <TrainingDirectory />
-        <p className="mt-8 leading-7 text-slate-600">More training schools and course providers will be added as we receive their permission to list them.</p>
-        <p className="mt-8 text-sm leading-6 text-slate-500">BoatUS Foundation and On the Road Again Motorcycle School are independent course providers. Listings in APG Links do not imply sponsorship or a partnership with APG.</p>
+        <p className="mt-8 text-sm leading-6 text-slate-500">Schools and programs listed here are independent providers. Resource listings do not imply sponsorship, endorsement or a partnership with APG. A “Listed with permission” label appears only where permission has been received.</p>
       </section>
     </main>
   );
