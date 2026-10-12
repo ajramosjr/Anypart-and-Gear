@@ -46,7 +46,7 @@ export default async function Home() {
               <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">Learn &amp; Resources</summary>
               <div className="grid gap-1 pl-3">
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shout-outs">APG Shout-Outs</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/engine-preview.html">How Things Work</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/how-things-work.html">How Things Work</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Tools &amp; Work Gear</Link>
