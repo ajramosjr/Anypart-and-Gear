@@ -33,11 +33,12 @@ Version-level audit findings do not establish that APG is exploitable or that a 
 - Signed-out message creation, notification subscription and listing update API requests returned 401; no data writes or notifications were sent.
 - Training provider content and the corrected Nassau CDL link were retained from current main.
 - `git diff --check`: PASS.
+- Cloud-browser preview after secure Vercel sign-in: homepage and training directory render; motorcycle and boating quick filters each return 3 providers; CDL plus Nassau search returns the correct provider and corrected official course URL. No APG application console error was observed in the checked directory logs (browser-extension metadata errors are separate).
 
 ## Release limitations and remaining checks
 
-The browser executable could not be downloaded in this environment (invalid/truncated download). No authenticated test account/session was available. HTTP rendering and access checks do not replace full browser interaction testing.
+The local browser executable could not be downloaded (invalid/truncated download), but the cloud browser successfully opened the deployed preview after secure Vercel sign-in. Public browser checks are recorded above. APG itself remains signed out: its Cloudflare Turnstile human-verification check leaves the Sign in button disabled, so authenticated workflow checks require user participation. Mobile-width testing has not been completed.
 
 Before merging and publishing, complete sign-in/sign-out, password-reset email/link flow, listing creation/editing and photo upload, test-account messaging, notification delivery and admin behavior as a regular signed-in user. Check the mobile UI and provider-filter interactions in a browser. Run these on a preview or dedicated test environment; do not message real members as test recipients.
 
-The connected Vercel tooling previously denied access to the APG team. This change is prepared on a security branch as a draft PR; production publication has not been verified. After release, confirm the deployed commit and repeat read-only smoke checks on the live site.
+The connected Vercel tooling previously denied access to the APG team. GitHub's Vercel integration built the security preview, and the cloud browser accessed it after secure Vercel sign-in. This change is prepared on a security branch as a draft PR; production remains unchanged. After release, confirm the deployed commit and repeat read-only smoke checks on the live site.
