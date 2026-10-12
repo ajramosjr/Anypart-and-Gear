@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TechWireLink } from "@/components/tech-wire-navigation";
 import { ArrowLeft } from "lucide-react";
 import ApgLogo from "@/components/apg-logo";
 import TrainingDirectory from "@/components/training-directory";
@@ -17,7 +18,7 @@ export default function ApgLinksPage() {
           <ApgLogo priority />
           <div className="flex items-center gap-3">
             <Link href="/marketplace" className="hidden items-center gap-2 text-sm font-bold text-slate-700 hover:text-slate-950 sm:flex"><ArrowLeft className="size-4" /> Marketplace</Link>
-            <Link href="/tech-wire" className="apg-header-control rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300">APG Tech Wire</Link>
+            <TechWireLink href="/tech-wire" className="apg-header-control rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300">APG Tech Wire</TechWireLink>
           </div>
         </div>
       </header>

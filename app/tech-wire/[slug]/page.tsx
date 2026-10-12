@@ -1,3 +1,4 @@
+import { requireTechWireAccess } from "@/lib/tech-wire";
 import { SeasonalLogo } from "@/components/october-awareness";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -6,13 +7,11 @@ import { techArticles } from "../articles";
 import { getPublishedTechArticle, getPublishedTechArticles, getTechArticleImage } from "../article-store";
 import { notFound } from "next/navigation";
 import ShareButtons from "./share-buttons";
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
-export function generateStaticParams() {
-  return techArticles.map(({ slug }) => ({ slug }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  await requireTechWireAccess();
   const slug = (await params).slug;
   const article = await getPublishedTechArticle(slug);
   if (!article) return {};
@@ -21,6 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function TechArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  await requireTechWireAccess();
   const slug = (await params).slug;
   const [article, allArticles] = await Promise.all([getPublishedTechArticle(slug), getPublishedTechArticles()]);
   if (!article) notFound();

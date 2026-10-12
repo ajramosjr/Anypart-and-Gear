@@ -1,3 +1,4 @@
+import { requireTechWireAccess } from "@/lib/tech-wire";
 import { SeasonalLogo } from "@/components/october-awareness";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -10,9 +11,10 @@ export const metadata: Metadata = {
   description: "Practical coverage of parts availability, recalls, supply-chain changes, pricing and useful technology for drivers, shops and builders.",
 };
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export default async function TechWirePage() {
+  await requireTechWireAccess();
   const techArticles = await getPublishedTechArticles();
 
   return (

@@ -47,6 +47,7 @@ export async function updateSession(request: NextRequest) {
     // Check if Supabase credentials are configured
     if (!hasSupabaseConfig()) {
       console.error("Missing Supabase environment variables");
+      if (pathname === "/tech-wire" || pathname.startsWith("/tech-wire/") || pathname === "/_next/image") return new NextResponse(null, { status: 404 });
       const unconfiguredResponse = NextResponse.next({
         request: {
           headers: request.headers,
@@ -83,6 +84,11 @@ export async function updateSession(request: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
+    const protectsTechWire = pathname === "/tech-wire" || pathname.startsWith("/tech-wire/") || pathname === "/_next/image";
+    if (protectsTechWire) {
+      const { data, error } = await supabase.from("tech_wire_settings").select("enabled").eq("id", "tech-wire").maybeSingle();
+      if ((error || data?.enabled !== true) && user?.app_metadata?.role !== "admin") return new NextResponse(null, { status: 404, headers: { "Cache-Control": "private, no-store" } });
+    }
     if (!user && !isPublicPage) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";
@@ -94,6 +100,7 @@ export async function updateSession(request: NextRequest) {
     return response;
   } catch (error) {
     console.error("Middleware error:", error);
+    if (pathname === "/tech-wire" || pathname.startsWith("/tech-wire/") || pathname === "/_next/image") return new NextResponse(null, { status: 404, headers: { "Cache-Control": "private, no-store" } });
     if (!isPublicPage) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";

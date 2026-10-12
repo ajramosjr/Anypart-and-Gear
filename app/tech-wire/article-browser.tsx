@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { TechArticle } from "./articles";
-import { getTechArticleImage } from "./article-store";
+import { getTechArticleImage } from "./article-images";
 
 const categories = ["All", "Cars", "Boats", "Trucking & Buses", "Fuel", "Parts", "Tools"] as const;
 type Category = (typeof categories)[number];

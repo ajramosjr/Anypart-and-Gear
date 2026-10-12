@@ -1,3 +1,4 @@
+import { requireTechWireAccess } from "@/lib/tech-wire";
 import { ImageResponse } from "next/og";
 import { getPublishedTechArticle } from "../article-store";
 
@@ -14,6 +15,7 @@ function accent(category: string) {
 }
 
 export default async function ArticleImage({ params }: { params: Promise<{ slug: string }> }) {
+  await requireTechWireAccess();
   const { slug } = await params;
   const article = await getPublishedTechArticle(slug);
   const category = article?.category || "APG Parts & Industry News";
@@ -42,3 +44,5 @@ export default async function ArticleImage({ params }: { params: Promise<{ slug:
     size,
   );
 }
+
+export const dynamic = "force-dynamic";

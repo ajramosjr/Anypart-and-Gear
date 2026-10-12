@@ -5,6 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GearsAssistant } from "@/components/gears-assistant";
 import PasswordRecoveryRedirect from "@/components/password-recovery-redirect";
 import VisitCounter from "@/components/visit-counter";
+import { getTechWireState } from "@/lib/tech-wire";
+import { TechWireNavigationProvider } from "@/components/tech-wire-navigation";
 import "./globals.css";
 import "./listing-overrides.css";
 
@@ -42,11 +44,12 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, title: "Any Part & Gear", statusBarStyle: "default" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { enabled } = await getTechWireState();
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
       <head>
@@ -58,7 +61,7 @@ export default function RootLayout({
         {/* Preserve AvantLink’s exact temporary ownership tag for its source checker. */}
         <div hidden dangerouslySetInnerHTML={{ __html: "<script type=\"text/javascript\" src=\"http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007\"></script>" }} />
         <PasswordRecoveryRedirect />
-        {children}
+        <TechWireNavigationProvider enabled={enabled}>{children}</TechWireNavigationProvider>
         <GearsAssistant />
         <VisitCounter />
         <Analytics />

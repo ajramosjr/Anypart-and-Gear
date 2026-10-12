@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TechWireLink } from "@/components/tech-wire-navigation";
 import { redirect } from "next/navigation";
 import ApgLogo from "@/components/apg-logo";
 import { getUser } from "@/lib/auth";
@@ -23,7 +24,7 @@ export default async function ToolboxPage() {
           <nav className="account-nav" aria-label="Main navigation">
             <Link href="/marketplace">Marketplace</Link>
             <Link href="/shops">Shops &amp; Suppliers</Link>
-            <Link href="/tech-wire">APG Tech Wire</Link>
+            <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
             <Link href="/links">Courses &amp; Training</Link>
             <Link href="/sell">Post an item</Link>
             <details className="dashboard-menu">
@@ -31,7 +32,7 @@ export default async function ToolboxPage() {
               <div className="dashboard-menu-links">
                 <Link href="/marketplace">Marketplace</Link>
                 <Link href="/shops">Shops &amp; Suppliers</Link>
-                <Link href="/tech-wire">APG Tech Wire</Link>
+                <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
                 <Link href="/links">Courses &amp; Training</Link>
                 <Link href="/sell">Post an item</Link>
               </div>
