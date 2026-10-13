@@ -37,8 +37,10 @@ Version-level audit findings do not establish that APG is exploitable or that a 
 
 ## Release limitations and remaining checks
 
-The local browser executable could not be downloaded (invalid/truncated download), but the cloud browser successfully opened the deployed preview after secure Vercel sign-in. Public browser checks are recorded above. APG itself remains signed out: its Cloudflare Turnstile human-verification check leaves the Sign in button disabled, so authenticated workflow checks require user participation. Mobile-width testing has not been completed.
+The owner saved the exact preview hostname in Cloudflare Turnstile after error 110200. Human verification then passed. Earlier attempts returned invalid login credentials; a later secure APG login succeeded.
 
-Before merging and publishing, complete sign-in/sign-out, password-reset email/link flow, listing creation/editing and photo upload, test-account messaging, notification delivery and admin behavior as a regular signed-in user. Check the mobile UI and provider-filter interactions in a browser. Run these on a preview or dedicated test environment; do not message real members as test recipients.
+Authenticated browser checks passed: sell form, account dashboard, messages inbox, notifications page, administrator dashboard, and existing listing edit form with five photos. Reloading sell retained the session. Sign-out returned home, and revisiting sell redirected to login. No listing, photo, message, account setting or admin content was modified.
+
+Remaining limits: listing creation/save, photo upload, message sending, notification delivery, regular-user admin denial, password-reset email/link flow and mobile-width layout were not tested end to end. The owner reports the reset password works on live APG. The preview uses production data, so no dummy listings or messages to real members were created. These checks establish patch smoke-test coverage, not a complete security audit.
 
 The connected Vercel tooling previously denied access to the APG team. GitHub's Vercel integration built the security preview, and the cloud browser accessed it after secure Vercel sign-in. This change is prepared on a security branch as a draft PR; production remains unchanged. After release, confirm the deployed commit and repeat read-only smoke checks on the live site.
