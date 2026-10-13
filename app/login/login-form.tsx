@@ -4,6 +4,7 @@ import Script from "next/script";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
+import { trackFunnel } from "@/lib/funnel";
 
 const TURNSTILE_SITE_KEY =
   process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAE9Of1xQX12K2g2T";
@@ -84,6 +85,7 @@ export default function LoginForm({
   }, []);
 
   function changeMode(nextMode: "signin" | "signup" | "recover") {
+    if (nextMode === "signup") trackFunnel("signup_open");
     setMode(nextMode);
     setMessage("");
     setWaitingForVerification(false);
@@ -127,10 +129,12 @@ export default function LoginForm({
 
   async function submit(event: FormEvent) {
     event.preventDefault(); setLoading(true); setMessage(""); setMessageType("error");
+    if (mode === "signup") trackFunnel("signup_submit");
     if (!hasSupabaseConfig()) {
       setMessage("The marketplace database is still being connected. Please try again shortly."); setLoading(false); return;
     }
     if (!captchaToken) {
+      if (mode === "signup") trackFunnel("signup_error");
       setMessage("Please complete the security check before continuing."); setLoading(false); return;
     }
     const supabase = createClient();
@@ -156,11 +160,14 @@ export default function LoginForm({
         },
       });
       if (error) {
+        trackFunnel("signup_error");
         setMessage(error.message);
       } else if (data.session) {
+        trackFunnel("signup_accepted");
         window.location.assign(nextPath);
         return;
       } else {
+        trackFunnel("signup_accepted");
         setMessageType("success");
         setWaitingForVerification(true);
         setMessage("Check your inbox for the next step. New to APG? Use the verification link we sent. Already have an account? Reset your password below instead of creating another account.");
@@ -172,6 +179,7 @@ export default function LoginForm({
         options: { captchaToken },
       });
       if (error) {
+        trackFunnel("signin_error");
         const needsEmailConfirmation =
           error.code === "email_not_confirmed" ||
           /email(?: address)? not confirmed/i.test(error.message);
