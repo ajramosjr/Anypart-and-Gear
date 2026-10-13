@@ -67,6 +67,7 @@ export default async function Home() {
       </div>
     </header>
     <AwarenessBanner />
+    {!user && <section aria-label="Member access" className="bg-[#06162d] px-4 py-4 text-white"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3"><p><strong>Unlock full APG access.</strong> Create an account to explore the marketplace, Directory, Toolbox and more.</p><Link href="/login?access=members" className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-5 font-bold">Sign up or log in</Link></div></section>}
     <section className="apg-home-hero apg-mobile-hero relative isolate overflow-hidden text-white">
       <Image src="/apg-marketplace-hero.webp" alt="Transmission, gears, tools, and a marine propeller on a workshop bench" fill priority sizes="100vw" className="-z-20 object-cover object-[65%_center]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#03152b]/95 via-[#03152b]/70 to-transparent" />

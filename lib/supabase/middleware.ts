@@ -18,36 +18,35 @@ export async function updateSession(request: NextRequest) {
   }
 
   const pathname = request.nextUrl.pathname;
-  const publicPrefixes = [
-    "/auth",
-    "/api",
-    "/login",
-    "/reset-password",
-    "/listing",
-    "/links",
-    "/garage-gear",
-    "/shops",
-    "/safety",
-    "/tech-wire",
-    "/terms",
-    "/privacy",
-    "/affiliate-disclosure",
-    "/community-guidelines",
-    "/trust",
-    "/support",
-    "/robots.txt",
-    "/sitemap.xml",
-    "/manifest.webmanifest",
-    "/offline.html",
-    "/sw.js",
-  ];
-  const isPublicPage = pathname === "/" || pathname === "/community" || pathname === "/community/" || pathname === "/shout-outs" || pathname === "/shout-outs/" || pathname === "/marketplace" || pathname === "/marketplace/" || pathname === "/parts-wanted" || pathname === "/parts-wanted/" || publicPrefixes.some((page) => pathname.startsWith(page));
+  // Only the homepage, account entry points, policies and app infrastructure
+  // are public. Match exact paths so similarly named member pages stay locked.
+  const publicPaths = new Set([
+    "/", "/login", "/reset-password", "/auth/callback", "/auth/signout",
+    "/terms", "/privacy", "/affiliate-disclosure", "/community-guidelines",
+    "/robots.txt", "/sitemap.xml", "/manifest.webmanifest", "/offline.html", "/sw.js",
+  ]);
+  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+  const isPublicPage = publicPaths.has(normalizedPath) ||
+    (request.method === "POST" && ["/api/visits", "/api/funnel"].includes(normalizedPath));
+  function requireLogin() {
+    const headers = { "Cache-Control": "private, no-store" };
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "Sign in to access APG." }, { status: 401, headers });
+    }
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = "";
+    url.searchParams.set("next", pathname + request.nextUrl.search);
+    url.searchParams.set("access", "members");
+    return NextResponse.redirect(url, { headers });
+  }
 
   try {
     // Check if Supabase credentials are configured
     if (!hasSupabaseConfig()) {
       console.error("Missing Supabase environment variables");
       if (pathname === "/tech-wire" || pathname.startsWith("/tech-wire/") || pathname === "/_next/image") return new NextResponse(null, { status: 404 });
+      if (!isPublicPage) return requireLogin();
       const unconfiguredResponse = NextResponse.next({
         request: {
           headers: request.headers,
@@ -57,7 +56,7 @@ export async function updateSession(request: NextRequest) {
       return unconfiguredResponse;
     }
 
-    const response = NextResponse.next({
+    let response = NextResponse.next({
       request: {
         headers: request.headers,
       },
@@ -72,9 +71,9 @@ export async function updateSession(request: NextRequest) {
             return request.cookies.getAll();
           },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
-            );
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+            response = NextResponse.next({ request });
+            cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
           },
         },
       }
@@ -90,10 +89,9 @@ export async function updateSession(request: NextRequest) {
       if ((error || data?.enabled !== true) && user?.app_metadata?.role !== "admin") return new NextResponse(null, { status: 404, headers: { "Cache-Control": "private, no-store" } });
     }
     if (!user && !isPublicPage) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/login";
-      url.searchParams.set("next", pathname);
-      return NextResponse.redirect(url);
+      const redirect = requireLogin();
+      response.cookies.getAll().forEach(cookie => redirect.cookies.set(cookie));
+      return redirect;
     }
 
     response.headers.set("Cache-Control", "private, no-store");
@@ -101,12 +99,7 @@ export async function updateSession(request: NextRequest) {
   } catch (error) {
     console.error("Middleware error:", error);
     if (pathname === "/tech-wire" || pathname.startsWith("/tech-wire/") || pathname === "/_next/image") return new NextResponse(null, { status: 404, headers: { "Cache-Control": "private, no-store" } });
-    if (!isPublicPage) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/login";
-      url.searchParams.set("next", pathname);
-      return NextResponse.redirect(url);
-    }
+    if (!isPublicPage) return requireLogin();
     const fallbackResponse = NextResponse.next({
       request: { headers: request.headers },
     });

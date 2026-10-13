@@ -10,5 +10,5 @@ export async function proxy(request: NextRequest) {
   }
   return updateSession(request);
 }
-// The standalone educational guides contains no account data.
-export const config = { matcher: ["/tech-wire/:path*", "/_next/image", "/((?!(?:engine-preview|how-things-work)\\.html$|_next/static|_next/image|favicon.ico|APG\\.vcf$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"] };
+// Standalone HTML guides also require membership.
+export const config = { matcher: ["/tech-wire/:path*", "/_next/image", "/((?!_next/static|_next/image|favicon.ico|APG\\.vcf$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"] };
