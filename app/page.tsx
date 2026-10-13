@@ -49,6 +49,7 @@ export default async function Home() {
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shout-outs">APG Shout-Outs</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/how-things-work.html">How Things Work</Link><TechWireLink className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</TechWireLink>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/practice-tests">Practice Tests</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
                 <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Tools &amp; Work Gear</Link>
               </div>

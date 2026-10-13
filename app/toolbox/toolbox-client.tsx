@@ -137,7 +137,7 @@ const dtcGuides: Record<string,DtcGuide> = {
 };
 
 const tools = [
-  ["cdl", "CDL Study & Practice", "New York CDL study topics, original practice questions and official DMV manual downloads.", BookOpen],
+  ["cdl", "Practice Tests", "Open New York CDL practice questions, lessons and official manual links.", BookOpen],
   ["drill-tap", "Drill & Tap Charts", "Find common drill sizes for SAE, metric and pipe threads.", Wrench],
   ["tape-measure", "Tape Measure Reading Chart", "Identify common fractional marks and decimal equivalents.", Ruler],
   ["converter", "SAE–Metric Converter", "Convert measurements between inches and millimeters.", ArrowLeftRight],
@@ -296,30 +296,7 @@ export default function ToolboxClient() {
     </section>
 
     <div className="shell toolbox-content">
-      <Printable id="cdl" className="wide-tool">
-        <SectionHeading icon={BookOpen} title="New York CDL Study & Practice" target="cdl"/>
-        <p className="tool-note">Start with the topics for your license class and vehicle, then test your understanding. APG’s original questions are unofficial study aids, not actual DMV exam questions or a complete training course. APG is not affiliated with the DMV.</p>
-        <div className="state-form-callout"><strong>Official New York DMV CDL Manual</strong><span>The DMV provides the complete manual as separate PDF sections, with multiple language options. Open its index to read or download the sections you need.</span><a href="https://dmv.ny.gov/driver-license/commercial-drivers/new-york-state-commercial-drivers-manual" target="_blank" rel="noopener noreferrer">Open official CDL manual and PDF downloads ↗</a></div>
-        <h3>Your study path</h3>
-        <ol className="print-checklist"><li>Read Section 1 first to identify the license class, restrictions and endorsements you need.</li><li>Study driving safety and cargo in Sections 2 and 3.</li><li>Add Section 5 for air-brake vehicles and Section 6 for combination vehicles.</li><li>Use Sections 11–13 for inspection, vehicle control and road-test preparation.</li><li>Add the relevant passenger, school bus, tanker, doubles/triples or hazardous-material sections when needed.</li></ol>
-        <div className="verify-callout"><AlertTriangle/>Study support only. Required entry-level driver training must be completed with an FMCSA-registered provider when applicable. Practice vehicle procedures with a qualified instructor.</div>
-        <p><a href="https://dmv.ny.gov/driver-license/commercial-drivers/get-a-commercial-driver-license-cdl" target="_blank" rel="noopener noreferrer">Official New York CDL application steps</a> · <a href="https://tpr.fmcsa.dot.gov/" target="_blank" rel="noopener noreferrer">FMCSA training provider registry</a></p>
-        <h3>Short study lessons</h3>
-        <details><summary>General knowledge — notice problems early</summary><p>Use a repeatable inspection routine. Check safety-critical components before travel, monitor instruments during the trip, and report defects afterward. Review visibility, space, speed, fatigue and cargo security in the official manual.</p><a href="https://dmv.ny.gov/brochure/cdl10sec02.pdf" target="_blank" rel="noopener noreferrer">Study Section 2: Driving safely</a></details>
-        <details><summary>Air brakes — understand the system</summary><p>Learn how the compressor, governor, reservoirs, service brakes and spring brakes work together. Study pressure build-up, leakage checks and low-pressure warnings. Use the current manual and an instructor for exact test procedures and limits.</p><a href="https://dmv.ny.gov/brochure/cdl10sec05.pdf" target="_blank" rel="noopener noreferrer">Study Section 5: Air brakes</a></details>
-        <details><summary>Combination vehicles — coupling and turning</summary><p>Study coupling security, air and electrical connections, trailer braking and turning space. Trailer wheels follow a different path from the tractor, so plan for offtracking. Learn the vehicle-specific coupling and inspection sequence with an instructor.</p><a href="https://dmv.ny.gov/brochure/cdl10sec06.pdf" target="_blank" rel="noopener noreferrer">Study Section 6: Combination vehicles</a></details>
-        <details><summary>Pre-trip inspection — explain what and why</summary><p>Practice identifying each component, describing its condition and explaining the safety reason for checking it. Work through the official inspection section for your vehicle class. A general maintenance checklist does not replace the CDL inspection test requirements.</p></details>
-        <h3>Original APG practice questions</h3><p>Choose an answer before opening the explanation. These six questions are a starting review, not a passing-score prediction.</p>
-        {[
-          ["Why use the same inspection sequence each time?", ["A. To reduce the chance of missing an item", "B. To avoid inspecting brakes", "C. To replace all maintenance"], "A", "A consistent routine helps you remember each inspection step. Safety checks still need to cover the whole vehicle.", "Section 2"],
-          ["You discover a defect that makes the vehicle unsafe. What is the appropriate response?", ["A. Continue if the trip is short", "B. Have the safety defect addressed before operating", "C. Ignore it if the engine starts"], "B", "An engine that runs does not establish that the vehicle is safe. Report the defect and arrange the required repair.", "Section 2"],
-          ["What supplies compressed air to an air-brake system?", ["A. The windshield washer pump", "B. The trailer electrical plug", "C. The air compressor"], "C", "The compressor supplies air; reservoirs store it for brake operation.", "Section 5"],
-          ["What does a low-air-pressure warning tell you?", ["A. Brake-system air pressure has fallen too low", "B. The tires need rotation", "C. The trailer lights are disconnected"], "A", "Treat the warning as a serious braking concern. Follow the manual’s safe stopping guidance; do not continue a trip with inadequate pressure.", "Section 5"],
-          ["Why must a tractor-trailer driver account for offtracking?", ["A. It changes the radio signal", "B. Trailer wheels take a different path during a turn", "C. It eliminates the need for mirrors"], "B", "Trailer wheels can track inside the tractor’s path, affecting clearance around curbs, objects and other road users.", "Section 6"],
-          ["During an inspection test, what should you be prepared to explain?", ["A. Only the component’s color", "B. Only the vehicle’s purchase price", "C. What you inspect and why it matters"], "C", "Demonstrate that you understand the component’s condition and its safety purpose, following the official test requirements.", "Sections 2 and 11–13"],
-        ].map(([question, options, answer, explanation, source], index) => <article className="cdl-question" key={String(question)}><h4>{index+1}. {question}</h4><ul>{(options as string[]).map(option=><li key={option}>{option}</li>)}</ul><details><summary>Show answer and explanation</summary><p><strong>Answer: {answer}.</strong> {explanation}</p><small>Review: New York DMV CDL Manual, {source}.</small></details></article>)}
-        <p className="tool-note">Official sources checked October 13, 2026. Always consult the DMV’s current manual and requirements before testing.</p>
-      </Printable>
+      <Printable id="cdl" className="wide-tool"><SectionHeading icon={BookOpen} title="Practice Tests" target="cdl"/><p className="tool-note">Practice for your next license or qualification. New York CDL has 50 original questions, answer explanations, study lessons and official manual links.</p><Link className="cdl-hub-link" href="/practice-tests">Open Practice Tests →</Link></Printable>
 
       <div className="toolbox-actions no-print"><p><strong>One tool at a time.</strong> Choose the tool you need above.</p><PrintButton target={selectedTool} label="Print selected tool" /></div>
 

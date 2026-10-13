@@ -38,6 +38,7 @@ export default function ApgLinksPage() {
           <p className="mt-3 leading-7 text-slate-600">Explore independent schools, training programs and course resources. Course prices, eligibility and availability are controlled by each provider.</p>
         </div>
 
+        <Link href="/practice-tests" className="mt-8 block rounded-xl border border-amber-400 bg-white p-6 shadow-sm"><h3 className="text-xl font-bold text-[#071a35]">Practice Tests →</h3><p className="mt-2 text-slate-600">Prepare at your own pace. Start with 50 New York CDL practice questions, lessons and official manual links.</p></Link>
         <TrainingDirectory />
         <p className="mt-8 text-sm leading-6 text-slate-500">Schools and programs listed here are independent providers. Resource listings do not imply sponsorship, endorsement or a partnership with APG. A “Listed with permission” label appears only where permission has been received.</p>
       </section>

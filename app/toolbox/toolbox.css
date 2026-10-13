@@ -17,3 +17,7 @@
 .toolbox-discovery{display:grid;max-width:43rem;gap:.7rem}.toolbox-discovery .tool-search{max-width:none}.tool-jump{position:relative;display:grid;width:min(15rem,100%);gap:.3rem}.tool-jump>span{color:#d7e2ed;font-size:.72rem;font-weight:850;text-transform:uppercase}.tool-jump select{width:100%;appearance:none;border:1px solid #d89e00;border-radius:.55rem;background:#f6b91b;padding:.78rem 2.4rem .78rem .95rem;color:#071a35;font:inherit;font-size:.8rem;font-weight:900;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.18)}.tool-jump:after{position:absolute;right:.9rem;bottom:.8rem;border:solid #071a35;border-width:0 2px 2px 0;padding:.22rem;transform:rotate(45deg);content:"";pointer-events:none}.tool-jump select:focus-visible{outline:3px solid rgba(246,185,27,.35);outline-offset:3px}
 
 #cdl details{margin:14px 0;padding:14px;border:1px solid #ccd3dd;border-radius:10px;background:#fff;color:#172b4d}#cdl summary{cursor:pointer;font-weight:700}#cdl a{color:#173b72;text-decoration:underline}#cdl .cdl-question{padding:16px 0;border-bottom:1px solid #ccd3dd}#cdl li{margin:8px 0}#cdl h3{margin-top:24px}
+
+#cdl .cdl-topic-nav{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}#cdl .cdl-topic-nav a{padding:10px 14px;border:1px solid #ccd3dd;border-radius:8px;background:#f4f6fa}#cdl .cdl-topic{scroll-margin-top:24px}
+
+.cdl-hub-link{display:inline-block;padding:12px 18px;background:#071a35;color:white!important;border-radius:8px;font-weight:700;margin:12px 0}

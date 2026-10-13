@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "topic": "General knowledge",
+    "question": "Why follow a consistent vehicle inspection sequence?",
+    "options": [
+      "It allows you to skip unfamiliar components",
+      "It replaces the end-of-trip check",
+      "It reduces missed checks"
+    ],
+    "answer": 2,
+    "explanation": "A repeatable routine makes it easier to check every safety item.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 2,
+    "topic": "General knowledge",
+    "question": "What should happen when an inspection reveals an unsafe defect?",
+    "options": [
+      "Continue if dashboard warning lights are off",
+      "Repair the safety defect before operation",
+      "Record it and continue until the next scheduled service"
+    ],
+    "answer": 1,
+    "explanation": "A working engine or clear dashboard does not make an unsafe vehicle roadworthy.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 3,
+    "topic": "General knowledge",
+    "question": "At highway speed, roughly how far ahead should you scan?",
+    "options": [
+      "Only to the next vehicle",
+      "About 12\u201315 seconds of travel",
+      "One second of travel"
+    ],
+    "answer": 1,
+    "explanation": "Looking well ahead gives time to recognize hazards and plan a response.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 4,
+    "topic": "General knowledge",
+    "question": "Why should you check mirrors regularly while driving?",
+    "options": [
+      "To monitor traffic and the vehicle",
+      "To replace shoulder checks in every situation",
+      "To monitor only vehicles directly behind you"
+    ],
+    "answer": 0,
+    "explanation": "Mirror checks help track nearby vehicles, clearances and developing problems.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 5,
+    "topic": "General knowledge",
+    "question": "For a hydraulic-brake vehicle, which distances make up total stopping distance?",
+    "options": [
+      "Braking distance only",
+      "Perception, reaction and braking distances",
+      "Reaction and braking distances only"
+    ],
+    "answer": 1,
+    "explanation": "Add perception, reaction and braking distances. Air-brake vehicles also have brake-lag distance.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 6,
+    "topic": "General knowledge",
+    "question": "When a road becomes slippery, what should you do?",
+    "options": [
+      "Reduce speed and increase following space",
+      "Keep your usual speed but avoid mirrors",
+      "Follow closely so you can copy the vehicle ahead"
+    ],
+    "answer": 0,
+    "explanation": "Reduced traction requires more room and smoother control inputs.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 7,
+    "topic": "General knowledge",
+    "question": "Why choose a safe speed and low gear before a steep downgrade?",
+    "options": [
+      "To coast without engine braking",
+      "To use engine braking and reduce brake overheating",
+      "To select a gear only after speed builds"
+    ],
+    "answer": 1,
+    "explanation": "Select the gear before descending; excessive service-brake use can overheat brakes.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 8,
+    "topic": "General knowledge",
+    "question": "Your vehicle is below the posted speed limit. Can that speed still be unsafe?",
+    "options": [
+      "Only a posted advisory can require slowing",
+      "No, driving below the limit is always safe",
+      "Yes, conditions may require a lower speed"
+    ],
+    "answer": 2,
+    "explanation": "Weather, visibility, traffic and vehicle loading can require slower travel.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 9,
+    "topic": "General knowledge",
+    "question": "What is the purpose of ABS during hard braking?",
+    "options": [
+      "To guarantee a shorter stop on every surface",
+      "To help prevent wheel lockup and preserve control",
+      "To eliminate the need for extra following distance"
+    ],
+    "answer": 1,
+    "explanation": "ABS helps control wheel lockup; it does not remove traction limits.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 10,
+    "topic": "General knowledge",
+    "question": "You become too sleepy to drive safely. What is the best response?",
+    "options": [
+      "Use fresh air instead of taking a break",
+      "Rely on loud music to stay alert",
+      "Find a safe place to stop and rest"
+    ],
+    "answer": 2,
+    "explanation": "Rest addresses fatigue; noise and fresh air are not reliable substitutes.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 11,
+    "topic": "General knowledge",
+    "question": "What should you do before backing when the space is uncertain?",
+    "options": [
+      "Use only one mirror and keep moving",
+      "Get out and inspect the backing area",
+      "Assume the area is clear if it was clear earlier"
+    ],
+    "answer": 1,
+    "explanation": "Check the surroundings and clearances before moving into an uncertain space.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 12,
+    "topic": "General knowledge",
+    "question": "With a helper guiding a backing maneuver, what if you lose sight of the helper?",
+    "options": [
+      "Continue while watching the other mirror",
+      "Continue at the same speed until the helper returns",
+      "Stop the vehicle"
+    ],
+    "answer": 2,
+    "explanation": "Stop when visual contact is lost; agree on signals before the maneuver.",
+    "section": "02",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec02.pdf"
+  },
+  {
+    "id": 13,
+    "topic": "General knowledge",
+    "question": "Why inspect cargo securement before departure?",
+    "options": [
+      "To prevent shifting or falling cargo",
+      "To avoid weighing the loaded vehicle",
+      "To eliminate all cargo inspections during the trip"
+    ],
+    "answer": 0,
+    "explanation": "Cargo movement can affect stability and endanger people near the vehicle.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 14,
+    "topic": "General knowledge",
+    "question": "Can a legal total vehicle weight still include an overloaded axle?",
+    "options": [
+      "No, correct tire pressure prevents axle overload",
+      "No, only total weight matters",
+      "Yes, axle weight limits also matter"
+    ],
+    "answer": 2,
+    "explanation": "Total weight and the distribution of weight across axles must both be checked.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 15,
+    "topic": "General knowledge",
+    "question": "What generally happens when heavy cargo is stacked higher?",
+    "options": [
+      "The vehicle becomes more stable in curves",
+      "The center of gravity rises and stability decreases",
+      "The center of gravity stays unchanged"
+    ],
+    "answer": 1,
+    "explanation": "Keeping heavy loads low helps reduce rollover risk.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 16,
+    "topic": "General knowledge",
+    "question": "Who must ensure the cargo is safe even if someone else loaded it?",
+    "options": [
+      "Only the loader has responsibility",
+      "Only the cargo owner has responsibility",
+      "The driver"
+    ],
+    "answer": 2,
+    "explanation": "The driver remains responsible for safe loading and securement.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 17,
+    "topic": "General knowledge",
+    "question": "What is the normal first en-route cargo and securement check distance?",
+    "options": [
+      "After 200 miles",
+      "Within the first 50 miles",
+      "Only at the delivery address"
+    ],
+    "answer": 1,
+    "explanation": "The manual calls for an early recheck within 50 miles; specific sealed-load exceptions apply.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 18,
+    "topic": "General knowledge",
+    "question": "After that initial check, when should cargo securement generally be rechecked?",
+    "options": [
+      "Only if the cargo is noisy",
+      "Once each calendar week",
+      "After driving 3 hours or 150 miles, and after each driving break"
+    ],
+    "answer": 2,
+    "explanation": "Recheck after 3 hours or 150 miles, whichever comes first, and after breaks. Follow applicable cargo-inspection exceptions.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 19,
+    "topic": "General knowledge",
+    "question": "What should you do before moving an overlength or overwidth load?",
+    "options": [
+      "Check required permits and route restrictions",
+      "Rely only on the vehicle\u2019s total weight",
+      "Assume normal routes permit every oversized load"
+    ],
+    "answer": 0,
+    "explanation": "Special loads may require permits, restricted routing and additional markings.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 20,
+    "topic": "General knowledge",
+    "question": "Why use blocking or bracing where appropriate?",
+    "options": [
+      "To resist cargo movement",
+      "To allow cargo to slide freely",
+      "To replace every required tiedown"
+    ],
+    "answer": 0,
+    "explanation": "Blocking and bracing help keep cargo in place; use appropriate securement for the load.",
+    "section": "03",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec03.pdf"
+  },
+  {
+    "id": 21,
+    "topic": "Air brakes",
+    "question": "What supplies compressed air to the brake system?",
+    "options": [
+      "The service brake chambers",
+      "The brake pedal return spring",
+      "The air compressor"
+    ],
+    "answer": 2,
+    "explanation": "The compressor supplies air that is stored in the reservoirs.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 22,
+    "topic": "Air brakes",
+    "question": "What does the air-compressor governor control?",
+    "options": [
+      "When the compressor pumps air or stops pumping",
+      "The pressure inside each tire",
+      "Trailer brake shoe clearance"
+    ],
+    "answer": 0,
+    "explanation": "The governor responds to system pressure to control compressor pumping.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 23,
+    "topic": "Air brakes",
+    "question": "Why are air tanks drained as required?",
+    "options": [
+      "To adjust the fifth-wheel height",
+      "To increase tire traction directly",
+      "To remove accumulated water and oil"
+    ],
+    "answer": 2,
+    "explanation": "Moisture and oil can collect in reservoirs and cause brake-system problems.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 24,
+    "topic": "Air brakes",
+    "question": "What does a low-air-pressure warning indicate?",
+    "options": [
+      "That tire inflation is below specification",
+      "Insufficient brake-system air pressure",
+      "That fuel pressure is below specification"
+    ],
+    "answer": 1,
+    "explanation": "Stop safely as directed by the manual before pressure falls further.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 25,
+    "topic": "Air brakes",
+    "question": "What applies conventional spring brakes when air pressure is removed?",
+    "options": [
+      "Engine oil pressure",
+      "Mechanical spring force",
+      "Gravity acting on the brake shoes"
+    ],
+    "answer": 1,
+    "explanation": "Air holds the springs back; releasing that air lets spring force apply the brakes.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 26,
+    "topic": "Air brakes",
+    "question": "How can repeated unnecessary brake applications affect the air supply?",
+    "options": [
+      "They cannot affect stored air pressure",
+      "They automatically fill the reservoirs faster",
+      "They can use air faster than it is replenished"
+    ],
+    "answer": 2,
+    "explanation": "Repeated applications consume reservoir air and can reduce available pressure.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 27,
+    "topic": "Air brakes",
+    "question": "How does air-brake lag affect stopping?",
+    "options": [
+      "It adds delay before the brakes take effect",
+      "It reduces stopping distance at higher speed",
+      "It cancels the driver\u2019s reaction distance"
+    ],
+    "answer": 0,
+    "explanation": "Air takes time to reach and actuate the brakes; allow for that delay.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 28,
+    "topic": "Air brakes",
+    "question": "What is brake fade on a long downgrade?",
+    "options": [
+      "A harmless decrease in reservoir temperature",
+      "A normal loss of headlamp brightness",
+      "Reduced braking effectiveness from excessive heat"
+    ],
+    "answer": 2,
+    "explanation": "Overheated brakes may provide much less stopping force.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 29,
+    "topic": "Air brakes",
+    "question": "What must you do before releasing parking brakes for an air-brake test?",
+    "options": [
+      "Rely on neutral gear alone to prevent movement",
+      "Leave the vehicle unsecured if the engine is off",
+      "Secure the vehicle with wheel chocks as required"
+    ],
+    "answer": 2,
+    "explanation": "Chocking prevents rolling during stationary brake-system checks.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 30,
+    "topic": "Air brakes",
+    "question": "If the ABS warning light remains on, what does that generally mean?",
+    "options": [
+      "The ABS may be malfunctioning",
+      "The parking brakes must be engaged",
+      "The brake system has reached governor cut-out"
+    ],
+    "answer": 0,
+    "explanation": "Check the system; normal braking can remain, but anti-lock assistance may be unavailable.",
+    "section": "05",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec05.pdf"
+  },
+  {
+    "id": 31,
+    "topic": "Combination vehicles",
+    "question": "Why plan for trailer offtracking on turns?",
+    "options": [
+      "Trailer wheels can track inside the tractor\u2019s path",
+      "Trailer wheels always follow the exact front-wheel path",
+      "Offtracking occurs only while backing"
+    ],
+    "answer": 0,
+    "explanation": "Allow clearance for the different path taken by the trailer wheels.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 32,
+    "topic": "Combination vehicles",
+    "question": "Which units are often most affected by rearward amplification?",
+    "options": [
+      "Only the trailer immediately behind the tractor",
+      "Trailers farther back in the combination",
+      "Only the tractor\u2019s front axle"
+    ],
+    "answer": 1,
+    "explanation": "Abrupt steering can create a larger response at the rear of a combination.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 33,
+    "topic": "Combination vehicles",
+    "question": "Which behavior helps reduce rollover risk?",
+    "options": [
+      "Entering a curve faster and braking midway",
+      "Slowing before curves and steering smoothly",
+      "Making quick corrections while in the curve"
+    ],
+    "answer": 1,
+    "explanation": "High speed and sudden direction changes increase rollover risk.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 34,
+    "topic": "Combination vehicles",
+    "question": "What is the trailer hand valve primarily used for?",
+    "options": [
+      "Testing trailer brakes",
+      "Parking the combination indefinitely",
+      "Correcting a jackknifing trailer while moving"
+    ],
+    "answer": 0,
+    "explanation": "Use it to test trailer braking; it is not a parking brake.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 35,
+    "topic": "Combination vehicles",
+    "question": "Why should you avoid using the trailer hand valve to correct a trailer skid?",
+    "options": [
+      "It can worsen a skid caused by locked trailer wheels",
+      "It always restores rear-wheel traction",
+      "It applies only the tractor brakes"
+    ],
+    "answer": 0,
+    "explanation": "A trailer-wheel skid requires restoring traction, not adding brake lockup.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 36,
+    "topic": "Combination vehicles",
+    "question": "What do the service and emergency air lines carry?",
+    "options": [
+      "Trailer supply air and brake-control air, respectively",
+      "Electrical current and compressed air, respectively",
+      "Brake-control air and trailer supply air, respectively"
+    ],
+    "answer": 2,
+    "explanation": "The service line communicates braking demand; the emergency line supplies trailer air.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 37,
+    "topic": "Combination vehicles",
+    "question": "What is a glad hand?",
+    "options": [
+      "An air-line coupling",
+      "A mechanical fifth-wheel locking jaw",
+      "A trailer support foot"
+    ],
+    "answer": 0,
+    "explanation": "Glad hands connect tractor and trailer air lines with a sealing connection.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 38,
+    "topic": "Combination vehicles",
+    "question": "Why inspect glad-hand seals and connections?",
+    "options": [
+      "To change the trailer\u2019s axle weight rating",
+      "To prevent air leakage and improper connection",
+      "To lubricate the fifth-wheel plate"
+    ],
+    "answer": 1,
+    "explanation": "Damaged seals or poor connections can compromise the air supply.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 39,
+    "topic": "Combination vehicles",
+    "question": "Where should fifth-wheel locking jaws engage?",
+    "options": [
+      "Around the trailer\u2019s landing-gear leg",
+      "Around the kingpin\u2019s head only",
+      "Around the kingpin\u2019s shank"
+    ],
+    "answer": 2,
+    "explanation": "Inspect the locking mechanism to confirm proper engagement around the kingpin.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 40,
+    "topic": "Combination vehicles",
+    "question": "Should there be a visible gap between the upper and lower fifth-wheel plates after coupling?",
+    "options": [
+      "Yes, a gap proves that the jaws are closed",
+      "No; check for proper contact",
+      "Yes, a gap is required for turning"
+    ],
+    "answer": 1,
+    "explanation": "A gap can indicate improper coupling; inspect and correct it before travel.",
+    "section": "06",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec06.pdf"
+  },
+  {
+    "id": 41,
+    "topic": "Vehicle inspection",
+    "question": "What should you explain during a CDL vehicle inspection test?",
+    "options": [
+      "Only the name of each component",
+      "Only whether the engine starts",
+      "What you inspect, its condition and why it matters"
+    ],
+    "answer": 2,
+    "explanation": "Show that you understand each checked component and its safety purpose.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 42,
+    "topic": "Vehicle inspection",
+    "question": "What belongs in a tire inspection?",
+    "options": [
+      "Inflation, tread and visible damage",
+      "Only the tire manufacturer\u2019s name",
+      "Only whether the tread looks even"
+    ],
+    "answer": 0,
+    "explanation": "Inspect for pressure problems, wear, cuts and other damage.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 43,
+    "topic": "Vehicle inspection",
+    "question": "What can rust trails around wheel fasteners suggest?",
+    "options": [
+      "Loose fasteners requiring attention",
+      "Normal brake-drum temperature",
+      "Correct wheel alignment"
+    ],
+    "answer": 0,
+    "explanation": "Rust trails can indicate movement at a loose wheel nut.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 44,
+    "topic": "Vehicle inspection",
+    "question": "What makes a steering linkage defect a safety concern?",
+    "options": [
+      "It always indicates a low battery",
+      "It only affects steering-wheel appearance",
+      "Loose or damaged parts can affect directional control"
+    ],
+    "answer": 2,
+    "explanation": "Check steering components for secure mounting, damage and missing hardware.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 45,
+    "topic": "Vehicle inspection",
+    "question": "What should you check on suspension components?",
+    "options": [
+      "Damage, missing parts, secure mounting and leaks where applicable",
+      "Only the axle paint condition",
+      "Only the age of the tires"
+    ],
+    "answer": 0,
+    "explanation": "The suspension supports the load and helps keep axles properly located.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 46,
+    "topic": "Vehicle inspection",
+    "question": "What is important when inspecting hoses and belts?",
+    "options": [
+      "Only whether the hose looks clean",
+      "Condition, secure connections and proper tension where applicable",
+      "Only whether the belt turns when running"
+    ],
+    "answer": 1,
+    "explanation": "Look for wear, damage and leaks; belt tension must meet the vehicle\u2019s requirements.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 47,
+    "topic": "Vehicle inspection",
+    "question": "What should a lights and reflectors check establish?",
+    "options": [
+      "Headlights alone are working",
+      "All lamps are the same size",
+      "Required lights function and lenses/reflectors are clean and sound"
+    ],
+    "answer": 2,
+    "explanation": "Visibility and signaling depend on working lights and intact, clean reflectors.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 48,
+    "topic": "Vehicle inspection",
+    "question": "Why check mirrors and windshield condition?",
+    "options": [
+      "To maintain clear visibility",
+      "To establish the cargo\u2019s weight",
+      "To replace checks of blind spots"
+    ],
+    "answer": 0,
+    "explanation": "Damage, dirt or obstructions can interfere with seeing traffic and hazards.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 49,
+    "topic": "Vehicle inspection",
+    "question": "What should you check about a trailer\u2019s electrical and air lines?",
+    "options": [
+      "That the lines are stretched tight in turns",
+      "That air and electrical lines can be swapped",
+      "Secure connection, condition and safe routing"
+    ],
+    "answer": 2,
+    "explanation": "Lines should be connected securely and protected from damage, tangling and dragging.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  },
+  {
+    "id": 50,
+    "topic": "Vehicle inspection",
+    "question": "Why inspect brake hoses, drums and linings where accessible?",
+    "options": [
+      "To replace a check of brake operation",
+      "To determine whether the vehicle needs washing",
+      "To identify damage, leaks, wear or contamination"
+    ],
+    "answer": 2,
+    "explanation": "Brake component defects can impair stopping and must be addressed.",
+    "section": "11",
+    "sourceUrl": "https://dmv.ny.gov/brochure/cdl10sec11-13.pdf"
+  }
+]
