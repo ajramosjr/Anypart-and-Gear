@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "topic": "New York rules & protective gear",
+    "question": "Who must wear an approved motorcycle helmet in New York?",
+    "options": [
+      "Both the operator and passenger",
+      "Only learners",
+      "Only riders using highways"
+    ],
+    "answer": 0,
+    "explanation": "Helmet requirements cover operators and passengers.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 2,
+    "topic": "New York rules & protective gear",
+    "question": "Does a motorcycle windshield remove the operator\u2019s eye-protection requirement?",
+    "options": [
+      "No, approved eye protection is still required",
+      "Yes, at all speeds",
+      "Yes, only during daylight"
+    ],
+    "answer": 0,
+    "explanation": "A windshield does not replace approved eye protection.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 3,
+    "topic": "New York rules & protective gear",
+    "question": "What lighting must be on while operating a motorcycle on New York roads?",
+    "options": [
+      "The headlight only at night",
+      "Only the rear light during daylight",
+      "The headlight and rear light"
+    ],
+    "answer": 2,
+    "explanation": "Required road-use lighting helps others see the motorcycle.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 4,
+    "topic": "New York rules & protective gear",
+    "question": "May a motorcycle use a full traffic lane?",
+    "options": [
+      "Yes",
+      "Only if riding with another motorcycle",
+      "Only while passing"
+    ],
+    "answer": 0,
+    "explanation": "Motorcycles are entitled to use a full lane.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 5,
+    "topic": "New York rules & protective gear",
+    "question": "Is riding a motorcycle between lanes of traffic permitted in New York?",
+    "options": [
+      "Yes, whenever the motorcycle fits",
+      "Yes, if traffic is stopped",
+      "No"
+    ],
+    "answer": 2,
+    "explanation": "New York does not permit riding between traffic lanes.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 6,
+    "topic": "New York rules & protective gear",
+    "question": "For ordinary learner practice, how old must the supervising motorcycle license holder be?",
+    "options": [
+      "At least 21",
+      "Any age if licensed",
+      "At least 18"
+    ],
+    "answer": 0,
+    "explanation": "The supervisor must be at least 21 and hold a valid motorcycle license; additional learner restrictions apply.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 7,
+    "topic": "New York rules & protective gear",
+    "question": "During learner practice, how close must that supervisor remain?",
+    "options": [
+      "Only at the start and end of the route",
+      "Within one-quarter mile",
+      "Within five miles"
+    ],
+    "answer": 1,
+    "explanation": "The DMV requires the supervisor to remain within one-quarter mile.",
+    "sourceLabel": "Licenses, ownership and special rules",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-motorcycle-licenses-ownership-special-rules"
+  },
+  {
+    "id": 8,
+    "topic": "New York rules & protective gear",
+    "question": "Which helmet fit and fastening are appropriate?",
+    "options": [
+      "Snug fit with the strap securely fastened",
+      "Loose fit with the strap hanging free",
+      "Snug fit with fastening optional on short trips"
+    ],
+    "answer": 0,
+    "explanation": "A secure, properly fitted helmet is less likely to come off.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 9,
+    "topic": "New York rules & protective gear",
+    "question": "What is appropriate footwear for riding?",
+    "options": [
+      "Sturdy, slip-resistant footwear covering the ankles",
+      "Loose sandals",
+      "Shoes with long untucked laces"
+    ],
+    "answer": 0,
+    "explanation": "Ankle coverage, support and secured laces reduce hazards.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 10,
+    "topic": "New York rules & protective gear",
+    "question": "Which eye protection is appropriate in low light?",
+    "options": [
+      "Clear protection that allows adequate vision",
+      "Dark tint to reduce headlight brightness",
+      "A scratched shield if securely fastened"
+    ],
+    "answer": 0,
+    "explanation": "Tinted protection can interfere with vision at night.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 11,
+    "topic": "Pre-ride checks & controls",
+    "question": "When should you inspect your motorcycle for a ride?",
+    "options": [
+      "Only at annual inspection",
+      "Only before long trips",
+      "Before every ride"
+    ],
+    "answer": 2,
+    "explanation": "A pre-ride check helps find defects before entering traffic.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 12,
+    "topic": "Pre-ride checks & controls",
+    "question": "Which tire checks belong in a pre-ride inspection?",
+    "options": [
+      "Only whether the tire looks round",
+      "Tread pattern alone",
+      "Pressure, tread and condition"
+    ],
+    "answer": 2,
+    "explanation": "Check inflation and wear as well as visible damage.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 13,
+    "topic": "Pre-ride checks & controls",
+    "question": "How should the throttle respond when released during a pre-ride check?",
+    "options": [
+      "Remain at the last setting",
+      "Need a strong push to close",
+      "Return freely"
+    ],
+    "answer": 2,
+    "explanation": "A sticking throttle needs attention before riding.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 14,
+    "topic": "Pre-ride checks & controls",
+    "question": "How should you check that both brake controls activate the brake light?",
+    "options": [
+      "Check only with both controls held together",
+      "Operate each control separately",
+      "Use only the rear control"
+    ],
+    "answer": 1,
+    "explanation": "Separate checks can reveal a failed brake-light switch.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 15,
+    "topic": "Pre-ride checks & controls",
+    "question": "When should you adjust mirrors?",
+    "options": [
+      "Only after reaching highway speed",
+      "While making the first turn",
+      "Before moving off"
+    ],
+    "answer": 2,
+    "explanation": "Set mirrors while stopped so adjustment does not distract you.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 16,
+    "topic": "Pre-ride checks & controls",
+    "question": "What should you do before riding an unfamiliar motorcycle in traffic?",
+    "options": [
+      "Assume every control works identically",
+      "Learn its controls and handling first",
+      "Skip the owner\u2019s manual if experienced"
+    ],
+    "answer": 1,
+    "explanation": "Control locations and responses can differ between motorcycles.",
+    "sourceLabel": "Preparing to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-preparing-to-ride"
+  },
+  {
+    "id": 17,
+    "topic": "Pre-ride checks & controls",
+    "question": "What arm position supports normal motorcycle control?",
+    "options": [
+      "Arms slightly bent",
+      "Arms stretched as far as possible",
+      "Arms locked straight"
+    ],
+    "answer": 0,
+    "explanation": "A slight bend allows steering inputs without stretching.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 18,
+    "topic": "Pre-ride checks & controls",
+    "question": "Where should your feet normally rest while riding?",
+    "options": [
+      "Firmly on the foot pegs near the controls",
+      "With toes pointing downward toward the road",
+      "Dragging beside the motorcycle"
+    ],
+    "answer": 0,
+    "explanation": "Stable foot placement supports balance and access to controls.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 19,
+    "topic": "Pre-ride checks & controls",
+    "question": "While stopping, which gear should you normally reach so you can move away if needed?",
+    "options": [
+      "First gear",
+      "Neutral until traffic moves",
+      "The highest gear available"
+    ],
+    "answer": 0,
+    "explanation": "Downshift as you slow and remain ready to move.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 20,
+    "topic": "Pre-ride checks & controls",
+    "question": "What is a risk of downshifting at too high a road speed?",
+    "options": [
+      "Guaranteed shorter braking distance",
+      "Automatic improvement in traction",
+      "Rear-wheel skid or a sudden lurch"
+    ],
+    "answer": 2,
+    "explanation": "Slow appropriately and release the clutch smoothly.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 21,
+    "topic": "Visibility, traffic & space",
+    "question": "Is one lane position always best for a motorcycle?",
+    "options": [
+      "Yes, always the extreme right",
+      "Yes, always the exact center",
+      "No, adapt position to hazards and visibility"
+    ],
+    "answer": 2,
+    "explanation": "Choose a position that preserves visibility and room to respond.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 22,
+    "topic": "Visibility, traffic & space",
+    "question": "Why leave space around your motorcycle?",
+    "options": [
+      "To encourage cars to share the lane",
+      "To avoid checking mirrors",
+      "To gain time and maneuvering room"
+    ],
+    "answer": 2,
+    "explanation": "A space cushion provides options when hazards develop.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 23,
+    "topic": "Visibility, traffic & space",
+    "question": "What should happen to following distance on a slippery road?",
+    "options": [
+      "Increase it",
+      "Reduce it to follow tire tracks closely",
+      "Keep it unchanged at all speeds"
+    ],
+    "answer": 0,
+    "explanation": "Reduced traction can require more stopping room.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 24,
+    "topic": "Visibility, traffic & space",
+    "question": "Before changing lanes, what should supplement your mirror check?",
+    "options": [
+      "Only a louder exhaust note",
+      "Only a longer turn signal",
+      "A head check for traffic in blind spots"
+    ],
+    "answer": 2,
+    "explanation": "Mirrors do not show every vehicle beside you.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 25,
+    "topic": "Visibility, traffic & space",
+    "question": "A driver makes eye contact with you at an intersection. What should you assume?",
+    "options": [
+      "The driver has guaranteed your right of way",
+      "The driver may still fail to yield",
+      "The driver will remain stopped until you pass"
+    ],
+    "answer": 1,
+    "explanation": "Eye contact is not proof that another driver will act safely.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 26,
+    "topic": "Visibility, traffic & space",
+    "question": "Why cancel a turn signal after completing the maneuver?",
+    "options": [
+      "To make the headlight brighter",
+      "To show that you intend to turn again",
+      "To avoid misleading other road users"
+    ],
+    "answer": 2,
+    "explanation": "A signal left on can create a dangerous misunderstanding.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 27,
+    "topic": "Visibility, traffic & space",
+    "question": "How should you handle a persistent tailgater when safe?",
+    "options": [
+      "Allow the vehicle to pass",
+      "Brake sharply to warn the driver",
+      "Speed above the limit"
+    ],
+    "answer": 0,
+    "explanation": "Create separation without provoking a collision.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 28,
+    "topic": "Visibility, traffic & space",
+    "question": "How should you adapt riding at night?",
+    "options": [
+      "Use the same speed on unfamiliar roads",
+      "Follow taillights more closely",
+      "Reduce speed and allow more following space"
+    ],
+    "answer": 2,
+    "explanation": "Darkness limits sight distance and makes judging distance harder.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 29,
+    "topic": "Visibility, traffic & space",
+    "question": "What can convex mirrors do to your distance judgment?",
+    "options": [
+      "Make every vehicle appear at its exact distance",
+      "Make vehicles seem farther away",
+      "Eliminate the need for head checks"
+    ],
+    "answer": 1,
+    "explanation": "Learn the mirror view while stopped and allow extra room.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 30,
+    "topic": "Visibility, traffic & space",
+    "question": "What is a safe passing rule for motorcycle riders?",
+    "options": [
+      "Pass between a car and the lane line",
+      "Pass only where permitted and within speed limits",
+      "Exceed the limit whenever passing"
+    ],
+    "answer": 1,
+    "explanation": "Motorcycles must obey passing restrictions and speed limits.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 31,
+    "topic": "Braking, curves & road surfaces",
+    "question": "For normal braking, how should you use the brakes?",
+    "options": [
+      "Use only the rear brake every time",
+      "Use both with smooth, controlled pressure",
+      "Grab the front lever abruptly"
+    ],
+    "answer": 1,
+    "explanation": "Practice coordinated braking without sudden inputs.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 32,
+    "topic": "Braking, curves & road surfaces",
+    "question": "Before entering a curve, what should you do?",
+    "options": [
+      "Wait until the tightest point to slow",
+      "Accelerate hard before assessing the curve",
+      "Reduce speed to suit the curve and conditions"
+    ],
+    "answer": 2,
+    "explanation": "A controlled entry speed reduces the need for abrupt correction.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 33,
+    "topic": "Braking, curves & road surfaces",
+    "question": "Where should you direct your vision during a turn?",
+    "options": [
+      "At the nearest obstacle",
+      "Through the turn toward the intended path",
+      "At the road immediately below the front tire"
+    ],
+    "answer": 1,
+    "explanation": "Looking through the turn helps guide a planned path.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 34,
+    "topic": "Braking, curves & road surfaces",
+    "question": "During a normal road-speed left turn, which handgrip pressure initiates the lean?",
+    "options": [
+      "Press the right handgrip only",
+      "Press the left handgrip",
+      "Pull hard on both grips"
+    ],
+    "answer": 1,
+    "explanation": "Pressing the grip on the intended side initiates the lean. Practice with a qualified instructor.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 35,
+    "topic": "Braking, curves & road surfaces",
+    "question": "How should braking and an emergency swerve be coordinated?",
+    "options": [
+      "Always lock the rear wheel first",
+      "Brake hard throughout the swerve",
+      "Separate braking from the swerve"
+    ],
+    "answer": 2,
+    "explanation": "Brake before or after the swerve rather than combining abrupt maneuvers.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 36,
+    "topic": "Braking, curves & road surfaces",
+    "question": "Why can the first minutes of rain be especially slippery?",
+    "options": [
+      "Rain instantly improves all tire traction",
+      "Water mixes with accumulated surface oil",
+      "Painted lines become rougher when wet"
+    ],
+    "answer": 1,
+    "explanation": "Treat early rain and contaminated pavement cautiously.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 37,
+    "topic": "Braking, curves & road surfaces",
+    "question": "How should you use controls on slippery pavement?",
+    "options": [
+      "Smoothly, with reduced speed",
+      "With abrupt throttle and brake changes",
+      "With maximum lean regardless of grip"
+    ],
+    "answer": 0,
+    "explanation": "Sudden changes can exceed the traction available.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 38,
+    "topic": "Braking, curves & road surfaces",
+    "question": "What is a particular concern with wet painted lines and metal covers?",
+    "options": [
+      "They can provide less traction",
+      "They remove the need to slow",
+      "They always grip better than dry asphalt"
+    ],
+    "answer": 0,
+    "explanation": "Avoid abrupt inputs while crossing low-grip surfaces.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 39,
+    "topic": "Braking, curves & road surfaces",
+    "question": "If bridge gratings cause a mild wandering sensation, what does the manual recommend?",
+    "options": [
+      "Accelerate hard to overpower it",
+      "Relax, maintain steady speed and ride straight",
+      "Zigzag sharply across the grating"
+    ],
+    "answer": 1,
+    "explanation": "A zigzag path creates more danger than the normal wandering feeling.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 40,
+    "topic": "Braking, curves & road surfaces",
+    "question": "After riding over an object, what should you check once safely off the road?",
+    "options": [
+      "Tires and rims for damage",
+      "Only the fuel level",
+      "Only mirror alignment"
+    ],
+    "answer": 0,
+    "explanation": "An impact can damage wheels or tires even if riding still feels possible.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 41,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "Who should carry a passenger or a large load?",
+    "options": [
+      "Any rider without adjusting technique",
+      "An experienced rider prepared for the handling change",
+      "A learner using a passenger for balance"
+    ],
+    "answer": 1,
+    "explanation": "Extra weight changes handling, balance and stopping.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 42,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "What passenger equipment is essential on a suitable motorcycle?",
+    "options": [
+      "Foot rests only for highway riding",
+      "A proper seat, passenger foot rests and protective gear",
+      "A seat alone if the passenger holds tightly"
+    ],
+    "answer": 1,
+    "explanation": "The motorcycle must accommodate the passenger safely.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 43,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "While stopped, where should a passenger normally keep their feet?",
+    "options": [
+      "Dragging on the pavement",
+      "On the passenger foot pegs",
+      "On the rider\u2019s foot pegs"
+    ],
+    "answer": 1,
+    "explanation": "Passenger movement can affect balance; explain expectations beforehand.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 44,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "What should a passenger do in a normal turn?",
+    "options": [
+      "Stay behind the rider and lean with the rider",
+      "Lean opposite the rider",
+      "Stand up to see over the rider"
+    ],
+    "answer": 0,
+    "explanation": "Coordinated passenger movement helps avoid upsetting balance.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 45,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "How should you adjust stopping plans with a passenger?",
+    "options": [
+      "Brake later to compensate for extra grip",
+      "Assume stopping distance is unchanged",
+      "Begin slowing earlier and allow extra space"
+    ],
+    "answer": 2,
+    "explanation": "The added weight changes the motorcycle\u2019s response.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 46,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "Where should cargo weight generally be positioned?",
+    "options": [
+      "Loose so it can shift in a turn",
+      "High and behind the rear axle",
+      "Low, secure and forward near or ahead of the rear axle"
+    ],
+    "answer": 2,
+    "explanation": "Low, balanced loading helps preserve stability.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 47,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "Why distribute saddlebag weight evenly?",
+    "options": [
+      "To eliminate tire-pressure checks",
+      "To increase permissible load without limit",
+      "To avoid an unbalanced load"
+    ],
+    "answer": 2,
+    "explanation": "Uneven loading can affect balance and steering.",
+    "sourceLabel": "Ride within your abilities",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-ride-within-your-abilities"
+  },
+  {
+    "id": 48,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "Which is a sound alcohol decision before riding?",
+    "options": [
+      "Rely on coffee to remove impairment",
+      "Assume riding slowly cancels impairment",
+      "Do not drink and ride"
+    ],
+    "answer": 2,
+    "explanation": "Alcohol can impair judgment and coordination even before obvious symptoms.",
+    "sourceLabel": "Being in shape to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-being-in-shape-to-ride"
+  },
+  {
+    "id": 49,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "Can nonprescription medicine affect riding?",
+    "options": [
+      "No, only illegal drugs impair riding",
+      "Yes, some medicines can impair alertness",
+      "No, if you already have a license"
+    ],
+    "answer": 1,
+    "explanation": "Check warnings and avoid riding when a medicine impairs you.",
+    "sourceLabel": "Being in shape to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-being-in-shape-to-ride"
+  },
+  {
+    "id": 50,
+    "topic": "Passengers, loads & rider fitness",
+    "question": "You feel fatigued during a ride. What is the safer response?",
+    "options": [
+      "Stop safely and rest",
+      "Ride faster to finish sooner",
+      "Keep riding with louder music"
+    ],
+    "answer": 0,
+    "explanation": "Fatigue reduces concentration and safe decision-making.",
+    "sourceLabel": "Being in shape to ride",
+    "sourceUrl": "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-being-in-shape-to-ride"
+  }
+]
