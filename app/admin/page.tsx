@@ -8,6 +8,7 @@ import type { DatabaseTechArticle } from "@/app/tech-wire/article-store";
 import ApgLogo from "@/components/apg-logo";
 import TechWireControls from "./tech-wire-controls";
 import CommunityControls from "./community-controls";
+import SignupFunnel from "./signup-funnel";
 
 type Report = { id:string; reason:string; details:string|null; status:string; created_at:string; listings:{title:string}|null };
 type Shop = { id:string; name:string; specialty:string; location:string; postal_code:string; website:string|null; is_verified:boolean; is_active:boolean };
@@ -30,6 +31,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   if (user.app_metadata?.role !== "admin") redirect("/account");
   const supabase = await createClient();
   const { data: totals, error: totalsError } = await supabase.rpc("apg_admin_totals");
+  const { data: funnel, error: funnelError } = await supabase.rpc("apg_funnel_totals");
   const [{ data: reports }, { data: shops }, { data: articles }] = await Promise.all([
     supabase.from("reports").select("id,reason,details,status,created_at,listings(title)").order("created_at", { ascending:false }).limit(100),
     supabase.from("shops").select("id,name,specialty,location,postal_code,website,is_verified,is_active").order("created_at", { ascending:false }).limit(100),
@@ -46,6 +48,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
       {totalsError && <p role="status" className="mt-2 text-sm text-amber-800">Totals could not be loaded. Refresh this page to try again.</p>}
     </section>
     <section className="mb-10 rounded-xl border border-slate-200 bg-white p-6"><h2 className="text-xl font-black">APG Shout-Outs</h2><p className="mt-3 text-slate-600">Create private drafts, preview cards, and publish websites, businesses and people you appreciate.</p><Link href="/admin/shout-outs" className="mt-4 inline-flex min-h-12 items-center rounded-lg px-5 font-black" style={{ backgroundColor: "#e6b944", color: "#071a35" }}>Manage shout-outs</Link></section>
+    <SignupFunnel totals={funnel} unavailable={Boolean(funnelError)} />
     <CommunityControls message={community} />
     <TechWireControls message={techWire} />
     <TechWireEditor initialArticles={(articles || []) as DatabaseTechArticle[]} userId={user.id} />
