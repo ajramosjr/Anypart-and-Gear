@@ -787,7 +787,7 @@
       },
       {
         "id": "tools-measurements-12",
-        "question": "What does M8 \u00d7 1.25 identify?",
+        "question": "What does M8 × 1.25 identify?",
         "options": [
           "8 mm length and 1.25 mm head width",
           "8 mm nominal thread diameter and 1.25 mm pitch",
@@ -2073,10 +2073,10 @@
         "id": "electrical-basics-5",
         "question": "What is Ohm's law for a simple resistor?",
         "options": [
-          "V = I \u00d7 R",
+          "V = I × R",
           "V = I + R",
-          "V = R \u2212 I",
-          "V = I \u00f7 R"
+          "V = R − I",
+          "V = I ÷ R"
         ],
         "answer": 0,
         "explanation": "Voltage equals current multiplied by resistance."
@@ -2103,7 +2103,7 @@
           "4 W"
         ],
         "answer": 2,
-        "explanation": "Power equals voltage multiplied by current: 12 \u00d7 3 = 36 watts."
+        "explanation": "Power equals voltage multiplied by current: 12 × 3 = 36 watts."
       },
       {
         "id": "electrical-basics-8",
@@ -2812,6 +2812,310 @@
         ],
         "answer": 1,
         "explanation": "Responsible disposal and honest descriptions protect others and the environment."
+      }
+    ]
+  },
+  {
+    "slug": "hydrogen-vehicles",
+    "title": "Hydrogen Vehicles & Fuel Cells",
+    "category": "Vehicle Technology",
+    "description": "Learn hydrogen vehicle theory, fuel-cell operation, energy flow, production and safety awareness. This module explains principles; it does not teach high-pressure or high-voltage repair.",
+    "lessons": [
+      {
+        "title": "Two ways to use hydrogen",
+        "body": "A fuel-cell electric vehicle (FCEV) makes electricity onboard and drives its wheels with a motor. A hydrogen combustion engine burns fuel to move pistons. These are different systems. Burning hydrogen in air can create nitrogen oxides; a pure-hydrogen fuel cell does not use combustion."
+      },
+      {
+        "title": "Inside a PEM fuel cell",
+        "body": "PEM means proton exchange membrane. Hydrogen enters one side and oxygen arrives in air on the other. At the catalyst, hydrogen separates into protons and electrons. Protons cross the membrane while electrons travel through an outside circuit, supplying current. Their reaction with oxygen forms water and releases heat. Multiple cells form a stack."
+      },
+      {
+        "title": "Follow the energy",
+        "body": "Stored hydrogen supplies the stack; electrical power reaches the traction motor through power electronics. A traction battery buffers energy and captures some braking energy. The motor turns the wheels through the drivetrain. Cooling controls component temperatures. A DC/DC converter supplies lower-voltage accessories. Exact layouts vary by vehicle."
+      },
+      {
+        "title": "Where the fuel comes from",
+        "body": "Hydrogen carries energy; producing it also takes energy. Electrolysis uses electricity to separate water into hydrogen and oxygen. Other processes obtain hydrogen from fuels such as natural gas. Production, electricity supply and delivery affect the overall environmental result. Water at the vehicle exhaust does not mean the entire supply chain has no emissions."
+      },
+      {
+        "title": "Safety awareness, not a repair procedure",
+        "body": "Vehicle hydrogen storage uses specialized equipment. Hydrogen can ignite readily and its flame can be difficult to see. Ventilation and engineered detection matter. High-voltage components also require trained service. Do not open tanks, loosen hydrogen fittings, bypass protective controls or attempt energized electrical work. For a suspected leak or damaged vehicle, keep away and contact emergency responders or qualified service as appropriate."
+      },
+      {
+        "title": "Study with reliable information",
+        "body": "Use this module to learn the principles and vocabulary. Refueling and service instructions must come from the vehicle manufacturer and station operator. Check current station access before planning a journey. APG wrote these lessons and practice questions for independent learning; they are not manufacturer training, certification or an official exam. References below support the technical facts and provide further reading."
+      }
+    ],
+    "sources": [
+      {
+        "label": "DOE / AFDC: Fuel-cell vehicle components",
+        "url": "https://afdc.energy.gov/vehicles/how-do-fuel-cell-electric-cars-work"
+      },
+      {
+        "label": "DOE: Fuel-cell fundamentals",
+        "url": "https://www.energy.gov/cmei/fuels/fuel-cell-basics"
+      },
+      {
+        "label": "DOE / AFDC: Hydrogen basics",
+        "url": "https://afdc.energy.gov/fuels/hydrogen-basics"
+      },
+      {
+        "label": "DOE / AFDC: Hydrogen production and delivery",
+        "url": "https://afdc.energy.gov/fuels/hydrogen-production"
+      },
+      {
+        "label": "DOE / AFDC: Fuel-cell vehicle emissions",
+        "url": "https://afdc.energy.gov/vehicles/emissions-hydrogen"
+      },
+      {
+        "label": "DOE: Safe use of hydrogen",
+        "url": "https://www.energy.gov/cmei/fuels/safe-use-hydrogen"
+      },
+      {
+        "label": "DOE: Hydrogen combustion and nitrogen oxides",
+        "url": "https://www.energy.gov/cmei/fuels/does-use-hydrogen-produce-air-pollutants-such-nitrogen-oxides"
+      }
+    ],
+    "questions": [
+      {
+        "id": "hydrogen-vehicles-1",
+        "question": "What turns the wheels in a fuel-cell electric vehicle?",
+        "options": [
+          "The hydrogen tank directly",
+          "An electric traction motor",
+          "A steam turbine in every model",
+          "The fuel filler nozzle"
+        ],
+        "answer": 1,
+        "explanation": "The stack supplies electrical energy; a traction motor produces wheel-driving torque."
+      },
+      {
+        "id": "hydrogen-vehicles-2",
+        "question": "Why can an FCEV also have a traction battery?",
+        "options": [
+          "To buffer power and store recovered braking energy",
+          "To replace all hydrogen storage",
+          "To manufacture hydrogen from road water",
+          "To eliminate the electric motor"
+        ],
+        "answer": 0,
+        "explanation": "The battery supports changing power demand and stores energy recovered during braking."
+      },
+      {
+        "id": "hydrogen-vehicles-3",
+        "question": "Which component supplies lower-voltage accessories from a higher-voltage DC system?",
+        "options": [
+          "A hydrogen storage valve",
+          "The exhaust outlet",
+          "The wheel bearing",
+          "A DC/DC converter"
+        ],
+        "answer": 3,
+        "explanation": "A DC/DC converter changes the DC voltage level for lower-voltage loads."
+      },
+      {
+        "id": "hydrogen-vehicles-4",
+        "question": "Why does a fuel-cell vehicle need cooling?",
+        "options": [
+          "Hydrogen must burn inside the radiator",
+          "The wheels require liquid hydrogen",
+          "Its stack and electrical components produce heat",
+          "Cooling replaces all power electronics"
+        ],
+        "answer": 2,
+        "explanation": "Thermal management helps components remain within their operating temperature range."
+      },
+      {
+        "id": "hydrogen-vehicles-5",
+        "question": "A diagram shows tank, stack, electronics and motor. Which energy sequence is correct?",
+        "options": [
+          "Mechanical motion, gasoline energy, hydrogen",
+          "Hydrogen energy, electrical energy, mechanical motion",
+          "Water pressure, steam, piston combustion",
+          "Hydrogen energy directly rotating the axle"
+        ],
+        "answer": 1,
+        "explanation": "The stack converts fuel energy into electricity; the motor converts electrical input into motion."
+      },
+      {
+        "id": "hydrogen-vehicles-6",
+        "question": "In a PEM fuel cell, which particles cross the membrane?",
+        "options": [
+          "Protons",
+          "Electrons through the intended external circuit",
+          "Complete air bubbles",
+          "Metal gear teeth"
+        ],
+        "answer": 0,
+        "explanation": "The membrane conducts protons; electrons take the external electrical path."
+      },
+      {
+        "id": "hydrogen-vehicles-7",
+        "question": "What makes the external circuit useful in a PEM cell?",
+        "options": [
+          "It stores all hydrogen fuel",
+          "It removes the need for oxygen",
+          "It mechanically turns the fuel tank",
+          "Electrons flowing through it provide electrical current"
+        ],
+        "answer": 3,
+        "explanation": "Separating the proton and electron paths makes electrical current available to a load."
+      },
+      {
+        "id": "hydrogen-vehicles-8",
+        "question": "Why combine individual fuel cells into a stack?",
+        "options": [
+          "To turn them into combustion cylinders",
+          "To eliminate every cooling need",
+          "To obtain a useful combined electrical output",
+          "To store gasoline between the cells"
+        ],
+        "answer": 2,
+        "explanation": "A stack combines the output of multiple electrochemical cells."
+      },
+      {
+        "id": "hydrogen-vehicles-9",
+        "question": "Which inputs participate in a hydrogen fuel-cell reaction?",
+        "options": [
+          "Gasoline and engine oil",
+          "Hydrogen and oxygen",
+          "Carbon dioxide and diesel",
+          "Nitrogen alone"
+        ],
+        "answer": 1,
+        "explanation": "The reaction uses hydrogen with oxygen and produces water and heat while delivering electricity."
+      },
+      {
+        "id": "hydrogen-vehicles-10",
+        "question": "What does electrolysis use to separate water into hydrogen and oxygen?",
+        "options": [
+          "Electrical energy",
+          "Only tire friction",
+          "Only ambient air pressure",
+          "An exhaust muffler"
+        ],
+        "answer": 0,
+        "explanation": "Electrolysis requires electricity; water is a feedstock, not a source of unlimited energy."
+      },
+      {
+        "id": "hydrogen-vehicles-11",
+        "question": "Is hydrogen necessarily produced from water?",
+        "options": [
+          "Yes; all hydrogen comes from vehicle exhaust",
+          "Yes; natural gas cannot be a feedstock",
+          "No; production requires no feedstock",
+          "No; several production pathways exist"
+        ],
+        "answer": 3,
+        "explanation": "Hydrogen can be obtained through water electrolysis and processes using other feedstocks."
+      },
+      {
+        "id": "hydrogen-vehicles-12",
+        "question": "Why does electricity sourcing matter for electrolytic hydrogen?",
+        "options": [
+          "It determines tire tread pattern",
+          "It makes all production emissions identical",
+          "It affects the emissions associated with fuel production",
+          "It changes hydrogen into gasoline"
+        ],
+        "answer": 2,
+        "explanation": "The upstream environmental result depends in part on how the electricity is generated."
+      },
+      {
+        "id": "hydrogen-vehicles-13",
+        "question": "A claim says water exhaust proves zero emissions everywhere. What is missing?",
+        "options": [
+          "The paint color",
+          "Fuel production and delivery impacts",
+          "The radio brand",
+          "The number of cup holders"
+        ],
+        "answer": 1,
+        "explanation": "Vehicle exhaust is only one part of a supply-chain emissions assessment."
+      },
+      {
+        "id": "hydrogen-vehicles-14",
+        "question": "What is produced at the exhaust by a vehicle using pure hydrogen in a fuel cell?",
+        "options": [
+          "Water vapor and warm air",
+          "Gasoline soot from stack combustion",
+          "Diesel particulate matter from the membrane",
+          "Lead from burning hydrogen"
+        ],
+        "answer": 0,
+        "explanation": "A pure-hydrogen fuel cell has no fuel-combustion tailpipe pollutants; upstream impacts still matter."
+      },
+      {
+        "id": "hydrogen-vehicles-15",
+        "question": "How is a hydrogen combustion engine different from an FCEV?",
+        "options": [
+          "Both must use the same electrochemical stack",
+          "Neither can produce mechanical motion",
+          "It stores hydrogen only as electricity",
+          "It burns hydrogen to drive an engine instead of using a fuel cell to supply a motor"
+        ],
+        "answer": 3,
+        "explanation": "Hydrogen can fuel combustion or electrochemical conversion; the propulsion processes differ."
+      },
+      {
+        "id": "hydrogen-vehicles-16",
+        "question": "Why can burning hydrogen in air still create nitrogen oxides?",
+        "options": [
+          "Hydrogen molecules contain nitrogen",
+          "Every fuel cell burns diesel",
+          "High combustion temperatures allow reactions involving nitrogen and oxygen in air",
+          "Water always contains nitrogen oxides"
+        ],
+        "answer": 2,
+        "explanation": "Hot combustion in air can form NOx even when the fuel contains no carbon."
+      },
+      {
+        "id": "hydrogen-vehicles-17",
+        "question": "Why are ventilation and leak detection important around hydrogen systems?",
+        "options": [
+          "They guarantee a system can never leak",
+          "They help prevent hazardous fuel accumulation and identify releases",
+          "They remove the need for trained service",
+          "They allow protective controls to be bypassed"
+        ],
+        "answer": 1,
+        "explanation": "Hydrogen ignition properties call for engineered controls, including detection and ventilation."
+      },
+      {
+        "id": "hydrogen-vehicles-18",
+        "question": "Why is looking for a visible flame an unreliable hydrogen-fire check?",
+        "options": [
+          "A hydrogen flame can be very difficult to see",
+          "All hydrogen fires produce thick black smoke",
+          "Hydrogen cannot burn in air",
+          "A flame is visible only through a vehicle dashboard"
+        ],
+        "answer": 0,
+        "explanation": "Special detection may be needed; do not approach a suspected fire to inspect it."
+      },
+      {
+        "id": "hydrogen-vehicles-19",
+        "question": "What should an untrained person do after suspecting a hydrogen-system leak?",
+        "options": [
+          "Loosen a fitting to release pressure",
+          "Disable the leak warning and keep driving",
+          "Use a flame to locate the leak",
+          "Keep away and seek appropriate emergency or qualified assistance"
+        ],
+        "answer": 3,
+        "explanation": "Do not attempt leak testing or repairs. Keep clear and obtain appropriate help."
+      },
+      {
+        "id": "hydrogen-vehicles-20",
+        "question": "Does passing this practice quiz qualify someone to service an FCEV?",
+        "options": [
+          "Yes; it replaces all electrical training",
+          "Yes; it authorizes tank disassembly",
+          "No; hands-on work requires suitable training and manufacturer procedures",
+          "Yes; it certifies refueling stations"
+        ],
+        "answer": 2,
+        "explanation": "APG practice is a learning aid, not a service credential or permission for hazardous work."
       }
     ]
   }
