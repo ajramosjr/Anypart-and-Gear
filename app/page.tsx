@@ -34,7 +34,17 @@ export default async function Home() {
         <nav aria-label="Primary navigation" className="hidden items-center gap-6 lg:flex"><Link href="/marketplace" className="font-bold">Marketplace</Link><Link href="/shops" className="font-bold">Repair Shops &amp; Parts Suppliers</Link><Link href="/about" className="font-bold">About</Link></nav>
         <div className="hidden xl:block"><InstallApp /></div>
         {user && <NotificationBell userId={user.id} />}
-        <Link href={postPath} className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-black sm:px-5 sm:text-base"><span className="sm:hidden">+ Post</span><span className="hidden sm:inline">Post an item</span></Link>
+        <details className="group relative">
+              <summary className="apg-header-control flex min-h-11 cursor-pointer list-none items-center rounded-lg px-3 py-2 text-sm font-bold [&::-webkit-details-marker]:hidden">Learn &amp; Resources</summary>
+              <div className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] gap-1 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shout-outs">APG Shout-Outs</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/how-things-work.html">How Things Work</Link><TechWireLink className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</TechWireLink>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/practice-tests">Practice Tests</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
+                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/garage-gear">Tools &amp; Work Gear</Link>
+              </div>
+            </details>
         <details className="group relative">
           <summary className="apg-header-control flex size-11 cursor-pointer list-none items-center justify-center rounded-lg text-2xl hover:bg-slate-100 [&::-webkit-details-marker]:hidden" aria-label="Menu">☰</summary>
           <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] overflow-y-auto gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
