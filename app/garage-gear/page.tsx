@@ -53,7 +53,7 @@ export default function GarageGearPage() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
       <p className="eyebrow">New tools and gear</p>
       <h1 className="section-title mt-2">Tools &amp; Gear — Support APG</h1>
-      <p className="mt-3 max-w-2xl text-slate-600">APG is a free marketplace for our community. When you shop through our affiliate links, we may earn a commission on qualifying purchases at no extra cost to you. Those commissions help cover the cost of running APG and keeping the marketplace free.</p>
+      <p className="mt-3 max-w-2xl text-slate-600">When you shop through our affiliate links, we may earn a commission on qualifying purchases at no extra cost to you. Those commissions help cover the cost of running APG.</p>
       <nav aria-label="Gear categories" className="mt-6 flex flex-wrap gap-3">{["Automotive", "Marine", "Tools & Diagnostics", "Shop Supplies", "RC & Hobby"].map((category, index) => <a key={category} href={`#gear-${index}`} className="rounded-lg border border-slate-300 bg-white px-4 py-3 font-bold">{category}</a>)}</nav>
       <section id="gear-2" className="scroll-mt-6 mt-8"><h2 className="text-xl font-extrabold">Tools &amp; Diagnostics</h2><div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {gear.map(({ title, detail, query, icon: Icon }) => <article key={title} className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">

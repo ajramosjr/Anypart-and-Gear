@@ -35,9 +35,9 @@ export default function AboutPage() {
             <p>After years of working around vehicles, tools, equipment, and hard-to-find parts, I created APG to bring individuals and local businesses together in one convenient marketplace.</p>
             <p>APG gives people a place to buy, sell, and trade parts and gear while helping local businesses showcase what they offer and connect with more potential customers.</p>
           </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col flex-wrap gap-3 sm:flex-row">
             <Button asChild className="gold-button h-11 px-6 font-black"><Link href="/marketplace">Explore the marketplace</Link></Button>
-            <Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><Link href="/shops">Explore the Repair Shops &amp; Parts Suppliers</Link></Button>
+            <Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><Link href="/shops">Browse Shops &amp; Suppliers</Link></Button>
           </div>
           <div className="mt-4"><Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><a href="/APG.vcf" download="APG.vcf">Save APG Contact</a></Button><p className="mt-2 text-sm text-slate-500">Download APG’s email, phone number, and website to your contacts.</p></div>
           <div className="mt-6 flex flex-wrap items-center gap-3">

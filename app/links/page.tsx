@@ -6,7 +6,7 @@ import ApgLogo from "@/components/apg-logo";
 import TrainingDirectory from "@/components/training-directory";
 
 export const metadata: Metadata = {
-  title: "APG Links | Courses, Training & Industry Resources",
+  title: "Courses & Training | Any Part & Gear",
   description: "APG's directory for courses, training and trusted industry resources.",
 };
 
@@ -26,7 +26,7 @@ export default function ApgLinksPage() {
       <section className="bg-[#071a35] text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
           <p className="text-xs font-black uppercase tracking-[.2em] text-amber-400">Trusted resources</p>
-          <h1 className="mt-3 text-4xl font-black uppercase tracking-[-.03em] sm:text-6xl">APG Links</h1>
+          <h1 className="mt-3 text-4xl font-black uppercase tracking-[-.03em] sm:text-6xl">Courses &amp; Training</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">Courses, training and trusted industry resources—all in one place.</p>
         </div>
       </section>
