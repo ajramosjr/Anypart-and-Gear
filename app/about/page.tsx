@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
-    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link href="/shops">Parts &amp; Repair Directory</Link></nav></div></header>
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link></nav></div></header>
     <div className="shell pt-10 sm:pt-14"><p className="eyebrow">About us</p><h1 className="section-title mt-2">The story behind APG</h1></div>
     <section id="founder" className="bg-white mt-8" aria-labelledby="founder-title">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[minmax(0,.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-16">
@@ -37,7 +37,7 @@ export default function AboutPage() {
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button asChild className="gold-button h-11 px-6 font-black"><Link href="/marketplace">Explore the marketplace</Link></Button>
-            <Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><Link href="/shops">Explore the Parts &amp; Repair Directory</Link></Button>
+            <Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><Link href="/shops">Explore the Repair Shops &amp; Parts Suppliers</Link></Button>
           </div>
           <div className="mt-4"><Button asChild variant="outline" className="h-11 border-slate-300 bg-white px-6 font-bold text-[#0b2345] hover:bg-slate-50"><a href="/APG.vcf" download="APG.vcf">Save APG Contact</a></Button><p className="mt-2 text-sm text-slate-500">Download APG’s email, phone number, and website to your contacts.</p></div>
           <div className="mt-6 flex flex-wrap items-center gap-3">

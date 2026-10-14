@@ -23,7 +23,7 @@ export default async function ToolboxPage() {
           <ApgLogo priority />
           <nav className="account-nav" aria-label="Main navigation">
             <Link href="/marketplace">Marketplace</Link>
-            <Link href="/shops">Shops &amp; Suppliers</Link>
+            <Link href="/shops">Repair Shops &amp; Parts Suppliers</Link>
             <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
             <Link href="/links">Courses &amp; Training</Link>
             <Link href="/sell">Post an item</Link>
@@ -31,7 +31,7 @@ export default async function ToolboxPage() {
               <summary>Menu</summary>
               <div className="dashboard-menu-links">
                 <Link href="/marketplace">Marketplace</Link>
-                <Link href="/shops">Shops &amp; Suppliers</Link>
+                <Link href="/shops">Repair Shops &amp; Parts Suppliers</Link>
                 <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
                 <Link href="/links">Courses &amp; Training</Link>
                 <Link href="/sell">Post an item</Link>

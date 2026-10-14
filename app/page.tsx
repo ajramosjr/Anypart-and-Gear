@@ -31,7 +31,7 @@ export default async function Home() {
     <header className="apg-site-header sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex min-h-18 max-w-7xl sm:min-h-24 items-center gap-2 px-3 sm:gap-3 sm:px-6">
         <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><Image src="/apg-home-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={1983} height={793} priority className="h-auto w-[140px] sm:w-[190px]" /></Link>
-        <nav aria-label="Primary navigation" className="hidden items-center gap-6 lg:flex"><Link href="/marketplace" className="font-bold">Marketplace</Link><Link href="/shops" className="font-bold">Businesses &amp; Shops</Link><Link href="/about" className="font-bold">About</Link></nav>
+        <nav aria-label="Primary navigation" className="hidden items-center gap-6 lg:flex"><Link href="/marketplace" className="font-bold">Marketplace</Link><Link href="/shops" className="font-bold">Repair Shops &amp; Parts Suppliers</Link><Link href="/about" className="font-bold">About</Link></nav>
         <div className="hidden xl:block"><InstallApp /></div>
         {user && <NotificationBell userId={user.id} />}
         <Link href={postPath} className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-black sm:px-5 sm:text-base"><span className="sm:hidden">+ Post</span><span className="hidden sm:inline">Post an item</span></Link>
@@ -40,7 +40,7 @@ export default async function Home() {
           <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] overflow-y-auto gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/marketplace">Browse Marketplace</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href={postPath}>Post an item</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Shops &amp; Suppliers</Link>
+            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Repair Shops &amp; Parts Suppliers</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
             <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/community">APG Community{!community.enabled && <span className="ml-2 text-xs font-bold text-amber-800">Coming Soon</span>}</Link>
             <details className="border-t border-slate-200 pt-1">
@@ -87,7 +87,7 @@ export default async function Home() {
     </section>
     <section aria-label="Businesses and shops" className="mx-auto max-w-7xl px-4 pb-28 sm:px-6 sm:pb-7">
       <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-8">
-        <div className="flex items-center gap-4"><span className="apg-home-icon rounded-full p-3 sm:p-4"><Store size={30} aria-hidden="true" /></span><div><h2 className="text-xl font-black sm:text-2xl">Businesses &amp; Shops</h2><p className="mt-1 text-slate-600">See what local shops have to offer.</p></div></div>
+        <div className="flex items-center gap-4"><span className="apg-home-icon rounded-full p-3 sm:p-4"><Store size={30} aria-hidden="true" /></span><div><h2 className="text-xl font-black sm:text-2xl">Repair Shops &amp; Parts Suppliers</h2><p className="mt-1 text-slate-600">See what local shops have to offer.</p></div></div>
         <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-5"><h3 className="text-xl font-black">Explore local business pages</h3><p className="mt-3 leading-7 text-slate-600">Find parts suppliers and repair shops. Visit each business’s page to see its services and any inventory it has posted.</p><Link href="/shops" className="apg-home-outline mt-4 inline-flex min-h-12 items-center gap-3 rounded-lg border-2 px-5 font-bold">View business pages <ArrowRight size={20} aria-hidden="true" /></Link></div>
         <Link href="/shops/register" className="mt-6 flex min-h-12 items-center gap-4 font-bold"><Store size={25} aria-hidden="true" /><span>Own a business?<span className="block text-sm font-normal text-slate-600">Create your business page.</span></span><ArrowRight className="ml-auto" size={20} aria-hidden="true" /></Link>
       </div>
