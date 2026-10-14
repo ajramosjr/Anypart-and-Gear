@@ -137,7 +137,7 @@ const dtcGuides: Record<string,DtcGuide> = {
 };
 
 const tools = [
-  ["cdl", "Practice Tests", "Open New York CDL practice questions, lessons and official manual links.", BookOpen],
+  ["cdl", "Practice Tests", "Explore vehicle, tools, trades and safety practice topics.", BookOpen],
   ["drill-tap", "Drill & Tap Charts", "Find common drill sizes for SAE, metric and pipe threads.", Wrench],
   ["tape-measure", "Tape Measure Reading Chart", "Identify common fractional marks and decimal equivalents.", Ruler],
   ["converter", "SAE–Metric Converter", "Convert measurements between inches and millimeters.", ArrowLeftRight],
@@ -296,7 +296,7 @@ export default function ToolboxClient() {
     </section>
 
     <div className="shell toolbox-content">
-      <Printable id="cdl" className="wide-tool"><SectionHeading icon={BookOpen} title="Practice Tests" target="cdl"/><p className="tool-note">Practice for your next license or qualification. New York CDL has 50 original questions, answer explanations, study lessons and official manual links.</p><Link className="cdl-hub-link" href="/practice-tests">Open Practice Tests →</Link></Printable>
+      <Printable id="cdl" className="wide-tool"><SectionHeading icon={BookOpen} title="Practice Tests" target="cdl"/><p className="tool-note">Build your knowledge with automotive, boating, towing, tools, small engines, welding, electrical and safety practice, plus New York CDL and motorcycle topics.</p><Link className="cdl-hub-link" href="/practice-tests">Open Practice Tests →</Link></Printable>
 
       <div className="toolbox-actions no-print"><p><strong>One tool at a time.</strong> Choose the tool you need above.</p><PrintButton target={selectedTool} label="Print selected tool" /></div>
 

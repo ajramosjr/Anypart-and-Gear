@@ -1,0 +1,2818 @@
+[
+  {
+    "slug": "automotive-basics",
+    "title": "Automotive Basics",
+    "category": "Vehicles",
+    "description": "Build confidence with engines, maintenance, brakes, steering and diagnosis.",
+    "lessons": [
+      {
+        "title": "Understand the system",
+        "body": "Identify what each component does before diagnosing a fault. A symptom or trouble code is a starting point, not proof that a particular part has failed."
+      },
+      {
+        "title": "Use vehicle-specific information",
+        "body": "Follow the service manual for fluids, lifting points, torque values and procedures. Stop driving with serious braking, steering or oil-pressure problems."
+      }
+    ],
+    "sources": [
+      {
+        "label": "ASE automobile study resources",
+        "url": "https://ase.com/tests/a1-a9/"
+      },
+      {
+        "label": "NHTSA tire guidance",
+        "url": "https://www.nhtsa.gov/vehicle-safety/tires"
+      }
+    ],
+    "questions": [
+      {
+        "id": "automotive-basics-1",
+        "question": "What is the main purpose of engine oil?",
+        "options": [
+          "Lubricate moving engine parts",
+          "Raise tire pressure",
+          "Store electrical energy",
+          "Clean the windshield"
+        ],
+        "answer": 0,
+        "explanation": "Oil reduces friction between moving engine parts."
+      },
+      {
+        "id": "automotive-basics-2",
+        "question": "Which component stores electrical energy for starting a conventional vehicle?",
+        "options": [
+          "Radiator",
+          "Fuel injector",
+          "Brake rotor",
+          "Battery"
+        ],
+        "answer": 3,
+        "explanation": "The battery supplies electrical energy when the engine is not running."
+      },
+      {
+        "id": "automotive-basics-3",
+        "question": "What does an alternator do while the engine is running?",
+        "options": [
+          "Measure tire wear",
+          "Cool transmission oil directly",
+          "Generate electrical power",
+          "Pump brake fluid"
+        ],
+        "answer": 2,
+        "explanation": "The alternator supplies electrical power and charges the battery."
+      },
+      {
+        "id": "automotive-basics-4",
+        "question": "What does the radiator primarily help remove?",
+        "options": [
+          "Carbon from spark plugs",
+          "Heat from engine coolant",
+          "Dust from intake air",
+          "Water from gasoline"
+        ],
+        "answer": 1,
+        "explanation": "The radiator transfers coolant heat to surrounding air."
+      },
+      {
+        "id": "automotive-basics-5",
+        "question": "What does an engine thermostat regulate?",
+        "options": [
+          "Coolant flow based on temperature",
+          "Tire pressure based on speed",
+          "Battery voltage based on load",
+          "Oil viscosity based on mileage"
+        ],
+        "answer": 0,
+        "explanation": "The thermostat controls coolant flow as engine temperature changes."
+      },
+      {
+        "id": "automotive-basics-6",
+        "question": "In a gasoline engine, what normally ignites the compressed mixture?",
+        "options": [
+          "A coolant sensor",
+          "An alternator pulley",
+          "A brake switch",
+          "A spark plug"
+        ],
+        "answer": 3,
+        "explanation": "A spark initiates combustion in a spark-ignition engine."
+      },
+      {
+        "id": "automotive-basics-7",
+        "question": "How does a conventional diesel engine ignite its fuel?",
+        "options": [
+          "Friction from the oil pump",
+          "Heat from the radiator",
+          "Heat produced by air compression",
+          "A spark at every injector"
+        ],
+        "answer": 2,
+        "explanation": "Compression heats the air enough for injected diesel fuel to ignite."
+      },
+      {
+        "id": "automotive-basics-8",
+        "question": "What does an intake air filter do?",
+        "options": [
+          "Charge the battery",
+          "Limit dirt entering the engine",
+          "Set ignition timing",
+          "Regulate brake pressure"
+        ],
+        "answer": 1,
+        "explanation": "Filtering incoming air helps protect engine components."
+      },
+      {
+        "id": "automotive-basics-9",
+        "question": "What is the purpose of a fuel injector?",
+        "options": [
+          "Meter fuel into the engine",
+          "Store engine coolant",
+          "Adjust wheel alignment",
+          "Remove exhaust heat"
+        ],
+        "answer": 0,
+        "explanation": "An injector delivers controlled amounts of fuel."
+      },
+      {
+        "id": "automotive-basics-10",
+        "question": "Which system carries combustion gases away from the engine?",
+        "options": [
+          "Cooling system",
+          "Steering system",
+          "Brake hydraulic system",
+          "Exhaust system"
+        ],
+        "answer": 3,
+        "explanation": "Exhaust passages carry gases away from the cylinders."
+      },
+      {
+        "id": "automotive-basics-11",
+        "question": "What does a catalytic converter help do?",
+        "options": [
+          "Lubricate valve guides",
+          "Measure tread depth",
+          "Reduce certain exhaust pollutants",
+          "Increase battery capacity"
+        ],
+        "answer": 2,
+        "explanation": "Catalysts help convert certain pollutants into less harmful substances."
+      },
+      {
+        "id": "automotive-basics-12",
+        "question": "What does a differential allow during a turn?",
+        "options": [
+          "All tires to rotate at identical speeds",
+          "Driven wheels to rotate at different speeds",
+          "Brake fluid to bypass the master cylinder",
+          "Coolant to bypass every hose"
+        ],
+        "answer": 1,
+        "explanation": "The outer wheel travels farther during a turn and needs a different speed."
+      },
+      {
+        "id": "automotive-basics-13",
+        "question": "What does a conventional manual-transmission clutch do?",
+        "options": [
+          "Connect or disconnect engine power from the gearbox",
+          "Pump coolant through the heater",
+          "Lock both front wheels together",
+          "Control brake fluid pressure"
+        ],
+        "answer": 0,
+        "explanation": "The clutch allows power transfer to be interrupted for starting and shifting."
+      },
+      {
+        "id": "automotive-basics-14",
+        "question": "Which part do disc-brake pads press against?",
+        "options": [
+          "Wheel bearing seal",
+          "Axle boot",
+          "Steering rack",
+          "Brake rotor"
+        ],
+        "answer": 3,
+        "explanation": "Pads create friction against the rotor to slow the wheel."
+      },
+      {
+        "id": "automotive-basics-15",
+        "question": "Which part do drum-brake shoes press against?",
+        "options": [
+          "Face of the alternator",
+          "Inside of the radiator",
+          "Inside of the brake drum",
+          "Outside of the tire"
+        ],
+        "answer": 2,
+        "explanation": "Brake shoes press outward against the drum."
+      },
+      {
+        "id": "automotive-basics-16",
+        "question": "What is ABS designed to help prevent during hard braking?",
+        "options": [
+          "Engine overheating",
+          "Wheel lockup",
+          "All tire wear",
+          "Every collision"
+        ],
+        "answer": 1,
+        "explanation": "ABS modulates braking to reduce wheel lockup; traction limits still apply."
+      },
+      {
+        "id": "automotive-basics-17",
+        "question": "Where should you find the recommended cold tire pressure for a passenger car?",
+        "options": [
+          "Vehicle placard or owner's manual",
+          "Maximum-pressure marking alone",
+          "Brake rotor stamping",
+          "Battery label"
+        ],
+        "answer": 0,
+        "explanation": "Use the vehicle recommendation rather than treating the tire's maximum as the target."
+      },
+      {
+        "id": "automotive-basics-18",
+        "question": "What does tire tread help channel away on wet pavement?",
+        "options": [
+          "Brake fluid",
+          "Engine coolant",
+          "Transmission oil",
+          "Water"
+        ],
+        "answer": 3,
+        "explanation": "Tread grooves help manage water; worn tires reduce wet traction."
+      },
+      {
+        "id": "automotive-basics-19",
+        "question": "What is a shock absorber mainly designed to control?",
+        "options": [
+          "Battery charging",
+          "Exhaust emissions",
+          "Suspension oscillation",
+          "Fuel delivery"
+        ],
+        "answer": 2,
+        "explanation": "Dampers control spring movement and help maintain tire contact."
+      },
+      {
+        "id": "automotive-basics-20",
+        "question": "What does a ball joint allow in a suspension?",
+        "options": [
+          "The radiator to change pressure",
+          "Articulation between connected components",
+          "Fuel to flow into the tank",
+          "Battery cells to equalize"
+        ],
+        "answer": 1,
+        "explanation": "A ball joint accommodates movement between suspension components."
+      },
+      {
+        "id": "automotive-basics-21",
+        "question": "What do tie rods connect in a typical steering system?",
+        "options": [
+          "Steering linkage to the wheel steering arms",
+          "Exhaust pipe to muffler",
+          "Fuel rail to injector",
+          "Oil pump to filter"
+        ],
+        "answer": 0,
+        "explanation": "Tie rods transmit steering movement to the wheels."
+      },
+      {
+        "id": "automotive-basics-22",
+        "question": "What is the best response to a sudden loss of braking effectiveness?",
+        "options": [
+          "Keep driving until the next oil change",
+          "Add engine oil to the brake reservoir",
+          "Disconnect the brake warning lamp",
+          "Stop safely and arrange qualified inspection"
+        ],
+        "answer": 3,
+        "explanation": "A braking problem requires prompt evaluation before continued driving."
+      },
+      {
+        "id": "automotive-basics-23",
+        "question": "What does an OBD-II trouble code usually provide?",
+        "options": [
+          "A guaranteed repair price",
+          "A complete wiring repair procedure",
+          "A diagnostic starting point",
+          "Proof that one named part must be replaced"
+        ],
+        "answer": 2,
+        "explanation": "Codes identify detected conditions; testing is still needed to determine the cause."
+      },
+      {
+        "id": "automotive-basics-24",
+        "question": "What is an engine misfire?",
+        "options": [
+          "A change in wheel bolt pattern",
+          "Incomplete or missing combustion in a cylinder",
+          "A normal tire rotation event",
+          "A routine alternator recharge"
+        ],
+        "answer": 1,
+        "explanation": "Misfires can have ignition, fuel, compression or other causes."
+      },
+      {
+        "id": "automotive-basics-25",
+        "question": "What should you do with a flashing check-engine light and rough running?",
+        "options": [
+          "Reduce load, stop safely and consult service guidance",
+          "Drive harder to clear the fault",
+          "Disconnect the warning lamp",
+          "Ignore it if the radio works"
+        ],
+        "answer": 0,
+        "explanation": "Flashing warnings can indicate damaging misfires; avoid continued operation and seek guidance."
+      },
+      {
+        "id": "automotive-basics-26",
+        "question": "When should you remove a pressurized radiator cap?",
+        "options": [
+          "Immediately after a highway run",
+          "While steam is escaping",
+          "With the engine at full throttle",
+          "Only when safe and cool as directed by the manual"
+        ],
+        "answer": 3,
+        "explanation": "Hot pressurized coolant can cause severe burns."
+      },
+      {
+        "id": "automotive-basics-27",
+        "question": "Why check fluid specifications before topping up?",
+        "options": [
+          "Color alone identifies every fluid",
+          "Any oil works in any system",
+          "Similar-looking fluids may be incompatible",
+          "All fluids use the same formula"
+        ],
+        "answer": 2,
+        "explanation": "The required specification matters more than appearance."
+      },
+      {
+        "id": "automotive-basics-28",
+        "question": "What does a serpentine belt commonly drive?",
+        "options": [
+          "The parking brake cable",
+          "Engine accessories",
+          "Wheel lug nuts",
+          "Brake pads"
+        ],
+        "answer": 1,
+        "explanation": "Accessory layouts vary, so inspect the specific vehicle's belt routing."
+      },
+      {
+        "id": "automotive-basics-29",
+        "question": "What should you do if an accessory belt is badly frayed?",
+        "options": [
+          "Arrange replacement and inspect related components",
+          "Cut off loose sections and keep driving",
+          "Coat it with engine oil",
+          "Increase its speed"
+        ],
+        "answer": 0,
+        "explanation": "Fraying indicates damage; tensioners and pulleys may also need inspection."
+      },
+      {
+        "id": "automotive-basics-30",
+        "question": "What is a wheel bearing's main role?",
+        "options": [
+          "Create ignition sparks",
+          "Store brake fluid",
+          "Filter engine air",
+          "Support wheel rotation with low friction"
+        ],
+        "answer": 3,
+        "explanation": "Wheel bearings support rotating wheel loads."
+      },
+      {
+        "id": "automotive-basics-31",
+        "question": "What is the purpose of a CV joint?",
+        "options": [
+          "Filter hydraulic oil",
+          "Set the radio frequency",
+          "Transmit torque while accommodating angle changes",
+          "Regulate exhaust temperature"
+        ],
+        "answer": 2,
+        "explanation": "CV joints allow drive axles to transmit power through changing angles."
+      },
+      {
+        "id": "automotive-basics-32",
+        "question": "Why inspect a torn CV boot promptly?",
+        "options": [
+          "It makes the fuel tank leak",
+          "It can let lubricant out and contamination in",
+          "It automatically proves the axle is bent",
+          "It changes the tire's size"
+        ],
+        "answer": 1,
+        "explanation": "The boot protects the lubricated joint from dirt and moisture."
+      },
+      {
+        "id": "automotive-basics-33",
+        "question": "What does the master cylinder do in a hydraulic brake system?",
+        "options": [
+          "Convert pedal input into hydraulic pressure",
+          "Generate alternator voltage",
+          "Regulate engine compression",
+          "Measure coolant temperature"
+        ],
+        "answer": 0,
+        "explanation": "The master cylinder pressurizes brake fluid when the pedal is applied."
+      },
+      {
+        "id": "automotive-basics-34",
+        "question": "What is a brake-fluid leak a reason to do?",
+        "options": [
+          "Top up repeatedly and ignore it",
+          "Add water to compensate",
+          "Reduce the warning-lamp brightness",
+          "Stop using the vehicle and arrange repair"
+        ],
+        "answer": 3,
+        "explanation": "Leaks can cause loss of braking and require proper repair."
+      },
+      {
+        "id": "automotive-basics-35",
+        "question": "What does a parking brake primarily do?",
+        "options": [
+          "Recharge the battery",
+          "Improve engine compression",
+          "Hold a parked vehicle",
+          "Cool the brake rotors"
+        ],
+        "answer": 2,
+        "explanation": "Use it according to the manual, together with correct parking procedures."
+      },
+      {
+        "id": "automotive-basics-36",
+        "question": "What does engine compression describe?",
+        "options": [
+          "Brake pad hardness",
+          "Pressure developed as the piston compresses cylinder contents",
+          "Force in a tire bead",
+          "Battery charging speed"
+        ],
+        "answer": 1,
+        "explanation": "Compression testing can help assess cylinder sealing."
+      },
+      {
+        "id": "automotive-basics-37",
+        "question": "What is a cylinder leak-down test used to investigate?",
+        "options": [
+          "Where a cylinder loses pressure",
+          "Wheel imbalance",
+          "Headlight brightness",
+          "Radio reception"
+        ],
+        "answer": 0,
+        "explanation": "Leak-down testing can help locate sealing losses through valves, rings or other paths."
+      },
+      {
+        "id": "automotive-basics-38",
+        "question": "Why record symptoms before starting a repair?",
+        "options": [
+          "They replace all measurements",
+          "They guarantee the cheapest repair",
+          "They make service information unnecessary",
+          "They help reproduce and narrow the fault"
+        ],
+        "answer": 3,
+        "explanation": "Operating conditions and symptom patterns guide useful testing."
+      },
+      {
+        "id": "automotive-basics-39",
+        "question": "Why compare a replacement belt with the correct application data?",
+        "options": [
+          "More ribs always improve fit",
+          "Brand color determines tension",
+          "Length and routing must suit the vehicle",
+          "Every black belt fits"
+        ],
+        "answer": 2,
+        "explanation": "Correct application data prevents incorrect belt selection."
+      },
+      {
+        "id": "automotive-basics-40",
+        "question": "What does a cabin air filter commonly filter?",
+        "options": [
+          "Coolant entering the radiator",
+          "Air entering the passenger ventilation system",
+          "Fuel entering the engine",
+          "Oil entering the transmission"
+        ],
+        "answer": 1,
+        "explanation": "Cabin filters reduce particles in ventilation air."
+      },
+      {
+        "id": "automotive-basics-41",
+        "question": "Which part transfers piston motion to the crankshaft?",
+        "options": [
+          "Connecting rod",
+          "Brake caliper",
+          "Tie rod end",
+          "Radiator hose"
+        ],
+        "answer": 0,
+        "explanation": "The connecting rod links the piston to the crankshaft."
+      },
+      {
+        "id": "automotive-basics-42",
+        "question": "What does the camshaft control in a conventional four-stroke engine?",
+        "options": [
+          "Tire inflation",
+          "Brake-light brightness",
+          "Battery capacity",
+          "Valve opening and closing"
+        ],
+        "answer": 3,
+        "explanation": "Cam lobes operate the valve mechanism at the required timing."
+      },
+      {
+        "id": "automotive-basics-43",
+        "question": "What are the four strokes of a conventional four-stroke engine?",
+        "options": [
+          "Ignition, steering, braking, parking",
+          "Pump, filter, spray, return",
+          "Intake, compression, power, exhaust",
+          "Fill, charge, cool, drain"
+        ],
+        "answer": 2,
+        "explanation": "The cycle takes two crankshaft revolutions."
+      },
+      {
+        "id": "automotive-basics-44",
+        "question": "What does a turbocharger use to drive its turbine?",
+        "options": [
+          "Radiator pressure",
+          "Exhaust-gas energy",
+          "Brake-pedal force",
+          "Wheel-bearing friction"
+        ],
+        "answer": 1,
+        "explanation": "Exhaust flow drives a turbine coupled to the intake compressor."
+      },
+      {
+        "id": "automotive-basics-45",
+        "question": "What does an intercooler do in many turbocharged systems?",
+        "options": [
+          "Cool compressed intake air",
+          "Heat brake fluid",
+          "Filter transmission oil",
+          "Charge the starter battery"
+        ],
+        "answer": 0,
+        "explanation": "Cooling compressed air reduces its temperature before entering the engine."
+      },
+      {
+        "id": "automotive-basics-46",
+        "question": "Why follow the specified wheel-fastener torque?",
+        "options": [
+          "Maximum force is always safest",
+          "All wheels use one universal value",
+          "Torque only affects appearance",
+          "Correct clamping is needed without overstressing fasteners"
+        ],
+        "answer": 3,
+        "explanation": "Use the specified torque, sequence and tool rather than guessing."
+      },
+      {
+        "id": "automotive-basics-47",
+        "question": "What does wheel alignment concern?",
+        "options": [
+          "Engine firing order",
+          "Brake-fluid color",
+          "Wheel angles relative to specified geometry",
+          "Battery-cell arrangement"
+        ],
+        "answer": 2,
+        "explanation": "Alignment affects tracking, handling and tire wear."
+      },
+      {
+        "id": "automotive-basics-48",
+        "question": "What does wheel balancing correct?",
+        "options": [
+          "Brake line routing",
+          "Uneven mass distribution in a rotating wheel assembly",
+          "Incorrect toe angle",
+          "Engine coolant concentration"
+        ],
+        "answer": 1,
+        "explanation": "Balancing reduces vibration caused by uneven rotating mass."
+      },
+      {
+        "id": "automotive-basics-49",
+        "question": "What is a good next step after a repair?",
+        "options": [
+          "Verify the original symptom and related operation safely",
+          "Assume a new part guarantees success",
+          "Erase notes and skip checks",
+          "Disconnect every warning sensor"
+        ],
+        "answer": 0,
+        "explanation": "Verification confirms whether the repair actually addressed the fault."
+      },
+      {
+        "id": "automotive-basics-50",
+        "question": "What should you do before working under a raised vehicle?",
+        "options": [
+          "Rely on the jack alone",
+          "Balance it on loose bricks",
+          "Ask a helper to hold it up",
+          "Use specified lifting points and rated supports on a stable surface"
+        ],
+        "answer": 3,
+        "explanation": "A jack alone is not a safe support for working underneath."
+      }
+    ]
+  },
+  {
+    "slug": "tools-measurements",
+    "title": "Tools & Measurements",
+    "category": "Tools & trades",
+    "description": "Practice tape readings, unit conversions, threads and choosing the right tool.",
+    "lessons": [
+      {
+        "title": "Measure before cutting",
+        "body": "Check the unit, zero point and scale. Convert fractions carefully and mark your reference edge."
+      },
+      {
+        "title": "Match tools and fasteners",
+        "body": "Socket size is not bolt diameter. Match thread diameter and pitch, and use the appropriate drill-and-tap chart."
+      }
+    ],
+    "sources": [
+      {
+        "label": "NIST length units",
+        "url": "https://www.nist.gov/pml/owm/si-units-length"
+      },
+      {
+        "label": "OSHA hand and power tools",
+        "url": "https://www.osha.gov/hand-power-tools"
+      }
+    ],
+    "questions": [
+      {
+        "id": "tools-measurements-1",
+        "question": "A tape has 16 equal divisions per inch. What is the fifth division after 2 inches?",
+        "options": [
+          "2 5/16 inches",
+          "2 5/8 inches",
+          "2 1/5 inches",
+          "2 3/16 inches"
+        ],
+        "answer": 0,
+        "explanation": "Each division is 1/16 inch, so five divisions add 5/16."
+      },
+      {
+        "id": "tools-measurements-2",
+        "question": "What is 3/8 inch as a decimal?",
+        "options": [
+          "0.38 inch exactly",
+          "0.325 inch",
+          "0.875 inch",
+          "0.375 inch"
+        ],
+        "answer": 3,
+        "explanation": "Three divided by eight equals 0.375."
+      },
+      {
+        "id": "tools-measurements-3",
+        "question": "How many millimeters equal exactly one inch?",
+        "options": [
+          "10 mm",
+          "254 mm",
+          "25.4 mm",
+          "24 mm"
+        ],
+        "answer": 2,
+        "explanation": "The international inch is defined as exactly 25.4 millimeters."
+      },
+      {
+        "id": "tools-measurements-4",
+        "question": "What is 2 inches in millimeters?",
+        "options": [
+          "5.08 mm",
+          "50.8 mm",
+          "25.8 mm",
+          "48 mm"
+        ],
+        "answer": 1,
+        "explanation": "Multiply 2 by 25.4 to obtain 50.8 millimeters."
+      },
+      {
+        "id": "tools-measurements-5",
+        "question": "What is 1/2 inch plus 1/4 inch?",
+        "options": [
+          "3/4 inch",
+          "2/6 inch",
+          "1/8 inch",
+          "1 inch"
+        ],
+        "answer": 0,
+        "explanation": "One half is two quarters; adding one quarter gives three quarters."
+      },
+      {
+        "id": "tools-measurements-6",
+        "question": "What is 7/8 inch minus 1/4 inch?",
+        "options": [
+          "6/8 inch",
+          "3/8 inch",
+          "1/2 inch",
+          "5/8 inch"
+        ],
+        "answer": 3,
+        "explanation": "Convert one quarter to two eighths, then subtract."
+      },
+      {
+        "id": "tools-measurements-7",
+        "question": "What is 0.125 inch as a fraction?",
+        "options": [
+          "1/16 inch",
+          "1/2 inch",
+          "1/8 inch",
+          "1/4 inch"
+        ],
+        "answer": 2,
+        "explanation": "One divided by eight equals 0.125."
+      },
+      {
+        "id": "tools-measurements-8",
+        "question": "Which instrument can measure an outside diameter with jaws?",
+        "options": [
+          "Thread tap",
+          "Caliper",
+          "Torque wrench",
+          "Feeler gauge alone"
+        ],
+        "answer": 1,
+        "explanation": "A caliper's outside jaws measure external dimensions."
+      },
+      {
+        "id": "tools-measurements-9",
+        "question": "What is a feeler gauge commonly used to measure?",
+        "options": [
+          "A narrow clearance",
+          "Battery current",
+          "Bolt torque",
+          "Engine speed"
+        ],
+        "answer": 0,
+        "explanation": "Thin calibrated blades measure gaps between surfaces."
+      },
+      {
+        "id": "tools-measurements-10",
+        "question": "What does a torque wrench measure or control?",
+        "options": [
+          "Thread pitch directly",
+          "Electrical resistance",
+          "Tire diameter",
+          "Applied turning moment"
+        ],
+        "answer": 3,
+        "explanation": "Torque is turning force expressed as force multiplied by distance."
+      },
+      {
+        "id": "tools-measurements-11",
+        "question": "What unit is commonly used for metric torque?",
+        "options": [
+          "Ampere-hour",
+          "Liter per minute",
+          "Newton-meter",
+          "Millimeter per second"
+        ],
+        "answer": 2,
+        "explanation": "Newton-meters express force times lever-arm distance."
+      },
+      {
+        "id": "tools-measurements-12",
+        "question": "What does M8 \u00d7 1.25 identify?",
+        "options": [
+          "8 mm length and 1.25 mm head width",
+          "8 mm nominal thread diameter and 1.25 mm pitch",
+          "8 mm wrench size and 1.25 mm length",
+          "8 threads per inch and 1.25 inch diameter"
+        ],
+        "answer": 1,
+        "explanation": "Metric thread notation specifies nominal diameter and distance between threads."
+      },
+      {
+        "id": "tools-measurements-13",
+        "question": "What does TPI mean?",
+        "options": [
+          "Threads per inch",
+          "Torque per indicator",
+          "Tool pressure index",
+          "Total piston interval"
+        ],
+        "answer": 0,
+        "explanation": "In inch-thread systems, pitch is often expressed as threads per inch."
+      },
+      {
+        "id": "tools-measurements-14",
+        "question": "Which tool identifies thread pitch?",
+        "options": [
+          "Oil dipstick",
+          "Compression tester",
+          "Timing light",
+          "Thread pitch gauge"
+        ],
+        "answer": 3,
+        "explanation": "The gauge's teeth are compared with the fastener threads."
+      },
+      {
+        "id": "tools-measurements-15",
+        "question": "Why is a tap-drill hole normally smaller than the thread's nominal diameter?",
+        "options": [
+          "It prevents all lubrication",
+          "Nominal diameter measures bolt length",
+          "Material must remain for the internal thread",
+          "The bolt head must fit inside"
+        ],
+        "answer": 2,
+        "explanation": "A tap cuts or forms threads in the remaining hole wall."
+      },
+      {
+        "id": "tools-measurements-16",
+        "question": "What should determine tap-drill selection?",
+        "options": [
+          "A guess based on bolt length",
+          "Thread specification and an appropriate chart",
+          "Socket color",
+          "The longest drill available"
+        ],
+        "answer": 1,
+        "explanation": "Thread size, pitch and tap type determine suitable drill selection."
+      },
+      {
+        "id": "tools-measurements-17",
+        "question": "What is the main purpose of a center punch before drilling?",
+        "options": [
+          "Locate the starting point",
+          "Cut the complete thread",
+          "Measure voltage",
+          "Tighten a bolt"
+        ],
+        "answer": 0,
+        "explanation": "A suitable punch mark helps locate the drill's starting position."
+      },
+      {
+        "id": "tools-measurements-18",
+        "question": "What does a square help check?",
+        "options": [
+          "Battery charge",
+          "Fluid viscosity",
+          "Airflow rate",
+          "A right angle"
+        ],
+        "answer": 3,
+        "explanation": "A square compares an edge or joint with a 90-degree reference."
+      },
+      {
+        "id": "tools-measurements-19",
+        "question": "What is 150 mm in centimeters?",
+        "options": [
+          "1500 cm",
+          "150 cm",
+          "15 cm",
+          "1.5 cm"
+        ],
+        "answer": 2,
+        "explanation": "Ten millimeters equal one centimeter."
+      },
+      {
+        "id": "tools-measurements-20",
+        "question": "What should you do before trusting a precision measurement?",
+        "options": [
+          "Ignore the measurement unit",
+          "Check zero and instrument condition",
+          "Press as hard as possible",
+          "Round to a whole inch"
+        ],
+        "answer": 1,
+        "explanation": "A dirty surface or incorrect zero can produce misleading readings."
+      }
+    ]
+  },
+  {
+    "slug": "boating-safety",
+    "title": "Boating Safety",
+    "category": "Vehicles",
+    "description": "Learn basic navigation awareness, trip preparation and onboard safety.",
+    "lessons": [
+      {
+        "title": "Prepare before departure",
+        "body": "Check weather, equipment, fuel and your boat. Share a float plan and ensure life jackets fit the people using them."
+      },
+      {
+        "title": "Understand local waters",
+        "body": "Navigation rules and aids depend on location and circumstances. Study official rules and complete required instruction; this quiz does not issue a boating certificate."
+      }
+    ],
+    "sources": [
+      {
+        "label": "US Coast Guard recreational boating",
+        "url": "https://www.uscgboating.org/recreational-boaters/"
+      },
+      {
+        "label": "USCG navigation rules",
+        "url": "https://navcen.uscg.gov/navigation-rules-amalgamated"
+      },
+      {
+        "label": "USCG life jackets",
+        "url": "https://www.uscgboating.org/recreational-boaters/life-jacket-wear-wearing-your-life-jacket.php"
+      },
+      {
+        "label": "USCG carbon monoxide",
+        "url": "https://www.uscgboating.org/recreational-boaters/carbon-monoxide-protect.php"
+      }
+    ],
+    "questions": [
+      {
+        "id": "boating-safety-1",
+        "question": "Which side is port when facing the bow?",
+        "options": [
+          "Left",
+          "Right",
+          "Forward",
+          "Aft"
+        ],
+        "answer": 0,
+        "explanation": "Port is the vessel's left side when facing forward."
+      },
+      {
+        "id": "boating-safety-2",
+        "question": "Which side is starboard when facing the bow?",
+        "options": [
+          "Left",
+          "Forward",
+          "Aft",
+          "Right"
+        ],
+        "answer": 3,
+        "explanation": "Starboard is the vessel's right side when facing forward."
+      },
+      {
+        "id": "boating-safety-3",
+        "question": "What color is a vessel's port sidelight?",
+        "options": [
+          "Blue",
+          "Amber",
+          "Red",
+          "Green"
+        ],
+        "answer": 2,
+        "explanation": "The port sidelight is red under navigation rules."
+      },
+      {
+        "id": "boating-safety-4",
+        "question": "What color is a vessel's starboard sidelight?",
+        "options": [
+          "Amber",
+          "Green",
+          "Red",
+          "Blue"
+        ],
+        "answer": 1,
+        "explanation": "The starboard sidelight is green under navigation rules."
+      },
+      {
+        "id": "boating-safety-5",
+        "question": "What is the bow?",
+        "options": [
+          "Front of the boat",
+          "Rear of the boat",
+          "Left side of the boat",
+          "Lowest part of the keel"
+        ],
+        "answer": 0,
+        "explanation": "The bow is the forward end."
+      },
+      {
+        "id": "boating-safety-6",
+        "question": "What is the stern?",
+        "options": [
+          "Front of the boat",
+          "Highest mast fitting",
+          "Center of the compass",
+          "Rear of the boat"
+        ],
+        "answer": 3,
+        "explanation": "The stern is the aft end."
+      },
+      {
+        "id": "boating-safety-7",
+        "question": "What is the purpose of a float plan?",
+        "options": [
+          "Guarantee calm weather",
+          "Increase engine power",
+          "Tell a trusted person your trip details and expected return",
+          "Replace navigation lights"
+        ],
+        "answer": 2,
+        "explanation": "A float plan helps others raise the alarm if you fail to return."
+      },
+      {
+        "id": "boating-safety-8",
+        "question": "When is the best time to put on a properly fitted life jacket?",
+        "options": [
+          "After losing sight of shore",
+          "Before an emergency develops",
+          "Only after entering the water",
+          "Only when the boat sinks"
+        ],
+        "answer": 1,
+        "explanation": "Wearing it beforehand provides protection when an emergency occurs suddenly."
+      },
+      {
+        "id": "boating-safety-9",
+        "question": "What is a key life-jacket selection factor?",
+        "options": [
+          "Fit and intended use for the wearer",
+          "Matching boat paint",
+          "Largest available size",
+          "Lowest storage weight alone"
+        ],
+        "answer": 0,
+        "explanation": "An unsuitable or poorly fitted jacket may not perform as intended."
+      },
+      {
+        "id": "boating-safety-10",
+        "question": "What should you check before leaving the dock?",
+        "options": [
+          "Only the radio's music presets",
+          "Only the trailer registration",
+          "Only the hull's paint color",
+          "Weather, boat condition and required safety equipment"
+        ],
+        "answer": 3,
+        "explanation": "A pre-departure check reduces preventable problems."
+      },
+      {
+        "id": "boating-safety-11",
+        "question": "What should a boat operator maintain while underway?",
+        "options": [
+          "Maximum speed near every dock",
+          "Attention only to the chartplotter",
+          "A proper lookout",
+          "A fixed course regardless of traffic"
+        ],
+        "answer": 2,
+        "explanation": "Lookout includes observing traffic, hazards and changing conditions."
+      },
+      {
+        "id": "boating-safety-12",
+        "question": "What does safe speed depend on?",
+        "options": [
+          "Only the fuel tank size",
+          "Visibility, traffic, conditions and maneuvering ability",
+          "Only the engine's maximum RPM",
+          "Only the boat's age"
+        ],
+        "answer": 1,
+        "explanation": "Safe speed must permit appropriate action for the actual situation."
+      },
+      {
+        "id": "boating-safety-13",
+        "question": "For two power-driven vessels meeting head-on with risk of collision, what is the usual rule?",
+        "options": [
+          "Each alters course to starboard",
+          "Each alters course to port",
+          "Both accelerate without turning",
+          "The smaller vessel always stops"
+        ],
+        "answer": 0,
+        "explanation": "The head-on rule generally calls for starboard alterations so vessels pass port to port."
+      },
+      {
+        "id": "boating-safety-14",
+        "question": "When you overtake another vessel, what is your responsibility?",
+        "options": [
+          "Force it to move out of your way",
+          "Assume it has seen you",
+          "Ignore collision risk once alongside",
+          "Keep clear of the vessel being overtaken"
+        ],
+        "answer": 3,
+        "explanation": "An overtaking vessel must keep clear until finally past and clear."
+      },
+      {
+        "id": "boating-safety-15",
+        "question": "Does being the stand-on vessel permit ignoring a collision threat?",
+        "options": [
+          "Yes, if your vessel is larger",
+          "Yes, if you sounded the horn",
+          "No, collision-avoidance responsibilities still apply",
+          "Yes, holding course always takes priority"
+        ],
+        "answer": 2,
+        "explanation": "All operators must act as required to avoid collision."
+      },
+      {
+        "id": "boating-safety-16",
+        "question": "What is carbon monoxide?",
+        "options": [
+          "A type of salt deposit",
+          "An odorless, colorless toxic gas",
+          "A visible blue fuel additive",
+          "A harmless engine odor"
+        ],
+        "answer": 1,
+        "explanation": "Engine exhaust can contain dangerous CO without a detectable smell."
+      },
+      {
+        "id": "boating-safety-17",
+        "question": "Where can engine exhaust create a CO hazard?",
+        "options": [
+          "Inside and around the boat",
+          "Only inside a closed fuel tank",
+          "Only below the engine's oil level",
+          "Only in fresh water"
+        ],
+        "answer": 0,
+        "explanation": "CO can accumulate in occupied areas or near exhaust outlets."
+      },
+      {
+        "id": "boating-safety-18",
+        "question": "What should happen before approaching a swimmer with a propeller-driven boat?",
+        "options": [
+          "Increase RPM to improve steering beside the swimmer",
+          "Let the swimmer hold the propeller",
+          "Assume neutral eliminates every hazard",
+          "Keep clear and stop propulsion before the person approaches the propeller area"
+        ],
+        "answer": 3,
+        "explanation": "A rotating propeller is a serious injury hazard; maintain separation and shut down appropriately."
+      },
+      {
+        "id": "boating-safety-19",
+        "question": "What is an engine cut-off lanyard intended to do?",
+        "options": [
+          "Prevent every fuel leak",
+          "Make the boat steer itself",
+          "Stop the engine if the operator is separated from the controls",
+          "Replace all life jackets"
+        ],
+        "answer": 2,
+        "explanation": "Use the cut-off system as directed for the vessel and situation."
+      },
+      {
+        "id": "boating-safety-20",
+        "question": "What should you do if you do not understand a waterway marker?",
+        "options": [
+          "Follow the nearest boat without checking",
+          "Slow safely and consult the chart and official local guidance",
+          "Assume all markers mean safe water",
+          "Use the color as a speed limit"
+        ],
+        "answer": 1,
+        "explanation": "Marker systems and meanings require proper interpretation."
+      }
+    ]
+  },
+  {
+    "slug": "trailer-towing",
+    "title": "Trailer & Towing Basics",
+    "category": "Vehicles",
+    "description": "Practice hitch checks, load ratings, tire checks and safe trip planning.",
+    "lessons": [
+      {
+        "title": "Check the complete combination",
+        "body": "Use the tow vehicle and trailer manuals. Check all ratings, coupling compatibility, lights, brakes, safety connections and tires."
+      },
+      {
+        "title": "Plan for the load",
+        "body": "Secure cargo and account for tongue load, payload and actual loaded weight. Allow more space and use qualified instruction before towing on busy roads."
+      }
+    ],
+    "sources": [
+      {
+        "label": "NHTSA towing guide",
+        "url": "https://dmna.ny.gov/nynm/training/NHTSA_TowingSafety.pdf"
+      },
+      {
+        "label": "NHTSA secure your load",
+        "url": "https://www.nhtsa.gov/drive-safe-secure-your-load"
+      },
+      {
+        "label": "NHTSA tire guidance",
+        "url": "https://www.nhtsa.gov/vehicle-safety/tires"
+      }
+    ],
+    "questions": [
+      {
+        "id": "trailer-towing-1",
+        "question": "Which rating limits the loaded weight of the trailer itself?",
+        "options": [
+          "Trailer GVWR",
+          "Tow vehicle wheelbase",
+          "Battery amp-hour rating",
+          "Engine idle RPM"
+        ],
+        "answer": 0,
+        "explanation": "GVWR is the maximum specified loaded weight of that vehicle or trailer."
+      },
+      {
+        "id": "trailer-towing-2",
+        "question": "Which rating concerns the loaded tow vehicle and trailer together?",
+        "options": [
+          "Tire manufacture week",
+          "Engine compression ratio",
+          "Alternator amperage",
+          "GCWR"
+        ],
+        "answer": 3,
+        "explanation": "GCWR is the manufacturer's gross combination weight rating."
+      },
+      {
+        "id": "trailer-towing-3",
+        "question": "Does hitch capacity alone establish a vehicle's safe towing capacity?",
+        "options": [
+          "Yes, if the ball is new",
+          "Yes, when driving slowly",
+          "No, all applicable vehicle and component limits matter",
+          "Yes, regardless of payload"
+        ],
+        "answer": 2,
+        "explanation": "The complete combination must remain within every applicable rating."
+      },
+      {
+        "id": "trailer-towing-4",
+        "question": "What does trailer tongue load contribute to on the tow vehicle?",
+        "options": [
+          "Wheel diameter",
+          "Payload and axle loading",
+          "Fuel tank capacity",
+          "Battery voltage"
+        ],
+        "answer": 1,
+        "explanation": "Tongue load is carried by the tow vehicle and consumes available capacity."
+      },
+      {
+        "id": "trailer-towing-5",
+        "question": "How should you choose the hitch-ball diameter?",
+        "options": [
+          "Match the coupler's specified size",
+          "Choose the closest-looking size",
+          "Always use the largest ball",
+          "Match the tire rim diameter"
+        ],
+        "answer": 0,
+        "explanation": "The coupler and ball must have the specified compatible dimensions."
+      },
+      {
+        "id": "trailer-towing-6",
+        "question": "What should you verify after closing the trailer coupler?",
+        "options": [
+          "Only that its paint matches",
+          "Only that the jack is down",
+          "Only that the latch can move freely",
+          "It is fully seated, locked and secured as specified"
+        ],
+        "answer": 3,
+        "explanation": "An incompletely coupled trailer can separate from the tow vehicle."
+      },
+      {
+        "id": "trailer-towing-7",
+        "question": "Why use required safety chains or cables?",
+        "options": [
+          "Carry all normal tongue weight",
+          "Eliminate the need for trailer brakes",
+          "Provide a secondary connection if the hitch separates",
+          "Replace the coupler latch"
+        ],
+        "answer": 2,
+        "explanation": "Safety connections supplement the hitch rather than replace it."
+      },
+      {
+        "id": "trailer-towing-8",
+        "question": "What should you check about safety-chain length and routing?",
+        "options": [
+          "They prevent any trailer articulation",
+          "Enough turning clearance without dragging, following the manual",
+          "They drag to mark the road",
+          "They are tied to the brake hose"
+        ],
+        "answer": 1,
+        "explanation": "Correct routing must accommodate normal movement without creating hazards."
+      },
+      {
+        "id": "trailer-towing-9",
+        "question": "What is a breakaway brake system intended to do?",
+        "options": [
+          "Apply trailer brakes if the trailer separates",
+          "Disconnect the tow vehicle's steering",
+          "Replace every safety chain",
+          "Inflate the trailer tires"
+        ],
+        "answer": 0,
+        "explanation": "Where fitted, the system uses a separation trigger to apply trailer braking."
+      },
+      {
+        "id": "trailer-towing-10",
+        "question": "What should you do with the trailer jack before travel?",
+        "options": [
+          "Leave it touching the road",
+          "Remove the safety chains to clear it",
+          "Use it as a wheel chock",
+          "Raise and secure it as specified"
+        ],
+        "answer": 3,
+        "explanation": "A deployed jack can strike the road or obstacles."
+      },
+      {
+        "id": "trailer-towing-11",
+        "question": "What is the best way to confirm trailer lights work?",
+        "options": [
+          "Assume the tow vehicle lights prove it",
+          "Test only once per year",
+          "Test each required function before departure",
+          "Check the plug color only"
+        ],
+        "answer": 2,
+        "explanation": "Connections or lamps can fail even if the vehicle lights work."
+      },
+      {
+        "id": "trailer-towing-12",
+        "question": "What is the purpose of a trailer brake controller where required?",
+        "options": [
+          "Charge every trailer appliance automatically",
+          "Control compatible trailer brake application",
+          "Increase tire diameter",
+          "Set engine valve clearance"
+        ],
+        "answer": 1,
+        "explanation": "A controller operates compatible electric trailer brakes according to its setup."
+      },
+      {
+        "id": "trailer-towing-13",
+        "question": "How should cargo be secured?",
+        "options": [
+          "With suitable rated restraints and correct anchor points",
+          "By relying only on its weight",
+          "With loose clothing straps",
+          "By placing a tarp without restraints"
+        ],
+        "answer": 0,
+        "explanation": "Cargo can move during braking, turning and road vibration."
+      },
+      {
+        "id": "trailer-towing-14",
+        "question": "When should restraints and connections be rechecked?",
+        "options": [
+          "Only after cargo falls off",
+          "Only when paint wears",
+          "Never after leaving home",
+          "At safe stops and as the manuals recommend"
+        ],
+        "answer": 3,
+        "explanation": "Loads can settle and connections can loosen during travel."
+      },
+      {
+        "id": "trailer-towing-15",
+        "question": "Why allow extra following distance when towing?",
+        "options": [
+          "The hitch controls traffic",
+          "Trailer tires prevent skids",
+          "The combination needs more room to react and stop",
+          "The trailer always doubles traction"
+        ],
+        "answer": 2,
+        "explanation": "Additional weight and length change stopping and maneuvering needs."
+      },
+      {
+        "id": "trailer-towing-16",
+        "question": "Why do trailer wheels often need extra clearance in a turn?",
+        "options": [
+          "They automatically match the front wheels",
+          "They may track inside the tow vehicle's path",
+          "They always track outside every curve",
+          "They cannot turn at all"
+        ],
+        "answer": 1,
+        "explanation": "Off-tracking can bring trailer wheels close to curbs or obstacles."
+      },
+      {
+        "id": "trailer-towing-17",
+        "question": "Why practice backing in a clear area first?",
+        "options": [
+          "Trailer response differs from the tow vehicle's response",
+          "It changes the trailer's weight rating",
+          "It removes the need for mirrors",
+          "It guarantees no future mistakes"
+        ],
+        "answer": 0,
+        "explanation": "Backing a trailer requires learned steering and observation skills."
+      },
+      {
+        "id": "trailer-towing-18",
+        "question": "What should you inspect on trailer tires?",
+        "options": [
+          "Only sidewall lettering style",
+          "Only valve-cap color",
+          "Only the tread's appearance from afar",
+          "Pressure, condition and load suitability"
+        ],
+        "answer": 3,
+        "explanation": "Use the specified pressure and rating; inspect for damage and deterioration."
+      },
+      {
+        "id": "trailer-towing-19",
+        "question": "Why use wheel chocks when preparing to unhitch on a suitable surface?",
+        "options": [
+          "Replace every parking support",
+          "Reduce electrical current",
+          "Help prevent trailer movement",
+          "Increase hitch-ball capacity"
+        ],
+        "answer": 2,
+        "explanation": "Chocks resist rolling while the trailer is being secured and supported."
+      },
+      {
+        "id": "trailer-towing-20",
+        "question": "What is the best way to know actual loaded trailer weight?",
+        "options": [
+          "Count wheel studs",
+          "Use an appropriate scale",
+          "Estimate from empty dimensions only",
+          "Use the hitch color"
+        ],
+        "answer": 1,
+        "explanation": "Scale measurements help compare the loaded combination with its ratings."
+      }
+    ]
+  },
+  {
+    "slug": "small-engines",
+    "title": "Small-Engine Basics",
+    "category": "Vehicles",
+    "description": "Understand lawn equipment, generators, fuel, ignition and routine maintenance.",
+    "lessons": [
+      {
+        "title": "Identify the engine",
+        "body": "Use the engine model and equipment manual to select fuel, oil, filters and spark plugs. Two-stroke and four-stroke lubrication arrangements can differ."
+      },
+      {
+        "title": "Prevent accidental starting",
+        "body": "Stop the engine, let hot parts cool and isolate ignition and other energy sources as the manual directs before service. Operate combustion engines outdoors."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Briggs & Stratton spark-plug guidance",
+        "url": "https://www.briggsandstratton.com/en-us/support/faqs/identifying-the-correct-spark-plug-and-gap"
+      },
+      {
+        "label": "Briggs & Stratton air-filter guidance",
+        "url": "https://www.briggsandstratton.com/en-us/support/maintenance-how-to/changing-the-air-filter-in-your-briggs-and-stratton-engine"
+      },
+      {
+        "label": "Briggs & Stratton oil guidance",
+        "url": "https://www.briggsandstratton.com/en-us/support/faqs/lawn-mower-oil-change"
+      },
+      {
+        "label": "Ready.gov generator safety",
+        "url": "https://www.ready.gov/power-outages"
+      }
+    ],
+    "questions": [
+      {
+        "id": "small-engines-1",
+        "question": "What should identify the correct maintenance parts for a small engine?",
+        "options": [
+          "Its model information and manual",
+          "Equipment paint color",
+          "Fuel-cap diameter alone",
+          "Any part with a similar picture"
+        ],
+        "answer": 0,
+        "explanation": "Model-specific information helps select compatible service parts."
+      },
+      {
+        "id": "small-engines-2",
+        "question": "What does the air filter protect against?",
+        "options": [
+          "Rain entering the tires",
+          "Overcharging the battery",
+          "Excessive trailer tongue load",
+          "Dirt entering the engine"
+        ],
+        "answer": 3,
+        "explanation": "The filter limits abrasive dirt in intake air."
+      },
+      {
+        "id": "small-engines-3",
+        "question": "Should every foam and paper air filter be serviced the same way?",
+        "options": [
+          "Yes, wash every filter with gasoline",
+          "Yes, remove every filter permanently",
+          "No, follow the filter-specific instructions",
+          "Yes, soak every filter in oil"
+        ],
+        "answer": 2,
+        "explanation": "Filter construction determines the correct cleaning or replacement method."
+      },
+      {
+        "id": "small-engines-4",
+        "question": "What does a carburetor do?",
+        "options": [
+          "Measure blade torque",
+          "Mix fuel and air for combustion",
+          "Store electrical energy",
+          "Adjust tire tread"
+        ],
+        "answer": 1,
+        "explanation": "A carburetor meters fuel into incoming air."
+      },
+      {
+        "id": "small-engines-5",
+        "question": "What does a choke normally do for cold starting?",
+        "options": [
+          "Enrich the mixture by restricting intake air",
+          "Drain the crankcase",
+          "Disconnect the flywheel",
+          "Open the exhaust valve permanently"
+        ],
+        "answer": 0,
+        "explanation": "A choke restricts air to provide a richer starting mixture."
+      },
+      {
+        "id": "small-engines-6",
+        "question": "What should normally happen to a manual choke as the engine warms?",
+        "options": [
+          "Keep it fully closed indefinitely",
+          "Use it to regulate tire pressure",
+          "Remove it from the carburetor",
+          "Move toward the normal running position as instructed"
+        ],
+        "answer": 3,
+        "explanation": "Warm-running operation usually needs less enrichment."
+      },
+      {
+        "id": "small-engines-7",
+        "question": "What is the main function of a spark plug in a gasoline small engine?",
+        "options": [
+          "Pump fuel from the tank",
+          "Cool the flywheel",
+          "Initiate ignition with a spark",
+          "Filter engine oil"
+        ],
+        "answer": 2,
+        "explanation": "The plug provides the spark that ignites the mixture."
+      },
+      {
+        "id": "small-engines-8",
+        "question": "How should you determine spark-plug gap?",
+        "options": [
+          "Match the fuel hose diameter",
+          "Use the engine specification and correct measuring tool",
+          "Use one universal gap for every engine",
+          "Guess from the old plug's color"
+        ],
+        "answer": 1,
+        "explanation": "Plug type and gap are engine-specific."
+      },
+      {
+        "id": "small-engines-9",
+        "question": "What can degraded fuel cause?",
+        "options": [
+          "Starting and running problems",
+          "A guaranteed increase in horsepower",
+          "Permanent elimination of deposits",
+          "Automatic valve adjustment"
+        ],
+        "answer": 0,
+        "explanation": "Fuel quality can deteriorate during storage."
+      },
+      {
+        "id": "small-engines-10",
+        "question": "What should guide fuel-stabilizer use?",
+        "options": [
+          "Double the amount every week",
+          "Use it instead of engine oil",
+          "Mix it with brake fluid",
+          "Product directions and the engine's storage guidance"
+        ],
+        "answer": 3,
+        "explanation": "Use only suitable products at the specified concentration."
+      },
+      {
+        "id": "small-engines-11",
+        "question": "What does a governor generally regulate?",
+        "options": [
+          "Spark-plug thread diameter",
+          "Fuel container capacity",
+          "Engine operating speed under changing load",
+          "Wheel alignment"
+        ],
+        "answer": 2,
+        "explanation": "A governor adjusts engine output to maintain the intended speed."
+      },
+      {
+        "id": "small-engines-12",
+        "question": "What should you do with a governor if the engine seems slow?",
+        "options": [
+          "Remove the spring without checking",
+          "Diagnose using the manual rather than bypassing it",
+          "Disable it to gain RPM",
+          "Tie it at full throttle"
+        ],
+        "answer": 1,
+        "explanation": "Overspeed can damage equipment and create hazards."
+      },
+      {
+        "id": "small-engines-13",
+        "question": "What is the crankcase oil's role in a typical four-stroke engine?",
+        "options": [
+          "Lubricate internal moving parts",
+          "Replace all gasoline",
+          "Inflate the cooling fan",
+          "Regulate the tire valves"
+        ],
+        "answer": 0,
+        "explanation": "Use the specified oil and maintain the correct level."
+      },
+      {
+        "id": "small-engines-14",
+        "question": "Where do many premix two-stroke engines get lubrication?",
+        "options": [
+          "Plain gasoline alone",
+          "Radiator coolant",
+          "Brake fluid",
+          "Oil mixed with fuel at the specified ratio"
+        ],
+        "answer": 3,
+        "explanation": "Premix engines require the specified oil-fuel ratio; other designs may use injection."
+      },
+      {
+        "id": "small-engines-15",
+        "question": "What should you do if you are unsure whether an engine requires premix?",
+        "options": [
+          "Add an arbitrary amount of oil",
+          "Choose based on exhaust color alone",
+          "Check its manual before fueling",
+          "Assume all engines use plain gasoline"
+        ],
+        "answer": 2,
+        "explanation": "Incorrect fuel or lubrication can damage the engine."
+      },
+      {
+        "id": "small-engines-16",
+        "question": "What do cooling fins help do on an air-cooled engine?",
+        "options": [
+          "Control battery voltage",
+          "Transfer engine heat to the air",
+          "Store fuel",
+          "Measure compression"
+        ],
+        "answer": 1,
+        "explanation": "Clean fins and correct airflow help cooling."
+      },
+      {
+        "id": "small-engines-17",
+        "question": "What should happen before working near a mower blade?",
+        "options": [
+          "Stop and isolate the equipment as directed",
+          "Leave it idling",
+          "Rely only on the throttle being low",
+          "Ask someone to hold the blade"
+        ],
+        "answer": 0,
+        "explanation": "Prevent accidental starting and movement before service."
+      },
+      {
+        "id": "small-engines-18",
+        "question": "When should a gasoline-powered engine be refueled?",
+        "options": [
+          "While running",
+          "Over a hot exhaust pipe",
+          "Beside an open flame",
+          "After shutdown and cooling as specified, away from ignition sources"
+        ],
+        "answer": 3,
+        "explanation": "Fuel vapors and hot surfaces create a fire hazard."
+      },
+      {
+        "id": "small-engines-19",
+        "question": "Where should a portable combustion generator run?",
+        "options": [
+          "Inside a basement near a fan",
+          "In an attached porch enclosure",
+          "Outdoors away from building openings according to safety guidance",
+          "Inside a garage with one window open"
+        ],
+        "answer": 2,
+        "explanation": "Generator exhaust can produce lethal carbon monoxide."
+      },
+      {
+        "id": "small-engines-20",
+        "question": "What should you do before restarting equipment after service?",
+        "options": [
+          "Start it at maximum speed immediately",
+          "Check correct reassembly, guards and safe operation",
+          "Remove guards to watch moving parts",
+          "Ignore loose fasteners"
+        ],
+        "answer": 1,
+        "explanation": "Inspection and safe verification help catch assembly errors."
+      }
+    ]
+  },
+  {
+    "slug": "welding-fundamentals",
+    "title": "Welding Fundamentals",
+    "category": "Tools & trades",
+    "description": "Learn welding terminology, joint types and hazard awareness.",
+    "lessons": [
+      {
+        "title": "Learn the process",
+        "body": "Understand the material, joint and welding process before selecting settings. Obtain supervised training before practical work."
+      },
+      {
+        "title": "Control the hazards",
+        "body": "Address fire, fumes, electrical hazards and eye exposure. Protective equipment does not replace ventilation, safe setup or appropriate training."
+      }
+    ],
+    "sources": [
+      {
+        "label": "OSHA welding overview",
+        "url": "https://www.osha.gov/welding-cutting-brazing"
+      },
+      {
+        "label": "OSHA welding hazards",
+        "url": "https://www.osha.gov/welding-cutting-brazing/hazards-solutions"
+      },
+      {
+        "label": "OSHA welding requirements",
+        "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.252"
+      }
+    ],
+    "questions": [
+      {
+        "id": "welding-fundamentals-1",
+        "question": "What is a weld joint?",
+        "options": [
+          "The arrangement where parts are joined by welding",
+          "A fuel-storage fitting",
+          "An electrical meter scale",
+          "A tire inflation tool"
+        ],
+        "answer": 0,
+        "explanation": "Joint configuration determines how parts meet and are joined."
+      },
+      {
+        "id": "welding-fundamentals-2",
+        "question": "What is a butt joint?",
+        "options": [
+          "Two overlapping parts only",
+          "A rod inside a closed tank",
+          "A cable wrapped around a pipe",
+          "Two parts meeting edge to edge"
+        ],
+        "answer": 3,
+        "explanation": "Butt joints join adjoining edges."
+      },
+      {
+        "id": "welding-fundamentals-3",
+        "question": "What is a lap joint?",
+        "options": [
+          "A single uncut plate",
+          "A threaded bolt connection",
+          "One part overlapping another",
+          "Two parts meeting only at their ends"
+        ],
+        "answer": 2,
+        "explanation": "Overlap distinguishes a lap joint."
+      },
+      {
+        "id": "welding-fundamentals-4",
+        "question": "What is a T-joint?",
+        "options": [
+          "A bolted flange",
+          "One part meeting another in a T arrangement",
+          "Two plates joined end to end",
+          "A circular closed seam only"
+        ],
+        "answer": 1,
+        "explanation": "The parts form a T shape before joining."
+      },
+      {
+        "id": "welding-fundamentals-5",
+        "question": "What is filler metal?",
+        "options": [
+          "Material added to form the joint",
+          "Oil used to cool the helmet",
+          "Paint covering the weld",
+          "Insulation around a cable"
+        ],
+        "answer": 0,
+        "explanation": "Filler can come from a rod, wire or electrode, depending on the process."
+      },
+      {
+        "id": "welding-fundamentals-6",
+        "question": "What is the function of shielding gas in applicable welding processes?",
+        "options": [
+          "Cool the worker's hands",
+          "Replace electrical grounding",
+          "Remove all fire risk",
+          "Protect the weld area from atmospheric contamination"
+        ],
+        "answer": 3,
+        "explanation": "Suitable shielding limits atmospheric effects on the molten weld."
+      },
+      {
+        "id": "welding-fundamentals-7",
+        "question": "What does GTAW stand for?",
+        "options": [
+          "Gas transmission air washing",
+          "Ground terminal attachment wiring",
+          "Gas tungsten arc welding",
+          "General trailer axle welding"
+        ],
+        "answer": 2,
+        "explanation": "GTAW uses a tungsten electrode and is commonly called TIG."
+      },
+      {
+        "id": "welding-fundamentals-8",
+        "question": "What does GMAW stand for?",
+        "options": [
+          "Gas manifold axle work",
+          "Gas metal arc welding",
+          "General metal air washing",
+          "Ground motor attachment wiring"
+        ],
+        "answer": 1,
+        "explanation": "GMAW uses a continuously fed consumable wire electrode."
+      },
+      {
+        "id": "welding-fundamentals-9",
+        "question": "What does SMAW stand for?",
+        "options": [
+          "Shielded metal arc welding",
+          "Surface measurement air washing",
+          "Steel motor attachment wiring",
+          "Sealed manifold arc wrapping"
+        ],
+        "answer": 0,
+        "explanation": "SMAW is commonly called stick welding."
+      },
+      {
+        "id": "welding-fundamentals-10",
+        "question": "What is a tack weld used for?",
+        "options": [
+          "Replace every structural weld",
+          "Hide all surface contamination",
+          "Reduce a cylinder's pressure",
+          "Hold parts in position before completing the joint"
+        ],
+        "answer": 3,
+        "explanation": "Tacks help maintain fit-up, but the final procedure still matters."
+      },
+      {
+        "id": "welding-fundamentals-11",
+        "question": "What is weld penetration?",
+        "options": [
+          "Thickness of helmet glass",
+          "Pressure in a gas cylinder",
+          "Depth of fusion into the base material",
+          "Length of a welding cable"
+        ],
+        "answer": 2,
+        "explanation": "Penetration concerns fusion within the joint."
+      },
+      {
+        "id": "welding-fundamentals-12",
+        "question": "What is weld porosity?",
+        "options": [
+          "A type of pipe thread",
+          "Gas cavities in the weld",
+          "Normal electrode length",
+          "A specified cable bend"
+        ],
+        "answer": 1,
+        "explanation": "Trapped gas can leave cavities that affect weld quality."
+      },
+      {
+        "id": "welding-fundamentals-13",
+        "question": "What is slag in processes that produce it?",
+        "options": [
+          "A nonmetallic layer formed from flux",
+          "The shielding-gas regulator",
+          "A type of welding helmet",
+          "An electrical current unit"
+        ],
+        "answer": 0,
+        "explanation": "Slag may need removal between passes according to the procedure."
+      },
+      {
+        "id": "welding-fundamentals-14",
+        "question": "Why clean and identify coatings before welding?",
+        "options": [
+          "Paint always improves fusion",
+          "Rust replaces filler metal",
+          "Coatings eliminate the need for ventilation",
+          "Coatings can affect weld quality and create hazardous fumes"
+        ],
+        "answer": 3,
+        "explanation": "Material preparation must account for both quality and exposure hazards."
+      },
+      {
+        "id": "welding-fundamentals-15",
+        "question": "Why protect nearby people from an arc?",
+        "options": [
+          "It prevents all noise",
+          "It increases electrode life",
+          "Arc radiation can injure exposed eyes and skin",
+          "Arc light makes batteries lose charge"
+        ],
+        "answer": 2,
+        "explanation": "Use suitable screens and other controls for bystanders."
+      },
+      {
+        "id": "welding-fundamentals-16",
+        "question": "What should determine welding lens shade and protective equipment?",
+        "options": [
+          "Only the metal's paint color",
+          "The process, exposure and applicable guidance",
+          "The worker's favorite color",
+          "Only the room temperature"
+        ],
+        "answer": 1,
+        "explanation": "Protection must suit the actual welding conditions."
+      },
+      {
+        "id": "welding-fundamentals-17",
+        "question": "Is a welding helmet alone enough to control welding fumes?",
+        "options": [
+          "No, appropriate fume controls are also needed",
+          "Yes, it filters every gas",
+          "Yes, if the visor is dark",
+          "Yes, if gloves are worn"
+        ],
+        "answer": 0,
+        "explanation": "Eye protection does not provide ventilation or respiratory protection."
+      },
+      {
+        "id": "welding-fundamentals-18",
+        "question": "What should you do before hot work near combustible material?",
+        "options": [
+          "Assume sparks cool instantly",
+          "Hide combustibles beneath paper",
+          "Spray them with fuel",
+          "Remove or protect combustibles and follow the hot-work procedure"
+        ],
+        "answer": 3,
+        "explanation": "Fire prevention must be planned before welding or cutting."
+      },
+      {
+        "id": "welding-fundamentals-19",
+        "question": "What should a beginner do with a used fuel tank needing welding?",
+        "options": [
+          "Assume an empty tank cannot explode",
+          "Test it with an open flame",
+          "Refer it to qualified specialists using approved procedures",
+          "Weld it after a quick rinse"
+        ],
+        "answer": 2,
+        "explanation": "Residual vapors can explode; do not treat empty containers as safe."
+      },
+      {
+        "id": "welding-fundamentals-20",
+        "question": "Why obtain qualified inspection for a safety-critical weld?",
+        "options": [
+          "Every weld has identical strength",
+          "Appearance alone cannot prove the joint is suitable",
+          "A smooth bead always proves full strength",
+          "Paint guarantees penetration"
+        ],
+        "answer": 1,
+        "explanation": "Required inspection and acceptance criteria depend on the application."
+      }
+    ]
+  },
+  {
+    "slug": "electrical-basics",
+    "title": "Electrical & Diagnostic Basics",
+    "category": "Tools & trades",
+    "description": "Practice units, circuits and safe low-voltage diagnostic principles.",
+    "lessons": [
+      {
+        "title": "Understand the circuit",
+        "body": "Trace power, protection, loads and return paths. Compare measurements with a wiring diagram and specifications."
+      },
+      {
+        "title": "Use the correct meter setup",
+        "body": "Inspect leads and select the appropriate function and jacks. Resistance checks require a safely de-energized circuit. This section is introductory, not instruction to work on mains or EV high-voltage systems."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Fluke meter functions and jacks",
+        "url": "https://www.fluke.com/en-us/learn/best-practices/test-tools-basics/digital-multimeters/digital-multimeter-jacks"
+      },
+      {
+        "label": "Fluke multimeter safety manual",
+        "url": "https://assets.fluke.com/manuals/83_1000_smeng0000.pdf"
+      },
+      {
+        "label": "OSHA electrical safety",
+        "url": "https://www.osha.gov/electrical"
+      }
+    ],
+    "questions": [
+      {
+        "id": "electrical-basics-1",
+        "question": "Which unit measures voltage?",
+        "options": [
+          "Volt",
+          "Ampere",
+          "Ohm",
+          "Watt-hour"
+        ],
+        "answer": 0,
+        "explanation": "Voltage is electrical potential difference, measured in volts."
+      },
+      {
+        "id": "electrical-basics-2",
+        "question": "Which unit measures current?",
+        "options": [
+          "Volt",
+          "Ohm",
+          "Millimeter",
+          "Ampere"
+        ],
+        "answer": 3,
+        "explanation": "Current is charge flow, measured in amperes."
+      },
+      {
+        "id": "electrical-basics-3",
+        "question": "Which unit measures resistance?",
+        "options": [
+          "Ampere",
+          "Liter",
+          "Ohm",
+          "Volt"
+        ],
+        "answer": 2,
+        "explanation": "Resistance opposes current and is measured in ohms."
+      },
+      {
+        "id": "electrical-basics-4",
+        "question": "Which unit measures electrical power?",
+        "options": [
+          "Millimeter",
+          "Watt",
+          "Ohm",
+          "Ampere-hour"
+        ],
+        "answer": 1,
+        "explanation": "Power is the rate of energy transfer."
+      },
+      {
+        "id": "electrical-basics-5",
+        "question": "What is Ohm's law for a simple resistor?",
+        "options": [
+          "V = I \u00d7 R",
+          "V = I + R",
+          "V = R \u2212 I",
+          "V = I \u00f7 R"
+        ],
+        "answer": 0,
+        "explanation": "Voltage equals current multiplied by resistance."
+      },
+      {
+        "id": "electrical-basics-6",
+        "question": "A 6-ohm resistor has 12 volts across it. What current flows?",
+        "options": [
+          "72 A",
+          "0.5 A",
+          "18 A",
+          "2 A"
+        ],
+        "answer": 3,
+        "explanation": "Using I = V/R gives 12/6 = 2 amperes."
+      },
+      {
+        "id": "electrical-basics-7",
+        "question": "A load draws 3 A at 12 V. What is its electrical power?",
+        "options": [
+          "15 W",
+          "9 W",
+          "36 W",
+          "4 W"
+        ],
+        "answer": 2,
+        "explanation": "Power equals voltage multiplied by current: 12 \u00d7 3 = 36 watts."
+      },
+      {
+        "id": "electrical-basics-8",
+        "question": "What is an open circuit?",
+        "options": [
+          "A complete path with no interruption",
+          "A broken electrical path",
+          "An unrestricted fuel line",
+          "A correctly charged battery"
+        ],
+        "answer": 1,
+        "explanation": "A broken path prevents intended current flow through it."
+      },
+      {
+        "id": "electrical-basics-9",
+        "question": "What is a short circuit?",
+        "options": [
+          "An unintended low-resistance path",
+          "A cable cut to its ideal length",
+          "A fully isolated circuit",
+          "A normal switch-off condition"
+        ],
+        "answer": 0,
+        "explanation": "A short can allow excessive current through an unintended path."
+      },
+      {
+        "id": "electrical-basics-10",
+        "question": "What does a correctly rated fuse primarily protect against?",
+        "options": [
+          "Every voltage fluctuation",
+          "All corrosion",
+          "Every mechanical vibration",
+          "Overcurrent"
+        ],
+        "answer": 3,
+        "explanation": "A fuse interrupts excessive current under its specified operating conditions."
+      },
+      {
+        "id": "electrical-basics-11",
+        "question": "What should replace a blown fuse after diagnosing the fault?",
+        "options": [
+          "A metal strip",
+          "A wire wrapped around it",
+          "The specified fuse type and rating",
+          "A higher rating to prevent blowing"
+        ],
+        "answer": 2,
+        "explanation": "Increasing the rating or bypassing protection can create a fire hazard."
+      },
+      {
+        "id": "electrical-basics-12",
+        "question": "How is voltage normally measured across a component?",
+        "options": [
+          "With the circuit's fuse removed permanently",
+          "With the meter connected in parallel",
+          "By replacing the component with the meter's current input",
+          "Only by measuring its physical length"
+        ],
+        "answer": 1,
+        "explanation": "Voltage is measured between two points."
+      },
+      {
+        "id": "electrical-basics-13",
+        "question": "What should happen before a resistance measurement?",
+        "options": [
+          "Safely remove power and address stored energy",
+          "Increase circuit voltage",
+          "Switch the meter to its current jack",
+          "Bridge the fuse"
+        ],
+        "answer": 0,
+        "explanation": "Resistance testing uses the meter's source and requires a de-energized circuit."
+      },
+      {
+        "id": "electrical-basics-14",
+        "question": "What does a continuity test generally check?",
+        "options": [
+          "Whether a device can carry full operating load",
+          "Whether a battery has its original capacity",
+          "Whether a wire has the correct color",
+          "Whether a conductive path exists"
+        ],
+        "answer": 3,
+        "explanation": "Continuity does not by itself prove a connection performs well under load."
+      },
+      {
+        "id": "electrical-basics-15",
+        "question": "Why test voltage drop under load?",
+        "options": [
+          "It replaces the wiring diagram",
+          "It increases battery voltage",
+          "A weak connection may appear acceptable without current flow",
+          "It removes every wiring fault"
+        ],
+        "answer": 2,
+        "explanation": "Resistance in a connection produces a voltage drop as current flows."
+      },
+      {
+        "id": "electrical-basics-16",
+        "question": "What is a relay?",
+        "options": [
+          "A tire-pressure sensor only",
+          "An electrically controlled switch",
+          "An air filter",
+          "A brake-fluid reservoir"
+        ],
+        "answer": 1,
+        "explanation": "A relay allows one circuit to control switching in another."
+      },
+      {
+        "id": "electrical-basics-17",
+        "question": "What does DC mean?",
+        "options": [
+          "Direct current",
+          "Double compression",
+          "Digital clearance",
+          "Drive control"
+        ],
+        "answer": 0,
+        "explanation": "DC describes current with a consistent direction."
+      },
+      {
+        "id": "electrical-basics-18",
+        "question": "What does AC mean?",
+        "options": [
+          "Axle compression",
+          "Automatic continuity",
+          "Air capacity",
+          "Alternating current"
+        ],
+        "answer": 3,
+        "explanation": "AC changes direction periodically."
+      },
+      {
+        "id": "electrical-basics-19",
+        "question": "What should you do with a damaged test lead?",
+        "options": [
+          "Hold the exposed conductor",
+          "Ignore damage on low settings",
+          "Stop using it and replace it appropriately",
+          "Wrap bare wire around the probe"
+        ],
+        "answer": 2,
+        "explanation": "Damaged insulation or connections can create shock and measurement hazards."
+      },
+      {
+        "id": "electrical-basics-20",
+        "question": "What is the best first step when unfamiliar with an EV high-voltage system?",
+        "options": [
+          "Probe orange cables experimentally",
+          "Seek qualified training and follow manufacturer safety procedures",
+          "Assume disconnecting the 12-volt battery makes it safe",
+          "Use ordinary gloves as insulation"
+        ],
+        "answer": 1,
+        "explanation": "High-voltage systems require specialized procedures and qualification."
+      }
+    ]
+  },
+  {
+    "slug": "workshop-safety",
+    "title": "Workshop Safety",
+    "category": "Tools & trades",
+    "description": "Recognize common hazards around tools, lifting, machinery and stored energy.",
+    "lessons": [
+      {
+        "title": "Plan the job",
+        "body": "Identify hazards, choose suitable tools and protective equipment, and keep the work area organized. Training and manufacturer instructions come first."
+      },
+      {
+        "title": "Control all energy",
+        "body": "Shutdown alone may not isolate electricity, pressure, springs or gravity. Follow the applicable energy-control procedure before maintenance."
+      }
+    ],
+    "sources": [
+      {
+        "label": "OSHA hand and power tools",
+        "url": "https://www.osha.gov/hand-power-tools"
+      },
+      {
+        "label": "OSHA energy control",
+        "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147"
+      },
+      {
+        "label": "OSHA machine guarding",
+        "url": "https://www.osha.gov/machine-guarding"
+      },
+      {
+        "label": "OSHA hazard communication",
+        "url": "https://www.osha.gov/hazcom"
+      }
+    ],
+    "questions": [
+      {
+        "id": "workshop-safety-1",
+        "question": "What should you do with a damaged hand tool?",
+        "options": [
+          "Remove it from use until properly repaired or replaced",
+          "Use it only on harder jobs",
+          "Hide the damage with paint",
+          "Lend it to someone else"
+        ],
+        "answer": 0,
+        "explanation": "Damaged tools can fail or slip unexpectedly."
+      },
+      {
+        "id": "workshop-safety-2",
+        "question": "What should guide tool selection?",
+        "options": [
+          "Only the tool's color",
+          "Only how heavy it feels",
+          "Only its purchase price",
+          "The task and tool manufacturer's instructions"
+        ],
+        "answer": 3,
+        "explanation": "Use tools suitable for the material and operation."
+      },
+      {
+        "id": "workshop-safety-3",
+        "question": "What is the purpose of a machine guard?",
+        "options": [
+          "Make lubrication unnecessary",
+          "Replace all operator training",
+          "Limit access to hazardous moving parts",
+          "Increase motor voltage"
+        ],
+        "answer": 2,
+        "explanation": "Guards reduce exposure to moving components and other hazards."
+      },
+      {
+        "id": "workshop-safety-4",
+        "question": "What should you do if a guard interferes with the job?",
+        "options": [
+          "Tie it back permanently",
+          "Stop and use an approved setup or procedure",
+          "Remove it and continue",
+          "Hold it open by hand"
+        ],
+        "answer": 1,
+        "explanation": "Do not bypass protective equipment to complete a task."
+      },
+      {
+        "id": "workshop-safety-5",
+        "question": "Why secure a workpiece before drilling?",
+        "options": [
+          "Prevent unexpected movement and improve control",
+          "Increase battery voltage",
+          "Remove every need for eye protection",
+          "Make all bits interchangeable"
+        ],
+        "answer": 0,
+        "explanation": "An unsecured workpiece can rotate or shift."
+      },
+      {
+        "id": "workshop-safety-6",
+        "question": "What is the best practice around rotating machinery?",
+        "options": [
+          "Wear dangling necklaces",
+          "Let sleeves touch the spindle",
+          "Use loose gloves near every rotating part",
+          "Secure loose clothing, hair and jewelry"
+        ],
+        "answer": 3,
+        "explanation": "Entanglement hazards require clothing and PPE choices suited to the equipment."
+      },
+      {
+        "id": "workshop-safety-7",
+        "question": "What should you do before changing a power-tool accessory?",
+        "options": [
+          "Leave it plugged in and cover the switch",
+          "Ask a helper to slow the spindle",
+          "Isolate power as directed by the manufacturer",
+          "Keep the trigger pressed"
+        ],
+        "answer": 2,
+        "explanation": "Accidental starting during accessory changes can cause injury."
+      },
+      {
+        "id": "workshop-safety-8",
+        "question": "Why inspect a power cord before use?",
+        "options": [
+          "Inspection replaces all protective devices",
+          "Damage can expose electrical hazards",
+          "Cord color determines voltage",
+          "A long cord always carries more current safely"
+        ],
+        "answer": 1,
+        "explanation": "Check insulation, plugs and connections before use."
+      },
+      {
+        "id": "workshop-safety-9",
+        "question": "What should you do when a tool starts vibrating abnormally?",
+        "options": [
+          "Stop and investigate safely",
+          "Press harder",
+          "Remove its guards",
+          "Increase speed immediately"
+        ],
+        "answer": 0,
+        "explanation": "Abnormal vibration may indicate damage or incorrect setup."
+      },
+      {
+        "id": "workshop-safety-10",
+        "question": "What does a safety data sheet provide?",
+        "options": [
+          "A universal repair price",
+          "The owner's phone contacts",
+          "Tool warranty status only",
+          "Information about a chemical's hazards and precautions"
+        ],
+        "answer": 3,
+        "explanation": "SDS information supports safe handling and exposure controls."
+      },
+      {
+        "id": "workshop-safety-11",
+        "question": "Why label chemical containers appropriately?",
+        "options": [
+          "Make incompatible chemicals safe to mix",
+          "Replace all ventilation",
+          "Prevent misidentification and communicate hazards",
+          "Increase shelf life indefinitely"
+        ],
+        "answer": 2,
+        "explanation": "Clear identification helps avoid accidental misuse."
+      },
+      {
+        "id": "workshop-safety-12",
+        "question": "What should you do with an unexpected spill?",
+        "options": [
+          "Ignore it until the next shift",
+          "Isolate the hazard and follow the appropriate cleanup procedure",
+          "Wash every spill into a storm drain",
+          "Mix it with another chemical"
+        ],
+        "answer": 1,
+        "explanation": "The material and circumstances determine safe cleanup."
+      },
+      {
+        "id": "workshop-safety-13",
+        "question": "What is a pinch point?",
+        "options": [
+          "An area where body parts can be caught between moving or closing objects",
+          "A marked toolbox drawer",
+          "A temperature sensor",
+          "A lubrication fitting"
+        ],
+        "answer": 0,
+        "explanation": "Crushing and trapping hazards occur where movement closes a gap."
+      },
+      {
+        "id": "workshop-safety-14",
+        "question": "What is stored energy?",
+        "options": [
+          "Only current flowing in a live cord",
+          "Only heat from sunlight",
+          "Only a running engine's fuel use",
+          "Energy remaining in systems such as springs, pressure or raised loads"
+        ],
+        "answer": 3,
+        "explanation": "A stopped machine can still contain hazardous energy."
+      },
+      {
+        "id": "workshop-safety-15",
+        "question": "Does pressing a stop button necessarily isolate all hazardous energy?",
+        "options": [
+          "Yes, if the lamp turns off",
+          "Yes, if the machine is quiet",
+          "No, isolation and verification may still be required",
+          "Yes, it always disconnects every source"
+        ],
+        "answer": 2,
+        "explanation": "Control switches do not necessarily isolate the energy source."
+      },
+      {
+        "id": "workshop-safety-16",
+        "question": "Who should carry out workplace lockout procedures?",
+        "options": [
+          "Anyone standing nearby",
+          "Trained authorized personnel under the applicable procedure",
+          "Anyone who finds a spare padlock",
+          "Only the newest worker"
+        ],
+        "answer": 1,
+        "explanation": "Energy control requires appropriate authorization, training and procedures."
+      },
+      {
+        "id": "workshop-safety-17",
+        "question": "Why use rated lifting equipment?",
+        "options": [
+          "Loads must remain within equipment capacity",
+          "A larger hook makes ratings irrelevant",
+          "Ratings apply only outdoors",
+          "Paint color guarantees strength"
+        ],
+        "answer": 0,
+        "explanation": "Capacity and correct use matter for every lift."
+      },
+      {
+        "id": "workshop-safety-18",
+        "question": "What should you do when a suspended load is overhead?",
+        "options": [
+          "Walk beneath it quickly",
+          "Stand under it to guide it",
+          "Hold it up with a broom",
+          "Keep clear of the load and its potential fall path"
+        ],
+        "answer": 3,
+        "explanation": "A suspended load can fall or move unexpectedly."
+      },
+      {
+        "id": "workshop-safety-19",
+        "question": "Why keep exits and walkways clear?",
+        "options": [
+          "Increase tool speed",
+          "Improve welding penetration",
+          "Permit safe movement and emergency escape",
+          "Reduce battery charging time"
+        ],
+        "answer": 2,
+        "explanation": "Obstructions create trip hazards and delay evacuation."
+      },
+      {
+        "id": "workshop-safety-20",
+        "question": "When should you stop a job and ask for help?",
+        "options": [
+          "Never if the deadline is close",
+          "When the procedure, equipment or hazard is beyond your training",
+          "Only after an injury",
+          "Only after the tool breaks"
+        ],
+        "answer": 1,
+        "explanation": "Recognizing your limits is part of safe work."
+      }
+    ]
+  },
+  {
+    "slug": "parts-project-planning",
+    "title": "Parts & Project Planning",
+    "category": "Projects",
+    "description": "Practice fitment checks, inspection, budgeting and responsible buying or selling.",
+    "lessons": [
+      {
+        "title": "Confirm compatibility",
+        "body": "Match model, year, application, part numbers and relevant dimensions. Ask for clear photos and verify important details with manufacturer information."
+      },
+      {
+        "title": "Plan the complete repair",
+        "body": "Include related parts, fluids, tools and verification in your budget. Describe used parts honestly and protect private information in listings."
+      }
+    ],
+    "sources": [
+      {
+        "label": "APG buying and selling safety",
+        "url": "/safety"
+      },
+      {
+        "label": "APG community guidelines",
+        "url": "/community-guidelines"
+      },
+      {
+        "label": "APG Directory",
+        "url": "/shops"
+      },
+      {
+        "label": "APG Toolbox",
+        "url": "/toolbox"
+      }
+    ],
+    "questions": [
+      {
+        "id": "parts-project-planning-1",
+        "question": "What is the strongest fitment check before buying a replacement part?",
+        "options": [
+          "Verified application data and compatible part specifications",
+          "Matching paint color",
+          "A similar-looking photo only",
+          "The seller's first name"
+        ],
+        "answer": 0,
+        "explanation": "Confirm the intended application and specifications rather than appearance alone."
+      },
+      {
+        "id": "parts-project-planning-2",
+        "question": "Why ask for a part number?",
+        "options": [
+          "It proves the part is undamaged",
+          "It guarantees a warranty",
+          "It determines shipping cost exactly",
+          "It helps identify the component and verify cross-references"
+        ],
+        "answer": 3,
+        "explanation": "Part numbers help identification but do not establish condition."
+      },
+      {
+        "id": "parts-project-planning-3",
+        "question": "What should you do when a listing's compatibility is unclear?",
+        "options": [
+          "Modify safety-critical parts to force a fit",
+          "Buy only by color",
+          "Ask for details and verify before buying",
+          "Assume all years fit"
+        ],
+        "answer": 2,
+        "explanation": "Clarification reduces the risk of buying an unsuitable part."
+      },
+      {
+        "id": "parts-project-planning-4",
+        "question": "What is useful in photos of a used part?",
+        "options": [
+          "Only the shipping label",
+          "Multiple clear views of markings and condition",
+          "Only a distant photo of the box",
+          "Only a stock photo with no condition details"
+        ],
+        "answer": 1,
+        "explanation": "Actual detailed photos help buyers assess the item."
+      },
+      {
+        "id": "parts-project-planning-5",
+        "question": "How should a seller describe a known defect?",
+        "options": [
+          "Clearly disclose it in the listing",
+          "Hide it behind vague praise",
+          "Wait until after payment",
+          "Describe the part as new"
+        ],
+        "answer": 0,
+        "explanation": "Honest condition descriptions help buyers make informed decisions."
+      },
+      {
+        "id": "parts-project-planning-6",
+        "question": "What does untested mean in a used-parts listing?",
+        "options": [
+          "Guaranteed to work perfectly",
+          "Factory certified",
+          "Automatically suitable for every vehicle",
+          "Operation has not been verified"
+        ],
+        "answer": 3,
+        "explanation": "Untested status should not be treated as a performance guarantee."
+      },
+      {
+        "id": "parts-project-planning-7",
+        "question": "Why keep dimensions and units together?",
+        "options": [
+          "Replace all part numbers",
+          "Guarantee all bolt patterns match",
+          "Avoid confusion between measurement systems",
+          "Increase the item's weight rating"
+        ],
+        "answer": 2,
+        "explanation": "A number without a unit can lead to a wrong selection."
+      },
+      {
+        "id": "parts-project-planning-8",
+        "question": "What should a repair budget include besides the main part?",
+        "options": [
+          "Only the seller's travel distance",
+          "Related supplies, tools and possible labor",
+          "Only the advertised part price",
+          "Only the item's paint finish"
+        ],
+        "answer": 1,
+        "explanation": "The full project may require seals, fluids, fasteners or professional work."
+      },
+      {
+        "id": "parts-project-planning-9",
+        "question": "Why identify the fault before ordering parts?",
+        "options": [
+          "Avoid replacing components without evidence",
+          "Ensure every job uses more parts",
+          "Make diagnostic tools unnecessary",
+          "Guarantee the first guess is right"
+        ],
+        "answer": 0,
+        "explanation": "Diagnosis helps select a repair based on the actual cause."
+      },
+      {
+        "id": "parts-project-planning-10",
+        "question": "How should you compare two suppliers' prices?",
+        "options": [
+          "Compare headline prices without shipping",
+          "Assume the cheapest photo is identical",
+          "Ignore condition and quantity",
+          "Compare compatible items and total cost with stated terms"
+        ],
+        "answer": 3,
+        "explanation": "Fitment, quantity, condition, shipping and terms affect the comparison."
+      },
+      {
+        "id": "parts-project-planning-11",
+        "question": "What should you check before relying on a return option?",
+        "options": [
+          "Only whether a photo exists",
+          "Assume all used parts can be returned",
+          "The seller's stated return terms",
+          "Only the package color"
+        ],
+        "answer": 2,
+        "explanation": "Return conditions differ and should be understood before purchase."
+      },
+      {
+        "id": "parts-project-planning-12",
+        "question": "What is important when packing a sharp or heavy part?",
+        "options": [
+          "Wrapping only the invoice",
+          "Suitable padding, containment and a strong package",
+          "A thin grocery bag",
+          "Leaving sharp edges exposed"
+        ],
+        "answer": 1,
+        "explanation": "Packaging should prevent movement, punctures and handling damage."
+      },
+      {
+        "id": "parts-project-planning-13",
+        "question": "What should you do before shipping a battery or fluid-containing component?",
+        "options": [
+          "Check carrier restrictions and safe packaging requirements",
+          "Assume all parcels are accepted",
+          "Conceal the contents",
+          "Leak-test it over other packages"
+        ],
+        "answer": 0,
+        "explanation": "Some items require special handling or may be restricted."
+      },
+      {
+        "id": "parts-project-planning-14",
+        "question": "Which information should you avoid exposing in a public listing?",
+        "options": [
+          "The item's condition",
+          "Its relevant part number",
+          "Clear photos of the item",
+          "Private account or identity documents"
+        ],
+        "answer": 3,
+        "explanation": "Keep financial and identity information private."
+      },
+      {
+        "id": "parts-project-planning-15",
+        "question": "What is a warning sign during an online transaction?",
+        "options": [
+          "A clear defect description",
+          "A request for another part photo",
+          "Pressure to share verification codes or pay by an unusual method",
+          "A request for item dimensions"
+        ],
+        "answer": 2,
+        "explanation": "Verification codes and payment pressure can be scam indicators."
+      },
+      {
+        "id": "parts-project-planning-16",
+        "question": "Where is a sensible place to arrange a local exchange?",
+        "options": [
+          "A location requiring account passwords",
+          "A suitable public location with a safety plan",
+          "An isolated location demanded at the last moment",
+          "A place where you cannot contact anyone"
+        ],
+        "answer": 1,
+        "explanation": "Choose arrangements that support personal safety and inspection."
+      },
+      {
+        "id": "parts-project-planning-17",
+        "question": "What should you confirm before buying safety-critical used components?",
+        "options": [
+          "Suitability and condition through appropriate qualified assessment",
+          "That they are shiny",
+          "That the seller used the word racing",
+          "That they are cheaper than new"
+        ],
+        "answer": 0,
+        "explanation": "Some components are unsuitable for reuse; expert assessment may be necessary."
+      },
+      {
+        "id": "parts-project-planning-18",
+        "question": "Why label removed parts and fasteners during disassembly?",
+        "options": [
+          "Make cleaning unnecessary",
+          "Eliminate torque specifications",
+          "Guarantee every part can be reused",
+          "Help track locations and reassembly requirements"
+        ],
+        "answer": 3,
+        "explanation": "Labels and notes reduce assembly errors."
+      },
+      {
+        "id": "parts-project-planning-19",
+        "question": "What should happen after a project is complete?",
+        "options": [
+          "Discard every specification",
+          "Skip inspection if it looks clean",
+          "Verify function safely and record relevant work",
+          "Assume assembly alone proves success"
+        ],
+        "answer": 2,
+        "explanation": "Safe verification checks whether the intended result was achieved."
+      },
+      {
+        "id": "parts-project-planning-20",
+        "question": "What should you do when a part cannot be safely reused?",
+        "options": [
+          "Hide it inside another item",
+          "Follow suitable recycling or disposal guidance",
+          "Sell it as fully functional",
+          "Dump it into a waterway"
+        ],
+        "answer": 1,
+        "explanation": "Responsible disposal and honest descriptions protect others and the environment."
+      }
+    ]
+  }
+]
