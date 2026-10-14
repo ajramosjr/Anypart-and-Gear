@@ -23,7 +23,7 @@ import { createClient } from "@/lib/supabase/client";
 
 const actions = [
   { href: "/marketplace#listings", label: "Find parts & gear", icon: Search },
-  { href: "/sell", label: "Post an item", icon: Tag },
+  { href: "/sell", label: "Post an Item", icon: Tag },
   { href: "/shops", label: "Explore shops", icon: Store },
   { href: "/toolbox", label: "Open APG Toolbox", icon: Wrench },
   { href: "/account", label: "Account help", icon: CircleHelp },
@@ -327,7 +327,7 @@ export function GearsAssistant() {
     } else if (/part|where can i get/.test(normalized)) {
       void searchListings(question);
     } else if (/business|shop|inventory|bulk/.test(normalized)) {
-      addMessage("gears", "Businesses can create a free APG profile to promote their specialty, services, hours and website, and let buyers contact them directly. Listing individual parts is optional. To add an individual item later, use Post an item. APG reviews public business details before unlocking Parts Wanted requests.");
+      addMessage("gears", "Businesses can create a free APG profile to promote their specialty, services, hours and website, and let buyers contact them directly. Listing individual parts is optional. To add an individual item later, use Post an Item. APG reviews public business details before unlocking Parts Wanted requests.");
     } else if (/reply|message|contact|offer|available/.test(normalized)) {
       addMessage("gears", "Message templates:\n• Is this still available?\n• Can you confirm the part number and condition?\n• What year, make, model, and engine did it come from?\n• Would you consider $___?\n• Where would you prefer to meet safely?\nNever include passwords, verification codes, or sensitive payment information.");
     } else if (/account|sign in|login|password|email/.test(normalized)) {
@@ -453,7 +453,7 @@ export function GearsAssistant() {
       : "Quality check: your written details are strong. Add clear photos before publishing.";
     addMessage(
       "gears",
-      `Your listing plan is ready:\n\nTitle: ${updatedDraft.item}\nCategory: ${category}\nCondition: ${condition}\nPrice: ${updatedDraft.price}\nLocation: ${updatedDraft.location}\nDescription: ${updatedDraft.description}\n\n${qualityText}\n\nAdd photos of the full item, model or part number, connectors, mounting points, and any wear. ${pathname === "/sell" ? "I filled the Sell form for you. Close me to review it, add photos, and publish when ready." : "Open Post an item below when you’re ready."}`,
+      `Your listing plan is ready:\n\nTitle: ${updatedDraft.item}\nCategory: ${category}\nCondition: ${condition}\nPrice: ${updatedDraft.price}\nLocation: ${updatedDraft.location}\nDescription: ${updatedDraft.description}\n\n${qualityText}\n\nAdd photos of the full item, model or part number, connectors, mounting points, and any wear. ${pathname === "/sell" ? "I filled the Sell form for you. Close me to review it, add photos, and publish when ready." : "Open Post an Item below when you’re ready."}`,
     );
   }
 
@@ -520,7 +520,7 @@ export function GearsAssistant() {
               <nav className={styles.actions} aria-label="Helpful APG links">
                 {(audience === "customer" ? actions.filter(action => ["/marketplace#listings", "/shops", "/toolbox"].includes(action.href)) : [
                   { href: "/shops/register", label: "Create business profile", icon: Store },
-                  { href: "/sell", label: "List an item", icon: Tag },
+                  { href: "/sell", label: "Post an Item", icon: Tag },
                   { href: "/messages", label: "APG Messages", icon: MessageCircleQuestion },
                 ]).map(({href, label, icon: Icon}) => <Link className={styles.action} key={href} href={href} onClick={() => setOpen(false)}><Icon size={18} aria-hidden="true"/>{label}</Link>)}
               </nav>

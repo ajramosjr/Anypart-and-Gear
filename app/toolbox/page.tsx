@@ -26,7 +26,7 @@ export default async function ToolboxPage() {
             <Link href="/shops">Repair Shops &amp; Parts Suppliers</Link>
             <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
             <Link href="/links">Courses &amp; Training</Link>
-            <Link href="/sell">Post an item</Link>
+            <Link href="/sell">Post an Item</Link>
             <details className="dashboard-menu">
               <summary>Menu</summary>
               <div className="dashboard-menu-links">
@@ -34,7 +34,7 @@ export default async function ToolboxPage() {
                 <Link href="/shops">Repair Shops &amp; Parts Suppliers</Link>
                 <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
                 <Link href="/links">Courses &amp; Training</Link>
-                <Link href="/sell">Post an item</Link>
+                <Link href="/sell">Post an Item</Link>
               </div>
             </details>
           </nav>
