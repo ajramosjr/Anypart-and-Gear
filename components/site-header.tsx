@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, ChevronDown, ClipboardList, Menu, MessageSquare, Package, Store, Tag, UserRound, X } from "lucide-react";
 import ApgLogo from "@/components/apg-logo";
 import { TechWireLink } from "@/components/tech-wire-navigation";
+import { BuildIdeasLink } from "@/components/build-ideas-navigation";
 import InstallApp from "@/app/install-app";
 
 type SiteHeaderProps = {
@@ -42,6 +43,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
             <div className="grid gap-1 pl-9">
               <Link className={childClass} href="/how-things-work.html">How Things Work</Link>
               <Link className={childClass} href="/toolbox">APG Toolbox</Link>
+              <BuildIdeasLink className={childClass} href="/build-ideas">APG Build Ideas</BuildIdeasLink>
               <Link className={childClass} href="/practice-tests">Practice Tests</Link>
               <Link className={childClass} href="/links">Courses &amp; Training</Link>
               <Link className={childClass} href="/shout-outs">APG Shout-Outs</Link>

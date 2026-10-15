@@ -7,6 +7,7 @@ import TechWireEditor from "./tech-wire-editor";
 import type { DatabaseTechArticle } from "@/app/tech-wire/article-store";
 import ApgLogo from "@/components/apg-logo";
 import TechWireControls from "./tech-wire-controls";
+import BuildIdeasControls from "./build-ideas-controls";
 import CommunityControls from "./community-controls";
 import SignupFunnel from "./signup-funnel";
 
@@ -24,8 +25,8 @@ function safeWebsite(value: string | null) {
   }
 }
 
-export default async function AdminPage({ searchParams }: { searchParams: Promise<{ community?: string; techWire?: string }> }) {
-  const { community, techWire } = await searchParams;
+export default async function AdminPage({ searchParams }: { searchParams: Promise<{ community?: string; techWire?: string; buildIdeas?: string }> }) {
+  const { community, techWire, buildIdeas } = await searchParams;
   const user = await getUser();
   if (!user) redirect("/login?next=/admin");
   if (user.app_metadata?.role !== "admin") redirect("/account");
@@ -51,6 +52,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     <SignupFunnel totals={funnel} unavailable={Boolean(funnelError)} />
     <CommunityControls message={community} />
     <TechWireControls message={techWire} />
+    <BuildIdeasControls message={buildIdeas} />
     <TechWireEditor initialArticles={(articles || []) as DatabaseTechArticle[]} userId={user.id} />
     <h2 className="admin-section">Listing reports</h2><div className="admin-list">{((reports || []) as unknown as Report[]).map((report) => <article className="admin-row" key={report.id}><div><strong>{report.reason}</strong><p>{report.listings?.title || (report.reason.startsWith("Directory:") ? "Directory business report" : "Removed listing")}</p>{report.details && <small>{report.details}</small>}</div><ReportAction id={report.id} status={report.status} /></article>)}{!reports?.length && <p>No reports waiting.</p>}</div>
     <h2 className="admin-section">Business activation requests</h2><p className="admin-section-note">Confirm that the account holder is authorized to represent the business using an official business email or a callback to its published number before approving activation. Approval enables Parts Wanted access and APG Messages. No licenses or identity documents are uploaded.</p><div className="admin-list">{((shops || []) as Shop[]).map((shop) => <article className="admin-row" key={shop.id}><div><strong>{shop.name}</strong><p>{shop.specialty} · {shop.location} {shop.postal_code}</p>{safeWebsite(shop.website) && <a href={safeWebsite(shop.website)!} target="_blank" rel="noopener noreferrer nofollow">Review public business page</a>}<small>{shop.is_verified ? "APG Messages enabled" : "Activation pending"}</small><p><Link href={`/admin/business-post?shop=${shop.id}`}>Post a shop-approved photo for this business</Link></p></div><VerifyShop id={shop.id} verified={shop.is_verified} /></article>)}{!shops?.length && <p>No shops registered yet.</p>}</div>

@@ -7,6 +7,8 @@ import PasswordRecoveryRedirect from "@/components/password-recovery-redirect";
 import VisitCounter from "@/components/visit-counter";
 import { getTechWireState } from "@/lib/tech-wire";
 import { TechWireNavigationProvider } from "@/components/tech-wire-navigation";
+import { getBuildIdeasState } from "@/lib/build-ideas";
+import { BuildIdeasNavigationProvider } from "@/components/build-ideas-navigation";
 import "./globals.css";
 import "./listing-overrides.css";
 
@@ -49,7 +51,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { enabled } = await getTechWireState();
+  const [{ enabled }, buildIdeas] = await Promise.all([getTechWireState(), getBuildIdeasState()]);
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
       <head>
@@ -61,7 +63,7 @@ export default async function RootLayout({
         {/* Preserve AvantLink’s exact temporary ownership tag for its source checker. */}
         <div hidden dangerouslySetInnerHTML={{ __html: "<script type=\"text/javascript\" src=\"http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007\"></script>" }} />
         <PasswordRecoveryRedirect />
-        <TechWireNavigationProvider enabled={enabled}>{children}</TechWireNavigationProvider>
+        <TechWireNavigationProvider enabled={enabled}><BuildIdeasNavigationProvider enabled={buildIdeas.enabled}>{children}</BuildIdeasNavigationProvider></TechWireNavigationProvider>
         <GearsAssistant />
         <VisitCounter />
         <Analytics />
