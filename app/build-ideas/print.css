@@ -1,1 +1,10 @@
-@media print { body:has(.build-ideas-page) .no-print { display: none !important; } body:has(.build-ideas-page) { background: white; color: black; } .build-ideas-page .page-shell { max-width: none; padding: 0; } .build-ideas-page article { border: 0; padding: 0; } .build-ideas-page section { break-inside: avoid; } }
+@media print {
+  body:has(.build-ideas-page) .no-print { display: none !important; }
+  body:has(.build-ideas-page) { background: white; color: black; }
+  body:has(.build-ideas-page) > div:not(:has(.build-ideas-page)), body:has(.build-ideas-page) [data-assistant] { display: none !important; }
+  .build-ideas-page .page-shell { max-width: none; padding: 0; }
+  .build-ideas-page .build-stage { break-before: page; border: 0; padding: 0; }
+  .build-ideas-page .build-picture { max-width: 520px; break-inside: avoid; }
+  .build-ideas-page li, .build-ideas-page tr { break-inside: avoid; }
+  .build-ideas-page a { color: black; }
+}
