@@ -1,19 +1,17 @@
 "use client";
-import { AwarenessBanner, SeasonalLogo } from "@/components/october-awareness";
+import SiteHeader from "@/components/site-header";
+import { AwarenessBanner } from "@/components/october-awareness";
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TechWireLink } from "@/components/tech-wire-navigation";
-import { Anchor, Bike, Car, Drill, Factory, Gamepad2, Heart, LayoutDashboard, LoaderCircle, Mail, MapPin, Menu, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Tag, Truck, X } from "lucide-react";
+import { Anchor, Bike, Car, Drill, Factory, Gamepad2, Heart, LoaderCircle, Mail, MapPin, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Tag, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import InstallApp from "./install-app";
 import { getSubaruParts } from "@/lib/part-out";
 import SellerBadges from "@/components/seller-badges";
-import NotificationBell from "@/components/notification-bell";
 
 type Listing = { id: number | string; title: string; description: string; price: number; category: string; condition: string; location: string; seller: string; contactEmail?: string; contactPhone?: string; status?: string; imageUrl?: string | null; imageUrls?: string[]; year?: string; make?: string; model?: string; engine?: string; mileageHours?: string; transmission?: string; partNumber?: string; brand?: string; size?: string; color?: string; quantity?: string; emailVerified?: boolean; trustedSeller?: boolean; verifiedBusiness?: boolean; badge?: string; tone?: string };
 
@@ -53,7 +51,7 @@ function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; t
 
 export default function Marketplace({ user, signInPath, signOutPath, listings, locations, initialLocation, initialQuery, initialCategory, initialSort }: { user: { id: string; name: string; email: string } | null; signInPath: string; signOutPath: string; listings: Listing[]; locations: string[]; initialLocation: string; initialQuery: string; initialCategory: string; initialSort: string }) {
   const [query, setQuery] = useState(initialQuery); const [category, setCategory] = useState(initialCategory); const [sort, setSort] = useState(initialSort);
-  const [mobileNav, setMobileNav] = useState(false); const [favorites, setFavorites] = useState<Set<string | number>>(new Set());
+  const [favorites, setFavorites] = useState<Set<string | number>>(new Set());
   const all = listings;
   const shown = useMemo(() => {
     let values = all.filter(x => (category === "All" || x.category === category) && `${x.title} ${x.description} ${x.seller}`.toLowerCase().includes(query.toLowerCase()));
@@ -77,38 +75,7 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, l
 
   return <main className="mechanical-shell min-h-screen bg-[#eef1f4] text-slate-950">
     <Toaster richColors position="top-center" />
-    <header className="apg-site-header sticky top-0 z-40 border-b border-slate-200 bg-white/95 text-slate-900 backdrop-blur">
-      <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center py-2 gap-3 px-4 sm:gap-4 sm:px-6 2xl:gap-6">
-        <Link href="/" className="apg-brand" aria-label="Any-Part and Gear home"><SeasonalLogo alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="apg-brand-logo" priority /></Link>
-        <nav className="ml-auto hidden items-center gap-4 text-sm font-semibold 2xl:flex"><a href="#listings">Marketplace</a><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link><Link href="/parts-wanted">Parts Wanted</Link><TechWireLink href="/tech-wire">Parts &amp; Industry News</TechWireLink></nav>
-        <div className="ml-auto flex min-w-0 items-center gap-2 2xl:ml-2"><Link href="/garage-gear" className="apg-header-control flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-bold">Tools &amp; Work Gear</Link><InstallApp/>{user&&<NotificationBell userId={user.id}/>} {user?<Button asChild variant="ghost" className="hidden text-slate-900 hover:bg-slate-100 sm:inline-flex"><a href="/account"><LayoutDashboard className="size-4"/> My listings</a></Button>:<Button asChild variant="ghost" className="hidden text-slate-900 hover:bg-slate-100 sm:inline-flex"><a href={signInPath}>Sign in</a></Button>}<Button asChild className="gold-button h-11 px-3 text-sm font-bold sm:px-5 sm:text-base"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> <span className="sm:hidden">Post</span><span className="hidden sm:inline">Post an Item</span></a></Button><Button variant="ghost" size="icon" className="apg-header-control text-slate-900" onClick={()=>setMobileNav(!mobileNav)} aria-label="Menu" aria-expanded={mobileNav} aria-controls="marketplace-mobile-menu">{mobileNav?<X/>:<Menu/>}</Button></div>
-      </div>
-      {mobileNav && <nav id="marketplace-mobile-menu" aria-label="Main menu" onClick={(event)=>{if ((event.target as HTMLElement).closest("a")) setMobileNav(false);}} onKeyDown={(event)=>{if(event.key === "Escape") setMobileNav(false);}} className="absolute right-4 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] gap-1 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
-        <a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="#listings">Browse Marketplace</a>
-        <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href={user?"/sell":"/login?next=/sell"}>Post an Item</Link>
-        <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Repair Shops &amp; Parts Suppliers</Link>
-        <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
-        <details className="border-t border-slate-200 pt-1">
-          <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">Learn &amp; Resources</summary>
-          <div className="grid gap-1 pl-3">
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/how-things-work.html">How Things Work</Link><TechWireLink className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</TechWireLink>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/practice-tests">Practice Tests</Link><Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shout-outs">APG Shout-Outs</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/safety">Safety tips</Link>
-          </div>
-        </details>
-        {user ? <details className="border-t border-slate-200 pt-1">
-          <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">My Account</summary>
-          <div className="grid gap-1 pl-3">
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/account">My account</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/messages">Messages</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/notifications">Notifications</Link>
-            <a className="rounded-lg px-3 py-2 text-red-700 hover:bg-red-50" href={signOutPath}>Sign out</a>
-          </div>
-        </details> : <a className="rounded-lg px-3 py-2 hover:bg-slate-100" href={signInPath}>Sign in or create account</a>}
-      </nav>}
-
-    </header>
+    <SiteHeader signedIn={Boolean(user)} current="marketplace" signInPath={signInPath} signOutPath={signOutPath} />
     <AwarenessBanner />
 
     <section className="border-b border-slate-200 bg-white"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><p className="eyebrow">APG Marketplace</p><h1 className="mt-2 text-3xl font-black tracking-tight sm:text-5xl">Browse Marketplace</h1><p className="mt-3 text-slate-600">Search individual sellers’ listings by city or town, choose a category, or sort by price. Find business pages in Repair Shops & Parts Suppliers.</p>

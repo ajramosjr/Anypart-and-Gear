@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Wrench, Drill, Search, Package, Shirt, ShieldCheck } from "lucide-react";
-import ApgLogo from "@/components/apg-logo";
+import SiteHeader from "@/components/site-header";
+import { getUser } from "@/lib/auth";
+import { getCommunityState } from "@/lib/community";
 import { amazonSearchUrl } from "@/lib/affiliate";
 
 export const metadata = { title: "Tools & Work Gear | Any Part & Gear", description: "Explore tools, diagnostics, workwear, marine supplies and hobby gear with APG." };
@@ -79,15 +81,10 @@ function AdditionalGearArt({ title }: { title: string }) {
 function AffiliateCard({ title, detail, query }: { title: string; detail: string; query: string }) {
   return <article className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5"><AdditionalGearArt title={title} /><h3 className="text-lg font-extrabold">{title}</h3><p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{detail}</p><a href={amazonSearchUrl(query)} target="_blank" rel="noopener noreferrer sponsored nofollow" className={linkStyle}>Explore on Amazon <ArrowRight size={17} aria-hidden="true" /></a></article>;
 }
-export default function GarageGearPage() {
+export default async function GarageGearPage() {
+  const [user, community] = await Promise.all([getUser(), getCommunityState()]);
   return <main className="min-h-screen bg-white text-[#071a35]">
-    <header className="apg-site-header border-b border-slate-200 bg-white">
-      <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
-        <ApgLogo priority />
-        <nav aria-label="Primary navigation" className="hidden items-center gap-6 text-sm font-bold md:flex"><Link href="/marketplace">Marketplace</Link><Link href="/shops">Directory</Link><Link href="/garage-gear" aria-current="page" className="border-b-2 border-[#aa7c20] py-2 text-[#805b13]">Tools &amp; Work Gear</Link></nav>
-        <details className="relative"><summary aria-label="Menu" className="apg-header-control flex min-h-11 cursor-pointer list-none items-center rounded-lg px-3 py-2 text-xl [&::-webkit-details-marker]:hidden">☰</summary><nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid w-60 gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-bold shadow-xl"><Link className="rounded-lg px-3 py-3 hover:bg-slate-100" href="/marketplace">Marketplace</Link><Link className="rounded-lg px-3 py-3 hover:bg-slate-100" href="/shops">Shops &amp; Suppliers</Link><details><summary className="cursor-pointer rounded-lg px-3 py-3 hover:bg-slate-100">Learn &amp; Resources</summary><div className="grid gap-1 pl-3"><Link className="px-3 py-3" href="/toolbox">APG Toolbox</Link><Link className="px-3 py-3" href="/how-things-work.html">How Things Work</Link><Link className="px-3 py-3" href="/practice-tests">Practice Tests</Link><Link className="px-3 py-3" href="/links">Courses &amp; Training</Link></div></details></nav></details>
-      </div>
-    </header>
+    <SiteHeader signedIn={Boolean(user)} current="gear" communityEnabled={community.enabled} />
     <section className="relative isolate overflow-hidden bg-[#071a35] text-white">
       <Image src="/apg-marketplace-hero.webp" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-right" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#071a35] via-[#071a35]/90 to-[#071a35]/25" />

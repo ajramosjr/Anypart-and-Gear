@@ -1,13 +1,11 @@
+import SiteHeader from "@/components/site-header";
 import { AwarenessBanner } from "@/components/october-awareness";
 import Link from "next/link";
-import { TechWireLink } from "@/components/tech-wire-navigation";
 import Image from "next/image";
 import { Package, Store, ArrowRight } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 import { LegacyMarketplaceHashRedirect } from "./marketplace/legacy-hash-redirect";
-import NotificationBell from "@/components/notification-bell";
-import InstallApp from "./install-app";
 import { getCommunityState } from "@/lib/community";
 
 export const dynamic = "force-dynamic";
@@ -28,46 +26,7 @@ export default async function Home() {
   const postPath = user ? "/sell" : "/login?next=/sell";
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
-    <header className="apg-site-header sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex min-h-18 max-w-7xl sm:min-h-24 items-center gap-2 px-3 sm:gap-3 sm:px-6">
-        <Link href="/" aria-label="Any-Part and Gear home" className="mr-auto"><Image src="/apg-home-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={1983} height={793} priority className="h-auto w-[140px] sm:w-[190px]" /></Link>
-        <nav aria-label="Primary navigation" className="hidden items-center gap-6 lg:flex"><Link href="/marketplace" className="font-bold">Marketplace</Link><Link href="/shops" className="font-bold">Repair Shops &amp; Parts Suppliers</Link><Link href="/about" className="font-bold">About</Link></nav>
-        <div className="hidden xl:block"><InstallApp /></div>
-        {user && <NotificationBell userId={user.id} />}
-        <Link href="/garage-gear" className="apg-header-control flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-bold">Tools &amp; Work Gear</Link>
-        <details className="group relative">
-          <summary className="apg-header-control flex size-11 cursor-pointer list-none items-center justify-center rounded-lg text-2xl hover:bg-slate-100 [&::-webkit-details-marker]:hidden" aria-label="Menu">☰</summary>
-          <nav aria-label="Main menu" className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] overflow-y-auto gap-1 rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/marketplace">Browse Marketplace</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href={postPath}>Post an Item</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shops">Repair Shops &amp; Parts Suppliers</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/parts-wanted">Parts Wanted</Link>
-            <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/community">APG Community{!community.enabled && <span className="ml-2 text-xs font-bold text-amber-800">Coming Soon</span>}</Link>
-
-        <details className="group relative">
-              <summary className="apg-header-control flex min-h-11 cursor-pointer list-none items-center rounded-lg px-3 py-2 text-sm font-bold [&::-webkit-details-marker]:hidden">Learn &amp; Resources</summary>
-              <div className="absolute right-0 top-full z-50 mt-2 grid max-h-[calc(100dvh-110px)] w-56 max-w-[calc(100vw-24px)] gap-1 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 text-sm font-semibold shadow-xl">
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/shout-outs">APG Shout-Outs</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/how-things-work.html">How Things Work</Link><TechWireLink className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/tech-wire">Parts &amp; Industry News</TechWireLink>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/links">Courses &amp; Training</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/practice-tests">Practice Tests</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/toolbox">APG Toolbox</Link>
-              </div>
-            </details>
-
-            {user ? <details className="border-t border-slate-200 pt-1">
-              <summary className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-100">My Account</summary>
-              <div className="grid gap-1 pl-3">
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/account">My account</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/messages">Messages</Link>
-                <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/notifications">Notifications</Link>
-                <a className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/auth/signout">Sign out</a>
-              </div>
-            </details> : <Link className="rounded-lg px-3 py-2 hover:bg-slate-100" href="/login">Sign in or create account</Link>}
-          </nav>
-        </details>
-      </div>
-    </header>
+    <SiteHeader signedIn={Boolean(user)} current="home" communityEnabled={community.enabled} />
     <AwarenessBanner />
     {!user && <section aria-label="Member access" className="bg-[#06162d] px-4 py-4 text-white"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3"><p><strong>Unlock full APG access.</strong> Create an account to explore the marketplace, Directory, Toolbox and more.</p><Link href="/login?access=members" className="apg-home-cta inline-flex min-h-11 items-center rounded-lg px-5 font-bold">Sign up or log in</Link></div></section>}
     <section className="apg-home-hero apg-mobile-hero relative isolate overflow-hidden text-white">
