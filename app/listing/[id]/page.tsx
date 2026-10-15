@@ -1,3 +1,5 @@
+import PartsList from "./parts-list";
+import { getSubaruParts } from "@/lib/part-out";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -45,6 +47,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
   const { id } = await params;
   const [listing, user] = await Promise.all([findListing(id), getUser()]);
   if (!listing) notFound();
+  const parts = getSubaruParts(listing);
   const reportable = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(listing.id));
   let reputation: { average: number; count: number } | null = null;
   let badges = { emailVerified: false, trustedSeller: false, verifiedBusiness: false };
@@ -68,11 +71,11 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
   return (
     <main>
       <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace#listings">Back to listings</Link>{user&&<NotificationBell userId={user.id}/>}</nav></div></header>
-      <div className="shell page-shell"><div className="detail-grid">
-        <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />
+      <div className="shell page-shell"><div className={parts ? "grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]" : "detail-grid"}>
+        {!parts && <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />}
         <div className="detail-info">
-          <span className="kicker">{listing.category}</span><h1>{listing.title}</h1><strong className="detail-price">${listing.price.toLocaleString()}</strong>
-          <div className="mt-5"><ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={listing.allow_offers} listingPrice={listing.price} /></div>
+          <span className="kicker">{listing.category}</span><h1>{parts ? "Subaru Parts" : listing.title}</h1>{parts && <p>{listing.title}</p>}<strong className="detail-price">{parts ? "Prices listed by part" : `$${listing.price.toLocaleString()}`}</strong>
+          <div className="mt-5"><ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={parts ? false : listing.allow_offers} listingPrice={listing.price} /></div>
           <div className="detail-facts">
             <span><b>Condition</b>{listing.condition}</span><span><b>Location</b><i><MapPin size={14} /> {listing.location}</i></span>
             <span><b>Seller</b><i>{listing.seller_name}<SellerBadges {...badges} /></i></span>
@@ -86,6 +89,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
           <p className="detail-warning"><ShieldCheck size={16} /> Anypart &amp; Gear does not process payments or guarantee fitment. Inspect the item, verify the seller and use a safe meeting place before paying.</p>
           <ReportListing listingId={String(listing.id)} currentUserId={user?.id} isOwner={Boolean(user?.id && listing.user_id === user.id)} reportable={reportable}/>
         </div>
+        {parts && <PartsList parts={parts} />}
       </div></div>
     </main>
   );
