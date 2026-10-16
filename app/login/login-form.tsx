@@ -131,14 +131,21 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     } catch { setMessage("We could not reach APG. Check your connection and try again."); }
     finally { resetCaptcha(); setLoading(false); }
   }
-  async function submit(event: FormEvent) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (loading || waitingForVerification) return;
+    // Password managers may fill the DOM without firing React onChange.
+    // Read the submitted form, never trim or otherwise alter the password.
+    const submitted = new FormData(event.currentTarget);
+    const submittedEmail = String(submitted.get("email") || "").trim();
+    const submittedPassword = String(submitted.get("password") || "");
+    const submittedName = String(submitted.get("name") || "").trim();
+    setEmail(submittedEmail);
     if (mode === "signin") autoSignInAttempted.current = true;
     setMessage(""); setMessageType("error");
     if (mode === "signup") trackFunnel("signup_submit");
     if (!hasSupabaseConfig()) { setMessage("APG is temporarily unavailable. Please try again shortly."); return; }
-    if (mode === "signup" && !passwordRequirements.every(item => item.met)) {
+    if (mode === "signup" && !getPasswordRequirements(submittedPassword).every(item => item.met)) {
       trackFunnel("signup_error");
       setMessage("Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Check the list above, then try again.");
       return;
@@ -152,17 +159,21 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     try {
       const supabase = createClient();
       if (mode === "recover") {
-        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        const { error } = await supabase.auth.resetPasswordForEmail(submittedEmail, {
           redirectTo: `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`, captchaToken,
         });
         if (error) setMessage("The reset email could not be sent. Please wait a moment and try again.");
         else { setMessageType("success"); setMessage("If an APG account uses that email, a password-reset link is on its way. Check your inbox and spam folder."); }
       } else if (mode === "signup") {
-        const { data, error } = await supabase.auth.signUp({ email: email.trim(), password, options: {
-          captchaToken, data: { full_name: name.trim() },
+        const { data, error } = await supabase.auth.signUp({ email: submittedEmail, password: submittedPassword, options: {
+          captchaToken, data: { full_name: submittedName },
           emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
         } });
-        if (error) { trackFunnel("signup_error"); setMessage(isPasswordPolicyError(error.message) ? "Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Update it using the checklist above." : error.message); }
+        if (error) { trackFunnel("signup_error"); setMessage(isPasswordPolicyError(error.message) ? "Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Update it using the checklist above." : error.code === "invalid_credentials"
+              ? "Email or password doesn’t match. Try again, or use Forgot password to reset it."
+              : error.status === 429
+                ? "Too many attempts. Please wait a few minutes, then try again."
+                : error.message); }
         else if (data.session) {
           trackFunnel("signup_accepted"); navigating = true; window.location.assign(nextPath);
         } else {
@@ -170,14 +181,18 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
           setWaitingForVerification(true);
         }
       } else {
-        const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim(), password, options: { captchaToken } });
+        const { data, error } = await supabase.auth.signInWithPassword({ email: submittedEmail, password: submittedPassword, options: { captchaToken } });
         if (error) {
           trackFunnel("signin_error");
           const unconfirmed = error.code === "email_not_confirmed" || /email(?: address)? not confirmed/i.test(error.message);
           setCanResendConfirmation(unconfirmed);
           setMessage(unconfirmed
             ? "Your email is not confirmed yet. Open the APG verification email and tap its link. Need a new email? Complete the human check again, then tap Resend verification email."
-            : error.message);
+            : error.code === "invalid_credentials"
+              ? "Email or password doesn’t match. Try again, or use Forgot password to reset it."
+              : error.status === 429
+                ? "Too many attempts. Please wait a few minutes, then try again."
+                : error.message);
         } else if (data.session) { navigating = true; window.location.assign(nextPath); }
         else setMessage("Sign-in did not finish. Please try again.");
       }
@@ -213,7 +228,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       <section className="login-security" aria-label={waitingForVerification ? "Verification email resend check" : "Human verification"}>
         {waitingForVerification && <p className="login-security-help">Complete the check to resend your confirmation email.</p>}
         <div className="login-captcha" ref={turnstileContainer}/>
-        <p className="sr-only" role="status" aria-live="polite">{captchaToken ? "Human verification complete." : "Waiting for human verification."}</p>
+        <p className="login-security-help" role="status" aria-live="polite">{captchaToken ? "Human verification complete. You can continue." : "Complete the human check above to continue."}</p>
       </section>
       {emailVerified && mode === "signin" && !message && !waitingForVerification && <p className="form-message success">Your email is confirmed. Enter your password and sign in to continue.</p>}
       {message && <div ref={waitingForVerification ? undefined : statusRef} tabIndex={-1} role={messageType === "error" ? "alert" : "status"} className={`form-message login-result ${messageType}`}>{message}</div>}
