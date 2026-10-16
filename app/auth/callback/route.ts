@@ -4,6 +4,8 @@ import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
+  const tokenHash = url.searchParams.get("token_hash");
+  const tokenType = url.searchParams.get("type");
   const providerErrorCode = url.searchParams.get("error_code");
   const providerErrorDescription = url.searchParams.get("error_description");
   const recovery = url.searchParams.get("type") === "recovery" || url.searchParams.get("next") === "/reset-password";
@@ -11,9 +13,11 @@ export async function GET(request: Request) {
   const next = requestedNext?.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/";
   let exchangeErrorCode: string | undefined;
   let exchangeErrorMessage: string | undefined;
-  if (code && hasSupabaseConfig()) {
+  if ((code || (tokenHash && tokenType === "email")) && hasSupabaseConfig()) {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { error } = tokenHash && tokenType === "email"
+      ? await supabase.auth.verifyOtp({ token_hash: tokenHash, type: "email" })
+      : await supabase.auth.exchangeCodeForSession(code!);
     if (!error) return NextResponse.redirect(new URL(next, url.origin));
     exchangeErrorCode = error.code;
     exchangeErrorMessage = error.message;
