@@ -686,3 +686,45 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
   .apg-site-header .apg-header-control { font-size: 12px; padding: 8px 10px; }
   .apg-site-header .legal-back { max-width: 48%; }
 }
+
+/* Account forms: let narrow screens shrink below the security widget's normal width. */
+.login-page { padding: 28px 0 1px; }
+.login-wrap { width: min(480px, calc(100% - 32px)); margin: 0 auto 48px; min-width: 0; }
+.login-card { padding: clamp(20px, 5vw, 35px); min-width: 0; }
+.login-card h1 { font-size: clamp(30px, 7vw, 42px); line-height: 1.15; overflow-wrap: anywhere; }
+.login-description { margin-top: 12px; color: var(--text-muted); line-height: 1.55; }
+.login-form { grid-template-columns: minmax(0, 1fr); }
+.login-form > *, .login-form .field { min-width: 0; max-width: 100%; }
+.login-form input { min-width: 0; max-width: 100%; font-size: 16px; }
+.login-mode-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 22px; padding: 5px; background: #edf1f6; border-radius: 10px; }
+.login-mode-switch button { min-width: 0; min-height: 44px; border: 0; border-radius: 7px; padding: 8px; color: #0b2345; font-weight: 800; background: transparent; }
+.login-mode-switch button[aria-pressed="true"] { background: #0b2345; color: #fff; }
+.login-password { display: flex; align-items: stretch; min-width: 0; border: 1px solid #cfd7dc; border-radius: 8px; overflow: hidden; }
+.login-password:focus-within { border-color: var(--gold-dark); box-shadow: 0 0 0 3px rgba(230,184,74,.15); }
+.login-password input { flex: 1 1 0; border: 0; border-radius: 0; }
+.login-password input:focus { box-shadow: none; }
+.login-password button { flex: 0 0 auto; padding: 0 12px; border: 0; background: #edf1f6; color: #0b2345; font-size: 13px; font-weight: 800; }
+.password-help { margin: 0; color: #536275; font-size: 13px; line-height: 1.5; }
+.login-security { padding: 14px; border: 1px solid #d8e0e8; border-radius: 9px; background: #f8fafc; }
+.login-security-label { margin: 0; color: #0b2345; font-size: 14px; }
+.login-security-help, .login-security-status { margin: 8px 0 0; color: #536275; font-size: 13px; line-height: 1.5; }
+.login-captcha { width: 100%; min-width: 0; margin-top: 12px; }
+.login-form .button { min-height: 48px; white-space: normal; overflow-wrap: anywhere; }
+.login-form .text-button { min-height: 44px; padding: 8px 0; white-space: normal; overflow-wrap: anywhere; }
+.login-result { padding: 12px; border: 1px solid currentColor; border-radius: 8px; line-height: 1.6; overflow-wrap: anywhere; }
+.verification-panel { border: 1px solid #d7bd69; background: #fffae9; padding: 16px; border-radius: 10px; color: #0b2345; line-height: 1.6; overflow-wrap: anywhere; }
+.verification-panel p, .verification-panel ol { margin-top: 12px; }
+.verification-panel ol { list-style: decimal; padding-left: 22px; }
+.verification-panel li + li { margin-top: 8px; }
+.verification-panel .button { margin-top: 18px; }
+.verification-panel .text-button { display: block; margin-top: 8px; width: 100%; }
+.login-form .legal-note { margin-top: 0; color: #596a79; }
+@media (max-width: 480px) {
+  .login-page { padding-top: 16px; }
+  .login-card-brand { margin-bottom: 20px; }
+  .login-security { padding: 12px; }
+}
+.password-requirements { display: grid; gap: 5px; margin: 8px 0 0; padding: 0; list-style: none; }
+.password-requirements li { display: flex; align-items: baseline; gap: 8px; }
+.password-requirements li > span:first-child { flex: 0 0 16px; }
+.password-requirements li.met { color: #17633b; }

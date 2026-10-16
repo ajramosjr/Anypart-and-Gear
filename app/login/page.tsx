@@ -17,9 +17,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <Link href="/" className="login-brand login-card-brand" aria-label="Any-Part and Gear home">
             <Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="login-brand-logo" priority />
           </Link>
-          <h1>{verified === "1" ? "Email verified!" : access === "members" ? "Unlock full APG access" : "Welcome back"}</h1>
-          <p>{verified === "1" ? "Your email is confirmed. Sign in once to continue where you left off." : "Create an account or sign in to browse the marketplace, explore the Directory, use the Toolbox and access all APG resources."}</p>
-          <LoginForm nextPath={safeNext} emailVerified={verified === "1"} confirmationError={confirmationError} />
+          <LoginForm nextPath={safeNext} emailVerified={verified === "1"} confirmationError={confirmationError} memberAccess={access === "members"} />
         </div>
       </div>
     </main>

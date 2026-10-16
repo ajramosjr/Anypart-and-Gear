@@ -4,233 +4,197 @@ import Script from "next/script";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
+import { getPasswordRequirements, isPasswordPolicyError } from "@/lib/password-requirements";
 import { trackFunnel } from "@/lib/funnel";
 
-const TURNSTILE_SITE_KEY =
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAE9Of1xQX12K2g2T";
-
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAE9Of1xQX12K2g2T";
+type Mode = "signin" | "signup" | "recover";
+type WidgetSize = "normal" | "compact";
 type TurnstileApi = {
-  render: (
-    container: HTMLElement,
-    options: {
-      sitekey: string;
-      callback: (token: string) => void;
-      "expired-callback": () => void;
-      "error-callback": () => void;
-      theme: "auto";
-    },
-  ) => string;
+  render: (container: HTMLElement, options: {
+    sitekey: string; callback: (token: string) => void;
+    "expired-callback": () => void; "error-callback": () => void;
+    theme: "light"; size: WidgetSize;
+  }) => string;
   reset: (widgetId: string) => void;
   remove: (widgetId: string) => void;
 };
+declare global { interface Window { turnstile?: TurnstileApi; } }
 
-declare global {
-  interface Window {
-    turnstile?: TurnstileApi;
-  }
-}
-
-export default function LoginForm({
-  nextPath,
-  emailVerified = false,
-  confirmationError,
-}: {
-  nextPath: string;
-  emailVerified?: boolean;
-  confirmationError?: string;
+export default function LoginForm({ nextPath, emailVerified = false, confirmationError, memberAccess = false }: {
+  nextPath: string; emailVerified?: boolean; confirmationError?: string; memberAccess?: boolean;
 }) {
-  const [mode, setMode] = useState<"signin" | "signup" | "recover">("signin");
+  const [mode, setMode] = useState<Mode>("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState(confirmationError || "");
-  const [messageType, setMessageType] = useState<"success" | "error">(emailVerified ? "success" : "error");
+  const [messageType, setMessageType] = useState<"success" | "error">("error");
   const [waitingForVerification, setWaitingForVerification] = useState(false);
   const [canResendConfirmation, setCanResendConfirmation] = useState(Boolean(confirmationError));
   const [loading, setLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const turnstileWidgetId = useRef<string | null>(null);
+  const widgetSize = useRef<WidgetSize | null>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
+  const passwordRequirements = getPasswordRequirements(password);
 
   function renderTurnstile() {
-    if (!turnstileContainer.current || !window.turnstile || turnstileWidgetId.current) return;
-    turnstileWidgetId.current = window.turnstile.render(turnstileContainer.current, {
-      sitekey: TURNSTILE_SITE_KEY,
-      theme: "auto",
+    const container = turnstileContainer.current;
+    if (!container || !window.turnstile) return;
+    const size: WidgetSize = container.clientWidth < 300 ? "compact" : "normal";
+    if (turnstileWidgetId.current) {
+      if (widgetSize.current === size) return;
+      window.turnstile.remove(turnstileWidgetId.current);
+      turnstileWidgetId.current = null;
+      setCaptchaToken("");
+    }
+    widgetSize.current = size;
+    turnstileWidgetId.current = window.turnstile.render(container, {
+      sitekey: TURNSTILE_SITE_KEY, theme: "light", size,
       callback: setCaptchaToken,
       "expired-callback": () => setCaptchaToken(""),
       "error-callback": () => {
-        setCaptchaToken("");
-        setMessageType("error");
-        setMessage("The security check could not load. Please refresh the page and try again.");
+        setCaptchaToken(""); setMessageType("error");
+        setMessage("The human check could not finish. Check your connection, then refresh this page and try again.");
       },
     });
   }
-
   function resetCaptcha() {
     setCaptchaToken("");
-    if (turnstileWidgetId.current && window.turnstile) {
-      window.turnstile.reset(turnstileWidgetId.current);
-    }
+    if (turnstileWidgetId.current && window.turnstile) window.turnstile.reset(turnstileWidgetId.current);
   }
-
   useEffect(() => {
     renderTurnstile();
+    const observer = new ResizeObserver(() => renderTurnstile());
+    if (turnstileContainer.current) observer.observe(turnstileContainer.current);
     return () => {
-      if (turnstileWidgetId.current && window.turnstile) {
-        window.turnstile.remove(turnstileWidgetId.current);
-        turnstileWidgetId.current = null;
-      }
+      observer.disconnect();
+      if (turnstileWidgetId.current && window.turnstile) window.turnstile.remove(turnstileWidgetId.current);
+      turnstileWidgetId.current = null;
     };
   }, []);
+  useEffect(() => {
+    if (message || waitingForVerification) statusRef.current?.focus();
+  }, [message, waitingForVerification]);
 
-  function changeMode(nextMode: "signin" | "signup" | "recover") {
+  function changeMode(nextMode: Mode) {
+    if (loading) return;
     if (nextMode === "signup") trackFunnel("signup_open");
-    setMode(nextMode);
-    setMessage("");
-    setWaitingForVerification(false);
-    setCanResendConfirmation(false);
-    resetCaptcha();
+    setMode(nextMode); setMessage(""); setMessageType("error"); setPassword(""); setShowPassword(false);
+    setWaitingForVerification(false); setCanResendConfirmation(false); resetCaptcha();
   }
-
   async function resendConfirmation() {
+    if (loading) return;
+    setMessageType("error"); setMessage("");
+    if (!email.trim()) { setMessage("Enter the email address you used to create your APG account."); return; }
+    if (!captchaToken) { setMessage("Complete the human check below, then tap Resend verification email."); return; }
     setLoading(true);
-    setMessage("");
-    setMessageType("error");
-    if (!email) {
-      setMessage("Enter the email address you used to create your APG account.");
-      setLoading(false);
-      return;
-    }
-    if (!captchaToken) {
-      setMessage("Please complete the security check before requesting another email.");
-      setLoading(false);
-      return;
-    }
-    const supabase = createClient();
-    const { error } = await supabase.auth.resend({
-      type: "signup",
-      email,
-      options: {
-        captchaToken,
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
-      },
-    });
-    if (error) {
-      setMessage(error.message);
-    } else {
-      setMessageType("success");
-      setWaitingForVerification(true);
-      setMessage("A new APG verification email is on its way. Use the newest link in your inbox.");
-    }
-    resetCaptcha();
-    setLoading(false);
+    try {
+      const { error } = await createClient().auth.resend({ type: "signup", email: email.trim(), options: {
+        captchaToken, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+      } });
+      if (error) setMessage(error.message);
+      else {
+        setWaitingForVerification(true); setMessageType("success");
+        setMessage("Verification email requested. Check your inbox and spam folder, and use the newest link. If you already confirmed this email, return to Sign in instead.");
+      }
+    } catch { setMessage("We could not reach APG. Check your connection and try again."); }
+    finally { resetCaptcha(); setLoading(false); }
   }
-
   async function submit(event: FormEvent) {
-    event.preventDefault(); setLoading(true); setMessage(""); setMessageType("error");
+    event.preventDefault();
+    if (loading || waitingForVerification) return;
+    setMessage(""); setMessageType("error");
     if (mode === "signup") trackFunnel("signup_submit");
-    if (!hasSupabaseConfig()) {
-      setMessage("The marketplace database is still being connected. Please try again shortly."); setLoading(false); return;
+    if (!hasSupabaseConfig()) { setMessage("APG is temporarily unavailable. Please try again shortly."); return; }
+    if (mode === "signup" && !passwordRequirements.every(item => item.met)) {
+      trackFunnel("signup_error");
+      setMessage("Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Check the list above, then try again.");
+      return;
     }
     if (!captchaToken) {
       if (mode === "signup") trackFunnel("signup_error");
-      setMessage("Please complete the security check before continuing."); setLoading(false); return;
+      setMessage("Complete the human check, then tap the button to continue."); return;
     }
-    const supabase = createClient();
-    if (mode === "recover") {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`,
-        captchaToken,
-      });
-      if (error) {
-        setMessage("The reset email could not be sent. Please wait a moment and try again.");
-      } else {
-        setMessageType("success");
-        setMessage("If an APG account uses that email, a secure password-reset link is on its way.");
-      }
-    } else if (mode === "signup") {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          captchaToken,
-          data: { full_name: name },
+    setLoading(true);
+    let navigating = false;
+    try {
+      const supabase = createClient();
+      if (mode === "recover") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+          redirectTo: `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`, captchaToken,
+        });
+        if (error) setMessage("The reset email could not be sent. Please wait a moment and try again.");
+        else { setMessageType("success"); setMessage("If an APG account uses that email, a password-reset link is on its way. Check your inbox and spam folder."); }
+      } else if (mode === "signup") {
+        const { data, error } = await supabase.auth.signUp({ email: email.trim(), password, options: {
+          captchaToken, data: { full_name: name.trim() },
           emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
-        },
-      });
-      if (error) {
-        trackFunnel("signup_error");
-        setMessage(error.message);
-      } else if (data.session) {
-        trackFunnel("signup_accepted");
-        window.location.assign(nextPath);
-        return;
-      } else {
-        trackFunnel("signup_accepted");
-        setMessageType("success");
-        setWaitingForVerification(true);
-        setMessage("Check your inbox for the next step. New to APG? Use the verification link we sent. Already have an account? Reset your password below instead of creating another account.");
-      }
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-        options: { captchaToken },
-      });
-      if (error) {
-        trackFunnel("signin_error");
-        const needsEmailConfirmation =
-          error.code === "email_not_confirmed" ||
-          /email(?: address)? not confirmed/i.test(error.message);
-        if (needsEmailConfirmation) {
-          setCanResendConfirmation(true);
-          setMessage("Your email still needs to be verified. Complete the security check again, then tap Resend verification email below.");
+        } });
+        if (error) { trackFunnel("signup_error"); setMessage(isPasswordPolicyError(error.message) ? "Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Update it using the checklist above." : error.message); }
+        else if (data.session) {
+          trackFunnel("signup_accepted"); navigating = true; window.location.assign(nextPath);
         } else {
-          setCanResendConfirmation(false);
-          setMessage(error.message);
+          trackFunnel("signup_accepted"); setPassword(""); setShowPassword(false);
+          setWaitingForVerification(true);
         }
       } else {
-        window.location.assign(nextPath);
-        return;
+        const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim(), password, options: { captchaToken } });
+        if (error) {
+          trackFunnel("signin_error");
+          const unconfirmed = error.code === "email_not_confirmed" || /email(?: address)? not confirmed/i.test(error.message);
+          setCanResendConfirmation(unconfirmed);
+          setMessage(unconfirmed
+            ? "Your email is not confirmed yet. Open the APG verification email and tap its link. Need a new email? Complete the human check again, then tap Resend verification email."
+            : error.message);
+        } else if (data.session) { navigating = true; window.location.assign(nextPath); }
+        else setMessage("Sign-in did not finish. Please try again.");
       }
-    }
-    resetCaptcha();
-    setLoading(false);
+    } catch {
+      trackFunnel(mode === "signup" ? "signup_error" : "signin_error");
+      setMessage("We could not reach APG. Check your connection and try again. Your entries are still here.");
+    } finally { if (!navigating) { resetCaptcha(); setLoading(false); } }
   }
 
-  return (
-    <>
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={renderTurnstile} />
-      <form className="login-form" onSubmit={submit}>
-        {mode === "signup" && <div className="field"><label htmlFor="name">Full name</label><input id="name" required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" /></div>}
-        <div className="field"><label htmlFor="email">Email address</label><input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></div>
-        {mode !== "recover" && <div className="field"><label htmlFor="password">Password</label><input id="password" type="password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} /></div>}
-        <p className="legal-note"><strong>Security check</strong> — this verifies you are human. It does not sign you in or create an account.</p>
-        <div ref={turnstileContainer} aria-label="Security check" />
-        {!waitingForVerification && <p className={`form-message ${captchaToken ? "success" : ""}`} role="status" aria-live="polite">
-          {loading
-            ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating your account…" : "Requesting your reset email…"
-            : captchaToken
-              ? mode === "signin" ? "Human verification complete. You’re not signed in yet—tap Sign in below." : mode === "signup" ? "Human verification complete. Tap Create account below to continue." : "Human verification complete. Tap Email me a reset link below to continue."
-              : "Complete the human verification, then use the button below to continue."}
-        </p>}
-        {emailVerified && mode === "signin" && !message && <p className="form-message success">Your email is confirmed. Sign in below to continue.</p>}
-        {message && <p className={`form-message ${messageType}`}>{message}</p>}
-        {waitingForVerification ? (
-          <>
-            <button className="button" type="button" onClick={() => changeMode("signin")}>I verified my email — Sign in</button>
-            {mode === "signup" && <button className="text-button" type="button" onClick={() => changeMode("recover")}>Already have an account? Reset password</button>}
-            <button className="text-button" type="button" disabled={loading} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>
-          </>
-        ) : (
-          <button className="button" disabled={loading || !captchaToken}>{loading ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating account…" : "Sending reset email…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>
-        )}
-        {mode === "signin" && <button className="text-button" type="button" onClick={() => changeMode("recover")}>Forgot your password?</button>}
-        {mode === "signin" && canResendConfirmation && !waitingForVerification && <button className="text-button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>{loading ? "Sending..." : "Resend verification email"}</button>}
-        <button className="text-button" type="button" onClick={() => changeMode(mode === "signin" ? "signup" : "signin")}>{mode === "signin" ? "New here? Create a free account" : "Back to sign in"}</button>
-        <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use Anypart &amp; Gear safely and honestly. Sellers control payment, pickup and delivery.</p>
-      </form>
-    </>
-  );
+  const heading = waitingForVerification ? "Check your email" : mode === "signup" ? "Create your APG account" : mode === "recover" ? "Reset your password" : emailVerified ? "Email confirmed — sign in" : "Sign in to APG";
+  return <>
+    <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={renderTurnstile} onError={() => { setMessageType("error"); setMessage("The human check could not load. Check your connection and refresh this page."); }} />
+    <h1>{heading}</h1>
+    {!waitingForVerification && <p className="login-description">{mode === "signup" ? "Create an account, confirm your email, then explore APG." : mode === "recover" ? "Enter your account email and we’ll send you a reset link." : memberAccess ? "Sign in or create an account to access the marketplace, Directory and Toolbox." : "Access your marketplace, Directory, Toolbox and APG resources."}</p>}
+    {!waitingForVerification && mode !== "recover" && <div className="login-mode-switch" aria-label="Account options">
+      <button type="button" aria-pressed={mode === "signin"} disabled={loading} onClick={() => changeMode("signin")}>Sign in</button>
+      <button type="button" aria-pressed={mode === "signup"} disabled={loading} onClick={() => changeMode("signup")}>Create account</button>
+    </div>}
+    <form className="login-form" onSubmit={submit} aria-busy={loading}>
+      {waitingForVerification && <div className="verification-panel" ref={statusRef} tabIndex={-1} role="status">
+        <strong>One more step: confirm your email.</strong>
+        <p>Check the inbox for <strong>{email.trim()}</strong>. You are not signed in yet.</p>
+        <ol><li>Open the APG verification email (check spam or junk too).</li><li>Tap the confirmation link to finish verification.</li><li>If APG asks you to sign in, use your email and password.</li></ol>
+        <p>Already registered with this email? Sign in, or reset your password instead of creating another account.</p>
+        <button className="button" type="button" disabled={loading} onClick={() => changeMode("signin")}>Return to sign in</button>
+        <button className="text-button" type="button" disabled={loading} onClick={() => changeMode("signup")}>Wrong email? Change it</button>
+      </div>}
+      {!waitingForVerification && <>
+        {mode === "signup" && <div className="field"><label htmlFor="name">Full name</label><input id="name" name="name" required value={name} onChange={e => setName(e.target.value)} autoComplete="name" /></div>}
+        <div className="field"><label htmlFor="email">Email address</label><input id="email" name="email" type="email" required value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" autoCapitalize="none" spellCheck={false} /></div>
+        {mode !== "recover" && <div className="field"><label htmlFor="password">Password</label><div className="login-password"><input id="password" name="password" type={showPassword ? "text" : "password"} minLength={mode === "signup" ? 8 : undefined} required value={password} onChange={e => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} aria-describedby={mode === "signup" ? "password-help" : undefined}/><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button></div>{mode === "signup" && <div id="password-help" className="password-help"><p>Your password must include:</p><ul className="password-requirements">{passwordRequirements.map(item => <li key={item.label} className={item.met ? "met" : ""}><span aria-hidden="true">{item.met ? "✓" : "○"}</span><span>{item.label}<span className="sr-only">{item.met ? " — included" : " — still needed"}</span></span></li>)}</ul></div>}</div>}
+      </>}
+      <section className="login-security" aria-label={waitingForVerification ? "Verification email resend check" : "Human verification"}>
+        <p className="login-security-label"><strong>{waitingForVerification ? "Need another verification email?" : "Human check"}</strong></p>
+        <p className="login-security-help">{waitingForVerification ? "Complete this check, then tap Resend verification email." : mode === "signup" ? "A “Success” here only completes this check. Tap Create account below to submit your details." : "This check confirms you’re human. Use the button below to finish."}</p>
+        <div className="login-captcha" ref={turnstileContainer}/>
+        <p className="login-security-status" role="status" aria-live="polite">{captchaToken ? waitingForVerification ? "Human check complete. You can request another email below." : mode === "signup" ? "Human check complete. Your account has not been submitted yet." : "Human check complete. You can continue below." : "Waiting for human verification…"}</p>
+      </section>
+      {emailVerified && mode === "signin" && !message && !waitingForVerification && <p className="form-message success">Your email is confirmed. Enter your password and sign in to continue.</p>}
+      {message && <div ref={waitingForVerification ? undefined : statusRef} tabIndex={-1} role={messageType === "error" ? "alert" : "status"} className={`form-message login-result ${messageType}`}>{message}</div>}
+      {waitingForVerification ? <button className="button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>{loading ? "Requesting email…" : "Resend verification email"}</button> : <button className="button" type="submit" disabled={loading || !captchaToken}>{loading ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating account…" : "Requesting email…" : mode === "signin" ? "Sign in to APG" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>}
+      {mode === "signin" && !waitingForVerification && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode("recover")}>Forgot your password?</button>}
+      {mode === "signin" && canResendConfirmation && !waitingForVerification && <button className="text-button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>Resend verification email</button>}
+      {(mode === "recover" || waitingForVerification) && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode(waitingForVerification ? "recover" : "signin")}>{waitingForVerification ? "Reset password for an existing account" : "Back to sign in"}</button>}
+      <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use Anypart &amp; Gear safely and honestly. Sellers control payment, pickup and delivery.</p>
+    </form>
+  </>;
 }
