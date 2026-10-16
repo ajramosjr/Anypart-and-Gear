@@ -173,15 +173,11 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     } finally { if (!navigating) { resetCaptcha(); setLoading(false); } }
   }
 
-  const heading = waitingForVerification ? "Check your email" : mode === "signup" ? "Create your APG account" : mode === "recover" ? "Reset your password" : emailVerified ? "Email confirmed — sign in" : "Sign in to APG";
+  const heading = waitingForVerification ? "Check your email" : mode === "signup" ? "Create your account" : mode === "recover" ? "Reset your password" : emailVerified ? "Email confirmed — sign in" : "Sign in to APG";
   return <>
     <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={renderTurnstile} onError={() => { setMessageType("error"); setMessage("The human check could not load. Check your connection and refresh this page."); }} />
     <h1>{heading}</h1>
-    {!waitingForVerification && <p className="login-description">{mode === "signup" ? "Create an account, confirm your email, then explore APG." : mode === "recover" ? "Enter your account email and we’ll send you a reset link." : memberAccess ? "Sign in or create an account to post, message sellers and use member features." : "Access your marketplace, Directory, Toolbox and APG resources."}</p>}
-    {!waitingForVerification && mode !== "recover" && <div className="login-mode-switch" aria-label="Account options">
-      <button type="button" aria-pressed={mode === "signin"} disabled={loading} onClick={() => changeMode("signin")}>Sign in</button>
-      <button type="button" aria-pressed={mode === "signup"} disabled={loading} onClick={() => changeMode("signup")}>Create account</button>
-    </div>}
+    {!waitingForVerification && <p className="login-description">{mode === "signup" ? "Join the Any Part & Gear marketplace." : mode === "recover" ? "Enter your account email and we’ll send you a reset link." : memberAccess ? "Sign in or create an account to post, message sellers and use member features." : "Welcome back to Any Part & Gear."}</p>}
     <form ref={formRef} className="login-form" onSubmit={submit} aria-busy={loading}>
       {waitingForVerification && <div className="verification-panel" ref={statusRef} tabIndex={-1} role="status">
         <strong>One more step: confirm your email.</strong>
@@ -194,13 +190,12 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       {!waitingForVerification && <>
         {mode === "signup" && <div className="field"><label htmlFor="name">Full name</label><input id="name" name="name" required value={name} onChange={e => setName(e.target.value)} autoComplete="name" /></div>}
         <div className="field"><label htmlFor="email">Email address</label><input id="email" name="email" type="email" required value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" autoCapitalize="none" spellCheck={false} /></div>
-        {mode !== "recover" && <div className="field"><label htmlFor="password">Password</label><div className="login-password"><input id="password" name="password" type={showPassword ? "text" : "password"} minLength={mode === "signup" ? 8 : undefined} required value={password} onChange={e => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} aria-describedby={mode === "signup" ? "password-help" : undefined}/><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button></div>{mode === "signup" && <div id="password-help" className="password-help"><p>Your password must include:</p><ul className="password-requirements">{passwordRequirements.map(item => <li key={item.label} className={item.met ? "met" : ""}><span aria-hidden="true">{item.met ? "✓" : "○"}</span><span>{item.label}<span className="sr-only">{item.met ? " — included" : " — still needed"}</span></span></li>)}</ul></div>}</div>}
+        {mode !== "recover" && <div className="field"><label htmlFor="password">Password</label><div className="login-password"><input id="password" name="password" type={showPassword ? "text" : "password"} minLength={mode === "signup" ? 8 : undefined} required value={password} onChange={e => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} aria-describedby={mode === "signup" ? "password-help" : undefined}/><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button></div>{mode === "signup" && <div id="password-help" className="password-help"><p className="sr-only">Your password must include:</p><ul className="password-requirements password-requirements-compact">{passwordRequirements.map(item => <li key={item.label} className={item.met ? "met" : ""}><span aria-hidden="true">{item.met ? "✓" : "○"}</span><span>{({ "At least 8 characters": "8+ characters", "A lowercase letter (a–z)": "Lowercase", "An uppercase letter (A–Z)": "Uppercase", "A number (0–9)": "Number", "A symbol (for example !, @ or #)": "Symbol (!, @, #)" } as Record<string, string>)[item.label] ?? item.label}<span className="sr-only">{item.met ? " — included" : " — still needed"}</span></span></li>)}</ul></div>}</div>}
       </>}
       <section className="login-security" aria-label={waitingForVerification ? "Verification email resend check" : "Human verification"}>
-        <p className="login-security-label"><strong>{waitingForVerification ? "Need another verification email?" : "Human check"}</strong></p>
-        <p className="login-security-help">{waitingForVerification ? "Complete this check, then tap Resend verification email." : mode === "signup" ? "A “Success” here only completes this check. Tap Create account below to submit your details." : mode === "signin" ? "Enter your email and password, then complete this check to sign in automatically." : "Complete this check, then request your reset email below."}</p>
+        {waitingForVerification && <p className="login-security-help">Complete the check to resend your confirmation email.</p>}
         <div className="login-captcha" ref={turnstileContainer}/>
-        <p className="login-security-status" role="status" aria-live="polite">{captchaToken ? waitingForVerification ? "Human check complete. You can request another email below." : mode === "signup" ? "Human check complete. Your account has not been submitted yet." : "Human check complete. You can continue below." : "Waiting for human verification…"}</p>
+        <p className="sr-only" role="status" aria-live="polite">{captchaToken ? "Human verification complete." : "Waiting for human verification."}</p>
       </section>
       {emailVerified && mode === "signin" && !message && !waitingForVerification && <p className="form-message success">Your email is confirmed. Enter your password and sign in to continue.</p>}
       {message && <div ref={waitingForVerification ? undefined : statusRef} tabIndex={-1} role={messageType === "error" ? "alert" : "status"} className={`form-message login-result ${messageType}`}>{message}</div>}
@@ -208,7 +203,9 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       {mode === "signin" && !waitingForVerification && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode("recover")}>Forgot your password?</button>}
       {mode === "signin" && canResendConfirmation && !waitingForVerification && <button className="text-button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>Resend verification email</button>}
       {(mode === "recover" || waitingForVerification) && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode(waitingForVerification ? "recover" : "signin")}>{waitingForVerification ? "Reset password for an existing account" : "Back to sign in"}</button>}
-      <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use Anypart &amp; Gear safely and honestly. Sellers control payment, pickup and delivery.</p>
+      {mode === "signup" && !waitingForVerification && <p className="login-confirmation-hint">We’ll email you a link to confirm your account.</p>}
+      {!waitingForVerification && mode !== "recover" && <p className="login-account-switch">{mode === "signup" ? "Already a member?" : "New to APG?"} <button className="text-button" type="button" disabled={loading} onClick={() => changeMode(mode === "signup" ? "signin" : "signup")}>{mode === "signup" ? "Sign in" : "Create account"}</button></p>}
+      <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use APG safely and honestly.</p>
     </form>
   </>;
 }
