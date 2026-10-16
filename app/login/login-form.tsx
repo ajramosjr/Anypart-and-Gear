@@ -21,8 +21,8 @@ type TurnstileApi = {
 };
 declare global { interface Window { turnstile?: TurnstileApi; } }
 
-export default function LoginForm({ nextPath, emailVerified = false, confirmationError, memberAccess = false }: {
-  nextPath: string; emailVerified?: boolean; confirmationError?: string; memberAccess?: boolean;
+export default function LoginForm({ nextPath, emailVerified = false, confirmationError, memberAccess = false, googleEnabled = false }: {
+  nextPath: string; emailVerified?: boolean; confirmationError?: string; memberAccess?: boolean; googleEnabled?: boolean;
 }) {
   const [mode, setMode] = useState<Mode>("signin");
   const [name, setName] = useState("");
@@ -98,6 +98,20 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     if (nextMode === "signup") trackFunnel("signup_open");
     setMode(nextMode); setMessage(""); setMessageType("error"); setPassword(""); setShowPassword(false);
     setWaitingForVerification(false); setCanResendConfirmation(false); resetCaptcha();
+  }
+  async function googleSignIn() {
+    if (loading || !googleEnabled) return;
+    autoSignInAttempted.current = true;
+    setLoading(true); setMessage(""); setMessageType("error");
+    try {
+      const { error } = await createClient().auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}` },
+      });
+      if (!error) return;
+    } catch { /* Preserve email sign-in as a fallback. */ }
+    setLoading(false);
+    setMessage("Could not connect to Google. Try again or continue with email.");
   }
   async function resendConfirmation() {
     if (loading) return;
@@ -178,6 +192,10 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={renderTurnstile} onError={() => { setMessageType("error"); setMessage("The human check could not load. Check your connection and refresh this page."); }} />
     <h1>{heading}</h1>
     {!waitingForVerification && <p className="login-description">{mode === "signup" ? "Join the Any Part & Gear marketplace." : mode === "recover" ? "Enter your account email and we’ll send you a reset link." : memberAccess ? "Sign in or create an account to post, message sellers and use member features." : "Welcome back to Any Part & Gear."}</p>}
+    {!waitingForVerification && mode !== "recover" && googleEnabled && <div className="login-social-options">
+      <button className="login-social-button" type="button" disabled={loading} onClick={googleSignIn}>Continue with Google</button>
+      <p className="login-email-divider">or continue with email</p>
+    </div>}
     <form ref={formRef} className="login-form" onSubmit={submit} aria-busy={loading}>
       {waitingForVerification && <div className="verification-panel" ref={statusRef} tabIndex={-1} role="status">
         <strong>One more step: confirm your email.</strong>
