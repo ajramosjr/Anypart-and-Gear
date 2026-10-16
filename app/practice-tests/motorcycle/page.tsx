@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import ApgLogo from "@/components/apg-logo";
-import { getUser } from "@/lib/auth";
 import questions from "./questions.json";
 
 export const metadata: Metadata = {
@@ -17,7 +15,6 @@ const lessons = [
   ["Ride alert and within your limits", "Alcohol, some medicines and fatigue can impair riding. Plan rest breaks and avoid riding when your judgment or coordination is affected. A practice question bank cannot replace hands-on rider training.", "https://dmv.ny.gov/motorcycle-manual/motorcycle-manual-being-in-shape-to-ride"],
 ];
 export default async function MotorcyclePracticePage() {
-  if (!await getUser()) redirect("/login?next=/practice-tests/motorcycle");
   return <main className="min-h-screen bg-[#f3f5f8] text-slate-950">
     <header className="apg-site-header border-b border-slate-200 bg-white"><div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4"><ApgLogo priority/><nav aria-label="Practice navigation"><Link href="/practice-tests" className="font-bold text-[#071a35] underline underline-offset-4">← Practice Tests</Link></nav></div></header>
     <div className="mx-auto max-w-5xl px-4 py-10 sm:py-14">

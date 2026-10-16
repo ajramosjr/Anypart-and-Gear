@@ -18,15 +18,25 @@ export async function updateSession(request: NextRequest) {
   }
 
   const pathname = request.nextUrl.pathname;
-  // Only the homepage, account entry points, policies and app infrastructure
-  // are public. Match exact paths so similarly named member pages stay locked.
+  // Public browsing is read-only. Account actions and private routes stay gated.
   const publicPaths = new Set([
     "/", "/login", "/reset-password", "/auth/callback", "/auth/signout",
     "/terms", "/privacy", "/affiliate-disclosure", "/community-guidelines",
     "/robots.txt", "/sitemap.xml", "/manifest.webmanifest", "/offline.html", "/sw.js",
   ]);
   const normalizedPath = pathname.replace(/\/+$/, "") || "/";
-  const isPublicPage = publicPaths.has(normalizedPath) ||
+  const publicBrowsePaths = new Set([
+    "/marketplace", "/shops", "/toolbox", "/links", "/garage-gear",
+    "/about", "/safety", "/trust", "/support", "/shout-outs", "/practice-tests",
+  ]);
+  const isBrowseRequest = ["GET", "HEAD"].includes(request.method) && (
+    publicBrowsePaths.has(normalizedPath) ||
+    /^\/(listing|shops)\/[^/]+$/.test(normalizedPath) &&
+      !["/shops/register", "/shops/post"].includes(normalizedPath) ||
+    /^\/practice-tests\/[^/]+$/.test(normalizedPath) ||
+    normalizedPath === "/api/gear/search"
+  );
+  const isPublicPage = publicPaths.has(normalizedPath) || isBrowseRequest ||
     (request.method === "POST" && ["/api/visits", "/api/funnel"].includes(normalizedPath));
   function requireLogin() {
     const headers = { "Cache-Control": "private, no-store" };

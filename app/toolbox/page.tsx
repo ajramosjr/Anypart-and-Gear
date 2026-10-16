@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TechWireLink } from "@/components/tech-wire-navigation";
-import { redirect } from "next/navigation";
 import ApgLogo from "@/components/apg-logo";
 import { getUser } from "@/lib/auth";
 import ToolboxClient from "./toolbox-client";
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
 
 export default async function ToolboxPage() {
   const user = await getUser();
-  if (!user) redirect("/login?next=/toolbox");
 
   return (
     <main className="toolbox-page">
@@ -40,7 +38,7 @@ export default async function ToolboxPage() {
           </nav>
         </div>
       </header>
-      <ToolboxClient />
+      <ToolboxClient canPrint={Boolean(user)} />
     </main>
   );
 }

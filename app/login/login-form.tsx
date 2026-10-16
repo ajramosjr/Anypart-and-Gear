@@ -163,7 +163,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
   return <>
     <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={renderTurnstile} onError={() => { setMessageType("error"); setMessage("The human check could not load. Check your connection and refresh this page."); }} />
     <h1>{heading}</h1>
-    {!waitingForVerification && <p className="login-description">{mode === "signup" ? "Create an account, confirm your email, then explore APG." : mode === "recover" ? "Enter your account email and we’ll send you a reset link." : memberAccess ? "Sign in or create an account to access the marketplace, Directory and Toolbox." : "Access your marketplace, Directory, Toolbox and APG resources."}</p>}
+    {!waitingForVerification && <p className="login-description">{mode === "signup" ? "Create an account, confirm your email, then explore APG." : mode === "recover" ? "Enter your account email and we’ll send you a reset link." : memberAccess ? "Sign in or create an account to post, message sellers and use member features." : "Access your marketplace, Directory, Toolbox and APG resources."}</p>}
     {!waitingForVerification && mode !== "recover" && <div className="login-mode-switch" aria-label="Account options">
       <button type="button" aria-pressed={mode === "signin"} disabled={loading} onClick={() => changeMode("signin")}>Sign in</button>
       <button type="button" aria-pressed={mode === "signup"} disabled={loading} onClick={() => changeMode("signup")}>Create account</button>

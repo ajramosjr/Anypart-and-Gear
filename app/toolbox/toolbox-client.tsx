@@ -157,6 +157,8 @@ const tools = [
   ["bolts-reference", "SAE & Metric Bolt Guide", "Identify common SAE grades and metric property classes.", Bolt],
 ] as const;
 
+const PrintAccessContext = createContext(false);
+
 const SelectedToolContext = createContext("drill-tap");
 
 const tireDiameterInches = (tire: { width: number; ratio: number; rim: number }) =>
@@ -182,6 +184,8 @@ function printSection(id?: string) {
 }
 
 function PrintButton({ target, label = "Print" }: { target?: string; label?: string }) {
+  const canPrint = useContext(PrintAccessContext);
+  if (!canPrint) return <Link className="tool-print no-print" href="/login?next=/toolbox"><Printer size={17} />Sign in to print</Link>;
   return <button type="button" className="tool-print no-print" onClick={() => printSection(target)}><Printer size={17} />{label}</button>;
 }
 
@@ -189,7 +193,7 @@ function SectionHeading({ icon: Icon, title, target }: { icon: typeof Wrench; ti
   return <div className="tool-heading"><span><Icon aria-hidden="true" /><strong>{title}</strong></span><PrintButton target={target} /></div>;
 }
 
-export default function ToolboxClient() {
+export default function ToolboxClient({ canPrint = false }: { canPrint?: boolean }) {
   const [query, setQuery] = useState("");
   const [selectedTool, setSelectedTool] = useState("drill-tap");
   const [drillTapTab, setDrillTapTab] = useState<DrillTapChartKey>("unc");
@@ -272,7 +276,7 @@ export default function ToolboxClient() {
     }
   }
 
-  return <SelectedToolContext.Provider value={selectedTool}>
+  return <PrintAccessContext.Provider value={canPrint}><SelectedToolContext.Provider value={selectedTool}>
     <section className="toolbox-hero no-print">
       <div className="shell toolbox-hero-grid">
         <div><span className="toolbox-kicker"><Sparkles size={16}/> Free workshop resources</span><h1>APG <em>Toolbox</em></h1><p>Practical charts, calculators and references for mechanics, builders and DIYers.</p>
@@ -395,7 +399,7 @@ export default function ToolboxClient() {
     </div>
 
     <footer className="toolbox-footer no-print"><div className="shell"><ApgLogo/><p>Parts, people and practical workshop resources.</p><div><Link href="/marketplace">Marketplace</Link><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link><TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink><Link href="/safety">Safety</Link></div></div></footer>
-  </SelectedToolContext.Provider>;
+  </SelectedToolContext.Provider></PrintAccessContext.Provider>;
 }
 
 function TireInputs({ tire, setTire }: { tire: {width:number;ratio:number;rim:number}; setTire: React.Dispatch<React.SetStateAction<{width:number;ratio:number;rim:number}>> }) {

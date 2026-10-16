@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { AlertTriangle } from "lucide-react";
 import ApgLogo from "@/components/apg-logo";
-import { getUser } from "@/lib/auth";
 import cdlQuestions from "@/app/toolbox/cdl-questions.json";
 import "@/app/toolbox/toolbox.css";
 export const metadata: Metadata = { title: "New York CDL Practice | APG Practice Tests", description: "50 original unofficial New York CDL practice questions with explanations, study lessons and official DMV manual links." };
 export default async function CdlPracticePage() {
-  if (!await getUser()) redirect("/login?next=/practice-tests/cdl");
   return <main className="toolbox-page"><header className="simple-header no-print"><div className="shell nav-wrap"><ApgLogo priority/><nav aria-label="Practice navigation"><Link href="/practice-tests">← Practice Tests</Link></nav></div></header><div className="shell py-10"><p className="mb-3 font-bold text-slate-700">APG Practice Tests · New York CDL</p><section id="cdl" className="tool-section wide-tool">
         <h1 className="text-3xl font-bold">New York CDL Study &amp; Practice</h1>
         <p className="tool-note">Start with the topics for your license class and vehicle, then test your understanding. APG’s original questions are unofficial study aids, not actual DMV exam questions or a complete training course. APG is not affiliated with the DMV.</p>
