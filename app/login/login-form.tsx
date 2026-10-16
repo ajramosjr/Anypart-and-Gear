@@ -39,6 +39,8 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
   const turnstileWidgetId = useRef<string | null>(null);
   const widgetSize = useRef<WidgetSize | null>(null);
   const statusRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const autoSignInAttempted = useRef(false);
   const passwordRequirements = getPasswordRequirements(password);
 
   function renderTurnstile() {
@@ -80,6 +82,17 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     if (message || waitingForVerification) statusRef.current?.focus();
   }, [message, waitingForVerification]);
 
+  useEffect(() => {
+    // Only the completed human check triggers automatic sign-in. Keep retries
+    // explicit so a failed password cannot cause a verification/retry loop.
+    if (!captchaToken || mode !== "signin" || loading || waitingForVerification || canResendConfirmation || autoSignInAttempted.current) return;
+    const form = formRef.current;
+    const fields = form ? new FormData(form) : null;
+    if (!form || !fields?.get("email") || !fields.get("password") || !form.checkValidity()) return;
+    autoSignInAttempted.current = true;
+    form.requestSubmit();
+  }, [captchaToken, mode, loading, waitingForVerification, canResendConfirmation]);
+
   function changeMode(nextMode: Mode) {
     if (loading) return;
     if (nextMode === "signup") trackFunnel("signup_open");
@@ -107,6 +120,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (loading || waitingForVerification) return;
+    if (mode === "signin") autoSignInAttempted.current = true;
     setMessage(""); setMessageType("error");
     if (mode === "signup") trackFunnel("signup_submit");
     if (!hasSupabaseConfig()) { setMessage("APG is temporarily unavailable. Please try again shortly."); return; }
@@ -168,7 +182,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       <button type="button" aria-pressed={mode === "signin"} disabled={loading} onClick={() => changeMode("signin")}>Sign in</button>
       <button type="button" aria-pressed={mode === "signup"} disabled={loading} onClick={() => changeMode("signup")}>Create account</button>
     </div>}
-    <form className="login-form" onSubmit={submit} aria-busy={loading}>
+    <form ref={formRef} className="login-form" onSubmit={submit} aria-busy={loading}>
       {waitingForVerification && <div className="verification-panel" ref={statusRef} tabIndex={-1} role="status">
         <strong>One more step: confirm your email.</strong>
         <p>Check the inbox for <strong>{email.trim()}</strong>. You are not signed in yet.</p>
@@ -184,7 +198,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       </>}
       <section className="login-security" aria-label={waitingForVerification ? "Verification email resend check" : "Human verification"}>
         <p className="login-security-label"><strong>{waitingForVerification ? "Need another verification email?" : "Human check"}</strong></p>
-        <p className="login-security-help">{waitingForVerification ? "Complete this check, then tap Resend verification email." : mode === "signup" ? "A “Success” here only completes this check. Tap Create account below to submit your details." : "This check confirms you’re human. Use the button below to finish."}</p>
+        <p className="login-security-help">{waitingForVerification ? "Complete this check, then tap Resend verification email." : mode === "signup" ? "A “Success” here only completes this check. Tap Create account below to submit your details." : mode === "signin" ? "Enter your email and password, then complete this check to sign in automatically." : "Complete this check, then request your reset email below."}</p>
         <div className="login-captcha" ref={turnstileContainer}/>
         <p className="login-security-status" role="status" aria-live="polite">{captchaToken ? waitingForVerification ? "Human check complete. You can request another email below." : mode === "signup" ? "Human check complete. Your account has not been submitted yet." : "Human check complete. You can continue below." : "Waiting for human verification…"}</p>
       </section>
