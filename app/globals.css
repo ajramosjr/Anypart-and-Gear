@@ -736,3 +736,8 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .login-form .login-security { padding: 0; border: 0; border-radius: 0; background: transparent; }
 .login-confirmation-hint, .login-account-switch { margin: 0; color: #536275; font-size: 13px; text-align: center; line-height: 1.5; }
 .login-account-switch .text-button { display: inline; width: auto; min-height: 44px; padding: 8px 4px; }
+
+.login-social-options { display: grid; gap: 10px; margin-top: 22px; }
+.login-social-button { min-height: 48px; border: 1px solid #cfd7dc; border-radius: 8px; background: #fff; color: #0b2345; font: inherit; font-weight: 600; padding: 12px 16px; }
+.login-social-button:disabled { opacity: .6; }
+.login-email-divider { margin: 4px 0 0; text-align: center; color: #536275; font-size: 13px; }
