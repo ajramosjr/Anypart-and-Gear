@@ -1,3 +1,4 @@
+import { safeNextPath } from "@/lib/safe-next-path";
 import { NextResponse } from "next/server";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 
@@ -8,15 +9,16 @@ export async function GET(request: Request) {
   const tokenType = url.searchParams.get("type");
   const providerErrorCode = url.searchParams.get("error_code");
   const providerErrorDescription = url.searchParams.get("error_description");
+  const validTokenType = tokenType === "email" || tokenType === "recovery" ? tokenType : null;
   const recovery = url.searchParams.get("type") === "recovery" || url.searchParams.get("next") === "/reset-password";
   const requestedNext = recovery ? "/reset-password" : url.searchParams.get("next");
-  const next = requestedNext?.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/";
+  const next = safeNextPath(requestedNext);
   let exchangeErrorCode: string | undefined;
   let exchangeErrorMessage: string | undefined;
-  if ((code || (tokenHash && tokenType === "email")) && hasSupabaseConfig()) {
+  if ((code || (tokenHash && validTokenType)) && hasSupabaseConfig()) {
     const supabase = await createClient();
-    const { error } = tokenHash && tokenType === "email"
-      ? await supabase.auth.verifyOtp({ token_hash: tokenHash, type: "email" })
+    const { error } = tokenHash && validTokenType
+      ? await supabase.auth.verifyOtp({ token_hash: tokenHash, type: validTokenType })
       : await supabase.auth.exchangeCodeForSession(code!);
     if (!error) return NextResponse.redirect(new URL(next, url.origin));
     exchangeErrorCode = error.code;

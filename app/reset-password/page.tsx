@@ -11,7 +11,7 @@ export default function ResetPasswordPage() {
         </Link>
         <div className="login-card">
           <h1>Choose a new password</h1>
-          <p>Enter a secure password with at least eight characters.</p>
+          <p>Choose a password using the requirements below.</p>
           <ResetPasswordForm />
         </div>
       </div>
