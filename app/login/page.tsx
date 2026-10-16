@@ -18,7 +18,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <Link href="/" className="login-brand login-card-brand" aria-label="Any-Part and Gear home">
             <Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="login-brand-logo" priority />
           </Link>
-          <Link href="/marketplace" className="text-button">Browse without an account →</Link>
+          <Link href="/marketplace" className="login-back-link">← Back to marketplace</Link>
           <LoginForm nextPath={safeNext} emailVerified={verified === "1"} confirmationError={confirmationError} memberAccess={access === "members"} />
         </div>
       </div>
