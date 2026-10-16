@@ -759,7 +759,7 @@ body:has(.apg-awareness-banner) .apg-home-icon { background: #fce7f3; color: #be
 .login-form .login-password input { border: 0; border-radius: 0; box-shadow: none; }
 .login-password button { background: #fff; font-size: 13px; font-weight: 500; }
 .login-captcha { margin-top: 0; }
-.login-form .button { min-height: 46px; padding: 11px 16px; border: 1px solid #102844; border-radius: 6px; background: #102844; color: #fff; font-size: 15px; font-weight: 600; box-shadow: none; transform: none; }
+.login-form .button { min-height: 46px; padding: 11px 16px; border: 1px solid #102844; border-radius: 6px; background: #102844; color: #fff !important; font-size: 15px; font-weight: 600; box-shadow: none; transform: none; }
 .login-form .button:hover { background: #1b3c60; border-color: #1b3c60; box-shadow: none; transform: none; }
 .login-form .button:disabled { opacity: .65; cursor: not-allowed; }
 .login-form .text-button { color: #102844; font-size: 14px; font-weight: 600; }
