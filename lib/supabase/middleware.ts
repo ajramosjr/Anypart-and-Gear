@@ -35,7 +35,7 @@ export async function updateSession(request: NextRequest) {
     /^\/(listing|shops)\/[^/]+$/.test(normalizedPath) &&
       !["/shops/register", "/shops/post"].includes(normalizedPath) ||
     /^\/practice-tests\/[^/]+$/.test(normalizedPath) ||
-    normalizedPath === "/api/gear/search"
+    ["/api/gear/search", "/api/tech-wire-visibility"].includes(normalizedPath)
   );
   const isPublicPage = publicPaths.has(normalizedPath) || isBrowseRequest ||
     (request.method === "POST" && ["/api/visits", "/api/funnel"].includes(normalizedPath));
