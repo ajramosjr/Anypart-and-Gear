@@ -3,28 +3,28 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth";
 import { requireBuildIdeasAccess, getBuildIdeasState } from "@/lib/build-ideas";
 import SiteHeader from "@/components/site-header";
-import BuildPicture from "./build-picture";
-import { materials, stages, planUrl, drawingUrl } from "./project";
-import "./print.css";
-import PrintButton from "./print-button";
+
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Build a Gas Go-Kart from Scratch | APG Build Ideas", robots: { index: false, follow: false } };
+export const metadata = { title: "APG Build Ideas | Any Part & Gear", robots: { index: false, follow: false } };
+
 export default async function BuildIdeasPage() {
   await requireBuildIdeasAccess();
   const user = await getUser();
   if (!user) redirect("/login?next=/build-ideas");
   const { enabled } = await getBuildIdeasState();
-  return <main className="build-ideas-page"><div className="no-print"><SiteHeader signedIn /></div><div className="shell page-shell max-w-4xl">
-    {!enabled && <aside className="no-print mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4"><strong>Private admin preview — hidden from members.</strong><p>Illustrated build companion for review. APG has not built or independently validated this kart.</p><Link className="underline" href="/admin">Back to administration</Link></aside>}
-    <span className="kicker">APG Build Ideas · Fabricate • Assemble • Share</span><h1 className="page-title">Build a gas go-kart from scratch</h1><p className="mb-5 text-lg">Start with steel tubing. Cut and weld the chassis, then install the running gear, gas engine and controls. Follow ten illustrated stages with numbered instructions and a check at each stage.</p>
-    <div className="mb-6 flex flex-wrap gap-2 text-sm font-bold"><span className="rounded-full bg-slate-100 px-4 py-2">Welding required</span><span className="rounded-full bg-slate-100 px-4 py-2">Two-seat reference design</span><span className="rounded-full bg-slate-100 px-4 py-2">Gas · fixed axle · one-wheel drive</span></div>
-    <section className="my-6 rounded-xl border border-slate-200 bg-white p-6"><h2 className="text-2xl font-black">The drawings used for this build</h2><p className="mt-3">This APG companion points to KartFab’s documented two-seat design. The chassis is fabricated from raw steel; wheels, steering components, brakes and the engine are purchased. Keep the reference design’s geometry and matching components together.</p><p className="mt-3">Open the original drawings alongside these instructions. They contain the complete cut dimensions, angles, bracket geometry and hardware schedule. APG’s diagrams explain each operation; they are not cutting templates. Resolve any unclear or conflicting dimension with the plan creator before fabrication.</p><div className="my-4 flex flex-wrap gap-4 font-bold"><a className="underline" href={planUrl} target="_blank" rel="noopener noreferrer">Original build, photos &amp; videos ↗</a><a className="underline" href={drawingUrl} target="_blank" rel="noopener noreferrer">Dimensioned PDF drawings ↗</a></div><p className="text-sm text-slate-600">Design and source plans: KartFab, LLC. Original drawings and photographs remain on the creator’s website. APG provides its own companion text and explanatory diagrams; no affiliation or engineering certification is implied.</p></section>
-    <section className="my-6 rounded-xl bg-[#0b2345] p-6 text-white"><h2 className="text-xl font-black">Work safely from the first cut</h2><p className="mt-3">Use eye and hearing protection, suitable welding PPE and ventilation. Clamp stock, guard cutting tools and keep fuel away from hot work. Young builders need direct supervision from a competent adult. A qualified person must assess structural welds, steering and brakes. Keep the engine governor and safety systems intact. Fit drive guards and test only in a controlled private area.</p></section>
-    <section className="my-8"><h2 className="text-2xl font-black">Materials and purchased components</h2><div className="mt-4 overflow-x-auto"><table className="w-full border-collapse text-left text-sm"><thead><tr className="bg-slate-100"><th className="border border-slate-200 p-3">Material</th><th className="border border-slate-200 p-3">Reference-design requirement</th></tr></thead><tbody>{materials.map(([name,detail])=><tr key={name}><th className="border border-slate-200 p-3 align-top">{name}</th><td className="border border-slate-200 p-3">{detail}</td></tr>)}</tbody></table></div><p className="mt-3 text-sm text-slate-600">Shopping quantities are not individual cut lengths. Use the original drawings for the full cut and hardware lists, and confirm engine/drive compatibility before ordering.</p></section>
-    <section className="my-8"><h2 className="text-2xl font-black">Tools</h2><p className="mt-3">Welder suitable for the specified steel, welding table and clamps, metal-cutting saw or guarded grinder, drill and metal bits, center punch, deburring tools, tape measure, square, angle gauge, straightedge, sockets, wrenches, torque wrench and chain breaker. Practice and verify your welding process on matching scrap before making chassis joints.</p></section>
-    <nav aria-label="Build stages" className="no-print my-8 rounded-xl border border-slate-200 p-5"><h2 className="text-xl font-black">Jump to a step</h2><ol className="mt-3 grid list-decimal gap-2 pl-6 sm:grid-cols-2">{stages.map(stage=><li key={stage.id}><a className="underline" href={'#'+stage.id}>{stage.title}</a></li>)}</ol></nav>
-    <div className="no-print my-6"><PrintButton /></div>
-    {stages.map((stage,index)=><article id={stage.id} key={stage.id} className="build-stage my-8 scroll-mt-28 rounded-xl border border-slate-200 bg-white p-5 sm:p-8"><p className="text-sm font-black uppercase tracking-wider text-amber-800">Stage {index+1} of {stages.length}</p><h2 className="mt-2 text-2xl font-black">{stage.title}</h2><p className="mt-2 text-sm font-semibold text-slate-600">Drawing reference: {stage.pages}</p><BuildPicture kind={stage.picture} title={stage.title}/><ol className="list-decimal space-y-4 pl-6">{stage.steps.map((step,i)=><li key={i} className="pl-2 leading-7">{step}</li>)}</ol><div className="mt-5 rounded-lg border-l-4 border-amber-400 bg-amber-50 p-4"><strong>Check before continuing</strong><p className="mt-2">{stage.check}</p></div><p className="mt-4 text-sm"><a className="font-bold underline" href={stage.source} target="_blank" rel="noopener noreferrer">Source walkthrough, photos and video ↗</a>{stage.extraSource && <> · <a className="font-bold underline" href={stage.extraSource} target="_blank" rel="noopener noreferrer">Seat fabrication walkthrough ↗</a></>}</p></article>)}
-    <section className="my-8 rounded-xl bg-slate-100 p-6"><h2 className="text-2xl font-black">Show APG what you built</h2><p className="mt-3">Keep photos of your raw materials, fabrication, rolling chassis and finished kart. A member showcase is planned; submission details will appear when that feature is ready.</p></section>
-  </div></main>;
+  return <main>
+    <SiteHeader signedIn />
+    <div className="shell max-w-4xl">
+      {!enabled && <aside className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4">
+        <strong>Private admin preview — hidden from members.</strong>
+        <p><Link className="underline" href="/admin">Back to administration</Link></p>
+      </aside>}
+      <span className="kicker">APG Build Ideas</span>
+      <h1 className="page-title">Build Ideas</h1>
+      <section className="my-6 rounded-xl border border-slate-200 bg-white p-6">
+        <p>No projects are available right now.</p>
+        <Link href="/marketplace" className="mt-4 inline-block font-bold underline">Browse the marketplace</Link>
+      </section>
+    </div>
+  </main>;
 }
