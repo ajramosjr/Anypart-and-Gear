@@ -28,7 +28,7 @@ export async function updateSession(request: NextRequest) {
   const publicBrowsePaths = new Set([
     "/marketplace", "/shops", "/toolbox", "/links", "/garage-gear",
     "/about", "/safety", "/trust", "/support", "/shout-outs", "/practice-tests",
-    "/how-things-work.html", "/parts-wanted",
+    "/how-things-work.html", "/parts-wanted", "/jobs",
   ]);
   const isBrowseRequest = ["GET", "HEAD"].includes(request.method) && (
     publicBrowsePaths.has(normalizedPath) ||
