@@ -16,8 +16,8 @@ export default function PageMenu() {
   const path = usePathname();
   const ref = useRef<HTMLDetailsElement>(null);
   const close = () => { if (ref.current) ref.current.open = false; };
-  return <details className="apg-page-menu no-print" ref={ref} onKeyDown={e => { if (e.key === "Escape") { close(); ref.current?.querySelector("summary")?.focus(); } }}>
+  return <><Link href="/garage-gear" className="apg-header-gear no-print">Tools &amp; Work Gear</Link><details className="apg-page-menu no-print" ref={ref} onKeyDown={e => { if (e.key === "Escape") { close(); ref.current?.querySelector("summary")?.focus(); } }}>
     <summary aria-label="Main menu">Menu ☰</summary>
     <nav aria-label="Main menu">{destinations.filter(([href]) => href !== path).map(([href, label]) => <Link key={href} href={href} onClick={close}>{label}</Link>)}</nav>
-  </details>;
+  </details></>;
 }
