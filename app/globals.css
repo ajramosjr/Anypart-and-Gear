@@ -797,3 +797,73 @@ header:has(.apg-page-menu)>div>:not(.apg-page-menu):not(.apg-header-gear):not(:h
 
 .apg-header-gear{display:inline-flex!important;align-items:center;justify-content:center;flex:none;order:98;margin-left:auto;min-height:44px;border:1px solid #c79522;border-radius:8px;background:#e8b942;padding:10px 12px;color:#071a35;font-size:13px;font-weight:750;text-decoration:none;text-align:center;max-width:150px}
 .apg-header-gear+.apg-page-menu{margin-left:12px}
+
+/* Keep the logo and both navigation controls on one compact mobile row. */
+@media (max-width: 700px) {
+  header:has(.apg-page-menu) > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  header:has(.apg-page-menu) > .nav-wrap {
+    width: calc(100% - 24px);
+    min-height: 70px;
+    padding-block: 8px;
+  }
+  header:has(.apg-page-menu) .apg-header-logo {
+    min-width: 0;
+    padding: 0;
+  }
+  header:has(.apg-page-menu) .apg-header-logo-image {
+    width: clamp(86px, 28vw, 140px);
+    max-width: 100%;
+    height: auto;
+    max-height: 46px;
+  }
+  header:has(.apg-page-menu) .apg-header-gear {
+    width: 104px;
+    max-width: 104px;
+    min-height: 44px;
+    margin: 0;
+    padding: 6px 8px;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  header:has(.apg-page-menu) .apg-page-menu {
+    margin: 0;
+    min-width: 0;
+  }
+  header:has(.apg-page-menu) .apg-page-menu > summary {
+    min-height: 44px;
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .apg-site-header > div:first-child {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px;
+    min-height: 70px;
+    padding: 8px 12px;
+  }
+  .apg-site-header > div:first-child > div:has(.apg-header-logo) {
+    min-width: 0;
+  }
+  .apg-site-header > div:first-child > a[href="/garage-gear"] {
+    width: 104px;
+    min-height: 44px;
+    padding: 6px 8px;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .apg-site-header > div:first-child > details > summary {
+    min-height: 44px;
+    gap: 4px;
+    padding: 8px;
+  }
+  .apg-site-header > div:first-child > details > summary svg { width: 18px; height: 18px; }
+  .apg-site-header > div:first-child > details > summary span { font-size: 12px; }
+}
