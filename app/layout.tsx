@@ -9,6 +9,8 @@ import { getTechWireState } from "@/lib/tech-wire";
 import { TechWireNavigationProvider } from "@/components/tech-wire-navigation";
 import { getBuildIdeasState } from "@/lib/build-ideas";
 import { BuildIdeasNavigationProvider } from "@/components/build-ideas-navigation";
+import { getUser } from "@/lib/auth";
+import { AdminNavigationProvider } from "@/components/admin-navigation";
 import "./globals.css";
 import "./listing-overrides.css";
 
@@ -51,7 +53,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [{ enabled }, buildIdeas] = await Promise.all([getTechWireState(), getBuildIdeasState()]);
+  const [{ enabled }, buildIdeas, user] = await Promise.all([getTechWireState(), getBuildIdeasState(), getUser()]);
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
       <head>
@@ -63,7 +65,7 @@ export default async function RootLayout({
         {/* Preserve AvantLink’s exact temporary ownership tag for its source checker. */}
         <div hidden dangerouslySetInnerHTML={{ __html: "<script type=\"text/javascript\" src=\"http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007\"></script>" }} />
         <PasswordRecoveryRedirect />
-        <TechWireNavigationProvider enabled={enabled}><BuildIdeasNavigationProvider enabled={buildIdeas.enabled}>{children}</BuildIdeasNavigationProvider></TechWireNavigationProvider>
+        <AdminNavigationProvider isAdmin={user?.id === "5dd24cb6-6706-4c4e-8c17-0b03b2632acb" && user.app_metadata?.role === "admin"}><TechWireNavigationProvider enabled={enabled}><BuildIdeasNavigationProvider enabled={buildIdeas.enabled}>{children}</BuildIdeasNavigationProvider></TechWireNavigationProvider></AdminNavigationProvider>
         <GearsAssistant />
         <VisitCounter />
         <Analytics />

@@ -6,6 +6,7 @@ import { ArrowRight, BookOpen, ChevronDown, ClipboardList, Menu, MessageSquare, 
 import ApgLogo from "@/components/apg-logo";
 import { TechWireLink } from "@/components/tech-wire-navigation";
 import { BuildIdeasLink } from "@/components/build-ideas-navigation";
+import { AdminNavigationLink } from "@/components/admin-navigation";
 import InstallApp from "@/app/install-app";
 
 type SiteHeaderProps = {
@@ -55,6 +56,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
             <summary className={rowClass + " cursor-pointer list-none [&::-webkit-details-marker]:hidden"}><UserRound size={20} aria-hidden="true" />My Account<ChevronDown size={18} className="ml-auto" aria-hidden="true" /></summary>
             <div className="grid gap-1 pl-9">
               <Link href="/account" className={childClass}>My listings &amp; account</Link>
+              <AdminNavigationLink className={childClass} />
               <Link href="/messages" className={childClass}>Messages</Link>
               <Link href="/notifications" className={childClass}>Notifications</Link>
               <a href={signOutPath} className={childClass}>Sign out</a>
