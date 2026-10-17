@@ -10,6 +10,7 @@ type MessageRequest = {
   shopId?: unknown;
   messageType?: unknown;
   amount?: unknown;
+  offerItem?: unknown;
   relatedMessageId?: unknown;
 };
 
@@ -96,7 +97,8 @@ export async function POST(request: Request) {
     const { data: listing } = await supabase.from("listings").select("allow_offers,status").eq("id", conversation.listing_id).maybeSingle();
     if (!listing || listing.status !== "active" || !listing.allow_offers) return NextResponse.json({ error: "This listing is not accepting offers." }, { status: 400 });
     offerAmount = Math.round(amount * 100) / 100;
-    body = `Offer: $${offerAmount.toFixed(2)}`;
+    const offerItem = typeof payload.offerItem === "string" ? payload.offerItem.trim().replace(/[\r\n]+/g, " ").slice(0, 120) : "";
+    body = `Offer: $${offerAmount.toFixed(2)}${offerItem ? ` for ${offerItem}` : ""}`;
   } else {
     relatedMessageId = typeof payload.relatedMessageId === "string" ? payload.relatedMessageId : "";
     if (!relatedMessageId) return NextResponse.json({ error: "Choose an offer to respond to." }, { status: 400 });

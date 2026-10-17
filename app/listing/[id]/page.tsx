@@ -1,6 +1,6 @@
 import PageMenu from "@/components/page-menu";
 import PartsList from "./parts-list";
-import { getSubaruParts } from "@/lib/part-out";
+import { getSubaruParts, getPartOutDescription } from "@/lib/part-out";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -76,7 +76,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
         {!parts && <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />}
         <div className="detail-info">
           <span className="kicker">{listing.category}</span><h1>{parts ? "Subaru Parts" : listing.title}</h1>{parts && <p>{listing.title}</p>}<strong className="detail-price">{parts ? "Prices listed by part" : `$${listing.price.toLocaleString()}`}</strong>
-          <div className="mt-5"><ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={parts ? false : listing.allow_offers} listingPrice={listing.price} /></div>
+          <div className="mt-5"><ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={listing.allow_offers} listingPrice={listing.price} offerItems={parts?.map(part => ({ name: part.name, price: part.price }))} /></div>
           <div className="detail-facts">
             <span><b>Condition</b>{listing.condition}</span><span><b>Location</b><i><MapPin size={14} /> {listing.location}</i></span>
             <span><b>Seller</b><i>{listing.seller_name}<SellerBadges {...badges} /></i></span>
@@ -86,7 +86,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
             <span><b>Active listings</b><i><PackageCheck size={14}/> {sellerStats.activeListings}</i></span>
             <span><b>Trade</b>{listing.trade ? "Considered" : "Not listed"}</span>
           </div>
-          <h3>About this item</h3><p className="detail-description">{listing.description}</p>
+          <h3>About this item</h3><p className="detail-description">{parts ? getPartOutDescription(listing.description) : listing.description}</p>
           <p className="detail-warning"><ShieldCheck size={16} /> Anypart &amp; Gear does not process payments or guarantee fitment. Inspect the item, verify the seller and use a safe meeting place before paying.</p>
           <ReportListing listingId={String(listing.id)} currentUserId={user?.id} isOwner={Boolean(user?.id && listing.user_id === user.id)} reportable={reportable}/>
         </div>

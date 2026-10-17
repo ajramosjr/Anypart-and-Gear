@@ -4,14 +4,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { requestEmailNotification } from "@/lib/notify";
 
-export default function ContactSeller({ listingId, sellerId, currentUserId, allowOffers, listingPrice }: { listingId: string; sellerId?: string; currentUserId?: string; allowOffers: boolean; listingPrice: number }) {
+export default function ContactSeller({ listingId, sellerId, currentUserId, allowOffers, listingPrice, offerItems = [] }: { listingId: string; sellerId?: string; currentUserId?: string; allowOffers: boolean; listingPrice: number; offerItems?: { name: string; price: number }[] }) {
   const [mode, setMode] = useState<"message" | "offer" | null>(null);
   const [body, setBody] = useState("Hi, is this item still available?");
   const [amount, setAmount] = useState("");
+  const [offerItem, setOfferItem] = useState("");
+  const selectedItem = offerItems.find(item => item.name === offerItem);
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   if (!sellerId) return <Link className="button detail-button" href="/login">Sign in to contact seller</Link>;
-  if (!currentUserId) return <div className="contact-actions"><Link className="button detail-button" href={`/login?next=/listing/${listingId}`}>Sign in to contact seller</Link></div>;
+  if (!currentUserId) return <div className="contact-actions"><Link className="button detail-button" href={`/login?next=/listing/${listingId}`}>Sign in to contact seller</Link>{allowOffers && <Link className="button button-ghost-dark detail-button" href={`/login?next=/listing/${listingId}`}>Sign in to make an offer</Link>}</div>;
   if (currentUserId === sellerId) return <Link className="button detail-button" href={`/listing/${listingId}/edit`}>Edit this listing</Link>;
 
   async function send(payload: Record<string, unknown>) {
@@ -34,10 +36,11 @@ export default function ContactSeller({ listingId, sellerId, currentUserId, allo
       <div className="contact-actions"><button className="button detail-button" onClick={() => void send({ body })} disabled={sending || !body.trim()}>{sending ? "Sending..." : "Send private message"}</button><button className="text-button" onClick={() => setMode(null)}>Cancel</button></div>
     </div>}
     {mode === "offer" && <div className="offer-form">
+      {offerItems.length > 0 && <label>Choose a part<select value={offerItem} onChange={e => { setOfferItem(e.target.value); setAmount(""); }}><option value="">Select a part</option>{offerItems.map(item => <option key={item.name} value={item.name}>{item.name}</option>)}</select></label>}
       <label htmlFor="offer-amount">Your offer</label>
-      <div className="offer-input"><span>$</span><input id="offer-amount" type="number" min="1" max="100000000" step="0.01" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder={Math.max(1, Math.round(listingPrice * .9)).toString()} /></div>
+      <div className="offer-input"><span>$</span><input id="offer-amount" type="number" min="1" max="100000000" step="0.01" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder={offerItems.length ? (selectedItem ? String(selectedItem.price) : "Enter amount") : Math.max(1, Math.round(listingPrice * .9)).toString()} /></div>
       <p>Offers are nonbinding. Payment, pickup and delivery are arranged directly with the seller.</p>
-      <div className="contact-actions"><button className="button detail-button" onClick={() => void send({ messageType: "offer", amount: Number(amount) })} disabled={sending || !Number(amount)}>{sending ? "Sending..." : "Send offer"}</button><button className="text-button" onClick={() => setMode(null)}>Cancel</button></div>
+      <div className="contact-actions"><button className="button detail-button" onClick={() => void send({ messageType: "offer", amount: Number(amount), offerItem: selectedItem?.name })} disabled={sending || !Number(amount) || Number(amount) < 1 || (offerItems.length > 0 && !selectedItem)}>{sending ? "Sending..." : "Send offer"}</button><button className="text-button" onClick={() => setMode(null)}>Cancel</button></div>
     </div>}
     {error && <p className="form-message error">{error}</p>}
   </div>;
