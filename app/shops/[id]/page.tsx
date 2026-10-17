@@ -8,6 +8,8 @@ import { createClient } from "@/lib/supabase/server";
 import ApgLogo from "@/components/apg-logo";
 import ContactShop from "../contact-shop";
 import RemovePost from "../remove-post";
+import JobCard from "@/app/jobs/job-card";
+import type { Job } from "@/lib/jobs";
 
 export const dynamic = "force-dynamic";
 
@@ -72,7 +74,7 @@ function contactCard(shop: Shop, website: string | null) {
   return "data:text/vcard;charset=utf-8," + encodeURIComponent(folded);
 }
 
-export default async function ShopProfilePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ShopProfilePage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ tab?: string }> }) {
   const [{ id }, user] = await Promise.all([params, getUser()]);
   const supabase = await createClient();
   const { data: shopData } = await supabase
@@ -84,6 +86,13 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
 
   if (!shopData) notFound();
   const shop = shopData as Shop;
+  const { tab } = await searchParams;
+  const isOwner = user?.id === shop.owner_id;
+  let jobsQuery = supabase.from("jobs").select("*").eq("shop_id", shop.id).order("created_at", { ascending: false });
+  if (!isOwner) jobsQuery = jobsQuery.eq("status", "open").gt("expires_at", new Date().toISOString());
+  const { data: jobRows, error: jobsError } = await jobsQuery;
+  const jobs = (jobRows || []) as Job[];
+  const openCount = jobs.filter(job => job.status === "open" && new Date(job.expires_at).getTime() > Date.now()).length;
 
   const { data: listingData } = await supabase
     .from("listings")
@@ -123,6 +132,12 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
     </section>
 
     <div className="shell page-shell">
+      <nav aria-label="Business profile" className="mb-7 flex flex-wrap gap-5 border-b border-slate-300 font-bold">
+        <Link className="py-3" aria-current={!tab ? "page" : undefined} href={`/shops/${shop.id}`}>About</Link>
+        <Link className="py-3" aria-current={tab === "items" ? "page" : undefined} href={`/shops/${shop.id}?tab=items#parts-for-sale`}>Parts for Sale</Link>
+        <Link className="py-3" aria-current={tab === "jobs" ? "page" : undefined} href={`/shops/${shop.id}?tab=jobs`}>Now Hiring{openCount ? ` (${openCount})` : ""}</Link>
+      </nav>
+      {tab === "jobs" ? <section><div className="mb-6 flex flex-wrap items-center justify-between gap-4"><div><h2 className="page-title">Now Hiring</h2><p className="mt-2 text-slate-600">{openCount} {openCount === 1 ? "opening" : "openings"} at {shop.name}</p></div>{isOwner && <Link className="button" href="/jobs/new">Post a Job</Link>}</div>{jobsError ? <p role="alert">Job openings could not be loaded. Please try again.</p> : jobs.length ? <div className="grid gap-5 md:grid-cols-2">{jobs.map(job => <JobCard key={job.id} job={job} owner={isOwner}/>)}</div> : <div className="empty-state"><h3>No current openings</h3><p>{isOwner ? "Post an opening to start receiving applications directly." : "Check back for opportunities with this business."}</p></div>}<Link className="mt-6 inline-block font-bold underline" href="/jobs">Browse All Jobs &amp; Opportunities</Link></section> : <>
       {user?.id === shop.owner_id && <div className="mb-6"><Link className="button" href="/shops/post">Share a business post</Link></div>}
       <section className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2">
         <span className="flex items-center gap-3 text-slate-700"><MapPin className="size-5 text-amber-700"/><strong>{shop.location} · {shop.postal_code}</strong></span>
@@ -132,7 +147,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
 
       {!!businessPosts?.length && <section className="mt-12"><div className="mb-6"><span className="kicker">Recent posts</span><h2 className="page-title">From {shop.name}</h2></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{businessPosts.map((post) => <article key={post.id} className="overflow-hidden rounded-xl bg-white shadow-sm"><div className="relative aspect-[4/3]"><Image src={post.image_url} alt={`Post by ${shop.name}`} fill sizes="(max-width: 700px) 100vw, 33vw" className="object-cover"/></div><div className="p-5"><span className="text-xs font-bold uppercase text-amber-700">{post.category}</span><p className="mt-2 font-semibold">{post.caption}</p>{post.price !== null && <p className="mt-2 font-black">${Number(post.price).toLocaleString()}</p>}<ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id} nextPath={`/shops/${shop.id}`} prompt={`I'm asking about your APG post: ${post.caption.slice(0, 120)}`} label="Ask shop"/>{user?.id === shop.owner_id && <RemovePost postId={post.id}/>}</div></article>)}</div></section>}
 
-      <section className="mt-12">
+      <section id="parts-for-sale" className="mt-12">
         <div className="mb-6"><span className="kicker">Optional APG listings</span><h2 className="page-title">Items from {shop.name}</h2><p className="mt-2 text-slate-600">{listings.length} active {listings.length === 1 ? "listing" : "listings"}</p></div>
         {listings.length ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{listings.map((listing) => <article className="listing-card" key={listing.id}>
           <div className="listing-visual bg-gradient-to-br from-blue-950 to-slate-700">
@@ -147,6 +162,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
           </div>
         </article>)}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h3>Ask this business what it offers</h3><p>This shop uses its APG profile to share its services and specialty. Individual item listings are optional. Send the shop a private message or visit its website.</p>{website && <a className="button mt-5" href={website} target="_blank" rel="noopener noreferrer nofollow">Visit Business Website</a>}</div>}
       </section>
+      </>}
     </div>
   </main>;
 }

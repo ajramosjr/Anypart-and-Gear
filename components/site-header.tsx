@@ -38,6 +38,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
           <Link href="/marketplace" aria-current={current === "marketplace" ? "page" : undefined} className={rowClass}><Package size={20} aria-hidden="true" />Marketplace<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <Link href={signedIn ? "/sell" : "/login?next=/sell"} className={rowClass}><Tag size={20} aria-hidden="true" />Post an Item<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <Link href="/shops" className={rowClass}><Store size={20} aria-hidden="true" />Shops &amp; Suppliers<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
+          <Link href="/jobs" className={rowClass}><ClipboardList size={20} aria-hidden="true" />Jobs &amp; Opportunities<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <Link href="/parts-wanted" className={rowClass}><ClipboardList size={20} aria-hidden="true" />Parts Wanted<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <details className="border-t border-slate-200 pt-2">
             <summary className={rowClass + " cursor-pointer list-none [&::-webkit-details-marker]:hidden"}><BookOpen size={20} aria-hidden="true" />Learn &amp; Resources<ChevronDown size={18} className="ml-auto" aria-hidden="true" /></summary>
