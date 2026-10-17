@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,7 +16,7 @@ export default async function TopicPracticePage({ params }: { params: Promise<{ 
   const bank = banks.find(item => item.slug === topic);
   if (!bank) notFound();
   return <main className="min-h-screen bg-[#f3f5f8] text-slate-950">
-    <header className="apg-site-header border-b bg-white"><div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4"><ApgLogo priority/><Link href="/practice-tests" className="font-bold text-[#071a35] underline underline-offset-4">← Practice Tests</Link></div></header>
+    <header className="apg-site-header border-b bg-white"><div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4"><ApgLogo priority/><Link href="/practice-tests" className="font-bold text-[#071a35] underline underline-offset-4">← Practice Tests</Link><PageMenu /></div></header>
     <div className="mx-auto max-w-5xl px-4 py-10 sm:py-14"><p className="text-xs font-bold uppercase tracking-widest text-amber-700">APG study resources · {bank.category}</p><h1 className="mt-3 text-3xl font-black text-[#071a35] sm:text-5xl">{bank.title} Practice</h1><p className="mt-5 max-w-3xl leading-7 text-slate-600">{bank.description} {bank.questions.length} original APG questions, short lessons and answer explanations.</p>
     <p className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6">Independent, unofficial learning practice. This is not an official exam, complete training course or certificate. Follow current local requirements and manufacturer instructions, and use qualified instruction for hands-on work.</p>
     <section className="mt-8" aria-labelledby="lessons"><h2 id="lessons" className="text-2xl font-bold text-[#071a35]">Start with a short lesson</h2>{bank.lessons.map(lesson => <details key={lesson.title} className="mt-3 rounded-xl border border-slate-200 bg-white p-5"><summary className="cursor-pointer font-bold">{lesson.title}</summary><p className="mt-3 leading-7 text-slate-600">{lesson.body}</p></details>)}</section>

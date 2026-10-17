@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import ApgLogo from "@/components/apg-logo";
@@ -26,7 +27,7 @@ export default async function NotificationsPage() {
         <div className="shell nav-wrap">
           <ApgLogo priority />
           <nav className="account-nav"><Link href="/messages">Messages</Link><Link href="/account">My account</Link><NotificationBell userId={user.id} /></nav>
-        </div>
+        <PageMenu /></div>
       </header>
       <div className="shell page-shell">
         <div className="page-intro"><span className="kicker">APG updates</span><h1 className="page-title">Notifications</h1><p>Messages, offers, exchanges and reviews appear here.</p></div>

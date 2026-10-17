@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import { requireTechWireAccess } from "@/lib/tech-wire";
 import { SeasonalLogo } from "@/components/october-awareness";
 import type { Metadata } from "next";
@@ -38,7 +39,7 @@ export default async function TechArticlePage({ params }: { params: Promise<{ sl
       <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" aria-label="Any Part and Gear home"><SeasonalLogo alt="Any Part and Gear" width={172} height={50} className="h-12 w-auto object-contain" priority /></Link>
         <Link href="/tech-wire" className="apg-header-control inline-flex items-center gap-2 rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] hover:bg-amber-300"><ArrowLeft className="size-4" /> Parts &amp; Industry News</Link>
-      </div>
+      <PageMenu /></div>
     </header>
 
     <article>

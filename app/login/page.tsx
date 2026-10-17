@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { safeNextPath } from "@/lib/safe-next-path";
@@ -15,6 +16,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <main className="login-page">
       <div className="login-wrap">
+        <div className="auth-page-menu"><PageMenu /></div>
         <div className="login-card">
           <Link href="/" className="login-brand login-card-brand" aria-label="Any-Part and Gear home">
             <Image src="/apg-logo.webp" alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="login-brand-logo" priority />

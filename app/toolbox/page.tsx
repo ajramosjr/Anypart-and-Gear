@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TechWireLink } from "@/components/tech-wire-navigation";
@@ -25,18 +26,9 @@ export default async function ToolboxPage() {
             <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
             <Link href="/links">Courses &amp; Training</Link>
             <Link href="/sell">Post an Item</Link>
-            <details className="dashboard-menu">
-              <summary>Menu</summary>
-              <div className="dashboard-menu-links">
-                <Link href="/marketplace">Marketplace</Link>
-                <Link href="/shops">Repair Shops &amp; Parts Suppliers</Link>
-                <TechWireLink href="/tech-wire">APG Tech Wire</TechWireLink>
-                <Link href="/links">Courses &amp; Training</Link>
-                <Link href="/sell">Post an Item</Link>
-              </div>
-            </details>
+
           </nav>
-        </div>
+        <PageMenu /></div>
       </header>
       <ToolboxClient canPrint={Boolean(user)} />
     </main>

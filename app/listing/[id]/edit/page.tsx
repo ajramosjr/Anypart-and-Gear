@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getUser } from "@/lib/auth";
@@ -18,5 +19,5 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
     supabase.from("shops").select("id,name").eq("owner_id", user.id).eq("is_active", true).maybeSingle(),
   ]);
   if (!data) notFound();
-  return <main><header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href={`/listing/${id}`}>Cancel editing</Link><NotificationBell userId={user.id}/></nav></div></header><div className="shell page-shell"><div className="page-intro"><span className="kicker">Seller tools</span><h1 className="page-title">Edit listing</h1><p>Update the title, description, price and item details shown to buyers.</p></div><div className="card-panel"><EditForm listing={data} userId={user.id} shop={shop} /></div></div></main>;
+  return <main><header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href={`/listing/${id}`}>Cancel editing</Link><NotificationBell userId={user.id}/></nav><PageMenu /></div></header><div className="shell page-shell"><div className="page-intro"><span className="kicker">Seller tools</span><h1 className="page-title">Edit listing</h1><p>Update the title, description, price and item details shown to buyers.</p></div><div className="card-panel"><EditForm listing={data} userId={user.id} shop={shop} /></div></div></main>;
 }

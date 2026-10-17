@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowLeft, LockKeyhole, MessageCircle, UserRound } from "lucide-react";
@@ -79,7 +80,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
         <div className="shell nav-wrap">
           <ApgLogo priority />
           <div className="account-nav"><Link href="/account" className="messages-account-link">My account</Link><NotificationBell userId={user.id}/></div>
-        </div>
+        <PageMenu /></div>
       </header>
       <div className="shell page-shell messages-shell">
         <div className="messages-intro">

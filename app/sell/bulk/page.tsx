@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth";
@@ -19,7 +20,7 @@ export default async function BulkSellPage() {
   const sellerName = shop?.name || user.user_metadata?.full_name || user.email?.split("@")[0] || "Seller";
 
   return <main>
-    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/sell">Post one item</Link></div></header>
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><Link href="/sell">Post one item</Link><PageMenu /></div></header>
     <div className="shell page-shell">
       <div className="page-intro">
         <span className="kicker">Business seller tools</span>

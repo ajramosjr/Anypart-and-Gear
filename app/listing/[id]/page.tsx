@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import PartsList from "./parts-list";
 import { getSubaruParts } from "@/lib/part-out";
 import type { Metadata } from "next";
@@ -70,7 +71,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 
   return (
     <main>
-      <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace#listings">Back to listings</Link>{user&&<NotificationBell userId={user.id}/>}</nav></div></header>
+      <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace#listings">Back to listings</Link>{user&&<NotificationBell userId={user.id}/>}</nav><PageMenu /></div></header>
       <div className="shell page-shell"><div className={parts ? "grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]" : "detail-grid"}>
         {!parts && <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />}
         <div className="detail-info">

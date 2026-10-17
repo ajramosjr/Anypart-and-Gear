@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import { requireTechWireAccess } from "@/lib/tech-wire";
 import { SeasonalLogo } from "@/components/october-awareness";
 import type { Metadata } from "next";
@@ -28,7 +29,7 @@ export default async function TechWirePage() {
             <Link href="/marketplace" className="hidden items-center gap-2 text-sm font-bold text-slate-700 hover:text-slate-950 sm:flex"><ArrowLeft className="size-4" /> Marketplace</Link>
             <Link href="/shops" className="apg-header-control rounded-md border border-amber-500 bg-amber-400 px-4 py-2.5 text-sm font-extrabold text-[#071a35] shadow-sm hover:bg-amber-300">Repair Shops &amp; Parts Suppliers</Link>
           </div>
-        </div>
+        <PageMenu /></div>
       </header>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">

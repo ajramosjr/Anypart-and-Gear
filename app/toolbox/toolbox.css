@@ -21,3 +21,6 @@
 #cdl .cdl-topic-nav{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}#cdl .cdl-topic-nav a{padding:10px 14px;border:1px solid #ccd3dd;border-radius:8px;background:#f4f6fa}#cdl .cdl-topic{scroll-margin-top:24px}
 
 .cdl-hub-link{display:inline-block;padding:12px 18px;background:#071a35;color:white!important;border-radius:8px;font-weight:700;margin:12px 0}
+
+.tool-jump select option{background:#fff;color:#071a35;font-weight:500}.tool-jump select option:checked{background:#f6b91b;color:#071a35;font-weight:800}
+@media print{.bill-sale-tool>.tool-heading{display:none!important}.bill-sale-tool .print-brand{display:none!important}}

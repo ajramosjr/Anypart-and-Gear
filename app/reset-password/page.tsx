@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import { SeasonalLogo } from "@/components/october-awareness";
 import Link from "next/link";
 import ResetPasswordForm from "./reset-password-form";
@@ -6,6 +7,7 @@ export default function ResetPasswordPage() {
   return (
     <main className="login-page">
       <div className="login-wrap">
+        <div className="auth-page-menu"><PageMenu /></div>
         <Link href="/" className="login-brand" aria-label="Any-Part and Gear home">
           <SeasonalLogo alt="A.P.G. Any-Part & Gear LLC" width={172} height={50} className="login-brand-logo" priority />
         </Link>

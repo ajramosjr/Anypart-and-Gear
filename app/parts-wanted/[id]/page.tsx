@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -41,7 +42,7 @@ export default async function PartRequestPage({ params }: { params: Promise<{ id
   const title = requestTitle(request);
   const active = request.status === "active" && new Date(request.expires_at) > new Date();
 
-  return <main><header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/parts-wanted">Parts Wanted</Link><Link href="/messages">Messages</Link></nav></div></header><div className="shell page-shell request-detail-shell">
+  return <main><header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/parts-wanted">Parts Wanted</Link><Link href="/messages">Messages</Link></nav><PageMenu /></div></header><div className="shell page-shell request-detail-shell">
     <Link href="/parts-wanted" className="back-link">← Back to Parts Wanted</Link>
     <div className="request-detail-heading"><div><span className={`request-kind ${request.request_kind === "help_identify" ? "identify" : "known"}`}>{request.request_kind === "help_identify" ? <CircleHelp size={16}/> : <Search size={16}/>} {request.request_kind === "help_identify" ? "Help identifying a part" : "Known part request"}</span><h1 className="page-title">{title}</h1>{vehicle && <p className="request-detail-vehicle">{vehicle}</p>}</div><span className={`request-status ${active ? "active" : request.status}`}>{active ? "active" : request.status === "active" ? "expired" : request.status}</span></div>
 

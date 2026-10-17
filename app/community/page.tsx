@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Cog, Wrench, Search, Lightbulb } from "lucide-react";
@@ -10,7 +11,7 @@ export const metadata: Metadata = { title: "APG Community | Any Part & Gear", de
 export default async function CommunityPage() {
   const { enabled } = await getCommunityState();
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
-    <header className="simple-header sell-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Community navigation"><Link href="/">Back to APG</Link></nav></div></header>
+    <header className="simple-header sell-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Community navigation"><Link href="/">Back to APG</Link></nav><PageMenu /></div></header>
     <div className="shell py-12 pb-32">
       <section className="overflow-hidden rounded-2xl bg-[#071a35] p-7 text-white sm:p-12">
         <div className="flex items-center gap-4"><Cog size={56} className="shrink-0 text-[#e6b944]" aria-hidden="true" /><span className="rounded-full bg-[#e6b944] px-4 py-2 text-sm font-black text-[#071a35]">{enabled ? "Now available" : "Coming Soon"}</span></div>

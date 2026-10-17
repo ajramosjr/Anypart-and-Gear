@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Search, ShieldCheck, Star, Store, Upload } from "lucide-react";
@@ -78,7 +79,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
   });
 
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
-    <header className="simple-header sell-header dashboard-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Directory navigation"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link><details className="dashboard-menu"><summary aria-label="Open directory menu">Menu</summary><div className="dashboard-menu-links"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link></div></details></nav></div></header>
+    <header className="simple-header sell-header dashboard-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Directory navigation"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link></nav><PageMenu /></div></header>
     <section className="bg-white"><div className="shell py-7 sm:py-10">
       <h1 className="text-3xl font-black sm:text-5xl">Repair Shops &amp; Parts Suppliers</h1>
       <p className="mt-2 text-slate-600">Find parts, supplies and repair services.</p>
@@ -125,7 +126,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
       </section>}      {!isOnline && <section id="long-island-directory" className="scroll-mt-6">
         <h2 className="text-2xl font-black">{isSuppliers ? "Local Parts Suppliers" : "Local Repair Shops"}</h2>
         <p className="mt-2 text-slate-600">Long Island, New York City and New Jersey. Contact businesses for current services and stock.</p>
-        
+
         <details className="mt-3 text-sm text-slate-600"><summary className="cursor-pointer">About directory listings</summary><p className="mt-2">Independent listings do not imply an APG partnership. Coverage is growing.  Business details checked refers to the listed business and its public contact information. Website links open an external site in a new tab. APG does not control those sites or guarantee website security, products or services.</p></details><div className="mt-5 flex flex-wrap items-center gap-3"><strong>{localResults.length} {localResults.length === 1 ? "business" : "businesses"} · {towns.length} {towns.length === 1 ? "town" : "towns"}</strong>{(q || location || selected !== "All" || selectedCounty !== "All" || selectedType !== "All" || selectedSpecialty !== "All") && <Link href={isSuppliers ? "/shops?view=suppliers#long-island-directory" : "/shops#long-island-directory"} className="text-sm font-bold underline">Clear filters</Link>}</div>
         <details className="mt-4"><summary className="cursor-pointer text-sm font-bold">Browse by town</summary><nav aria-label="Browse directory by town" className="mt-3 flex flex-wrap gap-2">{towns.map((name) => <a key={name} href={`#town-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold">{name}</a>)}</nav></details>
         {towns.length ? towns.map((name) => {

@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
@@ -6,7 +7,7 @@ import cdlQuestions from "@/app/toolbox/cdl-questions.json";
 import "@/app/toolbox/toolbox.css";
 export const metadata: Metadata = { title: "New York CDL Practice | APG Practice Tests", description: "50 original unofficial New York CDL practice questions with explanations, study lessons and official DMV manual links." };
 export default async function CdlPracticePage() {
-  return <main className="toolbox-page"><header className="simple-header no-print"><div className="shell nav-wrap"><ApgLogo priority/><nav aria-label="Practice navigation"><Link href="/practice-tests">← Practice Tests</Link></nav></div></header><div className="shell py-10"><p className="mb-3 font-bold text-slate-700">APG Practice Tests · New York CDL</p><section id="cdl" className="tool-section wide-tool">
+  return <main className="toolbox-page"><header className="simple-header no-print"><div className="shell nav-wrap"><ApgLogo priority/><nav aria-label="Practice navigation"><Link href="/practice-tests">← Practice Tests</Link></nav><PageMenu /></div></header><div className="shell py-10"><p className="mb-3 font-bold text-slate-700">APG Practice Tests · New York CDL</p><section id="cdl" className="tool-section wide-tool">
         <h1 className="text-3xl font-bold">New York CDL Study &amp; Practice</h1>
         <p className="tool-note">Start with the topics for your license class and vehicle, then test your understanding. APG’s original questions are unofficial study aids, not actual DMV exam questions or a complete training course. APG is not affiliated with the DMV.</p>
         <div className="state-form-callout"><strong>Official New York DMV CDL Manual</strong><span>The DMV provides the complete manual as separate PDF sections, with multiple language options. Open its index to read or download the sections you need.</span><a href="https://dmv.ny.gov/driver-license/commercial-drivers/new-york-state-commercial-drivers-manual" target="_blank" rel="noopener noreferrer">Open official CDL manual and PDF downloads ↗</a></div>

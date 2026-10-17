@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
-    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link></nav></div></header>
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace">Marketplace</Link><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link></nav><PageMenu /></div></header>
     <div className="shell pt-10 sm:pt-14"><p className="eyebrow">About us</p><h1 className="section-title mt-2">The story behind APG</h1></div>
     <section id="founder" className="bg-white mt-8" aria-labelledby="founder-title">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[minmax(0,.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-16">

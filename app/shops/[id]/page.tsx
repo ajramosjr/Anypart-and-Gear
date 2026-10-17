@@ -1,3 +1,4 @@
+import PageMenu from "@/components/page-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -100,7 +101,7 @@ export default async function ShopProfilePage({ params }: { params: Promise<{ id
   const website = safeWebsite(shop.website);
 
   return <main className="min-h-screen bg-[#eef1f4]">
-    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><div className="account-nav"><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link><Link href="/marketplace">Marketplace</Link></div></div></header>
+    <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><div className="account-nav"><Link href="/shops">Repair Shops &amp; Parts Suppliers</Link><Link href="/marketplace">Marketplace</Link></div><PageMenu /></div></header>
 
     <section className="bg-[#071a35] text-white">
       <div className="shell py-12">
