@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { getPasswordRequirements, isPasswordPolicyError } from "@/lib/password-requirements";
@@ -13,7 +13,7 @@ type WidgetSize = "normal" | "compact";
 type TurnstileApi = {
   render: (container: HTMLElement, options: {
     sitekey: string; callback: (token: string) => void;
-    "expired-callback": () => void; "error-callback": () => void;
+    "expired-callback": () => void; "timeout-callback": () => void; "error-callback": () => void;
     theme: "light"; size: WidgetSize;
   }) => string;
   reset: (widgetId: string) => void;
@@ -41,32 +41,60 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
   const statusRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const autoSignInAttempted = useRef(false);
+  const authRequestPending = useRef(false);
+  const verification = useRef<{ token: string; issuedAt: number } | null>(null);
   const passwordRequirements = getPasswordRequirements(password);
 
-  function renderTurnstile() {
+  const resetCaptcha = useCallback(() => {
+    verification.current = null;
+    setCaptchaToken("");
+    if (turnstileWidgetId.current && window.turnstile) window.turnstile.reset(turnstileWidgetId.current);
+  }, []);
+  const renderTurnstile = useCallback(() => {
     const container = turnstileContainer.current;
-    if (!container || !window.turnstile) return;
+    if (!container || !window.turnstile || authRequestPending.current) return;
     const size: WidgetSize = container.clientWidth < 300 ? "compact" : "normal";
     if (turnstileWidgetId.current) {
       if (widgetSize.current === size) return;
       window.turnstile.remove(turnstileWidgetId.current);
       turnstileWidgetId.current = null;
+      verification.current = null;
       setCaptchaToken("");
     }
     widgetSize.current = size;
     turnstileWidgetId.current = window.turnstile.render(container, {
       sitekey: TURNSTILE_SITE_KEY, theme: "light", size,
-      callback: setCaptchaToken,
-      "expired-callback": () => setCaptchaToken(""),
+      callback: token => {
+        verification.current = { token, issuedAt: Date.now() };
+        setCaptchaToken(token);
+      },
+      "expired-callback": resetCaptcha,
+      "timeout-callback": resetCaptcha,
       "error-callback": () => {
+        verification.current = null;
         setCaptchaToken(""); setMessageType("error");
         setMessage("The human check could not finish. Check your connection, then refresh this page and try again.");
       },
     });
-  }
-  function resetCaptcha() {
+  }, [resetCaptcha]);
+  function takeVerification() {
+    const current = verification.current;
+    verification.current = null;
     setCaptchaToken("");
-    if (turnstileWidgetId.current && window.turnstile) window.turnstile.reset(turnstileWidgetId.current);
+    // Refresh slightly before Cloudflare's five-minute token expiry.
+    if (!current || Date.now() - current.issuedAt >= 240_000) {
+      resetCaptcha();
+      setMessageType("error");
+      setMessage("The human check needs refreshing. Complete it again, then tap the button. Your entries are still here.");
+      return null;
+    }
+    return current.token;
+  }
+  function captchaFailure(error: { code?: string }) {
+    if (error.code !== "captcha_failed") return false;
+    setMessageType("error");
+    setMessage("The human check was not accepted. We’ve refreshed it. Complete the check again, then tap the button. Your entries are still here.");
+    return true;
   }
   useEffect(() => {
     renderTurnstile();
@@ -77,7 +105,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       if (turnstileWidgetId.current && window.turnstile) window.turnstile.remove(turnstileWidgetId.current);
       turnstileWidgetId.current = null;
     };
-  }, []);
+  }, [renderTurnstile]);
   useEffect(() => {
     if (message || waitingForVerification) statusRef.current?.focus();
   }, [message, waitingForVerification]);
@@ -94,7 +122,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
   }, [captchaToken, mode, loading, waitingForVerification, canResendConfirmation]);
 
   function changeMode(nextMode: Mode) {
-    if (loading) return;
+    if (loading || authRequestPending.current) return;
     if (nextMode === "signup") trackFunnel("signup_open");
     setMode(nextMode); setMessage(""); setMessageType("error"); setPassword(""); setShowPassword(false);
     setWaitingForVerification(false); setCanResendConfirmation(false); resetCaptcha();
@@ -114,26 +142,28 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     setMessage("Could not connect to Google. Try again or continue with email.");
   }
   async function resendConfirmation() {
-    if (loading) return;
+    if (loading || authRequestPending.current) return;
     setMessageType("error"); setMessage("");
     if (!email.trim()) { setMessage("Enter the email address you used to create your APG account."); return; }
-    if (!captchaToken) { setMessage("Complete the human check below, then tap Resend verification email."); return; }
+    const requestToken = takeVerification();
+    if (!requestToken) return;
+    authRequestPending.current = true;
     setLoading(true);
     try {
       const { error } = await createClient().auth.resend({ type: "signup", email: email.trim(), options: {
-        captchaToken, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+        captchaToken: requestToken, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
       } });
-      if (error) setMessage(error.message);
+      if (error) { if (!captchaFailure(error)) setMessage(error.message); }
       else {
         setWaitingForVerification(true); setMessageType("success");
         setMessage("Verification email requested. Check your inbox and spam folder, and use the newest link. If you already confirmed this email, return to Sign in instead.");
       }
     } catch { setMessage("We could not reach APG. Check your connection and try again."); }
-    finally { resetCaptcha(); setLoading(false); }
+    finally { resetCaptcha(); authRequestPending.current = false; setLoading(false); }
   }
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (loading || waitingForVerification) return;
+    if (loading || authRequestPending.current || waitingForVerification) return;
     // Password managers may fill the DOM without firing React onChange.
     // Read the submitted form, never trim or otherwise alter the password.
     const submitted = new FormData(event.currentTarget);
@@ -141,6 +171,8 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     const submittedPassword = String(submitted.get("password") || "");
     const submittedName = String(submitted.get("name") || "").trim();
     setEmail(submittedEmail);
+    setPassword(submittedPassword);
+    if (mode === "signup") setName(submittedName);
     if (mode === "signin") autoSignInAttempted.current = true;
     setMessage(""); setMessageType("error");
     if (mode === "signup") trackFunnel("signup_submit");
@@ -150,26 +182,26 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       setMessage("Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Check the list above, then try again.");
       return;
     }
-    if (!captchaToken) {
-      if (mode === "signup") trackFunnel("signup_error");
-      setMessage("Complete the human check, then tap the button to continue."); return;
-    }
+    const requestToken = takeVerification();
+    if (!requestToken) return;
+    authRequestPending.current = true;
     setLoading(true);
     let navigating = false;
     try {
       const supabase = createClient();
       if (mode === "recover") {
         const { error } = await supabase.auth.resetPasswordForEmail(submittedEmail, {
-          redirectTo: `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`, captchaToken,
+          redirectTo: `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`, captchaToken: requestToken,
         });
-        if (error) setMessage("The reset email could not be sent. Please wait a moment and try again.");
+        if (error) { if (!captchaFailure(error)) setMessage("The reset email could not be sent. Please wait a moment and try again."); }
         else { setMessageType("success"); setMessage("If an APG account uses that email, a password-reset link is on its way. Check your inbox and spam folder."); }
       } else if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({ email: submittedEmail, password: submittedPassword, options: {
-          captchaToken, data: { full_name: submittedName },
+          captchaToken: requestToken, data: { full_name: submittedName },
           emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
         } });
-        if (error) { trackFunnel("signup_error"); setMessage(isPasswordPolicyError(error.message) ? "Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Update it using the checklist above." : error.code === "invalid_credentials"
+        if (error && captchaFailure(error)) { trackFunnel("signup_error"); }
+        else if (error) { trackFunnel("signup_error"); setMessage(isPasswordPolicyError(error.message) ? "Your password needs at least 8 characters, uppercase and lowercase letters, a number and a symbol. Update it using the checklist above." : error.code === "invalid_credentials"
               ? "Email or password doesn’t match. Try again, or use Forgot password to reset it."
               : error.status === 429
                 ? "Too many attempts. Please wait a few minutes, then try again."
@@ -181,9 +213,10 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
           setWaitingForVerification(true);
         }
       } else {
-        const { data, error } = await supabase.auth.signInWithPassword({ email: submittedEmail, password: submittedPassword, options: { captchaToken } });
+        const { data, error } = await supabase.auth.signInWithPassword({ email: submittedEmail, password: submittedPassword, options: { captchaToken: requestToken } });
         if (error) {
           trackFunnel("signin_error");
+          if (captchaFailure(error)) return;
           const unconfirmed = error.code === "email_not_confirmed" || /email(?: address)? not confirmed/i.test(error.message);
           setCanResendConfirmation(unconfirmed);
           setMessage(unconfirmed
@@ -199,7 +232,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     } catch {
       trackFunnel(mode === "signup" ? "signup_error" : "signin_error");
       setMessage("We could not reach APG. Check your connection and try again. Your entries are still here.");
-    } finally { if (!navigating) { resetCaptcha(); setLoading(false); } }
+    } finally { if (!navigating) { resetCaptcha(); authRequestPending.current = false; setLoading(false); } }
   }
 
   const heading = waitingForVerification ? "Check your email" : mode === "signup" ? "Create your account" : mode === "recover" ? "Reset your password" : emailVerified ? "Email confirmed — sign in" : "Sign in";
