@@ -3,6 +3,17 @@ insert into auth.users (id, email, raw_user_meta_data) values ('a7a70000-0000-40
 insert into public.shops (id,owner_id,name,specialty,description,location,postal_code) values ('a7a70000-0000-4000-8000-000000000002','a7a70000-0000-4000-8000-000000000001','APG test fixture','Automotive','Temporary rolled-back permission fixture.','Test location','00000');
 select set_config('request.jwt.claim.sub','a7a70000-0000-4000-8000-000000000001',true);
 set local role authenticated;
+do $$ begin
+ begin
+  insert into public.jobs (shop_id,title,location,field,schedule,pay_range,description,application_method,application_contact) values ('a7a70000-0000-4000-8000-000000000002','APG permission test','Test location','Automotive','Full-time','$25/hour','Temporary permission verification job.','email','test@example.com');
+  raise exception 'FAIL: unverified owner insert succeeded';
+ exception when insufficient_privilege then null; end;
+end $$;
+reset role;
+select set_config('request.jwt.claim.sub','',true);
+update public.shops set is_verified=true where id='a7a70000-0000-4000-8000-000000000002';
+select set_config('request.jwt.claim.sub','a7a70000-0000-4000-8000-000000000001',true);
+set local role authenticated;
 insert into public.jobs (shop_id,title,location,field,schedule,pay_range,description,application_method,application_contact) values ('a7a70000-0000-4000-8000-000000000002','APG permission test','Test location','Automotive','Full-time','$25/hour','Temporary permission verification job.','email','test@example.com');
 select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',true);
 do $$ begin

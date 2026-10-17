@@ -6,7 +6,7 @@ import { useRef } from "react";
 const destinations = [
   ["/", "Home"], ["/marketplace", "Marketplace"],
   ["/shops", "Repair Shops & Parts Suppliers"], ["/garage-gear", "Tools & Work Gear"],
-  ["/sell", "Post an Item"], ["/jobs", "Jobs & Opportunities"],
+  ["/sell", "Post an Item"],
   ["/parts-wanted", "Parts Wanted"], ["/how-things-work.html", "How Things Work"],
   ["/toolbox", "APG Toolbox"], ["/practice-tests", "Practice Tests"],
   ["/links", "Courses & Training"], ["/shout-outs", "APG Shout-Outs"],

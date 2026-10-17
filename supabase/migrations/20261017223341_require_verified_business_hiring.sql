@@ -1,0 +1,3 @@
+alter policy "Public reads active openings" on public.jobs using (status = 'open' and expires_at > now() and exists (select 1 from public.shops s where s.id = shop_id and s.is_active and s.is_verified));
+alter policy "Registered business owners post jobs" on public.jobs with check (exists (select 1 from public.shops s where s.id = shop_id and s.is_active and s.is_verified and s.owner_id = (select auth.uid())));
+alter policy "Business owners manage their jobs" on public.jobs using (exists (select 1 from public.shops s where s.id = shop_id and s.is_active and s.is_verified and s.owner_id = (select auth.uid()))) with check (exists (select 1 from public.shops s where s.id = shop_id and s.is_active and s.is_verified and s.owner_id = (select auth.uid())));

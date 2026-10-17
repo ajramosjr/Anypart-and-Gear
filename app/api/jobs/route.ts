@@ -7,8 +7,8 @@ export async function POST(request: Request) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Sign in first." }, { status: 401 });
-  const { data: shop } = await supabase.from("shops").select("id").eq("owner_id", user.id).eq("is_active", true).maybeSingle();
-  if (!shop) return NextResponse.json({ error: "Register your business profile before posting a job." }, { status: 403 });
+  const { data: shop } = await supabase.from("shops").select("id").eq("owner_id", user.id).eq("is_active", true).eq("is_verified", true).maybeSingle();
+  if (!shop) return NextResponse.json({ error: "Your business must be approved by an administrator before posting a job." }, { status: 403 });
   const parsed = jobSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: parsed.error.issues[0]?.message || "Check the job details." }, { status: 400 });
   const { data, error } = await supabase.from("jobs").insert({ ...parsed.data, shop_id: shop.id }).select("id").single();

@@ -8,7 +8,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Sign in first." }, { status: 401 });
-  const { data: shop } = await supabase.from("shops").select("id").eq("owner_id", user.id).eq("is_active", true).maybeSingle();
+  const { data: shop } = await supabase.from("shops").select("id").eq("owner_id", user.id).eq("is_active", true).eq("is_verified", true).maybeSingle();
   if (!shop) return NextResponse.json({ error: "Business profile required." }, { status: 403 });
   const body = await request.json().catch(() => null);
   let update;
