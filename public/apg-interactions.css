@@ -1,3 +1,24 @@
+/* Shared button treatment; selected controls retain their gold state. */
+:is(button, summary, [role="button"], [role="tab"], [data-slot="button"], a.button, a[class*="btn"], a[class*="bg-"], a[style*="background"], .apg-header-gear, .apg-header-control, .account-nav > a, .apg-page-menu > nav > a, .dashboard-menu-links a, a[href^="https://www.google.com/maps/"]):not(.apg-header-logo):not(:has(img)) {
+  background: #fff !important;
+  color: #071a35 !important;
+  border: 1px solid #071a35 !important;
+  box-shadow: none !important;
+}
+:is(a[aria-current="page"], button[aria-pressed="true"], [role="tab"][aria-selected="true"], button.active):not(.apg-header-logo) {
+  background: #e6b944 !important;
+  color: #071a35 !important;
+  border-color: #c79522 !important;
+}
+a[href^="https://www.google.com/maps/"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border-radius: 8px;
+  padding: 8px 14px;
+  text-decoration: none;
+}
 /* Shared across application routes and standalone APG pages. */
 @media (hover: hover) {
   :is(a[href], button, summary, [role="button"], [role="tab"]):not(:disabled):not([aria-disabled="true"]):not(.apg-header-logo):not(:has(img)):hover {
