@@ -37,13 +37,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         .login-page-clean .login-card h1 { font-size: 26px; }
         .login-page-clean .login-description { font-size: 14px; }
         .login-page-clean .login-social-options { margin-top: 18px; gap: 8px; }
-        .login-page-clean .login-social-button { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 46px; background: #fff !important; border: 1px solid #cbd3dc !important; color: #071a35 !important; border-radius: 7px; box-shadow: none !important; }
-        .login-page-clean .login-social-button::before { content: 'G'; font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; background: conic-gradient(#4285f4 0deg 100deg, #34a853 100deg 180deg, #fbbc05 180deg 235deg, #ea4335 235deg 290deg, #4285f4 290deg); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .login-page.login-page-clean .login-card .login-social-button { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 46px; background: #fff !important; border: 1px solid #cbd3dc !important; color: #071a35 !important; border-radius: 7px; box-shadow: none !important; }
+        .login-page.login-page-clean .login-card .login-social-button::before { content: 'G'; font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; background: conic-gradient(#4285f4 0deg 100deg, #34a853 100deg 180deg, #fbbc05 180deg 235deg, #ea4335 235deg 290deg, #4285f4 290deg); background-clip: text; -webkit-background-clip: text; color: transparent; }
         .login-page-clean .login-email-divider { margin: 8px 0 0; font-size: 13px; }
         .login-page-clean .login-form { margin-top: 18px; gap: 14px; }
         .login-page-clean .field { gap: 6px; }
         .login-page-clean .field input { min-height: 46px; padding: 11px 12px; font-size: 16px; }
-        .login-page-clean .text-button, .login-page-clean .login-password button { background: transparent !important; color: #071a35 !important; border: 0 !important; box-shadow: none !important; border-radius: 0; font-size: 13px; min-height: 44px; }
+        .login-page.login-page-clean .login-card .text-button, .login-page.login-page-clean .login-card .login-password button { background: transparent !important; color: #071a35 !important; border: 0 !important; box-shadow: none !important; border-radius: 0; font-size: 13px; min-height: 44px; }
         .login-page-clean .login-password button { padding: 0 12px; min-width: 52px; }
         .login-page-clean .login-password-label .text-button { padding: 4px 0; }
         .login-page-clean .login-account-switch { margin: 0; font-size: 14px; }
