@@ -6,8 +6,8 @@ import LoginForm from "./login-form";
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; verified?: string; authError?: string; access?: string }> }) {
   const { next = "/", verified, authError, access } = await searchParams;
   const safeNext = safeNextPath(next);
-  // Temporarily hidden while Google reviews APG branding.
-  const googleEnabled = false;
+  // Google branding verification is approved; email sign-in remains available.
+  const googleEnabled = true;
   const confirmationError = authError === "expired"
     ? "That verification link has expired or was already used. Enter your email below and request a new confirmation email."
     : authError === "invalid"
