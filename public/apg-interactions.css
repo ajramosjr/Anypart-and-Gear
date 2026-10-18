@@ -55,3 +55,23 @@ a[href^="https://www.google.com/maps/"] {
   .apg-site-header nav[aria-label="Main menu"] { width: 260px; }
   .apg-page-menu > summary, .apg-site-header > div:first-child > details > summary { min-height: 36px; padding: 8px 12px; font-size: 13px; }
 }
+
+/* Directory desktop header controls share one compact row. */
+@media (min-width: 768px) {
+  main:has(.apg-directory-search) > header .apg-header-gear {
+    width: auto;
+    max-width: none;
+    min-height: 34px;
+    padding: 7px 12px;
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  main:has(.apg-directory-search) > header .apg-page-menu > summary {
+    min-height: 34px;
+    padding: 7px 12px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  main:has(.apg-directory-search) > header .apg-header-gear + .apg-page-menu { margin-left: 8px; }
+}
