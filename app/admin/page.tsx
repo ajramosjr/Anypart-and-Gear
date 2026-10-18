@@ -11,6 +11,7 @@ import TechWireControls from "./tech-wire-controls";
 import BuildIdeasControls from "./build-ideas-controls";
 import CommunityControls from "./community-controls";
 import SignupFunnel from "./signup-funnel";
+import HiringButtonPreview from "./hiring-button-preview";
 
 type Report = { id:string; reason:string; details:string|null; status:string; created_at:string; listings:{title:string}|null };
 type Shop = { id:string; name:string; specialty:string; location:string; postal_code:string; website:string|null; is_verified:boolean; is_active:boolean };
@@ -50,6 +51,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
       {totalsError && <p role="status" className="mt-2 text-sm text-amber-800">Totals could not be loaded. Refresh this page to try again.</p>}
     </section>
     <section className="mb-10 rounded-xl border border-slate-200 bg-white p-6"><h2 className="text-xl font-black">APG Shout-Outs</h2><p className="mt-3 text-slate-600">Create private drafts, preview cards, and publish websites, businesses and people you appreciate.</p><Link href="/admin/shout-outs" className="mt-4 inline-flex min-h-12 items-center rounded-lg px-5 font-black" style={{ backgroundColor: "#e6b944", color: "#071a35" }}>Manage shout-outs</Link></section>
+    <HiringButtonPreview businesses={(shops || []) as Shop[]} />
     <SignupFunnel totals={funnel} unavailable={Boolean(funnelError)} />
     <CommunityControls message={community} />
     <TechWireControls message={techWire} />
