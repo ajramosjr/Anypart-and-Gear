@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function proxy(request: NextRequest) {
+  // This public stylesheet contains no account or membership data.
+  if (request.nextUrl.pathname === "/apg-interactions.css") return NextResponse.next();
   if (request.nextUrl.pathname === "/_next/image") {
     const image = request.nextUrl.searchParams.get("url") || "";
     let path = image;
