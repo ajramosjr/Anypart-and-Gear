@@ -32,6 +32,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
   const [message, setMessage] = useState(confirmationError || "");
   const [messageType, setMessageType] = useState<"success" | "error">("error");
   const [waitingForVerification, setWaitingForVerification] = useState(false);
+  const [showResendCheck, setShowResendCheck] = useState(false);
   const [canResendConfirmation, setCanResendConfirmation] = useState(Boolean(confirmationError));
   const [loading, setLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
@@ -125,7 +126,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     if (loading || authRequestPending.current) return;
     if (nextMode === "signup") trackFunnel("signup_open");
     setMode(nextMode); setMessage(""); setMessageType("error"); setPassword(""); setShowPassword(false);
-    setWaitingForVerification(false); setCanResendConfirmation(false); resetCaptcha();
+    setWaitingForVerification(false); setShowResendCheck(false); setCanResendConfirmation(false); resetCaptcha();
   }
   async function googleSignIn() {
     if (loading || !googleEnabled) return;
@@ -156,7 +157,8 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       if (error) { if (!captchaFailure(error)) setMessage(error.message); }
       else {
         setWaitingForVerification(true); setMessageType("success");
-        setMessage("Verification email requested. Check your inbox and spam folder, and use the newest link. If you already confirmed this email, return to Sign in instead.");
+        setShowResendCheck(false);
+        setMessage("Email requested. Check your inbox or junk folder. Use the newest link.");
       }
     } catch { setMessage("We could not reach APG. Check your connection and try again."); }
     finally { resetCaptcha(); authRequestPending.current = false; setLoading(false); }
@@ -235,7 +237,7 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
     } finally { if (!navigating) { resetCaptcha(); authRequestPending.current = false; setLoading(false); } }
   }
 
-  const heading = waitingForVerification ? "Check your email" : mode === "signup" ? "Create your account" : mode === "recover" ? "Reset your password" : emailVerified ? "Email confirmed — sign in" : "Sign in";
+  const heading = waitingForVerification ? "Check your inbox" : mode === "signup" ? "Create your account" : mode === "recover" ? "Reset your password" : emailVerified ? "Email confirmed — sign in" : "Sign in";
   return <>
     <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={renderTurnstile} onError={() => { setMessageType("error"); setMessage("The human check could not load. Check your connection and refresh this page."); }} />
     <h1>{heading}</h1>
@@ -244,33 +246,48 @@ export default function LoginForm({ nextPath, emailVerified = false, confirmatio
       <button className="login-social-button" type="button" disabled={loading} onClick={googleSignIn}>Continue with Google</button>
       <p className="login-email-divider">or continue with email</p>
     </div>}
-    <form ref={formRef} className="login-form" onSubmit={submit} aria-busy={loading}>
+    <form ref={formRef} className={`login-form${waitingForVerification ? " login-verification-form" : ""}`} onSubmit={submit} aria-busy={loading}>
       {waitingForVerification && <div className="verification-panel" ref={statusRef} tabIndex={-1} role="status">
-        <strong>One more step: confirm your email.</strong>
-        <p>Check the inbox for <strong>{email.trim()}</strong>. You are not signed in yet.</p>
-        <ol><li>Open the APG verification email (check spam or junk too).</li><li>Tap the confirmation link to finish verification.</li><li>If APG asks you to sign in, use your email and password.</li></ol>
-        <p>Already registered with this email? Sign in, or reset your password instead of creating another account.</p>
-        <button className="button" type="button" disabled={loading} onClick={() => changeMode("signin")}>Return to sign in</button>
-        <button className="text-button" type="button" disabled={loading} onClick={() => changeMode("signup")}>Wrong email? Change it</button>
+        <p>Look for your APG confirmation link at</p>
+        <strong className="verification-email">{email.trim()}</strong>
+        <p>Tap the link to finish creating your account.</p>
+        <details className="verification-help"><summary>No email yet?</summary><p>Check your junk folder. If you already have a verified APG account, sign in below—another signup email won’t be sent.</p></details>
       </div>}
       {!waitingForVerification && <>
         {mode === "signup" && <div className="field"><label htmlFor="name">Full name</label><input id="name" name="name" required value={name} onChange={e => setName(e.target.value)} autoComplete="name" /></div>}
         <div className="field"><label htmlFor="email">Email address</label><input id="email" name="email" type="email" required value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" autoCapitalize="none" spellCheck={false} /></div>
         {mode !== "recover" && <div className="field"><div className="login-password-label"><label htmlFor="password">Password</label>{mode === "signin" && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode("recover")}>Forgot password?</button>}</div><div className="login-password"><input id="password" name="password" type={showPassword ? "text" : "password"} minLength={mode === "signup" ? 8 : undefined} required value={password} onChange={e => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} aria-describedby={mode === "signup" ? "password-help" : undefined}/><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button></div>{mode === "signup" && <div id="password-help" className="password-help"><p className="sr-only">Your password must include:</p><ul className="password-requirements password-requirements-compact">{passwordRequirements.map(item => <li key={item.label} className={item.met ? "met" : ""}><span aria-hidden="true">{item.met ? "✓" : "○"}</span><span>{({ "At least 8 characters": "8+ characters", "A lowercase letter (a–z)": "Lowercase", "An uppercase letter (A–Z)": "Uppercase", "A number (0–9)": "Number", "A symbol (for example !, @ or #)": "Symbol (!, @, #)" } as Record<string, string>)[item.label] ?? item.label}<span className="sr-only">{item.met ? " — included" : " — still needed"}</span></span></li>)}</ul></div>}</div>}
       </>}
-      <section className="login-security" aria-label={waitingForVerification ? "Verification email resend check" : "Human verification"}>
+      <section className="login-security" hidden={waitingForVerification && !showResendCheck} aria-label={waitingForVerification ? "Verification email resend check" : "Human verification"}>
         {waitingForVerification && <p className="login-security-help">Complete the check to resend your confirmation email.</p>}
         <div className="login-captcha" ref={turnstileContainer}/>
         <p className="login-security-help" role="status" aria-live="polite">{captchaToken ? "Human verification complete. You can continue." : "Complete the human check above to continue."}</p>
       </section>
       {emailVerified && mode === "signin" && !message && !waitingForVerification && <p className="form-message success">Your email is confirmed. Enter your password and sign in to continue.</p>}
       {message && <div ref={waitingForVerification ? undefined : statusRef} tabIndex={-1} role={messageType === "error" ? "alert" : "status"} className={`form-message login-result ${messageType}`}>{message}</div>}
-      {waitingForVerification ? <button className="button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>{loading ? "Requesting email…" : "Resend verification email"}</button> : <button className="button" type="submit" disabled={loading || !captchaToken}>{loading ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating account…" : "Requesting email…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>}
+      {waitingForVerification ? <><button className="button verification-resend" type="button" disabled={loading || (showResendCheck && !captchaToken)} onClick={() => { if (!showResendCheck) { setShowResendCheck(true); resetCaptcha(); } else void resendConfirmation(); }}>{loading ? "Requesting email…" : "Resend email"}</button><button className="text-button verification-link" type="button" disabled={loading} onClick={() => changeMode("signup")}>Change email address</button><div className="verification-existing"><p>Already registered?</p><div><button className="text-button verification-link" type="button" disabled={loading} onClick={() => changeMode("signin")}>Sign in</button><button className="text-button verification-link" type="button" disabled={loading} onClick={() => changeMode("recover")}>Reset password</button></div></div></> : <button className="button" type="submit" disabled={loading || !captchaToken}>{loading ? mode === "signin" ? "Signing you in…" : mode === "signup" ? "Creating account…" : "Requesting email…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Email me a reset link"}</button>}
       {mode === "signin" && canResendConfirmation && !waitingForVerification && <button className="text-button" type="button" disabled={loading || !captchaToken} onClick={resendConfirmation}>Resend verification email</button>}
-      {(mode === "recover" || waitingForVerification) && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode(waitingForVerification ? "recover" : "signin")}>{waitingForVerification ? "Reset password for an existing account" : "Back to sign in"}</button>}
+      {mode === "recover" && !waitingForVerification && <button className="text-button" type="button" disabled={loading} onClick={() => changeMode("signin")}>Back to sign in</button>}
       {mode === "signup" && !waitingForVerification && <p className="login-confirmation-hint">We’ll email you a link to confirm your account.</p>}
       {!waitingForVerification && mode !== "recover" && <p className="login-account-switch">{mode === "signup" ? "Already a member?" : "New to APG?"} <button className="text-button" type="button" disabled={loading} onClick={() => changeMode(mode === "signup" ? "signin" : "signup")}>{mode === "signup" ? "Sign in" : "Create account"}</button></p>}
-      <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use APG safely and honestly.</p>
+      {!waitingForVerification && <p className="legal-note">Protected by Cloudflare Turnstile. By continuing, you agree to use APG safely and honestly.</p>}
     </form>
+    <style jsx global>{`
+      .login-verification-form { gap: 12px; margin-top: 20px; }
+      .login-verification-form .verification-panel { border: 0; background: transparent; padding: 0; border-radius: 0; }
+      .login-verification-form .verification-panel p { margin: 0; color: #526170; font-size: 15px; line-height: 1.6; }
+      .login-verification-form .verification-email { display: block; margin: 10px 0 16px; overflow-wrap: anywhere; }
+      .login-verification-form .verification-help { margin-top: 14px; }
+      .login-verification-form .verification-help summary { display: flex; align-items: center; min-height: 44px; padding: 0; background: transparent !important; border: 0 !important; box-shadow: none !important; color: #526170 !important; font-size: 14px; }
+      .login-verification-form .verification-help summary::before { content: '+'; margin-right: 8px; }
+      .login-verification-form .verification-help[open] summary::before { content: '−'; }
+      .login-verification-form .verification-help p { font-size: 14px; }
+      .login-verification-form .login-security[hidden] { display: none; }
+      .login-verification-form .verification-resend { margin-top: 8px; }
+      .login-verification-form .verification-link { min-height: 44px; padding: 8px; background: transparent !important; border: 0 !important; box-shadow: none !important; color: #071a35 !important; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+      .login-verification-form .verification-existing { border-top: 1px solid #dfe5e8; padding-top: 18px; margin-top: 8px; text-align: center; }
+      .login-verification-form .verification-existing p { color: #526170; font-size: 14px; margin: 0; }
+      .login-verification-form .verification-existing > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+    `}</style>
   </>;
 }
