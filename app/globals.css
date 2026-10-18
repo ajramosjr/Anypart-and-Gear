@@ -867,3 +867,22 @@ header:has(.apg-page-menu)>div>:not(.apg-page-menu):not(.apg-header-gear):not(:h
   .apg-site-header > div:first-child > details > summary svg { width: 18px; height: 18px; }
   .apg-site-header > div:first-child > details > summary span { font-size: 12px; }
 }
+
+/* Approved compact directory controls and mobile navigation. */
+.apg-search-fields { display:grid; grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr)); gap:12px; }
+.apg-directory-search :is(input:not([type=hidden]),select) { height:42px; }
+.apg-search-actions { display:flex; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-top:12px; }
+.apg-search-actions > label { flex:0 1 calc(50% - 6px); min-width:0; }
+.apg-search-submit { width:auto; min-width:120px; min-height:42px; padding:10px 24px; }
+.apg-search-actions > details { flex:1; min-width:150px; }
+@media(max-width:700px) {
+ header:has(.apg-page-menu) > div { grid-template-columns:minmax(0,1fr) auto; }
+ header:has(.apg-page-menu) .apg-header-gear { display:none!important; }
+ header:has(.apg-page-menu) .account-nav { display:none; }
+}
+@media(max-width:640px) {
+ .apg-site-header > div:first-child { grid-template-columns:minmax(0,1fr) auto; }
+ .apg-site-header > div:first-child > a[href="/garage-gear"] { display:none; }
+ .apg-search-fields { grid-template-columns:minmax(0,1fr); }
+ .apg-search-actions > label { flex-basis:100%; }
+}

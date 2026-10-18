@@ -1,0 +1,15 @@
+/* Shared across application routes and standalone APG pages. */
+@media (hover: hover) {
+  :is(a[href], button, summary, [role="button"], [role="tab"]):not(:disabled):not([aria-disabled="true"]):not(.apg-header-logo):not(:has(img)):hover {
+    background: #e6b944 !important;
+    color: #071a35 !important;
+    border-color: #c79522 !important;
+  }
+  :is(a[href], button, summary, [role="button"], [role="tab"]):not(:disabled):not([aria-disabled="true"]):not(.apg-header-logo):not(:has(img)):hover :is(span,svg) { color: #071a35 !important; }
+}
+:is(a[href], button, summary, [role="button"], [role="tab"]):not(:disabled):not([aria-disabled="true"]):not(.apg-header-logo):not(:has(img)):focus-visible {
+  background: #e6b944 !important;
+  color: #071a35 !important;
+  outline: 2px solid #071a35;
+  outline-offset: 3px;
+}

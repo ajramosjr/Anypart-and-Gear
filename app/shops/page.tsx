@@ -86,25 +86,28 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
 
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <header className="simple-header sell-header dashboard-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Directory navigation"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link></nav><PageMenu /></div></header>
-    <section className="bg-white"><div className="shell py-7 sm:py-10">
+    <section className="bg-white"><div className="shell py-6 sm:py-7">
       <h1 className="text-3xl font-black sm:text-5xl">Repair Shops &amp; Parts Suppliers</h1>
       <p className="mt-2 text-slate-600">Find parts, supplies and repair services.</p>
       {selectedSpecialty === "performance" && <p className="mt-2 text-sm text-slate-600">Performance parts and upgrades, including truck, SUV and Jeep lift and leveling kits.</p>}
       <nav aria-label="Supplier directory" className="mt-5 grid grid-cols-3 gap-2 rounded-xl bg-slate-100 p-1">
         {[{ label: "Local Repair Shops", view: "local" }, { label: "Local Parts Suppliers", view: "suppliers" }, { label: "Online Parts Suppliers", view: "online" }].map((tab) => <Link key={tab.view} href={queryLink({ view: tab.view, county: tab.view === "online" ? "Online" : "All", type: "All", location: "" })} aria-current={(isOnline ? "online" : localView) === tab.view ? "page" : undefined} style={{ color: (isOnline ? "online" : localView) === tab.view ? "#071a35" : "#475569" }} className={`rounded-lg px-2 py-3 text-center text-xs sm:text-sm font-bold ${(isOnline ? "online" : localView) === tab.view ? "bg-[#e6b944] text-[#071a35] shadow-sm" : "text-slate-600 hover:bg-white"}`}>{tab.label}</Link>)}
       </nav>
-      <form action="/shops" className="mt-5 space-y-3">
+      <form action="/shops" className="apg-directory-search mt-4">
         <input type="hidden" name="view" value={isOnline ? "online" : localView} />
         {isOnline && <><input type="hidden" name="county" value="Online"/><input type="hidden" name="type" value="All"/></>}
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="apg-search-fields">
           <label className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><Search className="size-5 shrink-0 text-slate-500"/><input className="h-12 min-w-0 w-full outline-none" name="q" defaultValue={q} placeholder="Search businesses or parts" aria-label="Search businesses or parts" /></label>
           <select name="category" defaultValue={selected} aria-label="Parts category" className="h-12 min-w-0 rounded-xl border border-slate-300 bg-white px-3"><option value="All">All categories</option>{categories.filter((item) => item !== "All").map((item) => <option key={item}>{item}</option>)}</select>
-          <label className="block"><span className="mb-1 block text-sm font-semibold">Specialty</span><select name="specialty" defaultValue={selectedSpecialty} aria-label="Specialty" className="h-12 w-full rounded-xl border border-slate-300 bg-white px-3"><option value="All">All specialties</option><option value="performance">Performance &amp; Upgrades</option></select></label>
-          <button className="button">Search</button>
+          <label className="block"><span className="sr-only">Specialty</span><select name="specialty" defaultValue={selectedSpecialty} aria-label="Specialty" className="h-12 w-full rounded-xl border border-slate-300 bg-white px-3"><option value="All">All specialties</option><option value="performance">Performance &amp; Upgrades</option></select></label>
         </div>
+        <div className="apg-search-actions">
         {!isOnline && <>
           <label className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-3"><MapPin className="size-5 shrink-0 text-slate-500"/><input className="h-12 min-w-0 w-full outline-none" name="location" defaultValue={location} placeholder="Town, borough or ZIP" aria-label="Town, neighborhood, borough or ZIP" list="directory-locations" /></label>
           <datalist id="directory-locations">{locationChoices.map((value) => <option key={value} value={value.replace(/ \(.*$/, "")}>{value}</option>)}</datalist>
+        </>}
+          <button className="button apg-search-submit">Search</button>
+        {!isOnline && <>
           <details open={selectedCounty !== "All" || selectedType !== "All"} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
             <summary className="cursor-pointer text-sm font-bold">More filters</summary>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -113,6 +116,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
             </div>
           </details>
         </>}
+        </div>
       </form>
     </div></section>
     <div className="shell py-9">

@@ -13,6 +13,7 @@ import { getUser } from "@/lib/auth";
 import { AdminNavigationProvider } from "@/components/admin-navigation";
 import "./globals.css";
 import "./listing-overrides.css";
+import "../public/apg-interactions.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
