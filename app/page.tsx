@@ -1,3 +1,6 @@
+import "server-only";
+import { createClient as createAdminClient } from "@supabase/supabase-js";
+import { supabaseUrl } from "@/lib/supabase/config";
 import SiteHeader from "@/components/site-header";
 import { AwarenessBanner } from "@/components/october-awareness";
 import Link from "next/link";
@@ -21,8 +24,21 @@ async function getLatestListings() {
   return { listings: data ?? [], unavailable: false };
 }
 
+// Only this small public display is projected from sold listings; their full rows stay private.
+async function getRecentlySold() {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
+  if (!hasSupabaseConfig() || !key) return null;
+  const admin = createAdminClient(supabaseUrl, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  const { data, error } = await admin.from("listings")
+    .select("title,image_url")
+    .eq("status", "sold").not("image_url", "is", null).neq("image_url", "")
+    .order("updated_at", { ascending: false }).order("id", { ascending: false }).limit(1).maybeSingle();
+  if (error) { console.error("Recently sold unavailable:", error.code); return null; }
+  return data;
+}
+
 export default async function Home() {
-  const [user, { listings, unavailable }, community] = await Promise.all([getUser(), getLatestListings(), getCommunityState()]);
+  const [user, { listings, unavailable }, community, recentlySold] = await Promise.all([getUser(), getLatestListings(), getCommunityState(), getRecentlySold()]);
   const postPath = user ? "/sell" : "/login?next=/sell";
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
@@ -38,6 +54,15 @@ export default async function Home() {
         <div className="apg-home-actions mt-5 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">Post an Item <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/shops" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80"><span className="sm:hidden">Shops &amp; Suppliers</span><span className="hidden sm:inline">Browse Shops &amp; Suppliers</span> <ArrowRight aria-hidden="true" size={22} /></Link></div>
       </div>
     </section>
+    {recentlySold?.image_url && <div aria-label="Recently sold" className="mx-auto max-w-7xl px-4 pt-5 sm:px-6">
+      <div className="flex items-center gap-4 border-y border-slate-200 py-3">
+        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+          <Image src={recentlySold.image_url} alt={recentlySold.title} fill sizes="112px" className="object-cover" />
+          <span className="absolute bottom-1 left-1 rounded bg-[#071a35] px-2 py-1 text-[10px] font-bold tracking-wider text-white">SOLD</span>
+        </div>
+        <div className="min-w-0"><p className="text-sm font-bold">Recently Sold</p><p className="mt-1 break-words text-sm text-slate-600">{recentlySold.title}</p></div>
+      </div>
+    </div>}
     <section aria-labelledby="individual-marketplace-title" className="mx-auto max-w-7xl px-4 py-7 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-4"><div><h2 id="individual-marketplace-title" className="text-2xl sm:text-3xl font-black">Latest Listings</h2><p className="mt-2 text-slate-600">Recent listings from individual sellers.</p></div><Link href="/marketplace" className="inline-flex min-h-11 items-center gap-2 font-bold">View all listings <ArrowRight size={20} aria-hidden="true" /></Link></div>
       {listings.length ? <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">{listings.map((listing) => <Link key={listing.id} href={`/listing/${listing.id}`} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:border-pink-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-600">
