@@ -89,3 +89,26 @@ a[href^="https://www.google.com/maps/"] {
     color: #071a35 !important;
   }
 }
+
+/* Lighter phone navigation; keep primary page actions gold. */
+@media (max-width: 767px) {
+  nav[aria-label="Main menu"][aria-label][aria-label] { gap: 0 !important; }
+  nav[aria-label="Main menu"][aria-label][aria-label] :is(a, summary) {
+    display: flex !important;
+    align-items: center;
+    min-height: 44px !important;
+    padding: 9px 12px !important;
+    background: #fff !important;
+    color: #071a35 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  nav[aria-label="Main menu"][aria-label][aria-label] :is(a[aria-current="page"], a:active, summary:active, a:focus-visible, summary:focus-visible) {
+    background: #e6b944 !important;
+    color: #071a35 !important;
+  }
+}
