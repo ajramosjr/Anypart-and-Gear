@@ -75,3 +75,17 @@ a[href^="https://www.google.com/maps/"] {
   }
   main:has(.apg-directory-search) > header .apg-header-gear + .apg-page-menu { margin-left: 8px; }
 }
+
+/* Gold phone buttons in the mobile browser and installed APG app. */
+@media (max-width: 767px) {
+  :is(button, summary, [role="button"], [role="tab"], [data-slot="button"], a.button, a[class*="btn"], a[class*="bg-"], a[style*="background"], .apg-header-gear, .apg-header-control, .account-nav > a, .apg-page-menu > nav > a, .dashboard-menu-links a, a[href^="https://www.google.com/maps/"]):not(.apg-header-logo):not(:has(img)),
+  nav[aria-label="Supplier directory"] > a,
+  .apg-site-header nav[aria-label="Main menu"] :is(a, summary) {
+    background: #e6b944 !important;
+    color: #071a35 !important;
+    border-color: #c79522 !important;
+  }
+  :is(button, summary, [role="button"], [role="tab"], a.button, .apg-header-control, .apg-header-gear) :is(span, svg) {
+    color: #071a35 !important;
+  }
+}
