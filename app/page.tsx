@@ -55,12 +55,13 @@ export default async function Home() {
       </div>
     </section>
     {recentlySold?.image_url && <div aria-label="Recently sold" className="mx-auto max-w-7xl px-4 pt-5 sm:px-6">
-      <div className="flex items-center gap-4 border-y border-slate-200 py-3">
-        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-slate-100">
-          <Image src={recentlySold.image_url} alt={recentlySold.title} fill sizes="112px" className="object-cover" />
-          <span className="absolute bottom-1 left-1 rounded bg-[#071a35] px-2 py-1 text-[10px] font-bold tracking-wider text-white">SOLD</span>
+      <div className="max-w-[520px] overflow-hidden rounded-xl border-2 border-[#d5ac48] bg-[#071a35] shadow-sm">
+        <p className="border-b-2 border-[#d5ac48] px-4 py-3 text-base font-extrabold uppercase tracking-wider text-white">Recently <span className="text-[#f0ce77]">Sold</span></p>
+        <div className="relative aspect-[1.8] overflow-hidden bg-slate-100">
+          <Image src={recentlySold.image_url} alt={recentlySold.title} fill sizes="(max-width: 560px) calc(100vw - 32px), 520px" className="object-cover" />
+          <span className="absolute right-3 top-3 rotate-[8deg] rounded-md border-2 border-[#fff3c8] bg-gradient-to-br from-[#f9e6a0] to-[#d7a837] px-4 py-2 text-2xl font-black tracking-wider text-[#071a35] shadow-md">SOLD</span>
         </div>
-        <div className="min-w-0"><p className="text-sm font-bold">Recently Sold</p><p className="mt-1 break-words text-sm text-slate-600">{recentlySold.title}</p></div>
+        <p className="break-words border-t-2 border-[#d5ac48] px-4 py-3 text-lg font-bold text-white">{recentlySold.title}</p>
       </div>
     </div>}
     <section aria-labelledby="individual-marketplace-title" className="mx-auto max-w-7xl px-4 py-7 sm:px-6">
