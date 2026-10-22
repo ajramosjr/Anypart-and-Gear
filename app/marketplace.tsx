@@ -1,13 +1,13 @@
 "use client";
+import styles from "./marketplace-design.module.css";
 import SiteHeader from "@/components/site-header";
 import { AwarenessBanner } from "@/components/october-awareness";
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, Bike, Car, Drill, Factory, Gamepad2, Heart, LoaderCircle, Mail, MapPin, PackageOpen, Phone, Search, Share2, ShieldCheck, Shirt, SlidersHorizontal, Tag, Truck } from "lucide-react";
+import { Anchor, Bike, Car, Drill, Factory, Gamepad2, Heart, MapPin, PackageOpen, Search, Share2, ShieldCheck, Shirt, Tag, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { getSubaruParts } from "@/lib/part-out";
@@ -33,18 +33,19 @@ function ListingCard({ item, liked, toggle }: { item: Listing; liked: boolean; t
   const parts = getSubaruParts(item);
   const Icon=categoryIcons[item.category]||PackageOpen;
   const share=()=>{const url=`${window.location.origin}/listing/${item.id}`;if(navigator.share){void navigator.share({title:item.title,url});}else{void navigator.clipboard.writeText(url).then(()=>toast.success("Listing link copied."));}};
-  return <article className="listing-card group">
-    <div className={`listing-visual bg-gradient-to-br ${item.tone||"from-blue-900 to-amber-500"}`}>
-      {item.imageUrl?<Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" className="object-cover"/>:<><Icon className="size-20 text-white/90"/><span>{item.category}</span></>}
-      <button onClick={toggle} className="favorite" aria-label={liked?"Remove from favorites":"Save to favorites"}><Heart className={liked?"fill-amber-400 text-amber-400":""}/></button>
-      <span className="condition">{item.condition}</span>{item.badge&&<span className="listing-badge">{item.badge}</span>}
+  return <article className={styles.card}>
+    <div className={styles.photo}>
+      <Link href={`/listing/${item.id}`} className={styles.photoLink} aria-label={`View ${parts ? "Subaru Parts" : item.title}`}>
+        {item.imageUrl ? <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 33vw" className="object-cover"/> : <span className={styles.placeholder}><Icon aria-hidden="true"/><span>{item.category}</span></span>}
+      </Link>
+      <button type="button" onClick={toggle} className={styles.favorite} aria-pressed={liked} aria-label={liked?"Remove from favorites":"Save to favorites"}><Heart className={liked?"fill-amber-400 text-amber-400":""}/></button>
     </div>
-    <div className="p-5"><div className="flex items-start justify-between gap-3"><h3 className="text-lg font-extrabold leading-6"><a href={`/listing/${item.id}`} className="hover:text-amber-700">{parts ? "Subaru Parts" : item.title}</a></h3><strong className="text-xl text-blue-950">{parts ? "Prices in description" : `$${item.price.toLocaleString()}`}</strong></div>
-      <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">{item.description}</p>
-      <div className="mt-5 border-t border-slate-100 pt-4"><p className="text-sm font-bold">{item.seller}</p><SellerBadges emailVerified={item.emailVerified} trustedSeller={item.trustedSeller} verifiedBusiness={item.verifiedBusiness}/><p className="mt-1 flex items-center gap-1 text-xs text-slate-500"><MapPin className="size-3"/>{item.location}</p>
-        <div className="mt-4 flex flex-wrap gap-2">{item.contactPhone&&<Button asChild size="sm" variant="outline"><a href={`tel:${item.contactPhone}`}><Phone className="size-4"/> Call</a></Button>}{item.contactEmail&&<Button asChild size="sm" variant="outline"><a href={`mailto:${item.contactEmail}?subject=${encodeURIComponent(item.title)}`}><Mail className="size-4"/> Email</a></Button>}{!item.contactEmail&&!item.contactPhone&&<Button size="sm" variant="outline" onClick={()=>toast.info(`Contact ${item.seller} about this listing.`)}>Contact seller</Button>}</div>
-      </div>
-      <div className="mt-3 flex gap-2"><Button asChild className="gold-button h-11 flex-1 font-black"><Link href={`/listing/${item.id}`} onClick={()=>setOpening(true)} aria-busy={opening}>{opening?<><LoaderCircle className="size-4 animate-spin"/> Opening…</>:<>View details</>}</Link></Button><Button size="icon" variant="outline" className="h-11 w-11" aria-label="Share listing" onClick={share}><Share2 className="size-4"/></Button></div>
+    <div className={styles.cardBody}>
+      <strong className={parts ? styles.partsPrice : styles.price}>{parts ? "Prices in description" : `$${item.price.toLocaleString()}`}</strong>
+      <h3 className={styles.title}><Link href={`/listing/${item.id}`}>{parts ? "Subaru Parts" : item.title}</Link></h3>
+      <p className={styles.location}><MapPin aria-hidden="true"/>{item.location}</p>
+      <div className={styles.seller}><span>{item.seller}</span><SellerBadges emailVerified={item.emailVerified} trustedSeller={item.trustedSeller} verifiedBusiness={item.verifiedBusiness}/></div>
+      <div className={styles.cardActions}><Link className={styles.details} href={`/listing/${item.id}`} onClick={()=>setOpening(true)} aria-busy={opening}>{opening ? "Opening…" : "View & contact seller"}</Link><button type="button" className={styles.share} aria-label={`Share ${item.title}`} onClick={share}><Share2 aria-hidden="true"/></button></div>
     </div>
   </article>;
 }
@@ -73,17 +74,19 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, l
     return () => window.removeEventListener("apg:search", searchFromGears);
   }, []);
 
-  return <main className="mechanical-shell min-h-screen bg-[#eef1f4] text-slate-950">
+  return <main className={`${styles.marketplace} min-h-screen text-slate-950`}>
     <Toaster richColors position="top-center" />
     <SiteHeader signedIn={Boolean(user)} current="marketplace" signInPath={signInPath} signOutPath={signOutPath} />
     <AwarenessBanner />
 
-    <section className="border-b border-slate-200 bg-white"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><p className="eyebrow">APG Marketplace</p><h1 className="mt-2 text-3xl font-black tracking-tight sm:text-5xl">Browse Marketplace</h1><p className="mt-3 text-slate-600">Search individual sellers’ listings by city or town, choose a category, or sort by price. Find business pages in Repair Shops & Parts Suppliers.</p>
-      <form onSubmit={runSearch} className="mt-6 flex max-w-3xl flex-col gap-2 rounded-xl border border-slate-300 bg-white p-2 sm:flex-row"><div className="flex flex-1 items-center gap-3 px-3"><Search className="size-5 text-slate-400"/><input value={query} onChange={e=>setQuery(e.target.value)} className="h-12 w-full bg-transparent text-base text-slate-900 outline-none" placeholder="Search parts, brands, model numbers…" aria-label="Search listings"/></div><Button className="gold-button h-12 px-7 font-black">Search</Button></form>
+    <section className={styles.discovery} aria-labelledby="marketplace-title"><div className={styles.container}>
+      <div className={styles.headingRow}><div><p className={styles.eyebrow}>APG Marketplace</p><h1 id="marketplace-title">Find your next great find.</h1></div><Link className={styles.sellButton} href={user ? "/sell" : "/login?next=/sell"}><Tag aria-hidden="true"/>Sell a Part</Link></div>
+      <form onSubmit={runSearch} className={styles.search}><Search aria-hidden="true"/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search parts, tools & vehicles" aria-label="Search listings"/><button type="submit">Search</button></form>
+      <nav className={styles.categories} aria-label="Listing categories"><button type="button" aria-pressed={category === "All"} onClick={()=>setCategory("All")}>All</button>{categories.map(c=><button type="button" key={c.name} aria-pressed={category === c.name} onClick={()=>setCategory(c.name)}><c.icon aria-hidden="true"/>{c.name}</button>)}</nav>
     </div></section>
 
-    <section id="listings" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6"><div className="mb-6 flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:items-end sm:justify-between"><div><p className="eyebrow">Browse APG</p><h2 className="section-title">Latest listings</h2><p className="mt-2 text-slate-500">{shown.length} listings found</p></div><div className="flex flex-wrap gap-2"><form action="/marketplace#listings"><input type="hidden" name="q" value={query}/><input type="hidden" name="category" value={category}/><input type="hidden" name="sort" value={sort}/><label className="sr-only" htmlFor="marketplace-location">City or town</label><select id="marketplace-location" name="location" defaultValue={initialLocation} onChange={event => event.currentTarget.form?.requestSubmit()} className="h-11 max-w-full rounded-md border border-slate-300 bg-white px-3 text-sm"><option value="">All Locations</option>{locations.map(place => <option key={place} value={place}>{place}</option>)}</select></form><Select value={category} onValueChange={setCategory}><SelectTrigger className="h-11 w-40 bg-white"><SlidersHorizontal className="size-4"/><SelectValue/></SelectTrigger><SelectContent><SelectItem value="All">All categories</SelectItem>{categories.map(c=><SelectItem value={c.name} key={c.name}>{c.name}</SelectItem>)}</SelectContent></Select><Select value={sort} onValueChange={setSort}><SelectTrigger className="h-11 w-36 bg-white"><SelectValue/></SelectTrigger><SelectContent>{["Newest","Price low","Price high"].map(s=><SelectItem value={s} key={s}>{s}</SelectItem>)}</SelectContent></Select></div></div>
-      {shown.length ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{shown.map(item=><ListingCard key={item.id} item={item} liked={favorites.has(item.id)} toggle={()=>setFavorites(prev=>{const next=new Set(prev);if(next.has(item.id)){next.delete(item.id);}else{next.add(item.id);}return next})}/>)}</div>:<div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center"><PackageOpen className="mx-auto size-10 text-slate-400"/><h3 className="mt-4 text-xl font-bold">{all.length ? "No parts found" : "No listings yet"}</h3><p className="mt-2 text-slate-500">{all.length ? "Try a different search, category or location." : "Be the first to post an item on Any Part & Gear."}</p>{!all.length&&<Button asChild className="gold-button mt-6 h-11 px-6 font-black"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> Post the first item</a></Button>}</div>}
+    <section id="listings" className={styles.listings}><div className={styles.resultsRow}><div><h2>Latest listings</h2><p aria-live="polite">{shown.length} {shown.length === 1 ? "listing" : "listings"} found</p></div><div className={styles.filters}><form action="/marketplace#listings"><input type="hidden" name="q" value={query}/><input type="hidden" name="category" value={category}/><input type="hidden" name="sort" value={sort}/><label className="sr-only" htmlFor="marketplace-location">City or town</label><select id="marketplace-location" name="location" defaultValue={initialLocation} onChange={event => event.currentTarget.form?.requestSubmit()}><option value="">All locations</option>{locations.map(place => <option key={place} value={place}>{place}</option>)}</select></form><label className="sr-only" htmlFor="marketplace-sort">Sort listings</label><select id="marketplace-sort" value={sort} onChange={event=>setSort(event.target.value)}>{["Newest","Price low","Price high"].map(value=><option key={value}>{value}</option>)}</select></div></div>
+      {shown.length ? <div className={styles.grid}>{shown.map(item=><ListingCard key={item.id} item={item} liked={favorites.has(item.id)} toggle={()=>setFavorites(prev=>{const next=new Set(prev);if(next.has(item.id)){next.delete(item.id);}else{next.add(item.id);}return next})}/>)}</div>:<div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center"><PackageOpen className="mx-auto size-10 text-slate-400"/><h3 className="mt-4 text-xl font-bold">{all.length ? "No parts found" : "No listings yet"}</h3><p className="mt-2 text-slate-500">{all.length ? "Try a different search, category or location." : "Be the first to post an item on Any Part & Gear."}</p>{!all.length&&<Button asChild className="gold-button mt-6 h-11 px-6 font-black"><a href={user?"/sell":"/login?next=/sell"}><Tag className="size-4"/> Post the first item</a></Button>}</div>}
     </section>
 
 
