@@ -48,3 +48,59 @@
 @media(max-width:1023px) { .grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media(max-width:639px) { .container, .listings { padding-left: 14px; padding-right: 14px; } .discovery { padding-top: 24px; } .headingRow { align-items: flex-start; gap: 12px; flex-wrap: wrap; } .headingRow h1 { font-size: 32px; max-width: 340px; } .sellButton { min-height: 44px; padding: 10px 15px; font-size: 13px; } .search { margin-top: 20px; padding-left: 12px; gap: 9px; } .search input { font-size: 16px; } .search button { padding: 8px 14px; font-size: 13px; } .categories { margin-right: -14px; padding-right: 14px; gap: 8px; } .categories button { padding: 9px 14px; font-size: 13px; } .resultsRow { align-items: flex-start; flex-direction: column; } .filters { width: 100%; } .filters form { min-width: 0; flex: 1; } .filters select { width: 100%; max-width: none; font-size: 13px; } .filters > select { width: 43%; } .grid { gap: 12px; } .card { border-radius: 12px; } .photo { aspect-ratio: 1; } .cardBody { padding: 12px 10px; } .price { font-size: 24px; } .partsPrice { font-size: 15px; } .title { font-size: 14px; margin: 7px 0; } .location { font-size: 12px; } .favorite { width: 36px; height: 36px; right: 8px; top: 8px; } .favorite svg { width: 20px; height: 20px; } .seller { margin-top: 10px; padding-top: 9px; font-size: 11px; } .details { font-size: 11px; padding: 5px; } .share { width: 36px; flex-shrink: 0; } }
 @media(prefers-reduced-motion:reduce) { .card, .photo img { transition: none; } }
+
+/* Keep marketplace controls distinct from the shared gold mobile buttons. */
+.marketplace .categories button {
+  background: #fff !important;
+  color: #071a35 !important;
+  border: 1px solid #d7dde6 !important;
+}
+.marketplace .categories button[aria-pressed="true"] {
+  background: #102b50 !important;
+  color: #fff !important;
+  border-color: #102b50 !important;
+}
+.marketplace .categories button[aria-pressed="true"] svg { color: #fff !important; }
+.marketplace .favorite, .marketplace .share {
+  background: #fff !important;
+  color: #071a35 !important;
+  border-color: #d7dde6 !important;
+}
+.marketplace .favorite[aria-pressed="true"] { background: #fff3cc !important; }
+.marketplace .search button {
+  background: #102b50 !important;
+  color: #fff !important;
+  border-color: #102b50 !important;
+}
+.partsPrice, .title, .location, .seller { overflow-wrap: anywhere; }
+.location { align-items: flex-start; }
+.details { min-width: 0; }
+@media (max-width: 639px) {
+  .discovery { padding-top: 16px; }
+  .headingRow { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+  .headingRow h1 { font-size: 24px; line-height: 1.15; max-width: none; }
+  .eyebrow { font-size: 10px; letter-spacing: .1em; margin-bottom: 6px; }
+  .sellButton { padding: 9px 11px; font-size: 12px; gap: 6px; }
+  .sellButton svg { width: 16px; height: 16px; }
+  .search { margin-top: 14px; padding: 5px 6px 5px 10px; gap: 7px; border-radius: 10px; }
+  .search > svg { width: 19px; }
+  .search input { min-width: 0; }
+  .search button { padding: 8px 10px; }
+  .categories { margin-right: 0; padding: 12px 2px; gap: 7px; max-width: 100%; }
+  .categories button { padding: 8px 12px; font-size: 12px; }
+  .listings { padding-top: 16px; }
+  .resultsRow { gap: 12px; margin-bottom: 14px; }
+  .resultsRow h2 { font-size: 21px; }
+  .resultsRow p { margin-top: 2px; font-size: 12px; }
+  .filters { gap: 8px; }
+  .filters select { padding-left: 9px; padding-right: 22px; }
+  .grid { gap: 10px; }
+  .partsPrice { font-size: 13px; line-height: 1.35; }
+  .cardActions { flex-wrap: wrap; gap: 6px; }
+  .details { flex-basis: 100%; font-size: 12px; }
+  .share { width: 100%; }
+  :global(body):has(.marketplace) :global(aside[aria-label="Restore Gear assistant"]),
+  :global(body):has(.marketplace) :global(aside[aria-label="Gear website assistant"]:not(:has(section))) {
+    position: static; width: auto; margin: 0; padding: 16px; justify-items: center; background: #06162d;
+  }
+}
