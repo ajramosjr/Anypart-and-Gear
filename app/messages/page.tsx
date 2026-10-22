@@ -115,7 +115,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                 <div className="conversation-heading">
                   <Link href="/messages" className="chat-back" aria-label="Back to conversations"><ArrowLeft size={20}/></Link>
                   <div className="conversation-person"><span className="conversation-avatar"><UserRound size={21}/></span><div><small>APG conversation</small><h2>{otherName}</h2></div></div>
-                  <div className="flex flex-wrap items-center justify-end gap-1"><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/><DeleteConversation conversationId={selected.id} otherName={otherName}/></div>
+                  <details className="conversation-actions"><summary>Options</summary><div><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/><DeleteConversation conversationId={selected.id} otherName={otherName}/></div></details>
                 </div>
                 <div className="conversation-subject"><MessageCircle size={14}/><small>Connected through</small><strong>{conversationSubject(selected)}</strong></div>
                 <div className="message-stack">
@@ -127,7 +127,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                   })}
                 </div>
                 {selected.listing_id && (
-                  <TransactionReview conversationId={selected.id} userId={user.id} otherId={otherId} otherName={otherName} role={selected.buyer_id === user.id ? "buyer" : "seller"} transaction={transactions.get(selected.id)} reviewed={Boolean(transactions.get(selected.id) && reviewedTransactions.has(transactions.get(selected.id)!.id))}/>
+                  <details className="exchange-details"><summary>Exchange &amp; reviews</summary><TransactionReview conversationId={selected.id} userId={user.id} otherId={otherId} otherName={otherName} role={selected.buyer_id === user.id ? "buyer" : "seller"} transaction={transactions.get(selected.id)} reviewed={Boolean(transactions.get(selected.id) && reviewedTransactions.has(transactions.get(selected.id)!.id))}/></details>
                 )}
                 {blockedIds.has(otherId)
                   ? <p className="blocked-note">You blocked this member. Unblock them to send another message.</p>

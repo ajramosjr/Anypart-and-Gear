@@ -16,13 +16,14 @@ export default function DeleteConversation({ conversationId, otherName }: { conv
     try {
       const response = await fetch("/api/messages/conversation", {
         method: "DELETE", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversationId }),
+        body: JSON.stringify({ conversationId }), signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) throw new Error("Could not remove this conversation. Please try again.");
       router.replace("/messages");
       router.refresh();
     } catch {
       setError("Could not remove this conversation. Please try again.");
+    } finally {
       setBusy(false);
     }
   }

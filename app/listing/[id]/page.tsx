@@ -70,7 +70,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <main>
+    <main className="apg-listing-page">
       <header className="simple-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav"><Link href="/marketplace#listings">Back to listings</Link>{user&&<NotificationBell userId={user.id}/>}</nav><PageMenu /></div></header>
       <div className="shell page-shell"><Link href="/marketplace#listings" className="mb-6 inline-flex min-h-11 items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 font-bold text-[#071a35] hover:border-amber-500 hover:bg-amber-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600">← Back to listings</Link><div className={parts ? "grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]" : "detail-grid"}>
         {!parts && <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />}

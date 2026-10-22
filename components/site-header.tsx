@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, ChevronDown, ClipboardList, Menu, MessageSquare, Package, Store, Tag, UserRound, X } from "lucide-react";
+import { ArrowRight, BookOpen, ChevronDown, ClipboardList, Menu, MessageSquare, Package, Store, Tag, UserRound, Wrench, X } from "lucide-react";
 import ApgLogo from "@/components/apg-logo";
 import { TechWireLink } from "@/components/tech-wire-navigation";
 import { BuildIdeasLink } from "@/components/build-ideas-navigation";
@@ -39,7 +39,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
           <Link href="/marketplace" aria-current={current === "marketplace" ? "page" : undefined} className={rowClass}><Package size={20} aria-hidden="true" />Marketplace<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <Link href={signedIn ? "/sell" : "/login?next=/sell"} className={rowClass}><Tag size={20} aria-hidden="true" />Post a Listing<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <Link href="/shops" className={rowClass}><Store size={20} aria-hidden="true" />Shops &amp; Suppliers<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
-          <Link href="/garage-gear" className={rowClass}>Tools &amp; Work Gear</Link>
+          <Link href="/garage-gear" className={rowClass}><Wrench size={20} aria-hidden="true" />Tools &amp; Work Gear<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <Link href="/parts-wanted" className={rowClass}><ClipboardList size={20} aria-hidden="true" />Parts Wanted<ArrowRight size={16} className="ml-auto text-[#a77c16]" aria-hidden="true" /></Link>
           <details className="border-t border-slate-200 pt-2">
             <summary className={rowClass + " cursor-pointer list-none [&::-webkit-details-marker]:hidden"}><BookOpen size={20} aria-hidden="true" />Learn &amp; Resources<ChevronDown size={18} className="ml-auto" aria-hidden="true" /></summary>

@@ -75,3 +75,36 @@ main nav[aria-label="Listing categories"][aria-label][aria-label] button[aria-pr
 main nav[aria-label="Listing categories"][aria-label][aria-label] button[aria-pressed="true"] svg {
   color:#071a35!important;
 }
+
+/* Constrain listing gallery tracks to the available viewport. */
+.apg-listing-page{width:100%;min-width:0}
+.apg-listing-page>.simple-header{width:100%;max-width:none}
+.apg-listing-page .detail-grid{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
+.apg-listing-page .detail-grid>*{min-width:0;max-width:100%}
+.apg-listing-page .detail-info h1{overflow-wrap:anywhere}
+.apg-listing-page .detail-facts span{min-width:0;gap:12px;flex-wrap:wrap}
+@media(max-width:900px){.apg-listing-page .detail-grid{grid-template-columns:minmax(0,1fr)}}
+/* A compact conversation view with secondary actions out of the way. */
+.messages-page .messages-intro .page-title{font-family:var(--font-body),Arial,sans-serif;font-size:32px;font-weight:800;text-transform:none}
+.messages-page .privacy-note{border:0;background:transparent;padding:0;font-size:12px}
+.messages-page .conversation-heading{padding:12px 14px;gap:8px}
+.messages-page .conversation-person{flex:1;min-width:0;gap:8px}
+.messages-page .conversation-person>div{min-width:0}
+.messages-page .conversation-person small{display:none}
+.messages-page .conversation-avatar{width:34px;height:34px}
+.messages-page .conversation-heading h2{font-size:16px}
+.messages-page .conversation-actions{position:relative;flex-shrink:0}
+.messages-page .conversation-actions>summary{cursor:pointer;list-style:none;border:1px solid #dce2ea;border-radius:8px;padding:8px 10px;font-size:12px}
+.messages-page .conversation-actions>div{position:absolute;right:0;top:100%;z-index:10;min-width:150px;padding:8px;background:#fff;border:1px solid #dce2ea;border-radius:10px;box-shadow:0 8px 24px #071a351a}
+.messages-page .conversation-actions button{background:#fff!important;color:#071a35!important;border:0!important;min-height:40px;font-size:12px}
+.messages-page .conversation-subject{padding:8px 14px;font-size:12px}
+.messages-page .conversation-subject small{display:none}
+.messages-page .message-stack{justify-content:flex-start;min-height:220px;padding:18px 14px;gap:14px}
+.messages-page .message{font-size:14px;padding:10px 13px;max-width:85%;border-radius:16px 16px 16px 4px}
+.messages-page .message.mine{border-radius:16px 16px 4px 16px}
+.messages-page .message small{font-size:10px}
+.messages-page .exchange-details{border-top:1px solid #dce2ea;background:#fff}
+.messages-page .exchange-details>summary{padding:12px 14px;cursor:pointer;font-size:12px;font-weight:650;color:#526174}
+.messages-page .exchange-details .transaction-card{margin:0 12px 12px;padding:10px}
+.messages-page .reply-box button.button{background:#071a35!important;color:#fff!important;border:1px solid #071a35!important}
+@media(max-width:640px){.messages-page .messages-shell{padding-top:14px}.messages-page .messages-intro{gap:8px;margin-bottom:14px}.messages-page .reply-box{padding:10px}.messages-page .reply-box textarea{font-size:16px}}
