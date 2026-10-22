@@ -24,3 +24,15 @@
 
 .tool-jump select option{background:#fff;color:#071a35;font-weight:500}.tool-jump select option:checked{background:#f6b91b;color:#071a35;font-weight:800}
 @media print{.bill-sale-tool>.tool-heading{display:none!important}.bill-sale-tool .print-brand{display:none!important}}
+
+/* Keep workshop references within easy reach on phones and tablets. */
+@media screen and (max-width:960px){
+  .toolbox-page .toolbox-hero-grid{gap:1rem;padding-top:1.8rem;padding-bottom:1.4rem}
+  .toolbox-page .toolbox-trust{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;border:0;border-top:1px solid rgba(255,255,255,.14);border-radius:0;background:transparent;padding:.75rem 0 0}
+  .toolbox-page .toolbox-trust span{gap:.35rem;font-size:.65rem;font-weight:650;text-transform:none;white-space:nowrap}
+  .toolbox-page .toolbox-trust svg{width:16px;height:16px;flex-shrink:0}
+}
+@media screen and (max-width:380px){
+  .toolbox-page .toolbox-trust{gap:.55rem .7rem}
+  .toolbox-page .toolbox-trust span{font-size:.6rem}
+}
