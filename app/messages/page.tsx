@@ -85,7 +85,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
       <div className="shell page-shell messages-shell">
         <div className="messages-intro">
           <Link href="/marketplace#listings" className="messages-back"><ArrowLeft size={16} /> Marketplace</Link>
-          <div><span className="kicker">APG Messages</span><h1 className="page-title">Inbox</h1></div>
+          <div><span className="kicker">Messages</span><h1 className="page-title">Connect</h1></div>
           <p className="privacy-note"><LockKeyhole size={17} /><span>Chat using display names. Your phone number and email stay private.</span></p>
         </div>
         {conversations.length && selected ? (

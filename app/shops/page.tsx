@@ -4,7 +4,7 @@ import Link from "next/link";
 import { MapPin, Search, ShieldCheck, Star, Store, Upload } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import ApgLogo from "@/components/apg-logo";
+import SiteHeader from "@/components/site-header";
 import { AMAZON_ASSOCIATE_TAG } from "@/lib/affiliate";
 import ContactShop from "./contact-shop";
 import { directoryBusinesses, onlineSuppliers } from "./directory-businesses";
@@ -84,14 +84,14 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
       && (!town || `${shop.location} ${shop.postal_code}`.toLowerCase().includes(town));
   });
 
-  return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
-    <header className="simple-header sell-header dashboard-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Directory navigation"><Link href="/marketplace">Marketplace</Link><Link href="/messages">Messages</Link></nav><PageMenu /></div></header>
-    <section className="bg-white"><div className="shell py-6 sm:py-7">
-      <h1 className="text-3xl font-black sm:text-5xl">Repair Shops &amp; Parts Suppliers</h1>
+  return <main className="apg-directory min-h-screen bg-[#eef1f4] text-[#071a35]">
+    <SiteHeader signedIn={Boolean(user)} />
+    <section className="bg-white"><div className="apg-directory-banner"><div className="shell"><h1>Shops &amp; Suppliers</h1><p>Find the right people. Get the right parts.</p></div></div><div className="shell py-6 sm:py-7">
+      <h2 className="sr-only">Directory search and categories</h2>
       <p className="mt-2 text-slate-600">Find parts, supplies and repair services.</p>
       {selectedSpecialty === "performance" && <p className="mt-2 text-sm text-slate-600">Performance parts and upgrades, including truck, SUV and Jeep lift and leveling kits.</p>}
       <nav aria-label="Supplier directory" className="mt-5 grid grid-cols-3 gap-2 rounded-xl bg-slate-100 p-1">
-        {[{ label: "Local Repair Shops", view: "local" }, { label: "Local Parts Suppliers", view: "suppliers" }, { label: "Online Parts Suppliers", view: "online" }].map((tab) => <Link key={tab.view} href={queryLink({ view: tab.view, county: tab.view === "online" ? "Online" : "All", type: "All", location: "" })} aria-current={(isOnline ? "online" : localView) === tab.view ? "page" : undefined} style={{ color: (isOnline ? "online" : localView) === tab.view ? "#071a35" : "#475569" }} className={`rounded-lg px-2 py-3 text-center text-xs sm:text-sm font-bold ${(isOnline ? "online" : localView) === tab.view ? "bg-[#e6b944] text-[#071a35] shadow-sm" : "text-slate-600 hover:bg-white"}`}>{tab.label}</Link>)}
+        {[{ label: "Local Shops", view: "local" }, { label: "Local Suppliers", view: "suppliers" }, { label: "Online Suppliers", view: "online" }].map((tab) => <Link key={tab.view} href={queryLink({ view: tab.view, county: tab.view === "online" ? "Online" : "All", type: "All", location: "" })} aria-current={(isOnline ? "online" : localView) === tab.view ? "page" : undefined} style={{ color: (isOnline ? "online" : localView) === tab.view ? "#071a35" : "#475569" }} className={`rounded-lg px-2 py-3 text-center text-xs sm:text-sm font-bold ${(isOnline ? "online" : localView) === tab.view ? "bg-[#e6b944] text-[#071a35] shadow-sm" : "text-slate-600 hover:bg-white"}`}>{tab.label}</Link>)}
       </nav>
       <form action="/shops" className="apg-directory-search mt-4">
         <input type="hidden" name="view" value={isOnline ? "online" : localView} />
@@ -134,7 +134,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
           {supplier.name === "Carhartt" && <div className="mt-3"><a className="button button-small" href={`https://www.amazon.com/stores/Carhartt/page/4D749FEE-ACA7-4043-8DF6-FCA7CF7BEE1F?tag=${encodeURIComponent(AMAZON_ASSOCIATE_TAG)}`} target="_blank" rel="noopener noreferrer sponsored nofollow">Shop Carhartt on Amazon ↗</a><p className="mt-2 text-xs text-slate-600">Affiliate link: As an Amazon Associate I earn from qualifying purchases. <Link href="/affiliate-disclosure" className="font-bold underline">How affiliate links work</Link></p></div>}
         </article>)}</div> : <p className="mt-4 text-sm text-slate-600">No online suppliers match these filters. <Link className="font-bold underline" href={queryLink({ county: "Online", location: "", type: "Online Suppliers", category: "All", q: "", specialty: "All" }).replace("#long-island-directory", "#online-suppliers")}>Browse all online suppliers</Link></p>}
       </section>}      {!isOnline && <section id="long-island-directory" className="scroll-mt-6">
-        <h2 className="text-2xl font-black">{isSuppliers ? "Local Parts Suppliers" : "Local Repair Shops"}</h2>
+        <h2 className="text-2xl font-black">{isSuppliers ? "Local Suppliers" : "Local Shops"}</h2>
         <p className="mt-2 text-slate-600">Long Island, New York City and New Jersey. Contact businesses for current services and stock.</p>
 
         <details className="mt-3 text-sm text-slate-600"><summary className="cursor-pointer">About directory listings</summary><p className="mt-2">Independent listings do not imply an APG partnership. Coverage is growing.  Business details checked refers to the listed business and its public contact information. Website links open an external site in a new tab. APG does not control those sites or guarantee website security, products or services.</p></details><div className="mt-5 flex flex-wrap items-center gap-3"><strong>{localResults.length} {localResults.length === 1 ? "business" : "businesses"} · {towns.length} {towns.length === 1 ? "town" : "towns"}</strong>{(q || location || selected !== "All" || selectedCounty !== "All" || selectedType !== "All" || selectedSpecialty !== "All") && <Link href={isSuppliers ? "/shops?view=suppliers#long-island-directory" : "/shops#long-island-directory"} className="text-sm font-bold underline">Clear filters</Link>}</div>

@@ -1,6 +1,4 @@
 import "server-only";
-import { createClient as createAdminClient } from "@supabase/supabase-js";
-import { supabaseUrl } from "@/lib/supabase/config";
 import SiteHeader from "@/components/site-header";
 import { AwarenessBanner } from "@/components/october-awareness";
 import Link from "next/link";
@@ -24,21 +22,8 @@ async function getLatestListings() {
   return { listings: data ?? [], unavailable: false };
 }
 
-// Only this small public display is projected from sold listings; their full rows stay private.
-async function getRecentlySold() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
-  if (!hasSupabaseConfig() || !key) return null;
-  const admin = createAdminClient(supabaseUrl, key, { auth: { persistSession: false, autoRefreshToken: false } });
-  const { data, error } = await admin.from("listings")
-    .select("title,image_url")
-    .eq("status", "sold").not("image_url", "is", null).neq("image_url", "")
-    .order("updated_at", { ascending: false }).order("id", { ascending: false }).limit(1).maybeSingle();
-  if (error) { console.error("Recently sold unavailable:", error.code); return null; }
-  return data;
-}
-
 export default async function Home() {
-  const [user, { listings, unavailable }, community, recentlySold] = await Promise.all([getUser(), getLatestListings(), getCommunityState(), getRecentlySold()]);
+  const [user, { listings, unavailable }, community] = await Promise.all([getUser(), getLatestListings(), getCommunityState()]);
   const postPath = user ? "/sell" : "/login?next=/sell";
   return <main className="min-h-screen bg-[#eef1f4] text-[#071a35]">
     <LegacyMarketplaceHashRedirect />
@@ -49,21 +34,12 @@ export default async function Home() {
       <Image src="/apg-marketplace-hero.webp" alt="Transmission, gears, tools, and a marine propeller on a workshop bench" fill priority sizes="100vw" className="-z-20 object-cover object-[65%_center]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#03152b]/95 via-[#03152b]/70 to-transparent" />
       <div className="mx-auto max-w-7xl px-5 py-8 sm:px-6 sm:py-10">
-        <h1 className="max-w-3xl text-5xl font-black leading-[.98] tracking-[-.04em] sm:text-7xl">Post it.<br className="sm:hidden" /> <span className="apg-home-accent">Sell it.</span></h1>
+        <h1 className="max-w-3xl text-4xl font-black leading-[1.08] tracking-[-.04em] sm:text-6xl">Have parts sitting around gathering dust? <span className="apg-home-accent">Post it here.</span></h1>
         <p className="mt-4 max-w-2xl text-lg leading-7 text-slate-200 sm:text-xl">A growing marketplace for parts, tools, and gear.</p>
-        <div className="apg-home-actions mt-5 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">Post an Item <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/shops" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80"><span className="sm:hidden">Shops &amp; Suppliers</span><span className="hidden sm:inline">Browse Shops &amp; Suppliers</span> <ArrowRight aria-hidden="true" size={22} /></Link></div>
+        <div className="apg-home-actions mt-5 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">Post a Listing <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/marketplace" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80">Browse Marketplace <ArrowRight aria-hidden="true" size={22} /></Link></div>
       </div>
     </section>
-    {recentlySold?.image_url && <div aria-label="Recently sold" className="mx-auto max-w-7xl px-4 pt-5 sm:px-6">
-      <div className="max-w-[520px] overflow-hidden rounded-xl border-2 border-[#d5ac48] bg-[#071a35] shadow-sm">
-        <p className="border-b-2 border-[#d5ac48] px-4 py-3 text-base font-extrabold uppercase tracking-wider text-white">Recently <span className="text-[#f0ce77]">Sold</span></p>
-        <div className="relative aspect-[1.8] overflow-hidden bg-slate-100">
-          <Image src={recentlySold.image_url} alt={recentlySold.title} fill sizes="(max-width: 560px) calc(100vw - 32px), 520px" className="object-cover" />
-          <span className="absolute right-3 top-3 rotate-[8deg] rounded-md border-2 border-[#fff3c8] bg-gradient-to-br from-[#f9e6a0] to-[#d7a837] px-4 py-2 text-2xl font-black tracking-wider text-[#071a35] shadow-md">SOLD</span>
-        </div>
-        <p className="break-words border-t-2 border-[#d5ac48] px-4 py-3 text-lg font-bold text-white">{recentlySold.title}</p>
-      </div>
-    </div>}
+    <section className="apg-explore shell" aria-labelledby="explore-title"><h2 id="explore-title">Explore APG</h2><div className="apg-explore-grid">{[{title:"Marketplace",href:"/marketplace",image:"/apg-marketplace-hero.webp"},{title:"Shops & Suppliers",href:"/shops",image:"/apg-gear-categories.webp"},{title:"Toolbox",href:"/toolbox",image:"/apg-transmission-closeups.webp"}].map(item=><Link href={item.href} key={item.href} className="apg-explore-card"><div className="apg-explore-photo"><Image src={item.image} alt="" fill sizes="(max-width: 640px) 33vw, 400px" className="object-cover" /></div><span>{item.title}<ArrowRight size={18} aria-hidden="true"/></span></Link>)}</div></section>
     <section aria-labelledby="individual-marketplace-title" className="mx-auto max-w-7xl px-4 py-7 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-4"><div><h2 id="individual-marketplace-title" className="text-2xl sm:text-3xl font-black">Latest Listings</h2><p className="mt-2 text-slate-600">Recent listings from individual sellers.</p></div><Link href="/marketplace" className="inline-flex min-h-11 items-center gap-2 font-bold">View all listings <ArrowRight size={20} aria-hidden="true" /></Link></div>
       {listings.length ? <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">{listings.map((listing) => <Link key={listing.id} href={`/listing/${listing.id}`} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:border-pink-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-600">

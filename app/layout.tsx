@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter, Oswald } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GearsAssistant } from "@/components/gears-assistant";
@@ -12,11 +11,11 @@ import { BuildIdeasNavigationProvider } from "@/components/build-ideas-navigatio
 import { getUser } from "@/lib/auth";
 import { AdminNavigationProvider } from "@/components/admin-navigation";
 import "./globals.css";
+import "./local-fonts.css";
 import "./listing-overrides.css";
 import "../public/apg-interactions.css";
+import "./apg-design.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.anypartandgear.com"),
@@ -56,7 +55,7 @@ export default async function RootLayout({
 }) {
   const [{ enabled }, buildIdeas, user] = await Promise.all([getTechWireState(), getBuildIdeasState(), getUser()]);
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
+    <html lang="en">
       <head>
         <meta name="fo-verify" content="0db0813a-76e8-499e-ace8-89554311b01e" />
         <meta name="theme-color" content="#0b2345" />

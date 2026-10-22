@@ -80,7 +80,7 @@ export default function Marketplace({ user, signInPath, signOutPath, listings, l
     <AwarenessBanner />
 
     <section className={styles.discovery} aria-labelledby="marketplace-title"><div className={styles.container}>
-      <div className={styles.headingRow}><div><p className={styles.eyebrow}>APG Marketplace</p><h1 id="marketplace-title">Find your next great find.</h1></div><Link className={styles.sellButton} href={user ? "/sell" : "/login?next=/sell"}><Tag aria-hidden="true"/>Sell a Part</Link></div>
+      <div className={styles.headingRow}><div><p className={styles.eyebrow}>APG Marketplace</p><h1 id="marketplace-title">Marketplace</h1></div><Link className={styles.sellButton} href={user ? "/sell" : "/login?next=/sell"}><Tag aria-hidden="true"/>Post a Listing</Link></div>
       <form onSubmit={runSearch} className={styles.search}><Search aria-hidden="true"/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search parts, tools & vehicles" aria-label="Search listings"/><button type="submit">Search</button></form>
       <nav className={styles.categories} aria-label="Listing categories"><button type="button" aria-pressed={category === "All"} onClick={()=>setCategory("All")}>All</button>{categories.map(c=><button type="button" key={c.name} aria-pressed={category === c.name} onClick={()=>setCategory(c.name)}><c.icon aria-hidden="true"/>{c.name}</button>)}</nav>
     </div></section>

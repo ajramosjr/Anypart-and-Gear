@@ -104,3 +104,7 @@
     position: static; width: auto; margin: 0; padding: 16px; justify-items: center; background: #06162d;
   }
 }
+
+/* Approved mechanical direction; real inventory and existing controls remain intact. */
+.discovery{background:linear-gradient(110deg,#071a35f0,#071a35cf),url('/apg-marketplace-hero.webp') center/cover;border-bottom:2px solid #d6ad48}
+.headingRow h1{color:#fff}.eyebrow{color:#edc35f}.sellButton{background:#efc458!important;color:#071a35!important;border:1px solid #d6ad48!important}.categories button{border-radius:9px}.marketplace .categories button[aria-pressed='true']{border-bottom:3px solid #d6ad48!important}.price{color:#926914}.card:hover{border-color:#c9a655}.search{box-shadow:none}.categories{flex-wrap:wrap;overflow:visible}.marketplace .categories{margin-right:0;padding-right:0}
