@@ -3,7 +3,7 @@ import SiteHeader from "@/components/site-header";
 import { AwarenessBanner } from "@/components/october-awareness";
 import Link from "next/link";
 import Image from "next/image";
-import { Package, Store, ArrowRight } from "lucide-react";
+import { Package, Store, BookOpen, ArrowRight } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
 import { LegacyMarketplaceHashRedirect } from "./marketplace/legacy-hash-redirect";
@@ -39,7 +39,22 @@ export default async function Home() {
         <div className="apg-home-actions mt-5 flex flex-wrap gap-3"><Link href={postPath} className="apg-home-cta inline-flex min-h-14 items-center justify-center gap-3 rounded-lg px-7 text-lg font-black">Post a Listing <ArrowRight aria-hidden="true" size={22} /></Link><Link href="/marketplace" className="apg-home-outline inline-flex min-h-14 items-center justify-center gap-3 rounded-lg border-2 bg-[#03152b]/50 px-6 text-lg font-bold hover:bg-[#03152b]/80">Browse Marketplace <ArrowRight aria-hidden="true" size={22} /></Link></div>
       </div>
     </section>
-    <section className="apg-explore shell" aria-labelledby="explore-title"><h2 id="explore-title">Explore APG</h2><div className="apg-explore-grid">{[{title:"Marketplace",href:"/marketplace",image:"/apg-marketplace-hero.webp"},{title:"Shops & Suppliers",href:"/shops",image:"/apg-gear-categories.webp"},{title:"Toolbox",href:"/toolbox",image:"/apg-transmission-closeups.webp"}].map(item=><Link href={item.href} key={item.href} className="apg-explore-card"><div className="apg-explore-photo"><Image src={item.image} alt="" fill sizes="(max-width: 640px) 33vw, 400px" className="object-cover" /></div><span>{item.title}<ArrowRight size={18} aria-hidden="true"/></span></Link>)}</div></section>
+    <section className="apg-explore shell" aria-labelledby="explore-title">
+      <h2 id="explore-title">Explore APG</h2>
+      <div className="apg-explore-grid">
+        {[
+          {title:"Marketplace",href:"/marketplace",icon:Package,description:"Buy & sell parts, tools and vehicles"},
+          {title:"Shops & Suppliers",href:"/shops",icon:Store,description:"Find repair shops and parts suppliers"},
+          {title:"Toolbox",href:"/toolbox",icon:BookOpen,description:"Charts, calculators and repair references"},
+        ].map(({title,href,icon:Icon,description}) => <Link href={href} key={href} className="apg-explore-card">
+          <div className="flex aspect-[1.8] items-center justify-center border-b border-slate-200 bg-[#e7edf3] max-sm:aspect-[1.4]">
+            <Icon aria-hidden="true" className="text-[#071a35]" style={{width:"clamp(32px, 6vw, 64px)",height:"clamp(32px, 6vw, 64px)",color:"#071a35"}} strokeWidth={1.5}/>
+          </div>
+          <span>{title}<ArrowRight size={18} aria-hidden="true"/></span>
+          <p className="px-2 pb-4 text-xs leading-relaxed text-slate-600 sm:px-4 sm:text-sm">{description}</p>
+        </Link>)}
+      </div>
+    </section>
     <section aria-labelledby="individual-marketplace-title" className="mx-auto max-w-7xl px-4 py-7 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-4"><div><h2 id="individual-marketplace-title" className="text-2xl sm:text-3xl font-black">Latest Listings</h2><p className="mt-2 text-slate-600">Recent listings from individual sellers.</p></div><Link href="/marketplace" className="inline-flex min-h-11 items-center gap-2 font-bold">View all listings <ArrowRight size={20} aria-hidden="true" /></Link></div>
       {listings.length ? <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">{listings.map((listing) => <Link key={listing.id} href={`/listing/${listing.id}`} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:border-pink-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-600">
