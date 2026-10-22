@@ -20,3 +20,32 @@ body{background:var(--apg-canvas);color:var(--apg-navy)}
 .apg-awareness-banner{background:#fff1f6!important;color:#071a35!important;border-bottom:1px solid #f3c7d8!important;padding:10px 20px!important;gap:12px!important}.apg-awareness-banner>svg{fill:#db2777!important;flex-shrink:0}.apg-awareness-copy{display:flex;align-items:center;justify-content:center;gap:5px 18px;flex-wrap:wrap}.apg-awareness-copy>span{font-size:13px;font-weight:650}.apg-awareness-copy>a{color:#9d1751!important;font-size:12px;text-decoration:underline;text-underline-offset:3px}.apg-awareness-copy>small{flex-basis:100%;text-align:center;color:#566276;font-size:10px!important}@media(max-width:640px){.apg-awareness-banner{padding:10px 16px!important}.apg-awareness-copy{justify-content:flex-start;gap:4px 10px}.apg-awareness-copy>span{font-size:12px}.apg-awareness-copy>small{text-align:left}}
 
 .apg-header-messages{background:#fff;color:#071a35;border-bottom:2px solid #d6ad48}@media(max-width:640px){.apg-site-header .apg-header-control[href="/garage-gear"]{display:none}.apg-header-messages{font-size:12px;padding:9px 10px;gap:5px}.apg-header-messages svg{width:17px}}
+
+/* Mobile header and marketplace controls must override legacy shared treatments. */
+@media (max-width:640px) {
+  .apg-site-header > div:first-child {
+    display:flex; flex-wrap:nowrap; align-items:center; gap:6px;
+    min-height:70px; padding:8px 12px;
+  }
+  .apg-site-header > div:first-child > div:has(.apg-header-logo) { flex:1 1 auto; min-width:0; margin-right:0; }
+  .apg-site-header > div:first-child > div .apg-header-logo-image { width:100px!important; max-width:100%; height:auto!important; }
+  .apg-site-header .apg-header-messages { flex:0 0 auto; padding:8px; font-size:12px; gap:5px; min-height:44px; }
+  .apg-site-header > div:first-child > details { flex:0 0 auto; }
+  main nav[aria-label="Listing categories"][aria-label][aria-label] {
+    display:flex; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+    gap:8px; padding:12px 0; scrollbar-width:thin;
+  }
+  main nav[aria-label="Listing categories"][aria-label][aria-label] button {
+    flex:0 0 auto; min-height:44px; padding:8px 12px; font-size:12px;
+    background:#fff!important; color:#071a35!important; border:1px solid #dce2ea!important;
+  }
+  main nav[aria-label="Listing categories"][aria-label][aria-label] button[aria-pressed="true"] {
+    background:#102b50!important; color:#fff!important; border-color:#102b50!important;
+    border-bottom:3px solid #d6ad48!important;
+  }
+  main nav[aria-label="Listing categories"][aria-label][aria-label] button[aria-pressed="true"] svg { color:white!important; }
+  main:has(nav[aria-label="Listing categories"]) button[aria-label="Save to favorites"][aria-label],
+  main:has(nav[aria-label="Listing categories"]) button[aria-label="Remove from favorites"][aria-label] {
+    background:white!important; color:#071a35!important; border-color:#dce2ea!important;
+  }
+}
