@@ -1,7 +1,7 @@
 import PageMenu from "@/components/page-menu";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowLeft, LockKeyhole, MessageCircle, UserRound } from "lucide-react";
+import { ArrowLeft, ChevronDown, MoreVertical, MessageCircle } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ApgLogo from "@/components/apg-logo";
@@ -75,7 +75,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
   const mobileChatOpen = Boolean(requestedConversation);
 
   return (
-    <main className="messages-page">
+    <main className={`messages-page${mobileChatOpen ? " chat-open" : ""}`}>
       <header className="simple-header messages-header">
         <div className="shell nav-wrap">
           <ApgLogo priority />
@@ -85,8 +85,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
       <div className="shell page-shell messages-shell">
         <div className="messages-intro">
           <Link href="/marketplace#listings" className="messages-back"><ArrowLeft size={16} /> Marketplace</Link>
-          <div><span className="kicker">Messages</span><h1 className="page-title">Connect</h1></div>
-          <p className="privacy-note"><LockKeyhole size={17} /><span>Chat using display names. Your phone number and email stay private.</span></p>
+          <div><h1 className="page-title">Messages</h1></div>
         </div>
         {conversations.length && selected ? (
           <div className={`inbox-layout${mobileChatOpen ? " has-chat" : ""}`}>
@@ -99,7 +98,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                   const last = conversation.messages.at(-1);
                   const unread = conversation.messages.filter((message) => message.sender_id !== user.id && !message.read_at).length;
                   return <Link href={`/messages?chat=${conversation.id}`} className={`inbox-thread${selected.id === conversation.id ? " active" : ""}`} key={conversation.id}>
-                    <span className="thread-avatar"><UserRound size={19}/></span>
+                    <span className="thread-avatar">{otherName.charAt(0).toUpperCase()}</span>
                     <span className="thread-copy"><span><strong>{otherName}</strong><time>{last ? new Date(last.created_at).toLocaleDateString([], { month: "short", day: "numeric" }) : ""}</time></span><small>{conversationSubject(conversation)}</small><p>{last?.body || "Start the conversation"}</p></span>
                     {unread > 0 && <b className="unread-badge" aria-label={`${unread} unread messages`}>{unread}</b>}
                   </Link>;
@@ -114,16 +113,16 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                 <MessageLive conversationId={selected.id}/>
                 <div className="conversation-heading">
                   <Link href="/messages" className="chat-back" aria-label="Back to conversations"><ArrowLeft size={20}/></Link>
-                  <div className="conversation-person"><span className="conversation-avatar"><UserRound size={21}/></span><div><small>APG conversation</small><h2>{otherName}</h2></div></div>
-                  <details className="conversation-actions"><summary>Options</summary><div><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/><DeleteConversation conversationId={selected.id} otherName={otherName}/></div></details>
+                  <div className="conversation-person"><span className="conversation-avatar">{otherName.charAt(0).toUpperCase()}</span><div><h2>{otherName}</h2></div></div>
+                  <details className="conversation-actions"><summary aria-label="Conversation options"><MoreVertical size={21}/></summary><div><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/><DeleteConversation conversationId={selected.id} otherName={otherName}/></div></details>
                 </div>
-                <div className="conversation-subject"><MessageCircle size={14}/><small>Connected through</small><strong>{conversationSubject(selected)}</strong></div>
+                <details className="chat-listing"><summary><MessageCircle size={19}/><strong>{conversationSubject(selected)}</strong><ChevronDown size={16}/></summary><div>{selected.listing_id ? <Link href={`/listing/${selected.listing_id}`}>View listing</Link> : <span>Shop conversation</span>}</div></details>
                 <div className="message-stack">
                   {selected.messages.map((message) => {
                     const mine = message.sender_id === user.id;
                     const isOffer = message.message_type === "offer" || message.message_type === "offer_counter";
                     const canAct = isOffer && !mine && !respondedOfferIds.has(message.id);
-                    return <div className={`${mine ? "message mine" : "message"}${isOffer ? " offer-message" : ""}`} key={message.id}><b>{mine ? "You" : otherName}{isOffer ? message.message_type === "offer_counter" ? " · Counteroffer" : " · Offer" : ""}</b>{isOffer && message.offer_amount ? <strong className="offer-amount">${Number(message.offer_amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong> : <p>{message.body}</p>}{isOffer && /^Offer: \$[\d.]+ for /.test(message.body) && <p>{message.body.replace(/^Offer: \$[\d.]+ for /, "Part: ")}</p>}<small>{new Date(message.created_at).toLocaleString()}</small>{canAct && message.offer_amount && <OfferActions conversationId={selected.id} messageId={message.id} amount={Number(message.offer_amount)} canCounter={user.id === selected.seller_id && message.message_type === "offer"} />}</div>;
+                    return <div className={`${mine ? "message mine" : "message"}${isOffer ? " offer-message" : ""}`} key={message.id}>{isOffer && <b>{message.message_type === "offer_counter" ? "Counteroffer" : "Offer"}</b>}{isOffer && message.offer_amount ? <strong className="offer-amount">${Number(message.offer_amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong> : <p>{message.body}</p>}{isOffer && /^Offer: \$[\d.]+ for /.test(message.body) && <p>{message.body.replace(/^Offer: \$[\d.]+ for /, "Part: ")}</p>}<small title={new Date(message.created_at).toLocaleString()}>{new Date(message.created_at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}</small>{canAct && message.offer_amount && <OfferActions conversationId={selected.id} messageId={message.id} amount={Number(message.offer_amount)} canCounter={user.id === selected.seller_id && message.message_type === "offer"} />}</div>;
                   })}
                 </div>
                 {selected.listing_id && (
