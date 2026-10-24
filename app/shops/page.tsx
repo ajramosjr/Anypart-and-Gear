@@ -120,6 +120,11 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
       </form>
     </div></section>
     <div className="shell py-9">
+      {!isOnline && !isSuppliers && <>
+      <section id="apg-member-businesses" className="mb-10"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="kicker">Repair Shops &amp; Parts Suppliers</span><h2 className="page-title">Businesses on APG</h2><p className="text-slate-600">Connect with businesses that have created an APG profile.</p></div></div>
+        {filteredShops.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{filteredShops.map((shop) => <article key={shop.id} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-amber-400"><Link href={`/shops/${shop.id}`}><strong className="text-lg">{shop.name}</strong><p className="text-sm text-slate-600">{shop.specialty} · {shop.location} {shop.postal_code}</p><span className="mt-4 inline-block text-sm font-bold underline">View business &amp; contact →</span></Link>{hiringButtons(shop)}</article>)}</div> : <p className="rounded-xl bg-white p-6 text-slate-600">No registered repair shops or parts suppliers match your search yet. Browse the directory listings above or try another location.</p>}
+      </section>
+      </>}
       {isOnline && <section id="online-suppliers" className="scroll-mt-6 rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-black">Online Parts &amp; Gear Suppliers</h2><Link className="text-sm font-bold underline" href={queryLink({ county: "Online", location: "", type: "Online Suppliers", category: "All", q: "", specialty: "All" }).replace("#long-island-directory", "#online-suppliers")}>Browse online suppliers</Link></div>
         <p className="mt-2 text-sm text-slate-600">Order through these suppliers’ websites. These are online shopping listings, separate from local shops; some suppliers also operate physical stores. Independent listings do not imply an APG partnership.</p>
@@ -156,9 +161,7 @@ export default async function ShopsPage({ searchParams }: { searchParams: Promis
           <div className="p-4"><span className="text-xs font-bold uppercase tracking-wide text-amber-700">{post.category}</span><p className="mt-1 line-clamp-3 min-h-12 font-semibold">{post.caption}</p>{post.price !== null && <p className="mt-2 font-black">${Number(post.price).toLocaleString()}</p>}<div className="mt-4"><ContactShop shopId={shop.id} ownerId={shop.owner_id} currentUserId={user?.id} nextPath="/shops" prompt={`I'm asking about your APG post: ${post.caption.slice(0, 120)}`} label="Contact business"/></div><Link className="mt-3 inline-block text-sm font-bold underline" href={`/shops/${shop.id}`}>View Business Profile</Link></div>
         </article>;
       })}</div> : <div className="empty-state"><Store className="mx-auto mb-3"/><h2>No business posts yet</h2><p>{q || location || selected !== "All" ? "No posts match this search yet. Try another area or category; APG is still growing." : "APG is a new marketplace. Businesses can add their profiles and posts here as they join."}</p><Link className="button mt-5" href={user ? "/shops/post" : "/login?next=/shops/post"}>Share a business post</Link></div>}
-      <section className="mt-12 border-t border-slate-200 pt-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="kicker">Repair Shops &amp; Parts Suppliers</span><h2 className="page-title">Find parts &amp; repair services</h2><p className="text-slate-600">Find registered repair shops and parts suppliers, with or without photos.</p></div></div>
-        {filteredShops.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{filteredShops.map((shop) => <article key={shop.id} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-amber-400"><Link href={`/shops/${shop.id}`}><strong className="text-lg">{shop.name}</strong><p className="text-sm text-slate-600">{shop.specialty} · {shop.location}</p></Link>{hiringButtons(shop)}</article>)}</div> : <p className="rounded-xl bg-white p-6 text-slate-600">No registered repair shops or parts suppliers match your search yet. Browse the directory listings above or try another location.</p>}
-      </section>
+
 
 
     </>}
