@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { getUser } from "@/lib/auth";
+import { sendPushNotifications } from "@/lib/push";
 import { supabaseUrl } from "@/lib/supabase/config";
 
 export async function POST(request: Request) {
@@ -39,5 +40,37 @@ export async function POST(request: Request) {
   const rows = recipientIds.filter((id) => !notified.has(id)).map((id) => ({ user_id: id, actor_id: user.id, notification_type: type, title: approved ? "APG Messages enabled" : "Business activation request", body, link }));
   if (!rows.length) return NextResponse.json({ notified: true, duplicate: true });
   const { error } = await admin.from("notifications").insert(rows);
-  return NextResponse.json({ notified: !error }, { status: error ? 202 : 200 });
+  if (error) {
+    console.error("[business-activation] notification insert failed", { code: error.code });
+    return NextResponse.json({ notified: false }, { status: 503 });
+  }
+  const delivery = await Promise.allSettled(rows.map(async (row) => {
+    const push = await sendPushNotifications(admin, row.user_id, {
+      title: row.title, body: row.body, url: link,
+      tag: `apg-${type}-${payload.shopId}`,
+    });
+    let email = false;
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey) {
+      const { data: recipient } = await admin.auth.admin.getUserById(row.user_id);
+      if (recipient.user?.email) {
+        const response = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          signal: AbortSignal.timeout(10000),
+          headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json", "Idempotency-Key": `apg-${type}-${payload.shopId}-${row.user_id}` },
+          body: JSON.stringify({
+            from: process.env.RESEND_FROM_EMAIL || "Any Part & Gear <notifications@any-partandgear.com>",
+            to: [recipient.user.email], subject: row.title,
+            text: `${body}\n\nReview on APG: https://www.anypartandgear.com${link}`,
+          }),
+        });
+        email = response.ok;
+        if (!email) console.error("[business-activation] email failed", { status: response.status });
+      }
+    }
+    return { push, email };
+  }));
+  const push = delivery.reduce((sum, result) => sum + (result.status === "fulfilled" ? result.value.push : 0), 0);
+  const email = delivery.filter(result => result.status === "fulfilled" && result.value.email).length;
+  return NextResponse.json({ notified: true, push, email });
 }
