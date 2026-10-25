@@ -267,3 +267,12 @@ body:has(main.apg-resources) aside[aria-label="Restore Gear assistant"]{position
   .apg-account-page .notification-option input{flex-shrink:0;width:20px;height:20px}
   body:has(main.apg-account-page) aside[aria-label="Restore Gear assistant"]{position:static!important;display:flex;justify-content:flex-end;width:calc(100% - 32px);margin:-80px auto 24px;inset:auto!important}
 }
+
+/* Account actions keep the owner's preferred gold treatment. */
+main.apg-account-page.apg-account-page.apg-account-page .account-heading .form-actions .button,
+main.apg-account-page.apg-account-page.apg-account-page .manage-row .manage-actions :is(a,button),
+main.apg-account-page.apg-account-page.apg-account-page .notification-settings button{
+  background:#e6b944!important;color:#071a35!important;border:1px solid #c79522!important;cursor:pointer;box-shadow:none!important;
+}
+main.apg-account-page.apg-account-page.apg-account-page :is(a,button){touch-action:manipulation}
+main.apg-account-page.apg-account-page.apg-account-page button:disabled{cursor:wait;opacity:.65}
