@@ -49,6 +49,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
               <BuildIdeasLink className={childClass} href="/build-ideas">APG Build Ideas</BuildIdeasLink>
               <Link className={childClass} href="/practice-tests">Practice Tests</Link>
               <Link className={childClass} href="/links">Courses &amp; Training</Link>
+              <Link className={childClass} href="/links#fishing-hunting">Fishing &amp; Hunting Licenses</Link>
               <Link className={childClass} href="/shout-outs">APG Shout-Outs</Link>
               <TechWireLink className={childClass} href="/tech-wire">Parts &amp; Industry News</TechWireLink>
               <Link className={childClass} href="/safety">Safety tips</Link>
