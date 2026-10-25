@@ -276,3 +276,17 @@ main.apg-account-page.apg-account-page.apg-account-page .notification-settings b
 }
 main.apg-account-page.apg-account-page.apg-account-page :is(a,button){touch-action:manipulation}
 main.apg-account-page.apg-account-page.apg-account-page button:disabled{cursor:wait;opacity:.65}
+
+/* Recognizable listing context inside private conversations. */
+main.messages-page.messages-page .inbox-chat.inbox-chat .chat-listing-card{
+ display:flex;align-items:center;gap:12px;flex-shrink:0;margin:8px 14px;
+ padding:10px 12px;min-width:0;border:1px solid #e1e6ed;border-radius:12px;background:#fff;color:#071a35;text-decoration:none;
+}
+.messages-page .chat-listing-card>.chat-listing-photo{width:64px;height:64px;flex:0 0 64px;object-fit:cover;border-radius:9px}
+.messages-page .chat-listing-placeholder{display:grid;place-items:center;background:#edf0f4;color:#637186}
+.messages-page .chat-listing-copy{display:grid;gap:4px;flex:1;min-width:0}
+.messages-page .chat-listing-copy strong{font-size:14px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.messages-page .chat-listing-copy>span{font-size:13px;color:#637186;line-height:1.4}
+.messages-page .chat-listing-card>svg{flex-shrink:0}
+.messages-page a.chat-listing-card:hover{border-color:#aebdce;background:#fafbfd}
+@media(max-width:380px){.messages-page .chat-listing-card>.chat-listing-photo{width:52px;height:52px;flex-basis:52px}}
