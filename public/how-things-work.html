@@ -31,6 +31,38 @@ body.apg-learn-page.apg-learn-page #systems button[aria-pressed=true]{background
 .apg-learn-page .detail{padding:10px 12px;font-size:13px}
 .apg-learn-page .detail h3{font-size:18px}
 }
+</style>
+<style>
+.part-row{display:contents}.part-inline{display:none}
+.part-photo-dialog{width:min(92vw,560px);border:1px solid #d4dbe2;border-radius:14px;padding:18px;color:#071a35;background:white}
+.part-photo-dialog::backdrop{background:#071a35b3}
+.part-photo-dialog .enlarged-part{display:block;width:100%;aspect-ratio:1;margin:12px 0;background-color:#fff;border-radius:10px;background-repeat:no-repeat}
+.part-photo-dialog h2{font-size:20px;margin:12px 0}
+.part-photo-dialog button{min-height:44px}
+@media(max-width:600px){
+body.apg-learn-page.apg-learn-page :is(.electrical-parts,.trans-closeups,.part-buttons){display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-top:14px}
+body.apg-learn-page.apg-learn-page .part-row{display:block;min-width:0;border:1px solid #d4dbe2;border-radius:9px;background:white;overflow:hidden}
+body.apg-learn-page.apg-learn-page .part-row:has(>button[aria-expanded=true]){border-color:#c79522;box-shadow:0 0 0 1px #c79522}
+body.apg-learn-page.apg-learn-page .part-row>button{
+ display:flex;flex-direction:row;align-items:center;gap:10px;width:100%;min-height:64px;padding:9px 32px 9px 10px;position:relative;text-align:left;
+ background:#fff!important;color:#071a35!important;border:0!important;border-radius:0;box-shadow:none!important;outline-offset:-3px;font-size:13px;line-height:1.45
+}
+body.apg-learn-page.apg-learn-page .part-row>button::after{content:'⌄';position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#b88414;font-size:20px}
+body.apg-learn-page.apg-learn-page .part-row>button[aria-expanded=true]::after{content:'⌃'}
+body.apg-learn-page.apg-learn-page .part-row>button :is(.electrical-photo,.trans-closeup-photo){
+ display:block;flex:0 0 48px;width:48px;height:48px;aspect-ratio:1;margin:0;border-radius:6px
+}
+body.apg-learn-page.apg-learn-page .part-row>button>span:last-child{color:#071a35!important;min-width:0}
+body.apg-learn-page.apg-learn-page .part-inline:not([hidden]){display:block;padding:0 12px 14px;font-size:13px;line-height:1.6;color:#526174}
+.part-inline p{font-size:13px;line-height:1.6;margin:6px 0 10px}
+.part-inline .inline-purpose{background:#fbf5e7;padding:10px;border-radius:7px}
+body.apg-learn-page.apg-learn-page .part-inline .enlarge-part{min-height:44px;font-size:12px;padding:8px 12px;color:#071a35!important;background:#e6b944!important;border:1px solid #c79522!important}
+.apg-learn-page .card:has(>#part-name),.apg-learn-page .card:has(>#trans-name),.apg-learn-page .card:has(>h2[id$="-name"]):not(:has(>#vehicle-name)){display:none}
+.apg-learn-page section[id$="-guide"]>.card>p:not(.note){font-size:13px;line-height:1.6}
+.apg-learn-page .note{font-size:11px;line-height:1.6}
+.apg-learn-page .card>h2{font-size:20px}
+.apg-learn-page .table{font-size:12px}
+}
 </style></head><body class="apg-learn-page"><header><a href="/" aria-label="APG home"><img id="logo" src="/apg-october-logo.png" alt="A.P.G. Any-Part & Gear LLC"></a><details><summary>Menu ☰</summary><nav aria-label="Learn and Resources"><a href="/marketplace">Marketplace</a><a href="/shops">Repair Shops & Parts Suppliers</a><a data-tech-wire-link hidden href="/tech-wire">Parts & Industry News</a><a href="/toolbox">APG Toolbox</a></nav></details></header>
 <main><div class="eyebrow">LEARN & RESOURCES</div><h1>How Things Work</h1><p>Choose a vehicle, then explore its systems and parts.</p><section class="card"><h2>Choose your vehicle</h2><div class="vehicle-lineup"><img class="vehicle-photo" src="/apg-learning-vehicles.webp" alt="A car, diesel truck, electric vehicle, boat, and motorcycle" width="2172" height="724"><div class="choices" id="vehicles" role="group" aria-label="Choose a vehicle in the picture"></div></div><p class="lineup-hint">Tap a vehicle to explore its systems.</p></section>
 <section class="card"><div class="eyebrow">VEHICLE SYSTEMS</div><h2 id="vehicle-name">Car</h2><p id="vehicle-intro"></p><div class="system-list" id="systems"></div><div class="detail" aria-live="polite"><h3 id="system-name"></h3><p id="system-definition"></p></div></section>
@@ -83,6 +115,44 @@ function renderLearningBooks(){let choices=learningBooks[vehicle];if(vehicle==='
 const guideRoutes={"car":{"engine":"engine","transmission":"transmission","alternator":"alternator","ecm":"ecm","brakes":"brakes"},"diesel":{"engine":"diesel-engine","turbo":"diesel-turbo","fuel":"diesel-fuel","transmission":"diesel-transmission","automatic":"diesel-automatic","ecm":"ecm","emissions":"diesel-emissions"},"ev":{"battery":"ev-battery","motor":"ev-motor","inverter":"ev-inverter","charging":"ev-charging","converter":"ev-converter","regeneration":"ev-regeneration"},"boat":{"engine":"boat-engine","propulsion":"boat-propulsion","cooling":"boat-cooling","electrical":"boat-electrical","controls":"boat-controls"},"motorcycle":{"engine":"motorcycle-engine","clutch":"motorcycle-clutch","transmission":"motorcycle-transmission","drive":"motorcycle-drive","ecu":"ecm","charging":"motorcycle-charging"}};function chooseSystem(id){system=id;renderLearningBooks();const s=vehicles[vehicle].systems.find(s=>s[0]===id);$('system-name').textContent=s[1];$('system-definition').textContent=s[3];const target=guideRoutes[vehicle][id];for(const name of ['engine','transmission',...Object.keys(electricalGuides)])$(name+'-guide').hidden=name!==target;document.querySelectorAll('[data-system]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.system===id)))}
 function chooseVehicle(id){vehicle=id;const v=vehicles[id];$('vehicle-name').textContent=v.name;$('vehicle-intro').textContent=v.intro;$('systems').replaceChildren();v.systems.forEach(s=>{const b=document.createElement('button'),name=document.createElement('span'),desc=document.createElement('small');name.textContent=s[1];desc.textContent=s[2];b.append(name,desc);b.dataset.system=s[0];b.onclick=()=>chooseSystem(s[0]);$('systems').append(b)});document.querySelectorAll('[data-vehicle]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vehicle===id)));chooseSystem(v.systems[0][0])}
 Object.entries(vehicles).forEach(([id,v])=>{const b=document.createElement('button');const label=document.createElement('span');label.textContent=({car:'Cars',diesel:'Diesel',ev:'Electric',boat:'Boats',motorcycle:'Motorcycles'})[id];b.append(label);b.setAttribute('aria-label','Explore '+v.name);b.type='button';b.dataset.vehicle=id;b.onclick=()=>chooseVehicle(id);$('vehicles').append(b)});chooseVehicle('car');
+
+/* Mobile part details appear at the point of selection; original desktop panels remain. */
+const photoDialog=document.createElement('dialog');photoDialog.className='part-photo-dialog';
+const photoClose=document.createElement('button');photoClose.type='button';photoClose.textContent='Close photo';
+const photoTitle=document.createElement('h2'),photoLarge=document.createElement('span');photoLarge.className='enlarged-part';photoLarge.setAttribute('role','img');
+photoDialog.append(photoClose,photoTitle,photoLarge);document.body.append(photoDialog);
+photoClose.onclick=()=>photoDialog.close();
+photoDialog.addEventListener('click',event=>{if(event.target===photoDialog){const r=photoDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)photoDialog.close();}});
+let inlineCounter=0;
+function compactPart(button,getContent){
+ const row=document.createElement('div');row.className='part-row';button.before(row);row.append(button);
+ const panel=document.createElement('div');panel.className='part-inline';panel.id='inline-part-'+(++inlineCounter);panel.hidden=true;row.append(panel);
+ button.type='button';button.setAttribute('aria-controls',panel.id);button.setAttribute('aria-expanded','false');
+ button.addEventListener('click',()=>{
+  if(!window.matchMedia('(max-width:600px)').matches)return;
+  const opening=button.getAttribute('aria-expanded')!=='true';
+  row.parentElement.querySelectorAll('.part-row>button').forEach(other=>{other.setAttribute('aria-expanded','false');other.nextElementSibling.hidden=true;});
+  if(!opening)return;
+  const content=getContent();panel.replaceChildren();
+  const definition=document.createElement('p');definition.textContent=content[1];panel.append(definition);
+  if(content[2]){const purpose=document.createElement('p');purpose.className='inline-purpose';purpose.textContent=content[2];panel.append(purpose);}
+  if(content[3]){const extra=document.createElement('p');extra.textContent=content[3];panel.append(extra);}
+  const thumb=button.querySelector('.electrical-photo,.trans-closeup-photo');
+  if(thumb){const enlarge=document.createElement('button');enlarge.type='button';enlarge.className='enlarge-part';enlarge.textContent='Enlarge photo ↗';enlarge.onclick=()=>{
+    const style=getComputedStyle(thumb);photoLarge.style.backgroundImage=style.backgroundImage;photoLarge.style.backgroundSize=style.backgroundSize;photoLarge.style.backgroundPosition=style.backgroundPosition;
+    photoTitle.textContent=content[0];photoLarge.setAttribute('aria-label',content[0]);photoDialog.showModal();
+  };panel.append(enlarge);}
+  panel.hidden=false;button.setAttribute('aria-expanded','true');
+ });
+}
+document.querySelectorAll('.electrical-parts button[data-electrical]').forEach(button=>{
+ const group=button.dataset.electrical;
+ const index=[...button.parentElement.children].indexOf(button);
+ compactPart(button,()=>electricalGuides[group].parts[index]);
+});
+document.querySelectorAll('#trans-parts button,#trans-internal button').forEach(button=>compactPart(button,()=>{const p=transParts.find(item=>item[0]===button.dataset.trans);return [p[1],p[2],p[3],(transLocations[p[0]]?transLocations[p[0]]+'. ':'')+p[4]];}));
+document.querySelectorAll('#main-parts button,#head-parts button').forEach(button=>compactPart(button,()=>{const p=parts.find(item=>item[0]===button.dataset.part);return p.slice(1);}));
+
 })();
 </script></body></html>
 
