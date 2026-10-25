@@ -4,6 +4,7 @@ import { safeShoutOutUrl, type ShoutOut } from "@/lib/shout-outs";
 export default function ShoutOutCard({ item, preview = false }: { item: Pick<ShoutOut, "name" | "description" | "website_url" | "image_url">; preview?: boolean }) {
   const website = safeShoutOutUrl(item.website_url);
   const image = safeShoutOutUrl(item.image_url);
+  if (preview && image?.endsWith("/apg-fumblez-preview.png")) return <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"><img src={image} alt="Private APG shout-out preview for Fumblez retro hunter" className="block h-auto w-full" /><p className="p-4 text-sm text-slate-500">Private preview — this shout-out is not published.</p></article>;
   return <article className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
     {image ? <img src={image} alt={item.name + " logo or photo"} className="mb-5 h-32 w-full rounded-lg object-contain" referrerPolicy="no-referrer" /> : <Heart className="mb-5 text-[#a77c16]" size={32} aria-hidden="true" />}
     <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Check this out</span>
