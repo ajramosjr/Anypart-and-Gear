@@ -40,6 +40,13 @@ export default function ApgLinksPage() {
         </div>
 
         <Link href="/practice-tests" className="mt-8 block rounded-xl border border-amber-400 bg-white p-6 shadow-sm"><h3 className="text-xl font-bold text-[#071a35]">Practice Tests →</h3><p className="mt-2 text-slate-600">Practice automotive basics, boating, towing, tools, welding, small engines and more, plus New York CDL and motorcycle topics.</p></Link>
+        <section id="fishing-hunting" aria-labelledby="fishing-hunting-title" className="mt-8 scroll-mt-28 rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Outdoor resources</p>
+          <h2 id="fishing-hunting-title" className="mt-2 text-2xl font-black text-[#071a35]">Fishing &amp; Hunting Licenses — New York</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-slate-600">Visit NYS DEC for freshwater fishing and hunting licenses, or to sign up for the free recreational saltwater fishing registry.</p>
+          <a href="https://dec.ny.gov/regulatory/permits-licenses/sporting-and-use" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#071a35] px-5 py-3 text-sm font-bold text-white hover:bg-[#12345a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600">View Official Licensing &amp; Registration <span aria-hidden="true">→</span></a>
+          <p className="mt-3 text-sm leading-6 text-slate-500">You’ll leave APG and continue to the official NYS DEC website. APG is an independent resource and is not affiliated with NYS DEC.</p>
+        </section>
         <TrainingDirectory />
         <p className="mt-8 text-sm leading-6 text-slate-500">Schools and programs listed here are independent providers. Resource listings do not imply sponsorship, endorsement or a partnership with APG. A “Listed with permission” label appears only where permission has been received.</p>
       </section>
