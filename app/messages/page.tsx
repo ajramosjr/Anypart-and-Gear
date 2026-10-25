@@ -1,7 +1,8 @@
 import PageMenu from "@/components/page-menu";
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
-import { ArrowLeft, ChevronDown, MoreVertical, MessageCircle } from "lucide-react";
+import { ArrowLeft, ChevronRight, MoreVertical, MessageCircle, Package } from "lucide-react";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import ApgLogo from "@/components/apg-logo";
@@ -21,7 +22,7 @@ type Conversation = {
   seller_id: string;
   shop_id: string | null;
   updated_at: string;
-  listings: { title: string } | null;
+  listings: { title: string; price: number | null; image_url: string | null } | null;
   shops: { name: string } | null;
   messages: Message[];
 };
@@ -38,7 +39,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
   const supabase = await createClient();
   const { data } = await supabase
     .from("conversations")
-    .select("id,listing_id,buyer_id,seller_id,shop_id,updated_at,listings(title),shops(name),messages(id,body,sender_id,created_at,read_at,message_type,offer_amount,related_message_id)")
+    .select("id,listing_id,buyer_id,seller_id,shop_id,updated_at,listings(title,price,image_url),shops(name),messages(id,body,sender_id,created_at,read_at,message_type,offer_amount,related_message_id)")
     .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
     .order("updated_at", { ascending: false });
 
@@ -116,7 +117,15 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
                   <div className="conversation-person"><span className="conversation-avatar">{otherName.charAt(0).toUpperCase()}</span><div><h2>{otherName}</h2></div></div>
                   <details className="conversation-actions"><summary aria-label="Conversation options"><MoreVertical size={21}/></summary><div><BlockUser userId={user.id} otherId={otherId} blocked={blockedIds.has(otherId)}/><DeleteConversation conversationId={selected.id} otherName={otherName}/></div></details>
                 </div>
-                <details className="chat-listing"><summary><MessageCircle size={19}/><strong>{conversationSubject(selected)}</strong><ChevronDown size={16}/></summary><div>{selected.listing_id ? <Link href={`/listing/${selected.listing_id}`}>View listing</Link> : <span>Shop conversation</span>}</div></details>
+                {selected.listing_id ? (
+                  <Link className="chat-listing-card" href={`/listing/${selected.listing_id}`} aria-label={`View listing: ${conversationSubject(selected)}`}>
+                    {selected.listings?.image_url ? <Image className="chat-listing-photo" src={selected.listings.image_url} alt="" width={64} height={64} unoptimized /> : <span className="chat-listing-photo chat-listing-placeholder"><Package size={26} aria-hidden="true" /></span>}
+                    <span className="chat-listing-copy"><strong>{conversationSubject(selected)}</strong>{selected.listings?.price != null && <span>{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(Number(selected.listings.price))}</span>}</span>
+                    <ChevronRight size={20} aria-hidden="true" />
+                  </Link>
+                ) : selected.shop_id ? (
+                  <Link className="chat-listing-card" href={`/shops/${selected.shop_id}`}><MessageCircle size={24} aria-hidden="true" /><span className="chat-listing-copy"><strong>{conversationSubject(selected)}</strong><span>Shop conversation</span></span><ChevronRight size={20} aria-hidden="true" /></Link>
+                ) : <div className="chat-listing-card"><MessageCircle size={24} aria-hidden="true" /><span className="chat-listing-copy"><strong>APG conversation</strong></span></div>}
                 <div className="message-stack">
                   {selected.messages.map((message) => {
                     const mine = message.sender_id === user.id;
