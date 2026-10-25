@@ -2,18 +2,18 @@ import PageMenu from "@/components/page-menu";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TechWireLink } from "@/components/tech-wire-navigation";
-import { ArrowLeft } from "lucide-react";
+import { BookOpen, Fish, ArrowLeft } from "lucide-react";
 import ApgLogo from "@/components/apg-logo";
 import TrainingDirectory from "@/components/training-directory";
 
 export const metadata: Metadata = {
-  title: "Courses & Training | Any Part & Gear",
+  title: "Learning & Resources | Any Part & Gear",
   description: "APG's directory for courses, training and trusted industry resources.",
 };
 
 export default function ApgLinksPage() {
   return (
-    <main className="min-h-screen bg-[#f3f5f8] text-slate-950">
+    <main className="apg-resources min-h-screen bg-[#f3f5f8] text-slate-950">
       <header className="apg-site-header border-b border-slate-200 bg-white shadow-sm">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <ApgLogo priority />
@@ -24,32 +24,31 @@ export default function ApgLinksPage() {
         <PageMenu /></div>
       </header>
 
-      <section className="bg-[#071a35] text-white">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-          <p className="text-xs font-black uppercase tracking-[.2em] text-amber-400">Trusted resources</p>
-          <h1 className="mt-3 text-4xl font-black uppercase tracking-[-.03em] sm:text-6xl">Courses &amp; Training</h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">Courses, training and trusted industry resources—all in one place.</p>
+      <section className="resources-hero">
+        <div className="resources-shell">
+          <h1>Learning &amp; Resources</h1>
+          <p>Training, practice tests and outdoor licensing resources.</p>
         </div>
       </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16" aria-labelledby="resource-directory-title">
-        <div className="max-w-3xl">
-          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Learning resources</p>
-          <h2 id="resource-directory-title" className="mt-2 text-3xl font-black text-[#071a35]">Training and course directory</h2>
-          <p className="mt-3 leading-7 text-slate-600">Explore independent schools, training programs and course resources. Course prices, eligibility and availability are controlled by each provider.</p>
+      <div className="resources-shell resources-content">
+        <div className="resource-highlights">
+          <section className="resource-card" aria-labelledby="practice-title">
+            <BookOpen size={28} aria-hidden="true" />
+            <h2 id="practice-title">Practice Tests</h2>
+            <p>Build your knowledge with automotive, boating, tools, CDL and motorcycle practice tests.</p>
+            <Link href="/practice-tests" className="resource-action">Explore Practice Tests <span aria-hidden="true">→</span></Link>
+          </section>
+          <section id="fishing-hunting" className="resource-card" aria-labelledby="fishing-hunting-title">
+            <Fish size={28} aria-hidden="true" />
+            <h2 id="fishing-hunting-title">New York Fishing &amp; Hunting</h2>
+            <p>Find freshwater fishing and hunting licenses, plus the free recreational saltwater fishing registry.</p>
+            <a href="https://dec.ny.gov/regulatory/permits-licenses/sporting-and-use" className="resource-action">Visit NYS DEC <span aria-hidden="true">↗</span></a>
+            <small>Opens the official NYS DEC website. APG is an independent resource and is not affiliated with NYS DEC.</small>
+          </section>
         </div>
-
-        <Link href="/practice-tests" className="mt-8 block rounded-xl border border-amber-400 bg-white p-6 shadow-sm"><h3 className="text-xl font-bold text-[#071a35]">Practice Tests →</h3><p className="mt-2 text-slate-600">Practice automotive basics, boating, towing, tools, welding, small engines and more, plus New York CDL and motorcycle topics.</p></Link>
-        <section id="fishing-hunting" aria-labelledby="fishing-hunting-title" className="mt-8 scroll-mt-28 rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[.18em] text-amber-700">Outdoor resources</p>
-          <h2 id="fishing-hunting-title" className="mt-2 text-2xl font-black text-[#071a35]">Fishing &amp; Hunting Licenses — New York</h2>
-          <p className="mt-3 max-w-3xl leading-7 text-slate-600">Visit NYS DEC for freshwater fishing and hunting licenses, or to sign up for the free recreational saltwater fishing registry.</p>
-          <a href="https://dec.ny.gov/regulatory/permits-licenses/sporting-and-use" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#071a35] px-5 py-3 text-sm font-bold text-white hover:bg-[#12345a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600">View Official Licensing &amp; Registration <span aria-hidden="true">→</span></a>
-          <p className="mt-3 text-sm leading-6 text-slate-500">You’ll leave APG and continue to the official NYS DEC website. APG is an independent resource and is not affiliated with NYS DEC.</p>
-        </section>
         <TrainingDirectory />
-        <p className="mt-8 text-sm leading-6 text-slate-500">Schools and programs listed here are independent providers. Resource listings do not imply sponsorship, endorsement or a partnership with APG. A “Listed with permission” label appears only where permission has been received.</p>
-      </section>
+        <p className="resources-disclaimer">Confirm pricing, eligibility and training locations directly with each provider. Independent listings do not imply sponsorship, endorsement or a partnership with APG. A “Listed with permission” label appears only where permission has been received.</p>
+      </div>
     </main>
   );
 }
