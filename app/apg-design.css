@@ -237,3 +237,33 @@ main.apg-resources.apg-resources .training-provider.training-provider>summary{di
 @media(min-width:640px){.apg-resources .resource-highlights{grid-template-columns:repeat(2,minmax(0,1fr))}.apg-resources .training-filters{grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr))}}
 /* Reserve a clear lane for Gear instead of covering resource content. */
 body:has(main.apg-resources) aside[aria-label="Restore Gear assistant"]{position:static!important;display:flex;justify-content:flex-end;width:min(100% - 32px,1100px);margin:-80px auto 24px;inset:auto!important}
+
+/* Mobile account dashboard: compact actions and readable settings. */
+@media(max-width:767px){
+  .apg-account-page .page-shell{padding-top:24px;padding-bottom:110px}
+  .apg-account-page .account-heading{gap:18px;margin-bottom:22px}
+  .apg-account-page .account-heading .kicker{font-size:11px;letter-spacing:.12em}
+  .apg-account-page .account-heading .page-title{font-family:var(--font-body),Arial,sans-serif;font-size:30px;font-weight:800;line-height:1.15;text-transform:none;margin-top:8px}
+  .apg-account-page .account-heading p{font-size:15px;line-height:1.5;margin-top:6px}
+  .apg-account-page .account-heading .form-actions{display:flex;flex-wrap:wrap;width:100%;gap:8px;margin-top:0}
+  main.apg-account-page.apg-account-page .account-heading .form-actions .button{flex:0 1 auto;min-height:44px;padding:10px 13px;font-size:13px;line-height:1.4;white-space:nowrap;border-radius:8px}
+  main.apg-account-page.apg-account-page .account-heading .form-actions .button[href="/admin"],
+  main.apg-account-page.apg-account-page .account-heading .form-actions .button[href="/parts-wanted/new"]{background:#fff!important;color:#071a35!important;border:1px solid #cbd4e0!important;box-shadow:none!important}
+  .apg-account-page .manage-list{gap:12px}
+  .apg-account-page .manage-row{padding:16px;gap:14px;border-radius:12px}
+  .apg-account-page .manage-row strong{font-size:16px;line-height:1.45}
+  .apg-account-page .manage-row small{font-size:13px}
+  .apg-account-page .manage-row>div{max-width:100%;min-width:0}
+  .apg-account-page .manage-row>div:last-child{display:flex;flex-wrap:wrap;gap:8px}
+  main.apg-account-page.apg-account-page .manage-row :is(a,button){min-height:40px;font-size:12px;padding:8px 12px;line-height:1.4}
+  main.apg-account-page.apg-account-page .manage-row button:last-child{background:#fff!important;color:#9b3434!important;border:1px solid #e5cccc!important}
+  .apg-account-page .notification-settings{padding:16px;gap:12px;margin-top:18px;border-radius:12px}
+  .apg-account-page .notification-heading{gap:10px}
+  .apg-account-page .notification-heading>svg{width:18px;flex-shrink:0;margin-top:3px}
+  .apg-account-page .notification-heading h2{font-size:17px;font-weight:700;line-height:1.4}
+  .apg-account-page .notification-heading p{font-size:13px;line-height:1.6;margin-top:5px}
+  main.apg-account-page.apg-account-page .notification-settings .button{min-height:44px;padding:10px 14px;font-size:13px;line-height:1.4}
+  .apg-account-page .notification-option{font-size:13px;padding-top:12px;gap:12px;min-height:44px}
+  .apg-account-page .notification-option input{flex-shrink:0;width:20px;height:20px}
+  body:has(main.apg-account-page) aside[aria-label="Restore Gear assistant"]{position:static!important;display:flex;justify-content:flex-end;width:calc(100% - 32px);margin:-80px auto 24px;inset:auto!important}
+}
