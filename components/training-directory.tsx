@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
 type Provider = { id: string; name: string; trades: string[]; towns: string[]; description: string; url: string; online: boolean; permissionGranted?: boolean };
 // Each provider has a stable ID; a resource link does not imply permission or partnership.
@@ -33,32 +33,32 @@ export default function TrainingDirectory() {
     (!trade || provider.trades.includes(trade)) &&
     `${provider.name} ${provider.trades.join(" ")} ${provider.towns.join(" ")} ${provider.description}`.toLowerCase().includes(search.trim().toLowerCase())
   );
-  return <div className="mt-8">
-    <div id="cdl-training" className="mb-6 rounded-2xl border border-amber-300 bg-amber-50 p-5">
-      <h3 className="text-xl font-black text-[#071a35]">CDL Training</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-700">Explore eight hands-on training schools and programs in Nassau, Suffolk, Queens, Brooklyn, the Bronx and Staten Island. Confirm pricing, eligibility and the exact training location directly with each provider.</p>
-      <button type="button" onClick={() => { setTown(""); setTrade("CDL & Trucking"); setSearch(""); }} className="mt-3 rounded-md bg-amber-400 px-5 py-3 font-bold text-[#071a35] hover:bg-amber-300">Show CDL training</button>
+  return <section className="training-directory" aria-labelledby="training-title">
+    <h2 id="training-title">Find a course or school</h2>
+    <div id="cdl-training" className="training-categories" role="group" aria-label="Training categories">
+      {[["", "All"], ["CDL & Trucking", "CDL"], ["Motorcycle", "Motorcycle"], ["Boating", "Boating"]].map(([value, label]) =>
+        <button key={label} type="button" aria-pressed={trade === value} onClick={() => { setTown(""); setTrade(value); setSearch(""); }}>{label}</button>
+      )}
     </div>
-    <div className="mb-5 flex flex-wrap gap-3" aria-label="Training categories">
-      <button type="button" onClick={() => { setTown(""); setTrade("Motorcycle"); setSearch(""); }} className="rounded-md bg-amber-400 px-5 py-3 font-bold text-[#071a35] hover:bg-amber-300">Show motorcycle training</button>
-      <button type="button" onClick={() => { setTown(""); setTrade("Boating"); setSearch(""); }} className="rounded-md bg-amber-400 px-5 py-3 font-bold text-[#071a35] hover:bg-amber-300">Show boating schools &amp; courses</button>
+    <div className="training-filters">
+      <label className="training-search">Search providers<input value={search} onChange={event => setSearch(event.target.value)} placeholder="Search schools or trades" type="search" /></label>
+      <label>Location<select value={town} onChange={event => setTown(event.target.value)}><option value="">All locations</option>{towns.map(value => <option key={value}>{value}</option>)}<option value="online">Online courses</option></select></label>
+      <label>Subject<select value={trade} onChange={event => setTrade(event.target.value)}><option value="">All subjects</option>{trades.map(value => <option key={value}>{value}</option>)}</select></label>
     </div>
-    <div className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-5 md:grid-cols-3">
-      <label className="text-sm font-bold">Search providers<input value={search} onChange={event => setSearch(event.target.value)} placeholder="School, program, or trade" className="mt-2 w-full rounded-lg border border-slate-300 bg-white p-3 font-normal text-slate-950" /></label>
-      <label className="text-sm font-bold">Town or learning format<select value={town} onChange={event => setTown(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white p-3 font-normal text-slate-950"><option value="">All towns and online</option>{towns.map(value => <option key={value}>{value}</option>)}<option value="online">Online courses</option></select></label>
-      <label className="text-sm font-bold">Trade or subject<select value={trade} onChange={event => setTrade(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white p-3 font-normal text-slate-950"><option value="">All trades and subjects</option>{trades.map(value => <option key={value}>{value}</option>)}</select></label>
+    <div className="training-results"><p role="status">{matches.length} {matches.length === 1 ? "provider" : "providers"}</p>{(town || trade || search) && <button type="button" onClick={() => { setTown(""); setTrade(""); setSearch(""); }}>Clear filters</button>}</div>
+    <div className="training-providers">
+      {matches.map(provider => <details id={provider.id} key={provider.id} className="training-provider">
+        <summary>
+          <span><span className="training-provider-name">{provider.name}</span><span className="training-provider-location">{provider.trades.join(" · ")} · {provider.online ? "Online" : provider.towns.join(" · ")}</span></span>
+          <ChevronDown size={18} aria-hidden="true" />
+        </summary>
+        <div className="training-provider-detail">
+          <span className="training-provider-badge">{provider.permissionGranted ? "Listed with permission" : "Independent resource"}</span>
+          <p>{provider.description}</p>
+          <a href={provider.url} target="_blank" rel="noopener noreferrer" className="resource-action" aria-label={`View courses at ${provider.name} (opens in a new tab)`}>View courses <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </div>
+      </details>)}
     </div>
-    <div className="my-5 flex flex-wrap items-center justify-between gap-3"><p role="status" className="text-sm text-slate-600">{matches.length} {matches.length === 1 ? "provider" : "providers"} found</p>{(town || trade || search) && <button onClick={() => { setTown(""); setTrade(""); setSearch(""); }} className="text-sm font-bold text-[#071a35] underline">Clear filters</button>}</div>
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-      {matches.map(provider => <article id={provider.id} key={provider.id} className="flex scroll-mt-24 flex-col rounded-2xl border border-amber-300 bg-white p-6 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-3"><GraduationCap className="size-8 text-amber-700" /><span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700">{provider.permissionGranted ? "Listed with permission" : "Independent resource"}</span></div>
-        <p className="mt-5 text-xs font-black uppercase tracking-wide text-amber-700">{provider.trades.join(" · ")}</p>
-        <h3 className="mt-2 text-2xl font-black text-[#071a35]">{provider.name}</h3>
-        <p className="mt-3 text-sm font-bold text-slate-700">{provider.online ? "Online" : provider.towns.join(" · ")}</p>
-        <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{provider.description}</p>
-        <a href={provider.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-amber-400 px-5 py-3 font-black text-[#071a35] hover:bg-amber-300" aria-label={`View courses at ${provider.name}`}>View courses <ArrowUpRight className="size-4" /></a>
-      </article>)}
-    </div>
-    {matches.length === 0 && <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center"><h3 className="text-xl font-bold">No providers listed for these filters yet</h3><p className="mt-3 text-slate-600">Try another town or trade, or clear the filters.</p></div>}
-  </div>;
+    {matches.length === 0 && <div className="training-empty"><h3>No providers listed for these filters yet</h3><p>Try another location or subject, or clear the filters.</p></div>}
+  </section>;
 }
