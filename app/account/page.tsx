@@ -49,6 +49,13 @@ export default async function AccountPage() {
 .apg-modern-account .ma-account-links{display:flex;flex-wrap:wrap;gap:20px;font-size:14px;margin-top:24px}
 .apg-modern-account.apg-modern-account.apg-modern-account .lf-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;position:relative;flex:1;padding:9px 0;background:transparent!important;color:#10233c!important;border:0!important;border-radius:0!important;box-shadow:none!important}
 .apg-modern-account .lf-bottom-nav a.lf-current::after{content:"";position:absolute;bottom:2px;left:30%;right:30%;height:3px;border-radius:4px;background:#e6b944}
+
+.apg-modern-account.apg-modern-account .account-heading{align-items:flex-start!important;text-align:left!important;justify-content:space-between!important}
+.apg-modern-account.apg-modern-account .account-heading>div:first-child{width:100%;margin:0!important;text-align:left!important;align-self:flex-start!important}
+.apg-modern-account.apg-modern-account .account-heading .page-title,.apg-modern-account.apg-modern-account .account-heading p{text-align:left!important}
+.apg-modern-account.apg-modern-account .account-heading .form-actions{width:100%;justify-content:flex-start!important;margin-top:0!important}
+.apg-modern-account.apg-modern-account.apg-modern-account .account-heading .form-actions a.button{background:#e6b944!important;border-color:#cda137!important;color:#10233c!important;cursor:pointer}
+.apg-modern-account.apg-modern-account.apg-modern-account .account-heading .form-actions a.button:hover{background:#f1c85e!important}
 @media(max-width:800px){.apg-modern-account .ma-shell{padding:24px 14px}.apg-modern-account .lf-bottom-nav{display:flex!important}.apg-modern-account .manage-row,.apg-modern-account .notification-settings{padding:20px}.apg-modern-account .page-title{font-size:28px!important}}
 `}</style></main>;
 }
