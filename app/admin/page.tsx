@@ -1,4 +1,5 @@
-import PageMenu from "@/components/page-menu";
+import "@/app/home-feed.css";
+import { Home, Package, Store, BookOpen, MessageCircle, UserRound } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth";
@@ -40,10 +41,10 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     supabase.from("tech_articles").select("id,slug,image_url,category,title,summary,read_time,sections,sources,status,published_at,created_at,updated_at").order("updated_at", { ascending:false }),
   ]);
 
-  return <main><header className="simple-header sell-header"><div className="shell nav-wrap"><ApgLogo priority /><nav className="account-nav" aria-label="Admin navigation"><Link href="/account">My account</Link></nav><PageMenu /></div></header><div className="shell page-shell"><div className="page-intro"><span className="kicker">Owner controls</span><h1 className="page-title">Admin dashboard</h1><p>Publish Parts &amp; Industry News articles, review reports and approve businesses.</p></div>
+  return <main className="live-feed apg-modern-admin"><header className="lf-header"><div className="lf-header-inner"><ApgLogo priority/><div style={{flex:1}}/><Link className="lf-icon-button" aria-label="Messages" href="/messages"><MessageCircle size={23}/></Link><Link className="lf-account" aria-label="My account" href="/account"><UserRound size={20}/></Link></div></header><div className="md-shell"><Link className="md-back" href="/account">← Back to Account</Link><div className="page-intro"><span className="kicker">Owner controls</span><h1 className="page-title">Admin dashboard</h1><p>Publish Parts &amp; Industry News articles, review reports and approve businesses.</p></div>
     <section aria-label="Private site totals" className="mb-10">
       <h2 className="mb-4 text-xl font-bold">Your site at a glance</h2>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="md-totals">
         {[{ label: "Total registered users", value: totals?.total_users }, { label: "New sign-ups this month", value: totals?.new_users }, { label: "Estimated visitors this month", value: totals?.visitors }].map(stat => <article key={stat.label} className="rounded-xl border border-slate-200 bg-white p-5"><h3 className="text-sm font-semibold text-slate-600">{stat.label}</h3><p className="mt-3 text-4xl font-black text-[#071a35]">{totalsError || typeof stat.value !== "number" ? "Unavailable" : stat.value.toLocaleString()}</p></article>)}
       </div>
       <p className="mt-3 text-sm text-slate-600">Private to administrators. Sign-ups include accounts awaiting email confirmation. Months use New York time. Visitor counting began October 6, 2026; earlier visits are not included. Visitors are estimated by browser; repeat visits count once per month. Common bots and signed-in administrators are excluded.</p>
@@ -58,5 +59,28 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     <TechWireEditor initialArticles={(articles || []) as DatabaseTechArticle[]} userId={user.id} />
     <h2 className="admin-section">Listing reports</h2><div className="admin-list">{((reports || []) as unknown as Report[]).map((report) => <article className="admin-row" key={report.id}><div><strong>{report.reason}</strong><p>{report.listings?.title || (report.reason.startsWith("Directory:") ? "Directory business report" : "Removed listing")}</p>{report.details && <small>{report.details}</small>}</div><ReportAction id={report.id} status={report.status} /></article>)}{!reports?.length && <p>No reports waiting.</p>}</div>
     <h2 className="admin-section">Business activation requests</h2><p className="admin-section-note">Confirm that the account holder is authorized to represent the business using an official business email or a callback to its published number before approving activation. Approval enables Parts Wanted access and APG Messages. No licenses or identity documents are uploaded.</p><div className="admin-list">{((shops || []) as Shop[]).map((shop) => <article className="admin-row" key={shop.id}><div><strong>{shop.name}</strong><p>{shop.specialty} · {shop.location} {shop.postal_code}</p>{safeWebsite(shop.website) && <a href={safeWebsite(shop.website)!} target="_blank" rel="noopener noreferrer nofollow">Review public business page</a>}<small>{shop.is_verified ? "APG Messages enabled" : "Activation pending"}</small><p><Link href={`/admin/business-post?shop=${shop.id}`}>Post a shop-approved photo for this business</Link></p></div><VerifyShop id={shop.id} verified={shop.is_verified} /></article>)}{!shops?.length && <p>No shops registered yet.</p>}</div>
-  </div></main>;
+  </div><nav className="lf-bottom-nav" aria-label="Quick navigation"><Link href="/"><Home size={20}/>Home</Link><Link href="/#parts"><Package size={20}/>Parts</Link><Link href="/#directory"><Store size={20}/>Directory</Link><Link href="/#resources"><BookOpen size={20}/>Learn</Link><Link href="/account" className="lf-current"><UserRound size={20}/>Account</Link></nav>
+<style>{`
+.apg-modern-admin{padding-bottom:105px}
+.apg-modern-admin .lf-header{display:block!important}
+.apg-modern-admin .md-shell{max-width:1120px;margin:auto;padding:24px}
+.apg-modern-admin .md-back{display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:600;margin-bottom:20px}
+.apg-modern-admin .page-intro{margin-bottom:28px}
+.apg-modern-admin .kicker{font-size:11px;font-weight:700;letter-spacing:1.4px;color:#8a681b}
+.apg-modern-admin .page-title{font:800 30px/1.2 Arial,Helvetica,sans-serif!important;letter-spacing:-.7px;text-transform:none!important;margin:10px 0}
+.apg-modern-admin .page-intro p{font-size:15px;color:#10233c;max-width:640px}
+.apg-modern-admin .md-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.apg-modern-admin .md-totals article{padding:18px;border-radius:16px}
+.apg-modern-admin .md-totals h3{font-size:12px;line-height:1.5;color:#10233c}
+.apg-modern-admin .md-totals p{font:800 30px/1.2 Arial,Helvetica,sans-serif;margin-top:12px;color:#10233c}
+.apg-modern-admin h2{font:700 19px/1.4 Arial,Helvetica,sans-serif;letter-spacing:-.3px;text-transform:none}
+.apg-modern-admin section>p,.apg-modern-admin .admin-section-note{font-size:13px;line-height:1.65;color:#10233c}
+.apg-modern-admin section.rounded-xl{border-radius:18px;padding:22px}
+.apg-modern-admin .admin-row{border:1px solid #e1e7ef;border-radius:16px;background:white;padding:20px}
+.apg-modern-admin.apg-modern-admin.apg-modern-admin :is(button,.button,section>a[class]){min-height:42px;background:white!important;border:1px solid #dce2ea!important;color:#10233c!important;border-radius:9px!important;padding:10px 14px!important;font:600 14px Arial,Helvetica,sans-serif!important;box-shadow:none!important;text-transform:none;letter-spacing:0}
+.apg-modern-admin.apg-modern-admin.apg-modern-admin .lf-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:1;position:relative;padding:9px 0;background:transparent!important;border:0!important;border-radius:0!important;color:#10233c!important;box-shadow:none!important}
+.apg-modern-admin .lf-bottom-nav a.lf-current::after{content:"";position:absolute;bottom:2px;left:30%;right:30%;height:3px;border-radius:4px;background:#e6b944}
+@media(max-width:800px){.apg-modern-admin .md-shell{padding:20px 14px}.apg-modern-admin .lf-bottom-nav{display:flex!important}.apg-modern-admin .page-title{font-size:28px!important}}
+@media(max-width:420px){.apg-modern-admin .md-totals{gap:8px}.apg-modern-admin .md-totals article{padding:13px}.apg-modern-admin .md-totals h3{font-size:11px}.apg-modern-admin .md-totals p{font-size:26px}}
+`}</style></main>;
 }
