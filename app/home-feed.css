@@ -28,3 +28,8 @@
 .live-feed.live-feed .lf-bottom-nav>button.lf-current{color:#10233c!important}
 .live-feed.live-feed .lf-bottom-nav svg{color:inherit!important}
 .live-feed.live-feed .lf-left nav>:is(button,a):hover{background:#eaf0f6!important;color:#10233c!important;border:0!important}
+
+/* Let portrait and landscape listing photos use their own proportions. */
+.live-feed.live-feed .lf-photo{aspect-ratio:auto;height:auto;background:transparent!important;line-height:0}
+.live-feed.live-feed .lf-photo>img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.live-feed.live-feed .lf-photo>span{line-height:1.4;background:#10233cdd;color:#fff}
