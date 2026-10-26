@@ -65,7 +65,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
               <a href={signOutPath} className={childClass}>Sign out</a>
             </div>
           </details> : <Link href={signInPath} className={rowClass + " border-t border-slate-200"}><UserRound size={20} aria-hidden="true" />Sign in or create account</Link>}
-          <Link href="/community" className={rowClass}><MessageSquare size={20} aria-hidden="true" /><span>APG Community{!communityEnabled && <span className="ml-2 text-xs text-amber-800">Coming Soon</span>}</span></Link>
+          <Link href="/" className={rowClass}><MessageSquare size={20} aria-hidden="true" />Home feed</Link>
           <div className="border-t border-slate-200 px-3 pt-3"><InstallApp /></div>
           <Link href="/about" className={childClass}>About APG</Link>
         </nav>

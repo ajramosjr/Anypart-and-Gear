@@ -28,14 +28,14 @@ export async function updateSession(request: NextRequest) {
   const publicBrowsePaths = new Set([
     "/marketplace", "/shops", "/toolbox", "/links", "/garage-gear",
     "/about", "/safety", "/trust", "/support", "/shout-outs", "/practice-tests",
-    "/how-things-work.html", "/parts-wanted", "/jobs",
+    "/how-things-work.html", "/apg-learning-inline.html", "/classic", "/community", "/parts-wanted", "/jobs",
   ]);
   const isBrowseRequest = ["GET", "HEAD"].includes(request.method) && (
     publicBrowsePaths.has(normalizedPath) ||
     /^\/(listing|shops)\/[^/]+$/.test(normalizedPath) &&
       !["/shops/register", "/shops/post"].includes(normalizedPath) ||
     /^\/practice-tests\/[^/]+$/.test(normalizedPath) ||
-    ["/api/gear/search", "/api/tech-wire-visibility"].includes(normalizedPath)
+    ["/api/gear/search", "/api/tech-wire-visibility", "/api/feed"].includes(normalizedPath)
   );
   const isPublicPage = publicPaths.has(normalizedPath) || isBrowseRequest ||
     (request.method === "POST" && ["/api/visits", "/api/funnel"].includes(normalizedPath));

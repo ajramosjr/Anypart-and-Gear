@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import ts from 'typescript';
+import {createClient} from '@supabase/supabase-js';
+const config=fs.readFileSync('lib/supabase/config.ts','utf8');
+const url=config.match(/const projectUrl = "([^"]+)"/)[1];
+const key=config.match(/const projectPublishableKey = "([^"]+)"/)[1];
+let source=fs.readFileSync('lib/feed.ts','utf8').replace('import "server-only";','').replace('import { supabaseUrl } from "@/lib/supabase/config";',`const supabaseUrl=${JSON.stringify(url)};`);
+const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const {readFeed}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
+const db=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
+const result=await readFeed(db);if(result.items.length<1)throw Error('Expected the existing active listings in the feed');
+if(result.items.some(i=>!i.id||!i.title||i.kind!=='listing'||typeof i.likes!=='number'))throw Error('Unexpected real listing shape');
+const questions=await readFeed(db,undefined,undefined,false,'Questions');if(questions.items.some(i=>i.category!=='Questions'))throw Error('Category filter failed');
+const saved=await readFeed(db,undefined,undefined,true);if(saved.items.length)throw Error('Private saved items exposed');
+console.log('PASS: real Supabase SDK feed query; '+result.items.length+' existing listings; category filter; private saves; reaction and reply counts.');

@@ -9,7 +9,6 @@ import type { DatabaseTechArticle } from "@/app/tech-wire/article-store";
 import ApgLogo from "@/components/apg-logo";
 import TechWireControls from "./tech-wire-controls";
 import BuildIdeasControls from "./build-ideas-controls";
-import CommunityControls from "./community-controls";
 import SignupFunnel from "./signup-funnel";
 import HiringButtonPreview from "./hiring-button-preview";
 
@@ -53,7 +52,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     <section className="mb-10 rounded-xl border border-slate-200 bg-white p-6"><h2 className="text-xl font-black">APG Shout-Outs</h2><p className="mt-3 text-slate-600">Create private drafts, preview cards, and publish websites, businesses and people you appreciate.</p><Link href="/admin/shout-outs" className="mt-4 inline-flex min-h-12 items-center rounded-lg px-5 font-black" style={{ backgroundColor: "#e6b944", color: "#071a35" }}>Manage shout-outs</Link></section>
     <HiringButtonPreview businesses={(shops || []) as Shop[]} />
     <SignupFunnel totals={funnel} unavailable={Boolean(funnelError)} />
-    <CommunityControls message={community} />
+    <section className="mb-10 rounded-xl border border-slate-200 bg-white p-6"><h2 className="text-xl font-black">Homepage feed &amp; classic layout</h2><p className="mt-3 text-slate-600">Review community posts and reports, or restore the classic homepage. The old forum remains disabled.</p><Link href="/admin/feed" className="mt-4 inline-flex rounded-lg bg-amber-400 px-5 py-3 font-bold">Manage homepage &amp; feed</Link></section>
     <TechWireControls message={techWire} />
     <BuildIdeasControls message={buildIdeas} />
     <TechWireEditor initialArticles={(articles || []) as DatabaseTechArticle[]} userId={user.id} />

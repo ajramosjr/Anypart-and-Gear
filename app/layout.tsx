@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { GearsAssistant } from "@/components/gears-assistant";
 import PasswordRecoveryRedirect from "@/components/password-recovery-redirect";
 import VisitCounter from "@/components/visit-counter";
 import { getTechWireState } from "@/lib/tech-wire";
@@ -66,7 +65,6 @@ export default async function RootLayout({
         <div hidden dangerouslySetInnerHTML={{ __html: "<script type=\"text/javascript\" src=\"http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007\"></script>" }} />
         <PasswordRecoveryRedirect />
         <AdminNavigationProvider isAdmin={user?.id === "5dd24cb6-6706-4c4e-8c17-0b03b2632acb" && user.app_metadata?.role === "admin"}><TechWireNavigationProvider enabled={enabled}><BuildIdeasNavigationProvider enabled={buildIdeas.enabled}>{children}</BuildIdeasNavigationProvider></TechWireNavigationProvider></AdminNavigationProvider>
-        <GearsAssistant />
         <VisitCounter />
         <Analytics />
         <SpeedInsights />

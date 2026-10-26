@@ -1,0 +1,8 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+export default function ResourcePanel({path,title}:{path:string;title:string}){
+ const ref=useRef<HTMLIFrameElement>(null);const observer=useRef<ResizeObserver|null>(null);const [height,setHeight]=useState(900);const [loaded,setLoaded]=useState(false);
+ useEffect(()=>()=>observer.current?.disconnect(),[]);
+ function ready(){try{const frame=ref.current,doc=frame?.contentDocument;if(!doc||!frame)return;const style=doc.createElement('style');style.textContent='body{background:#f7f8fa!important}header,.simple-header,.apg-site-header,.toolbox-header,footer{display:none!important}main{min-height:0!important}.shell{max-width:100%!important}.page-shell{padding-top:14px!important}';doc.head.append(style);doc.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(a=>{const u=new URL(a.href);if(u.origin===location.origin&&['/login','/account','/admin','/sell','/messages','/notifications','/auth/signout'].some(p=>u.pathname===p||u.pathname.startsWith(p+'/')))a.target='_top';});observer.current?.disconnect();const measure=()=>{const root=doc.querySelector('main')||doc.body;setHeight(Math.max(600,Math.min(50000,root.getBoundingClientRect().height+40)));};observer.current=new ResizeObserver(measure);observer.current.observe(doc.body);measure();setLoaded(true);}catch{setLoaded(true);}}
+ return <div className="lf-resource-panel">{!loaded&&<p className="lf-muted" role="status">Loading {title}…</p>}<iframe ref={ref} src={path} title={title} className="lf-resource-frame" style={{height}} onLoad={ready}/><p className="lf-muted"><a href={path}>Open {title} on its own →</a></p></div>;
+}

@@ -1,0 +1,14 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import models from "@/lib/learning-models.json";
+const vehicles=models as Record<string,{name:string;intro:string;systems:string[][]}>;
+function SystemDiagram({vehicle,system,title}:{vehicle:string;system:string;title:string}){
+ const ref=useRef<HTMLIFrameElement>(null);const [height,setHeight]=useState(650);
+ useEffect(()=>{const resize=(e:MessageEvent)=>{if(e.origin===window.location.origin&&e.source===ref.current?.contentWindow&&e.data?.type==='apg-learning-height'&&Number.isFinite(e.data.height))setHeight(Math.max(300,Math.min(e.data.height,30000)));};window.addEventListener('message',resize);return()=>window.removeEventListener('message',resize);},[]);
+ return <iframe ref={ref} title={`${title} diagrams and explanations`} src={`/apg-learning-inline.html?vehicle=${vehicle}&system=${system}`} style={{height}} className="lf-learning-frame" sandbox="allow-scripts allow-same-origin allow-popups"/>;
+}
+export default function FeedLearning(){
+ const [vehicle,setVehicle]=useState('car');const [open,setOpen]=useState<string|null>(null);
+ const image=(id:string)=>vehicle==='diesel'&&id==='engine'?'/apg-diesel-real-six.webp':id==='engine'?'/apg-engine-learning.webp':['transmission','automatic','clutch'].includes(id)?'/apg-transmission-learning.webp':['brakes','regeneration'].includes(id)?'/apg-brakes-learning.webp':['alternator','charging'].includes(id)?'/apg-alternator-learning.webp':['ecm','ecu','inverter','converter'].includes(id)?'/apg-ecm-learning.webp':'/apg-learning-vehicles.webp';
+ return <section><h1>How Things Work</h1><p className="lf-subtitle">Choose a vehicle, then explore its systems and parts.</p><div className="lf-vehicle-picker"><h2>Choose your vehicle</h2><div className="lf-vehicle-picture"><img src="/apg-learning-vehicles.webp" alt="Car, diesel truck, electric vehicle, boat, and motorcycle"/><div className="lf-vehicle-labels">{Object.entries(vehicles).map(([id,v])=><button key={id} aria-pressed={vehicle===id} onClick={()=>{setVehicle(id);setOpen(null);}}>{({car:'Cars',diesel:'Diesel',ev:'Electric',boat:'Boats',motorcycle:'Motorcycles'} as Record<string,string>)[id]}</button>)}</div></div><p>Tap a vehicle to explore its systems.</p></div><h2 className="lf-section-title">{vehicles[vehicle].name}</h2><div className="lf-learning-rows">{vehicles[vehicle].systems.map(([id,title,short])=><div className="lf-learning-row" key={`${vehicle}-${id}`}><button className="lf-learning-toggle" aria-expanded={open===id} aria-controls={`lf-system-${id}`} onClick={()=>setOpen(open===id?null:id)}><img src={image(id)} alt=""/><span><strong>{title}</strong><small>{short}</small></span><b aria-hidden="true">{open===id?'−':'+'}</b></button>{open===id&&<div id={`lf-system-${id}`}><SystemDiagram vehicle={vehicle} system={id} title={title}/></div>}</div>)}</div><p className="lf-muted">Typical systems and parts. Designs vary by vehicle.</p></section>;
+}
