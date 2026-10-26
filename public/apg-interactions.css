@@ -112,3 +112,32 @@ a[href^="https://www.google.com/maps/"] {
     color: #071a35 !important;
   }
 }
+
+/* Topic cards are content cards, rather than full-card gold phone buttons. */
+section[aria-labelledby="practice-topics"][aria-labelledby] > div > a[href^="/practice-tests/"] {
+  background: #fff !important;
+  color: #10233c !important;
+  border-color: #dce2ea !important;
+  padding: 20px !important;
+}
+section[aria-labelledby="practice-topics"] > div > a > p {
+  color: #10233c !important;
+  font-size: 15px;
+  line-height: 1.6;
+}
+section[aria-labelledby="practice-topics"] > div > a > h3 {
+  color: #10233c;
+  font-size: 22px;
+}
+section[aria-labelledby="practice-topics"] > div > a > span:last-child {
+  display: inline-flex;
+  background: #e6b944;
+  color: #10233c;
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-size: 14px;
+}
+section[aria-labelledby="practice-topics"] > div > a:focus-visible {
+  outline: 3px solid #10233c;
+  outline-offset: 4px;
+}
