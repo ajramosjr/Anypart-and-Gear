@@ -1,5 +1,5 @@
-"use client";
+import Link from "next/link";
 
 export default function GearHelpButton() {
-  return <button className="sell-gear-help button button-secondary" type="button" onClick={() => window.dispatchEvent(new Event("apg-show-gear"))}>Need help? Ask Gear</button>;
+  return <Link className="sell-gear-help button button-secondary" href="/support">Need help? Contact APG</Link>;
 }
