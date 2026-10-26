@@ -36,3 +36,16 @@
 
 /* Navy text and placeholders for stronger readability throughout the feed. */
 .live-feed :is(input,textarea)::placeholder{color:#10233c;opacity:1}
+
+/* Keep labels readable on the dark footer and photo overlays. */
+.live-feed.live-feed .lf-footer {
+  background: #10233c !important;
+  color: #fff !important;
+}
+.live-feed.live-feed .lf-footer :is(a, strong) {
+  color: #fff !important;
+}
+.live-feed.live-feed.live-feed .lf-photo > span {
+  background: #10233c !important;
+  color: #fff !important;
+}
