@@ -82,8 +82,6 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
           <div className="ml-seller"><span className="lf-avatar">{listing.seller_name?.split(' ').map(word=>word[0]).slice(0,2).join('')||'APG'}</span><div><strong>{listing.seller_name}</strong><SellerBadges {...badges}/></div></div>
           <div className="mt-5"><ContactSeller listingId={listing.id} sellerId={listing.user_id} currentUserId={user?.id} allowOffers={listing.allow_offers} listingPrice={listing.price} offerItems={parts?.map(part => ({ name: part.name, price: part.price }))} /></div>
           <div className="detail-facts">
-            <span><b>Condition</b>{listing.condition}</span><span><b>Location</b><i><MapPin size={14} /> {listing.location}</i></span>
-            <span><b>Seller</b><i>{listing.seller_name}<SellerBadges {...badges} /></i></span>
             {shop && <span><b>Business</b><Link className="inline-link" href={`/shops/${shop.id}`}>{shop.name}</Link></span>}
             <span><b>Seller rating</b>{reputation ? <i className="seller-rating"><Star size={14}/> {reputation.average.toFixed(1)} ({reputation.count} verified)</i> : <i>New seller</i>}</span>
             {sellerStats.memberSince && <span><b>Member since</b><i><CalendarDays size={14}/> {new Date(sellerStats.memberSince).toLocaleDateString("en-US", { month: "long", year: "numeric" })}</i></span>}
@@ -104,7 +102,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 .apg-modern-listing .ml-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:26px;align-items:start}
 .apg-modern-listing .ml-parts-grid{grid-template-columns:minmax(0,360px) minmax(0,1fr)}
 .apg-modern-listing .detail-image{min-height:0;aspect-ratio:1/1;border-radius:20px;background:#e9eef5}
-.apg-modern-listing .detail-image img{object-fit:contain}
+.apg-modern-listing .detail-image img{object-fit:cover}
 .apg-modern-listing .detail-info{padding:24px;background:white;border:1px solid #e1e7ef;border-radius:20px;box-shadow:0 5px 25px #10233c06}
 .apg-modern-listing .detail-info h1{font-family:Arial,Helvetica,sans-serif!important;text-transform:none!important;font-size:28px!important;line-height:1.2;font-weight:800;letter-spacing:-.7px;margin:8px 0 14px}
 .apg-modern-listing .detail-price{font-family:Arial,Helvetica,sans-serif!important;display:block;font-size:36px!important;line-height:1.2;font-weight:800;letter-spacing:-1px;color:#10233c}
@@ -119,11 +117,18 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 .apg-modern-listing.apg-modern-listing .contact-actions .detail-button{flex:1;min-width:140px;min-height:46px;padding:12px!important;border-radius:10px!important;background:#e6b944!important;border:1px solid #d1a13e!important;color:#10233c!important;font:700 14px Arial,Helvetica,sans-serif!important;text-transform:none;letter-spacing:0;box-shadow:none!important}
 .apg-modern-listing.apg-modern-listing .contact-actions .detail-button:nth-child(2){background:white!important;border-color:#10233c!important}
 .apg-modern-listing .detail-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;border-top:1px solid #e1e7ef;margin-top:24px;padding-top:20px}
-.apg-modern-listing .detail-facts span{font-size:13px;min-width:0}
-.apg-modern-listing .detail-facts b{font-size:11px;letter-spacing:0;text-transform:none;color:#536277;margin-bottom:6px}
-.apg-modern-listing .detail-facts i{font-size:13px;font-style:normal;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.apg-modern-listing .detail-facts > span{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;font-size:13px;min-width:0}
+.apg-modern-listing .detail-facts > span > b{font-size:11px;letter-spacing:0;text-transform:none;color:#536277;margin-bottom:6px}
+.apg-modern-listing .detail-facts > span > i{font-size:13px;font-style:normal;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .apg-modern-listing .detail-warning{font:400 12px/1.6 Arial,Helvetica,sans-serif;background:#f5f7fa;border-radius:10px;padding:12px;margin-top:24px;color:#10233c}
 .apg-modern-listing .lf-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+
+.apg-modern-listing.apg-modern-listing.apg-modern-listing .lf-bottom-nav a{background:transparent!important;border:0!important;box-shadow:none!important;color:#10233c!important;position:relative;flex:1;padding:9px 0;border-radius:0!important}
+.apg-modern-listing.apg-modern-listing.apg-modern-listing .lf-bottom-nav a.lf-current::after{content:"";position:absolute;bottom:2px;left:30%;right:30%;height:3px;border-radius:4px;background:#e6b944}
+.apg-modern-listing.apg-modern-listing.apg-modern-listing button[aria-label^="Show photo"]{border:3px solid transparent!important}
+.apg-modern-listing.apg-modern-listing.apg-modern-listing button[aria-label^="Show photo"][aria-pressed="true"]{border-color:#d3a326!important}
+.apg-modern-listing .lf-avatar{text-transform:uppercase}
+.apg-modern-listing .detail-facts{row-gap:20px}
 @media(max-width:800px){.apg-modern-listing .ml-shell{padding:18px 14px}.apg-modern-listing .ml-grid,.apg-modern-listing .ml-parts-grid{grid-template-columns:1fr;gap:16px}.apg-modern-listing .detail-info{padding:20px}.apg-modern-listing .detail-info h1{font-size:25px!important}.apg-modern-listing .lf-bottom-nav{display:flex!important}}
 `}</style>
     </main>
