@@ -7,7 +7,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 const target = {itemType:z.enum(["listing","post"]),itemId:z.string().uuid()};
 const schema=z.discriminatedUnion("op",[
- z.object({op:z.literal("post"),category:z.enum(["Projects","Questions","Updates"]),title:z.string().trim().min(1).max(150),body:z.string().trim().min(1).max(3000),images:z.array(z.string().url()).max(4)}),
+ z.object({op:z.literal("post"),category:z.enum(["Projects","Questions","Updates"]),title:z.string().trim().min(1).max(150),body:z.string().trim().min(1).max(3000),images:z.array(z.string().url()).max(4),video:z.object({url:z.string().url(),duration:z.number().finite().positive().max(60)}).optional()}),
  z.object({op:z.literal("comment"),...target,body:z.string().trim().min(1).max(1500)}),
  z.object({op:z.literal("engage"),...target,action:z.enum(["like","save"]),active:z.boolean()}),
  z.object({op:z.literal("report"),itemType:z.enum(["listing","post","comment"]),itemId:z.string().uuid(),reason:z.string().trim().min(1).max(500)}),
@@ -54,7 +54,15 @@ export async function POST(request:NextRequest){
   }else if(d.op==="post"){
    const prefix=`${supabaseUrl}/storage/v1/object/public/part-images/${user.id}/`;
    if(d.images.some(url=>!url.startsWith(prefix)))return fail("Choose photos uploaded to your account.");
-   const {error}=await db.from("apg_feed_posts").insert({user_id:user.id,category:d.category,title:d.title,body:d.body,image_urls:d.images});if(error)throw error;
+   if(d.video){
+    const videoPrefix=`${supabaseUrl}/storage/v1/object/public/feed-videos/${user.id}/feed/`;
+    const name=d.video.url.slice(videoPrefix.length);
+    if(!d.video.url.startsWith(videoPrefix)||!(/^[a-f0-9-]+\.(mp4|webm|mov)$/.test(name)))return fail("Choose a video uploaded to your account.");
+    const {data:objects,error:storageError}=await db.storage.from('feed-videos').list(`${user.id}/feed`,{search:name,limit:10});
+    const object=objects?.find(object=>object.name===name);
+    if(storageError||!object||Number(object.metadata?.size)>50*1024*1024||!['video/mp4','video/webm','video/quicktime'].includes(object.metadata?.mimetype||''))return fail("The video could not be verified. Upload it again.");
+   }
+   const {error}=await db.from("apg_feed_posts").insert({user_id:user.id,category:d.category,title:d.title,body:d.body,image_urls:d.images,video_url:d.video?.url||null,video_duration:d.video?.duration||null});if(error)throw error;
   }else if(d.op==="comment"){
    const {error}=await db.from("apg_feed_comments").insert({user_id:user.id,item_type:d.itemType,item_id:d.itemId,body:d.body});if(error)throw error;
   }else if(d.op==="engage"){

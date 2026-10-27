@@ -1,7 +1,7 @@
 export type FeedCategory = "For sale" | "Projects" | "Questions" | "Updates";
 export type FeedItem = {
   id: string; kind: "listing" | "post"; userId: string; author: string; avatar: string | null;
-  title: string; body: string; category: FeedCategory; images: string[]; createdAt: string;
+  title: string; body: string; category: FeedCategory; images: string[]; videoUrl?: string | null; videoExpiresAt?: string | null; createdAt: string;
   price?: number; location?: string; condition?: string; listingCategory?: string;
   likes: number; replies: number; liked: boolean; saved: boolean;
 };

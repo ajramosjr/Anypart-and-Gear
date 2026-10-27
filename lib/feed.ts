@@ -5,7 +5,7 @@ import type { FeedItem, FeedPage } from "./feed-types";
 export const feedImage = (value: unknown): value is string => typeof value === "string" && value.startsWith(`${supabaseUrl}/storage/v1/object/public/`);
 export async function readFeed(db: SupabaseClient, userId?: string, before?: string, savedOnly = false, category?: string, search?: string): Promise<FeedPage> {
   let listingQuery = db.from("listings").select("id,user_id,seller_name,title,description,price,condition,category,location,image_url,image_urls,created_at").eq("status","active").order("created_at",{ascending:false}).limit(20);
-  let postQuery = db.from("apg_feed_posts").select("id,user_id,title,body,category,image_urls,created_at,profiles(full_name,avatar_url)").eq("status","active").order("created_at",{ascending:false}).limit(20);
+  let postQuery = db.from("apg_feed_posts").select("id,user_id,title,body,category,image_urls,video_url,video_duration,created_at,profiles(full_name,avatar_url)").eq("status","active").order("created_at",{ascending:false}).limit(20);
   if(category==='For sale')postQuery=postQuery.limit(0);
   else if(category&&['Projects','Questions','Updates'].includes(category)){listingQuery=listingQuery.limit(0);postQuery=postQuery.eq('category',category);}
   if(search){listingQuery=listingQuery.ilike('title',`%${search}%`);postQuery=postQuery.ilike('title',`%${search}%`);}
@@ -21,7 +21,7 @@ export async function readFeed(db: SupabaseClient, userId?: string, before?: str
   if(listings.error)throw listings.error;if(posts.error)throw posts.error;
   const items: FeedItem[] = [
     ...(listings.data||[]).map(l=>({id:l.id,kind:"listing" as const,userId:l.user_id,author:l.seller_name||"APG member",avatar:null,title:l.title,body:l.description||"",category:"For sale" as const,images:(l.image_urls?.length?l.image_urls:[l.image_url]).filter(feedImage),createdAt:l.created_at,price:Number(l.price),location:l.location,condition:l.condition,listingCategory:l.category,likes:0,replies:0,liked:false,saved:false})),
-    ...(posts.data||[]).map(p=>{const profile=(Array.isArray(p.profiles)?p.profiles[0]:p.profiles) as {full_name?:string;avatar_url?:string}|null;return {id:p.id,kind:"post" as const,userId:p.user_id,author:profile?.full_name||"APG member",avatar:feedImage(profile?.avatar_url)?profile!.avatar_url!:null,title:p.title,body:p.body,category:p.category,images:(p.image_urls||[]).filter(feedImage),createdAt:p.created_at,likes:0,replies:0,liked:false,saved:false};})
+    ...(posts.data||[]).map(p=>{const profile=(Array.isArray(p.profiles)?p.profiles[0]:p.profiles) as {full_name?:string;avatar_url?:string}|null;return {id:p.id,kind:"post" as const,userId:p.user_id,author:profile?.full_name||"APG member",avatar:feedImage(profile?.avatar_url)?profile!.avatar_url!:null,title:p.title,body:p.body,category:p.category,images:(p.image_urls||[]).filter(feedImage),videoUrl:feedImage(p.video_url)&&Date.now()-Date.parse(p.created_at)<12*60*60*1000?p.video_url:null,videoExpiresAt:p.video_url?new Date(Date.parse(p.created_at)+12*60*60*1000).toISOString():null,createdAt:p.created_at,likes:0,replies:0,liked:false,saved:false};})
   ].sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
   const page=items.slice(0,20);if(!page.length)return {items:[],hasMore:false};
   const ids=page.map(i=>i.id);
