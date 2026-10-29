@@ -25,7 +25,7 @@ export default function SiteHeader({ signedIn = false, current = "home", communi
   const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
   return <header className="apg-site-header apg-modern-header sticky top-0 z-40 border-b border-slate-200 bg-white text-[#071a35]">
     <div className="mx-auto flex min-h-20 max-w-7xl items-center gap-2 px-3 py-2 sm:gap-4 sm:px-6">
-      <div className="mr-auto shrink-0 [&_a]:!p-0 [&_img]:!h-auto [&_img]:!w-[100px] sm:[&_img]:!w-[172px]"><ApgLogo priority /></div>
+      <div className="mr-auto shrink-0"><ApgLogo priority /></div>
       <Link href="/" className="apg-feed-back">← Feed</Link>
       <nav aria-label="Primary navigation" className="hidden items-center gap-6 text-sm font-bold xl:flex">
         <Link href="/marketplace" aria-current={current === "marketplace" ? "page" : undefined}>Marketplace</Link>

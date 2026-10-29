@@ -31,3 +31,13 @@ body:has(.apg-app-navigation) .apg-directory-banner p{color:#65758a;font-size:15
 .apg-update-notice button:last-child{background:transparent;color:white;font-size:22px;padding:5px}
 @media(max-width:640px){.apg-modern-header>div:first-child{padding:8px 12px!important;gap:10px!important}.apg-modern-header .apg-header-logo-image{width:100px!important}.apg-modern-header .apg-feed-back{font-size:12px}body:has(.apg-app-navigation) .shell{width:calc(100% - 24px)}.apg-update-notice{flex-wrap:wrap}.apg-update-notice span{flex-basis:100%}}
 @media print{.apg-app-navigation,.apg-update-notice{display:none!important}}
+
+/* Resource headings follow the feed rather than the earlier mechanical banners. */
+body:has(.apg-app-navigation) :is(.toolbox-hero,.resources-hero){background:#f7f8fa!important;color:#10233c!important;border-bottom:1px solid #e1e6ee!important;padding:28px 0!important}
+body:has(.apg-app-navigation) :is(.toolbox-hero,.resources-hero)::before,body:has(.apg-app-navigation) :is(.toolbox-hero,.resources-hero)::after{display:none!important}
+body:has(.apg-app-navigation) :is(.toolbox-hero,.resources-hero) h1{font:800 clamp(28px,4vw,38px)/1.2 var(--font-inter),Arial,sans-serif!important;letter-spacing:-.035em;text-transform:none;color:#10233c!important;margin:8px 0 12px}
+body:has(.apg-app-navigation) .toolbox-hero h1 em{font:inherit;color:inherit}
+body:has(.apg-app-navigation) :is(.toolbox-hero,.resources-hero) p,body:has(.apg-app-navigation) .tool-jump>span{color:#65758a!important}
+body:has(.apg-app-navigation) .toolbox-hero-grid{grid-template-columns:minmax(0,1fr)}
+body:has(.apg-app-navigation) .toolbox-hero .toolbox-trust{display:none}
+body:has(.apg-app-navigation) .tool-jump select{background:white!important;box-shadow:none;border-color:#dce2ea}
