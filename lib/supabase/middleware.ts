@@ -38,7 +38,7 @@ export async function updateSession(request: NextRequest) {
     ["/api/gear/search", "/api/tech-wire-visibility", "/api/feed"].includes(normalizedPath)
   );
   const isPublicPage = publicPaths.has(normalizedPath) || isBrowseRequest ||
-    (request.method === "POST" && ["/api/visits", "/api/funnel"].includes(normalizedPath));
+    (request.method === "POST" && ["/api/visits", "/api/funnel", "/api/listing-views"].includes(normalizedPath));
   function requireLogin() {
     const headers = { "Cache-Control": "private, no-store" };
     if (pathname.startsWith("/api/")) {

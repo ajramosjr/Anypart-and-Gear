@@ -1,4 +1,5 @@
 import "@/app/home-feed.css";
+import ListingViewTracker from "@/components/listing-view-tracker";
 import PartsList from "./parts-list";
 import { getSubaruParts, getPartOutDescription } from "@/lib/part-out";
 import type { Metadata } from "next";
@@ -71,6 +72,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 
   return (
     <main className="live-feed apg-modern-listing">
+      <ListingViewTracker listingId={listing.id}/>
       <header className="lf-header"><div className="lf-header-inner"><ApgLogo priority/><div style={{flex:1}}/><Link className="lf-icon-button" aria-label="Messages" href={user?'/messages':'/login?next=/messages'}><MessageCircle size={23}/></Link><Link className="lf-account" aria-label="My account" href={user?'/account':'/login'}><UserRound size={20}/></Link></div></header>
       <div className="ml-shell"><Link href="/#parts" className="ml-back">← Back to Parts</Link><div className={parts ? "ml-grid ml-parts-grid" : "ml-grid"}>
         {!parts && <ListingGallery title={listing.title} primaryImage={listing.image_url} images={listing.image_urls} videoUrl={listing.video_url} />}
