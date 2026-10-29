@@ -1,0 +1,33 @@
+/* Shared presentation for standalone routes, including installed-app navigation. */
+body{background:#f7f8fa;color:#10233c}
+.apg-app-navigation{position:sticky;top:0;z-index:45}
+.apg-app-navigation .apg-modern-header{position:relative;border:0!important;border-bottom:1px solid #e1e6ee!important;box-shadow:none}
+.apg-modern-header>div:first-child{min-height:64px!important;max-width:1380px;padding:8px 20px!important}
+.apg-modern-header .apg-header-logo-image{width:120px!important;height:auto!important}
+.apg-modern-header .apg-feed-back{font-size:13px;font-weight:700;white-space:nowrap;color:#54657a}
+.apg-modern-header .apg-header-control{background:#f0f3f7!important;border:1px solid #e1e6ee!important;border-radius:12px;color:#10233c!important}
+.apg-modern-header .apg-header-messages{border:0;background:#f0f3f7;border-radius:50%;width:42px;min-height:42px;padding:8px}
+.apg-modern-header .apg-header-messages span{display:none}
+/* Page-specific back links and actions stay accessible beneath the shared navigation. */
+body:has(.apg-app-navigation) main>header,
+body:has(.apg-app-navigation) .marketplace>header{position:static!important;background:transparent!important;border:0!important;box-shadow:none!important}
+body:has(.apg-app-navigation) main>header .apg-header-logo,
+body:has(.apg-app-navigation) main>header a:has(img),
+body:has(.apg-app-navigation) main>header .apg-page-menu,
+body:has(.apg-app-navigation) main>header .apg-header-gear,
+body:has(.apg-app-navigation) main>header.apg-site-header,
+body:has(.apg-app-navigation) main>header.lf-header{display:none!important}
+body:has(.apg-app-navigation) main>header .nav-wrap{min-height:0;padding-top:12px;padding-bottom:0;gap:12px;flex-wrap:wrap;justify-content:flex-start}
+body:has(.apg-app-navigation) .page-title{font-family:var(--font-inter),Arial,sans-serif;text-transform:none;font-size:clamp(26px,4vw,38px);line-height:1.2;letter-spacing:-.035em}
+body:has(.apg-app-navigation) .page-shell{padding-top:24px;padding-bottom:40px}
+body:has(.apg-app-navigation) :is(.card-panel,.empty-state,.safety-tip,.manage-row,.business-access-card){background:white;border:1px solid #e1e6ee;border-radius:16px;box-shadow:0 2px 8px #10233c05}
+body:has(.apg-app-navigation) :is(input:not([type=checkbox]):not([type=radio]),select,textarea){border-radius:10px;max-width:100%}
+body:has(.apg-app-navigation) :is(.button,.button-secondary){border-radius:10px;box-shadow:none}
+body:has(.apg-app-navigation) .apg-directory-banner{background:#f7f8fa;color:#10233c;padding:28px 0 20px;border-bottom:1px solid #e1e6ee}
+body:has(.apg-app-navigation) .apg-directory-banner h1{font-size:clamp(28px,4vw,40px)}
+body:has(.apg-app-navigation) .apg-directory-banner p{color:#65758a;font-size:15px}
+.apg-update-notice{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:100;width:min(620px,calc(100% - 24px));display:flex;align-items:center;gap:12px;padding:14px 16px;background:#10233c;color:white;border-radius:14px;box-shadow:0 8px 30px #10233c30;font-size:14px}
+.apg-update-notice button{flex-shrink:0;border:0;border-radius:8px;padding:9px 12px;background:#edbe49;color:#10233c;font-weight:700}
+.apg-update-notice button:last-child{background:transparent;color:white;font-size:22px;padding:5px}
+@media(max-width:640px){.apg-modern-header>div:first-child{padding:8px 12px!important;gap:10px!important}.apg-modern-header .apg-header-logo-image{width:100px!important}.apg-modern-header .apg-feed-back{font-size:12px}body:has(.apg-app-navigation) .shell{width:calc(100% - 24px)}.apg-update-notice{flex-wrap:wrap}.apg-update-notice span{flex-basis:100%}}
+@media print{.apg-app-navigation,.apg-update-notice{display:none!important}}

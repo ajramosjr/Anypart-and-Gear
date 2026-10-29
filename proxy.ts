@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function proxy(request: NextRequest) {
+  // Only the public build identifier is exposed for installed-app update checks.
+  if (request.nextUrl.pathname === "/api/app-version" && ["GET", "HEAD"].includes(request.method)) return NextResponse.next();
   // This public stylesheet contains no account or membership data.
   if (request.nextUrl.pathname === "/apg-interactions.css") return NextResponse.next();
   if (request.nextUrl.pathname === "/_next/image") {

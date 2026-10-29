@@ -1,3 +1,5 @@
+import AppUpdates from "@/components/app-updates";
+import AppNavigation from "@/components/app-navigation";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -14,6 +16,7 @@ import "./local-fonts.css";
 import "./listing-overrides.css";
 import "../public/apg-interactions.css";
 import "./apg-design.css";
+import "./app-refresh.css";
 
 
 export const metadata: Metadata = {
@@ -64,7 +67,8 @@ export default async function RootLayout({
         {/* Preserve AvantLink’s exact temporary ownership tag for its source checker. */}
         <div hidden dangerouslySetInnerHTML={{ __html: "<script type=\"text/javascript\" src=\"http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=4aae4f982e39047e18f41f9187bc54581ca2b007\"></script>" }} />
         <PasswordRecoveryRedirect />
-        <AdminNavigationProvider isAdmin={user?.id === "5dd24cb6-6706-4c4e-8c17-0b03b2632acb" && user.app_metadata?.role === "admin"}><TechWireNavigationProvider enabled={enabled}><BuildIdeasNavigationProvider enabled={buildIdeas.enabled}>{children}</BuildIdeasNavigationProvider></TechWireNavigationProvider></AdminNavigationProvider>
+        <AppUpdates />
+        <AdminNavigationProvider isAdmin={user?.id === "5dd24cb6-6706-4c4e-8c17-0b03b2632acb" && user.app_metadata?.role === "admin"}><TechWireNavigationProvider enabled={enabled}><BuildIdeasNavigationProvider enabled={buildIdeas.enabled}><AppNavigation signedIn={Boolean(user)} />{children}</BuildIdeasNavigationProvider></TechWireNavigationProvider></AdminNavigationProvider>
         <VisitCounter />
         <Analytics />
         <SpeedInsights />

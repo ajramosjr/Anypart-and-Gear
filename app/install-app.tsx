@@ -10,7 +10,6 @@ interface InstallPromptEvent extends Event { prompt:()=>Promise<void>; userChoic
 export default function InstallApp(){
   const [prompt,setPrompt]=useState<InstallPromptEvent|null>(null); const [help,setHelp]=useState(false); const [installed,setInstalled]=useState(false);
   useEffect(()=>{
-    if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(()=>{});
     const timer=window.setTimeout(()=>setInstalled(window.matchMedia("(display-mode: standalone)").matches),0);
     const ready=(event:Event)=>{event.preventDefault();setPrompt(event as InstallPromptEvent)};
     const done=()=>{setInstalled(true);setPrompt(null)};

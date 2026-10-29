@@ -108,3 +108,10 @@
 /* Approved mechanical direction; real inventory and existing controls remain intact. */
 .discovery{background:linear-gradient(110deg,#071a35f0,#071a35cf),url('/apg-marketplace-hero.webp') center/cover;border-bottom:2px solid #d6ad48}
 .headingRow h1{color:#fff}.eyebrow{color:#edc35f}.sellButton{background:#efc458!important;color:#071a35!important;border:1px solid #d6ad48!important}.categories button{border-radius:9px}.marketplace .categories button[aria-pressed='true']{border-bottom:3px solid #d6ad48!important}.price{color:#926914}.card:hover{border-color:#c9a655}.search{box-shadow:none}.categories{flex-wrap:wrap;overflow:visible}.marketplace .categories{margin-right:0;padding-right:0}
+
+/* Filtered catalog shares the live feed's quiet white cards and canvas. */
+.discovery{background:#f7f8fa;border-bottom:1px solid #e1e6ee}
+.headingRow h1{color:#10233c;font-size:32px}.eyebrow{color:#65758a}
+.marketplace{background:#f7f8fa}.card{border-radius:16px;border-color:#e1e6ee;box-shadow:0 2px 8px #10233c05}.price{color:#10233c;font-size:24px}
+.marketplace .categories[aria-label][aria-label][aria-label] button{background:white!important;color:#10233c!important;border:1px solid #e1e6ee!important;border-radius:999px}
+.marketplace .categories[aria-label][aria-label][aria-label] button[aria-pressed='true']{background:#10233c!important;color:white!important;border-color:#10233c!important}

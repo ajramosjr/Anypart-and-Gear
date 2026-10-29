@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Marketplace from "../marketplace";
 import { getUser } from "@/lib/auth";
 import { createClient, hasSupabaseConfig } from "@/lib/supabase/server";
@@ -25,7 +26,9 @@ async function getListings(): Promise<Listing[]> {
 }
 
 export default async function MarketplacePage({ searchParams }: { searchParams: Promise<{ location?: string; category?: string; q?: string; sort?: string }> }) {
-  const [user, allListings, filters] = await Promise.all([getUser(), getListings(), searchParams]);
+  const filters = await searchParams;
+  if (!filters.q && !filters.category && !filters.location && !filters.sort) redirect("/#parts");
+  const [user, allListings] = await Promise.all([getUser(), getListings()]);
   const locations = [...new Set(allListings.map(item => item.location?.trim()).filter((value): value is string => Boolean(value)))].sort((a, b) => a.localeCompare(b));
   const selectedLocation = locations.includes(filters.location || "") ? filters.location! : "";
   const sourceListings = selectedLocation ? allListings.filter(item => item.location?.trim() === selectedLocation) : allListings;
